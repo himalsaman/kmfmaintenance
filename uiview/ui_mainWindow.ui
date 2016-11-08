@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>787</width>
+    <height>609</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>787</width>
+    <height>609</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>787</width>
+    <height>609</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Welcome, </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>182</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Customers Not Have Maintenance yet</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>351</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>174</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Customer Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Add Date</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>771</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>50</y>
+      <width>20</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>50</y>
+      <width>134</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Maintenance Not Have BOM</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>70</y>
+      <width>371</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>184</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Maintenance Code</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Customer Name</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QLabel" name="loggedUserName">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>0</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>787</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLogout"/>
+    <addaction name="actionChange_Password"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuCustomer">
+    <property name="title">
+     <string>Customer</string>
+    </property>
+    <addaction name="actionAdd_New"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionSearch"/>
+    <addaction name="actionRports"/>
+   </widget>
+   <widget class="QMenu" name="menuMaintenance">
+    <property name="title">
+     <string>Maintenance</string>
+    </property>
+    <addaction name="actionAdd_New_2"/>
+    <addaction name="actionEdit_2"/>
+    <addaction name="actionSearch_2"/>
+    <addaction name="actionReports"/>
+   </widget>
+   <widget class="QMenu" name="menuRaw_Material">
+    <property name="title">
+     <string>Raw Material</string>
+    </property>
+    <addaction name="actionAdd_New_3"/>
+    <addaction name="actionEdit_3"/>
+    <addaction name="actionSearch_3"/>
+    <addaction name="actionReports_2"/>
+   </widget>
+   <widget class="QMenu" name="menuSpare_Parts">
+    <property name="title">
+     <string>Spare Parts</string>
+    </property>
+    <addaction name="actionAdd_New_4"/>
+    <addaction name="actionEdit_4"/>
+    <addaction name="actionSearch_4"/>
+    <addaction name="actionReports_3"/>
+   </widget>
+   <widget class="QMenu" name="menuAccounting">
+    <property name="title">
+     <string>Accounting</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuCustomer"/>
+   <addaction name="menuMaintenance"/>
+   <addaction name="menuRaw_Material"/>
+   <addaction name="menuSpare_Parts"/>
+   <addaction name="menuAccounting"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLogout">
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
+  <action name="actionChange_Password">
+   <property name="text">
+    <string>Change Password</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAdd_New">
+   <property name="text">
+    <string>Add New</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionRports">
+   <property name="text">
+    <string>Reports</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_2">
+   <property name="text">
+    <string>Add New</string>
+   </property>
+  </action>
+  <action name="actionEdit_2">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionSearch_2">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionReports">
+   <property name="text">
+    <string>Reports</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_3">
+   <property name="text">
+    <string>Add New</string>
+   </property>
+  </action>
+  <action name="actionEdit_3">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionSearch_3">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionReports_2">
+   <property name="text">
+    <string>Reports</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_4">
+   <property name="text">
+    <string>Add New</string>
+   </property>
+  </action>
+  <action name="actionEdit_4">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionSearch_4">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionReports_3">
+   <property name="text">
+    <string>Reports</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -24,8 +24,15 @@ def delete_city(id):
     print (res)
     session.delete(res)
     session.commit()
+
+def select_city_by_id(id):
+    res = session.query(City).filter(City.id == id).one()
+    return res
+
+
 def select_all_cities():
     res = session.query(City).all()
-    for c in res:
-        print (c)
+    # for c in res:
+    #     return c
+    return res
 

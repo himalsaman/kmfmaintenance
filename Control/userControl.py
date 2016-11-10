@@ -14,10 +14,11 @@ def validLogin(username, password):
         return False
 def changePassword(username, old_password, password):
     loggedUser = usersModel.select_user_by_username(username)
-    if old_password == '' and password == '':
-        return False
-    elif not old_password == loggedUser.password or not  password == loggedUser.password:
-        usersModel.update_user(loggedUser.username, password, loggedUser.role )
+    if old_password == loggedUser.password :
+        if password == loggedUser.password :
+            return False
+        else:
+            usersModel.update_user(loggedUser.username, password, loggedUser.role )
         return  loggedUser
     else:
         return False

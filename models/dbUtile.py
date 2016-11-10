@@ -116,7 +116,8 @@ class RawMaterial(Base):
     # create row's of table
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(100))
-    default_size = Column(Integer, nullable=False)
+    code = Column(String(500), unique=True)
+    default_size = Column(Float, nullable=False)
     string_size = Column(String(50))
     unit = Column(String(50), nullable=False)
     cost_per_default_size = Column(Float, nullable=False)
@@ -124,8 +125,9 @@ class RawMaterial(Base):
     # one to many relationship with bill_of_material
     billOfMaterialItem = relationship('BillOfMaterialItem', backref=backref('billOfMaterial_rawMaterial'))
 
-    def __init__(self, name, default_size, string_size, unit, cost_per_default_size, inv_qty):
+    def __init__(self, name, code, default_size, string_size, unit, cost_per_default_size, inv_qty):
         self.name = name
+        self.code = code
         self.default_size = default_size
         self.string_size = string_size
         self.unit = unit
@@ -135,6 +137,7 @@ class RawMaterial(Base):
     # return and print raw material table creation arch
     def __repr__(self):
         return "<Row Material(name ="'{}'.format(self.name)+"\n"\
+                "code ="'{}'.format(self.code)+"\n"\
                 "default_size ="'{}'.format(self.default_size)+"\n"\
                 "string_size ="'{}'.format(self.string_size)+"\n"\
                 "unit ="'{}'.format(self.unit)+"\n"\
@@ -252,7 +255,7 @@ class Maintenance(Base):
 
     def __init__(self, customers_id, cost_of_bill_of_material, cost_of_raw_material, cost_of_spare_parts, cost_of_labor,
                  cost_of_another, cost_of_another_description, created_at, close_at, product_of_maintenance,
-                 maintenance_description, bill_of_material_id):
+                 maintenance_description):
         self.customers_id = customers_id
         self.cost_of_bill_of_material = cost_of_bill_of_material
         self.cost_of_spare_parts = cost_of_spare_parts
@@ -267,7 +270,7 @@ class Maintenance(Base):
         # self.bill_of_material_id = bill_of_material_id
 
     def __repr__(self):
-        return "Maintenance (customers_id = " '{}'.format(self.customers.name)+"\n"\
+        return "Maintenance (customers_id = " '{}'.format(self.customers.id)+"\n"\
                "cost_of_bill_of_material = "'{}'.format(self.cost_of_bill_of_material)+"\n"\
                "cost_of_spare_parts = "'{}'.format(self.cost_of_spare_parts)+"\n"\
                "cost_of_raw_material = "'{}'.format(self.cost_of_raw_material)+"\n"\

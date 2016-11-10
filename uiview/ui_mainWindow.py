@@ -113,10 +113,19 @@ class Ui_MainWindow(QMainWindow):
 
 		self.actionAdd_New = QtWidgets.QAction(MainWindow)
 		self.actionAdd_New.setObjectName("actionAdd_New")
+
+		self.actionAdd_New.triggered.connect(self.openCreateNewCustomerDialog)
+
 		self.actionEdit = QtWidgets.QAction(MainWindow)
 		self.actionEdit.setObjectName("actionEdit")
+
+		self.actionEdit.triggered.connect(self.openEditCustomerDialog)
+
 		self.actionSearch = QtWidgets.QAction(MainWindow)
 		self.actionSearch.setObjectName("actionSearch")
+
+		self.actionSearch.triggered.connect(self.openSearchCustomerDialog)
+
 		self.actionRports = QtWidgets.QAction(MainWindow)
 		self.actionRports.setObjectName("actionRports")
 		self.actionAdd_New_2 = QtWidgets.QAction(MainWindow)
@@ -233,6 +242,21 @@ class Ui_MainWindow(QMainWindow):
 		from uiview.ui_changePassword import Ui_changePasswordDilaod
 		self.chPass_dialog = Ui_changePasswordDilaod()
 		self.chPass_dialog.show()
+
+	def openCreateNewCustomerDialog(self):
+		from uiview.ui_createNewCustomer import Ui_createNewCustomer
+		self.cnc_dialog = Ui_createNewCustomer()
+		self.cnc_dialog.show()
+
+	def openEditCustomerDialog(self):
+		from uiview.ui_updateCustomer import Ui_updateCustomer
+		self.upc_dialog = Ui_updateCustomer()
+		self.upc_dialog.show()
+
+	def openSearchCustomerDialog(self):
+		from uiview.ui_deleteCustomer import Ui_deleteCustomer
+		self.cnc_dialog = Ui_deleteCustomer()
+		self.cnc_dialog.show()
 
 
 if __name__ == '__main__':

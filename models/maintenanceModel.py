@@ -2,6 +2,7 @@ from _testcapi import return_null_without_error
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import func
 
 from models.dbUtile import Maintenance, engine
 
@@ -11,30 +12,26 @@ session = Session()
 
 
 # add new maintenance
-def add_new_maintenance(customer_id, cost_of_bill_of_material, cost_of_spare_parts, cost_of_raw_material, cost_of_labor,
-						cost_of_another, cost_of_another_description, created_at, close_at, product_of_maintenance,
-						maintenance_description):
-	new_maintenance = Maintenance(customer_id, cost_of_bill_of_material, cost_of_spare_parts, cost_of_raw_material,
-								  cost_of_labor,
-								  cost_of_another, cost_of_another_description, created_at, close_at,
-								  product_of_maintenance,
-								  maintenance_description)
+def add_new_maintenance(m_code, customer_id, cost_of_bill_of_material, cost_of_labor,
+						cost_of_another, cost_of_another_description, created_at, close_at,
+						product_of_maintenance,maintenance_description, start_date, done_date):
+	new_maintenance = Maintenance(m_code, customer_id, cost_of_bill_of_material, cost_of_labor,
+						cost_of_another, cost_of_another_description, created_at, close_at,
+						product_of_maintenance,maintenance_description, start_date, done_date)
 	session.add(new_maintenance)
 	session.commit()
 	print(new_maintenance)
 
 
 # update maintenance
-def update_maintenance(id, customer_id, cost_of_bill_of_material, cost_of_spare_parts, cost_of_raw_material,
+def update_maintenance(id, customer_id, cost_of_bill_of_material,
 					   cost_of_labor,
 					   cost_of_another, cost_of_another_description, created_at, close_at, product_of_maintenance,
-					   maintenance_description):
+					   maintenance_description, start_date, done_date):
 	res = session.query(Maintenance).filter(Maintenance.id == id).one()
 	print(res)
 	res.customer_id = customer_id
 	res.cost_of_bill_of_material = cost_of_bill_of_material
-	res.cost_of_spare_parts = cost_of_spare_parts
-	res.cost_of_material = cost_of_raw_material
 	res.cost_of_labor = cost_of_labor
 	res.cost_of_another = cost_of_another
 	res.cost_of_another_description = cost_of_another_description
@@ -42,6 +39,8 @@ def update_maintenance(id, customer_id, cost_of_bill_of_material, cost_of_spare_
 	res.close_at = close_at
 	res.product_of_maintenance = product_of_maintenance
 	res.maintenance_description = maintenance_description
+	res.start_date = start_date
+	res.done_date = done_date
 	session.commit()
 
 
@@ -55,20 +54,27 @@ def delete_maintenance(id):
 
 # select maintenance by key and value
 def select_maintenance(key, value):
-	res = session.query(Maintenance).filter(getattr(Maintenance, key).contains(value)).all()
-	for m in res:
-		return m
+	return  session.query(Maintenance).filter(getattr(Maintenance, key).contains(value)).all()
+
 
 
 def select_maintenance_customer(value):
-	try :
-		res = session.query(Maintenance).filter(Maintenance.customers_id == value).one()
-		return res
-	except NoResultFound:
-		return False
+	return session.query(Maintenance).filter(Maintenance.customers_id == value).all()
 
+def select_maintenance_by_id(value):
+	return session.query(Maintenance).filter(Maintenance.id == value).one()
 # select maintenance by key and value
 def select_all_maintenance():
-	res = session.query(Maintenance).all()
-	for m in res:
-		return m
+	return session.query(Maintenance).all()
+
+def select_max_maintenance_code():
+	maxcode = session.query(func.max(Maintenance.m_code)).one()
+	return (maxcode[0])
+
+def select_max_maintenance_id():
+	maxcode = session.query(func.max(Maintenance.id)).one()
+	return (maxcode[0])
+
+def check_maintenance_first_time():
+	return session.query(Maintenance).first()
+

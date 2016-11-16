@@ -10,6 +10,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
+from Control.userControl import getLoginDataPKL
 from models.rawMaterialModel import add_raw_material
 
 
@@ -32,6 +33,8 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.loggeduserlbl.setFont(font)
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
+		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
+
 		self.line = QtWidgets.QFrame(addNewRMTypeDialog)
 		self.line.setGeometry(QtCore.QRect(7, 25, 491, 16))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -177,7 +180,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 
 
 if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
+	# app = QtWidgets.QApplication(sys.argv)
 	cnc_dialog = Ui_addNewRMTypeDialog()
 	cnc_dialog.show()
-	sys.exit(app.exec_())
+	# sys.exit(app.exec_())

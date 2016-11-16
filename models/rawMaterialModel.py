@@ -46,6 +46,9 @@ def select_row_material(key, value):
 def select_row_material_bycode(value):
     return session.query(RawMaterial).filter(RawMaterial.code == value).one()
 
+def select_row_material_by_id(value):
+    return session.query(RawMaterial).filter(RawMaterial.id == value).one()
+
 
 
 # select all raw material

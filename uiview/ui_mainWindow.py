@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from Control.userControl import getLoginDataPKL, deleteLoginDataPKL
+from uiview.ui_maintenanceWM import Ui_maintenanceMW
 
 
 class Ui_MainWindow(QMainWindow):
@@ -86,6 +87,9 @@ class Ui_MainWindow(QMainWindow):
 		self.menuCustomer.setObjectName("menuCustomer")
 		self.menuMaintenance = QtWidgets.QMenu(self.menubar)
 		self.menuMaintenance.setObjectName("menuMaintenance")
+
+		self.menuMaintenance.triggered.connect(self.openMaintenanceWindow)
+
 		self.menuRaw_Material = QtWidgets.QMenu(self.menubar)
 		self.menuRaw_Material.setObjectName("menuRaw_Material")
 		self.menuSpare_Parts = QtWidgets.QMenu(self.menubar)
@@ -130,28 +134,46 @@ class Ui_MainWindow(QMainWindow):
 		self.actionRports.setObjectName("actionRports")
 		self.actionAdd_New_2 = QtWidgets.QAction(MainWindow)
 		self.actionAdd_New_2.setObjectName("actionAdd_New_2")
-		self.actionEdit_2 = QtWidgets.QAction(MainWindow)
-		self.actionEdit_2.setObjectName("actionEdit_2")
-		self.actionSearch_2 = QtWidgets.QAction(MainWindow)
-		self.actionSearch_2.setObjectName("actionSearch_2")
-		self.actionReports = QtWidgets.QAction(MainWindow)
-		self.actionReports.setObjectName("actionReports")
+		# self.actionEdit_2 = QtWidgets.QAction(MainWindow)
+		# self.actionEdit_2.setObjectName("actionEdit_2")
+		# self.actionSearch_2 = QtWidgets.QAction(MainWindow)
+		# self.actionSearch_2.setObjectName("actionSearch_2")
+		# self.actionReports = QtWidgets.QAction(MainWindow)
+		# self.actionReports.setObjectName("actionReports")
+
+
 		self.actionAdd_New_3 = QtWidgets.QAction(MainWindow)
 		self.actionAdd_New_3.setObjectName("actionAdd_New_3")
+
+		self.actionAdd_New_3.triggered.connect(self.openCreateNewRawMaterial)
+
 		self.actionEdit_3 = QtWidgets.QAction(MainWindow)
 		self.actionEdit_3.setObjectName("actionEdit_3")
+		self.actionEdit_3.triggered.connect(self.openEditeNewRawMaterial)
+
 		self.actionSearch_3 = QtWidgets.QAction(MainWindow)
 		self.actionSearch_3.setObjectName("actionSearch_3")
+		self.actionSearch_3.triggered.connect(self.openSearchNewRawMaterial)
+
 		self.actionReports_2 = QtWidgets.QAction(MainWindow)
 		self.actionReports_2.setObjectName("actionReports_2")
+
 		self.actionAdd_New_4 = QtWidgets.QAction(MainWindow)
 		self.actionAdd_New_4.setObjectName("actionAdd_New_4")
+		self.actionAdd_New_4.triggered.connect(self.openCreateNewSparePart)
+
 		self.actionEdit_4 = QtWidgets.QAction(MainWindow)
 		self.actionEdit_4.setObjectName("actionEdit_4")
+		self.actionEdit_4.triggered.connect(self.openEditeNewSparePart)
+
 		self.actionSearch_4 = QtWidgets.QAction(MainWindow)
 		self.actionSearch_4.setObjectName("actionSearch_4")
+		self.actionSearch_4.triggered.connect(self.openSearchSparePart)
+
 		self.actionReports_3 = QtWidgets.QAction(MainWindow)
 		self.actionReports_3.setObjectName("actionReports_3")
+
+
 		self.menuFile.addAction(self.actionLogout)
 		self.menuFile.addAction(self.actionChange_Password)
 		self.menuFile.addAction(self.actionExit)
@@ -160,9 +182,9 @@ class Ui_MainWindow(QMainWindow):
 		self.menuCustomer.addAction(self.actionSearch)
 		self.menuCustomer.addAction(self.actionRports)
 		self.menuMaintenance.addAction(self.actionAdd_New_2)
-		self.menuMaintenance.addAction(self.actionEdit_2)
-		self.menuMaintenance.addAction(self.actionSearch_2)
-		self.menuMaintenance.addAction(self.actionReports)
+		# self.menuMaintenance.addAction(self.actionEdit_2)
+		# self.menuMaintenance.addAction(self.actionSearch_2)
+		# self.menuMaintenance.addAction(self.actionReports)
 		self.menuRaw_Material.addAction(self.actionAdd_New_3)
 		self.menuRaw_Material.addAction(self.actionEdit_3)
 		self.menuRaw_Material.addAction(self.actionSearch_3)
@@ -208,10 +230,10 @@ class Ui_MainWindow(QMainWindow):
 		self.actionEdit.setText(_translate("MainWindow", "Edit"))
 		self.actionSearch.setText(_translate("MainWindow", "Search"))
 		self.actionRports.setText(_translate("MainWindow", "Reports"))
-		self.actionAdd_New_2.setText(_translate("MainWindow", "Add New"))
-		self.actionEdit_2.setText(_translate("MainWindow", "Edit"))
-		self.actionSearch_2.setText(_translate("MainWindow", "Search"))
-		self.actionReports.setText(_translate("MainWindow", "Reports"))
+		self.actionAdd_New_2.setText(_translate("MainWindow", "Maintenance"))
+		# self.actionEdit_2.setText(_translate("MainWindow", "Edit"))
+		# self.actionSearch_2.setText(_translate("MainWindow", "Search"))
+		# self.actionReports.setText(_translate("MainWindow", "Reports"))
 		self.actionAdd_New_3.setText(_translate("MainWindow", "Add New"))
 		self.actionEdit_3.setText(_translate("MainWindow", "Edit"))
 		self.actionSearch_3.setText(_translate("MainWindow", "Search"))
@@ -241,22 +263,56 @@ class Ui_MainWindow(QMainWindow):
 	def openChangePasswordDialog(self):
 		from uiview.ui_changePassword import Ui_changePasswordDilaod
 		self.chPass_dialog = Ui_changePasswordDilaod()
-		self.chPass_dialog.show()
+		self.chPass_dialog.exec_()
 
 	def openCreateNewCustomerDialog(self):
 		from uiview.ui_createNewCustomer import Ui_createNewCustomer
 		self.cnc_dialog = Ui_createNewCustomer()
-		self.cnc_dialog.show()
+		self.cnc_dialog.exec_()
 
 	def openEditCustomerDialog(self):
 		from uiview.ui_updateCustomer import Ui_updateCustomer
 		self.upc_dialog = Ui_updateCustomer()
-		self.upc_dialog.show()
+		self.upc_dialog.exec_()
 
 	def openSearchCustomerDialog(self):
 		from uiview.ui_deleteCustomer import Ui_deleteCustomer
 		self.cnc_dialog = Ui_deleteCustomer()
-		self.cnc_dialog.show()
+		self.cnc_dialog.exec_()
+
+	def openCreateNewRawMaterial(self):
+		from uiview.ui_addNewRMType import Ui_addNewRMTypeDialog
+		self.di = Ui_addNewRMTypeDialog()
+		self.di.exec_()
+	def openEditeNewRawMaterial(self):
+		from uiview.ui_updateNewRM import Ui_editRWDialog
+		self.di = Ui_editRWDialog()
+		self.di.exec_()
+	def openSearchNewRawMaterial(self):
+		from uiview.ui_searchRM import Ui_searchRMDialog
+		self.di = Ui_searchRMDialog()
+		self.di.exec_()
+
+	def openCreateNewSparePart(self):
+		from uiview.ui_addNewSPType import Ui_addNewSPTypeDialog
+		self.di = Ui_addNewSPTypeDialog()
+		self.di.exec_()
+	def openEditeNewSparePart(self):
+		from uiview.ui_updateNewSP import Ui_editSPDialog
+		self.di = Ui_editSPDialog()
+		self.di.exec_()
+	def openSearchSparePart(self):
+		from uiview.ui_searchSP import Ui_searchSPDialog
+		self.di = Ui_searchSPDialog()
+		self.di.exec_()
+
+	def openMaintenanceWindow(self):
+		from uiview.ui_maintenanceWM import Ui_maintenanceMW
+		self.d = Ui_maintenanceMW()
+		self.d.children()
+		self.d.show()
+if Ui_maintenanceMW.show:
+	print("ture")
 
 
 if __name__ == '__main__':

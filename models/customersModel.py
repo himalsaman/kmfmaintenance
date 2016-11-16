@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy import or_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
@@ -14,7 +15,7 @@ def add_customer(name, mobile_number, gender, age, city_id):
     new_customer = Customers(name, mobile_number, gender, age, city_id)
     session.add(new_customer)
     session.commit()
-    print (new_customer)
+    return  new_customer
 
 
 # update or edit exists customer
@@ -49,5 +50,17 @@ def select_customer_by_mob_num(mobile_number):
     except NoResultFound:
         return False
 
+def select_customer_by_id(id):
+    try:
+        res = session.query(Customers).filter(Customers.id == id).one()
+        return res
+    except NoResultFound:
+        return False
+
+
 def select_all_customers ():
     return session.query(Customers).all()
+
+def select_max_customer_id():
+	maxcode = session.query(func.max(Customers.id)).one()
+	return (maxcode[0])

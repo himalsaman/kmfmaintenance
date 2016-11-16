@@ -55,14 +55,14 @@ class Ui_searchRMDialog(QDialog):
 		self.srunitrbtn.setFont(font)
 		self.srunitrbtn.setObjectName("srunitrbtn")
 		self.srsizerbtn = QtWidgets.QRadioButton(self.groupBox)
-		self.srsizerbtn.setGeometry(QtCore.QRect(140, 20, 40, 17))
+		self.srsizerbtn.setGeometry(QtCore.QRect(140, 20, 45, 17))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
 		self.srsizerbtn.setFont(font)
 		self.srsizerbtn.setObjectName("srsizerbtn")
 		self.srcoderbtn = QtWidgets.QRadioButton(self.groupBox)
-		self.srcoderbtn.setGeometry(QtCore.QRect(180, 20, 110, 17))
+		self.srcoderbtn.setGeometry(QtCore.QRect(200, 20, 110, 17))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
@@ -107,37 +107,53 @@ class Ui_searchRMDialog(QDialog):
 		self.label_8 = QtWidgets.QLabel(self.groupBox_3)
 		self.label_8.setGeometry(QtCore.QRect(10, 160, 30, 13))
 		self.label_8.setObjectName("label_8")
+
 		self.label_9 = QtWidgets.QLabel(self.groupBox_3)
 		self.label_9.setGeometry(QtCore.QRect(127, 160, 110, 13))
 		self.label_9.setObjectName("label_9")
-		self.codeled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.codeled.setEnabled(False)
-		self.codeled.setGeometry(QtCore.QRect(50, 30, 150, 20))
+
+		self.codeled = QtWidgets.QLabel(self.groupBox_3)
+		self.codeled.setGeometry(QtCore.QRect(50, 28, 150, 20))
 		self.codeled.setObjectName("codeled")
-		self.nameled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.nameled.setEnabled(False)
-		self.nameled.setGeometry(QtCore.QRect(50, 60, 271, 20))
+		self.codeled.setFont(font)
+		self.codeled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.nameled = QtWidgets.QLabel(self.groupBox_3)
+		self.nameled.setGeometry(QtCore.QRect(50, 58, 271, 20))
 		self.nameled.setObjectName("nameled")
-		self.strsizeled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.strsizeled.setEnabled(False)
-		self.strsizeled.setGeometry(QtCore.QRect(77, 94, 241, 20))
+		self.nameled.setFont(font)
+		self.nameled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.strsizeled = QtWidgets.QLabel(self.groupBox_3)
+		self.strsizeled.setGeometry(QtCore.QRect(77, 92, 241, 20))
 		self.strsizeled.setObjectName("strsizeled")
-		self.numsizeled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.numsizeled.setEnabled(False)
-		self.numsizeled.setGeometry(QtCore.QRect(98, 127, 180, 20))
+		self.strsizeled.setFont(font)
+		self.strsizeled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.numsizeled = QtWidgets.QLabel(self.groupBox_3)
+		self.numsizeled.setGeometry(QtCore.QRect(98, 125, 180, 20))
 		self.numsizeled.setObjectName("numsizeled")
-		self.unitled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.unitled.setEnabled(False)
-		self.unitled.setGeometry(QtCore.QRect(40, 158, 60, 20))
+		self.numsizeled.setFont(font)
+		self.numsizeled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.unitled = QtWidgets.QLabel(self.groupBox_3)
+		self.unitled.setGeometry(QtCore.QRect(40, 155, 60, 20))
 		self.unitled.setObjectName("unitled")
-		self.invQtyled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.invQtyled.setEnabled(False)
-		self.invQtyled.setGeometry(QtCore.QRect(231, 158, 90, 20))
+		self.unitled.setFont(font)
+		self.unitled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.invQtyled = QtWidgets.QLabel(self.groupBox_3)
+		self.invQtyled.setGeometry(QtCore.QRect(231, 156, 90, 20))
 		self.invQtyled.setObjectName("invQtyled")
-		self.costled = QtWidgets.QLineEdit(self.groupBox_3)
-		self.costled.setEnabled(False)
-		self.costled.setGeometry(QtCore.QRect(241, 30, 80, 20))
+		self.invQtyled.setFont(font)
+		self.invQtyled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.costled = QtWidgets.QLabel(self.groupBox_3)
+		self.costled.setGeometry(QtCore.QRect(241, 28, 80, 20))
 		self.costled.setObjectName("costled")
+		self.costled.setFont(font)
+		self.costled.setStyleSheet("color: rgb(255, 0, 0);")
+
 		self.label_11 = QtWidgets.QLabel(self.groupBox_3)
 		self.label_11.setGeometry(QtCore.QRect(210, 32, 30, 13))
 		self.label_11.setObjectName("label_11")
@@ -201,6 +217,7 @@ class Ui_searchRMDialog(QDialog):
 
 	def do_search(self):
 		self.searchResultlistWidget.clear()
+		self.label_10.clear()
 		if self.srnamerbtn.isChecked():
 			search_key = 'name'
 		elif self.srunitrbtn.isChecked():
@@ -209,9 +226,12 @@ class Ui_searchRMDialog(QDialog):
 			search_key = 'string_size'
 		elif self.srcoderbtn.isChecked():
 			search_key = 'code'
-
-		for item in select_row_material(search_key, self.searchled.text()):
-			self.searchResultlistWidget.addItem(item.code + " - " + item.name)
+		if self.srnamerbtn.isChecked()or self.srunitrbtn.isChecked() or self.srsizerbtn.isChecked() or \
+				self.srcoderbtn.isChecked():
+			for item in select_row_material(search_key, self.searchled.text()):
+				self.searchResultlistWidget.addItem(item.code + " - " + item.name)
+		else :
+			self.label_10.setText("You must select one method for search !")
 
 	def Clicked(self, item):
 		self.deletebtn.setEnabled(True)

@@ -1,57 +1,51 @@
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 import sys
-####################################################################
-from PyQt5.QtCore import QAbstractListModel
-from PyQt5.QtCore import QModelIndex
-from PyQt5.QtCore import QVariant
-from PyQt5.QtCore import Qt
+
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QListView
+from PyQt5.QtWidgets import QTableView
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
+from Control.maintenanceLogic import getAllCustomerNotHaveMaintenance
+
+my_array = [getAllCustomerNotHaveMaintenance()]
 
 def main():
-	app = QApplication(sys.argv)
-	w = MyWindow()
-	w.show()
-	sys.exit(app.exec_())
+    app = QApplication(sys.argv)
+    w = MyWindow()
+    w.show()
+    sys.exit(app.exec_())
 
-
-####################################################################
 class MyWindow(QWidget):
-	def __init__(self, *args):
-		QWidget.__init__(self, *args)
+    def __init__(self, *args):
+        QWidget.__init__(self, *args)
 
-		# create table
-		list_data = [1, 2, 3, 4]
-		lm = MyListModel(list_data, self)
-		lv = QListView()
-		lv.setModel(lm)
+        tablemodel = MyTableModel(my_array, self)
+        tableview = QTableView()
+        tableview.setModel(tablemodel)
 
-		# layout
-		layout = QVBoxLayout()
-		layout.addWidget(lv)
-		self.setLayout(layout)
+        layout = QVBoxLayout(self)
+        layout.addWidget(tableview)
+        self.setLayout(layout)
 
+class MyTableModel(QAbstractTableModel):
+    def __init__(self, datain, parent=None, *args):
+        QAbstractTableModel.__init__(self, parent, *args)
+        self.arraydata = datain
 
-####################################################################
-class MyListModel(QAbstractListModel):
-	def __init__(self, datain, parent=None, *args):
-		""" datain: a list where each item is a row
-		"""
-		QAbstractListModel.__init__(self, parent, *args)
-		self.listdata = datain
+    def rowCount(self, parent):
+        return len(self.arraydata[0])
 
-	def rowCount(self, parent=QModelIndex()):
-		return len(self.listdata)
+    def columnCount(self, parent):
+        return len(self.arraydata)
 
-	def data(self, index, role):
-		if index.isValid() and role == Qt.DisplayRole:
-			return QVariant(self.listdata[index.row()])
-		else:
-			return QVariant()
+    def data(self, index, role):
+        if not index.isValid():
+            return QVariant()
+        elif role != Qt.DisplayRole:
+            return QVariant()
+        return QVariant(self.arraydata[index.column()][index.row()])
 
-
-####################################################################
 if __name__ == "__main__":
-	main()
+    main()

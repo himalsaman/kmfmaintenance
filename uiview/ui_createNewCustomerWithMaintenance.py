@@ -150,12 +150,20 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 				age = self.agespin.text()
 				city_id = self.citycmbx.currentIndex()
 				creatMaintenanceWithNewCustomer(name, mobileNumber, gndr, age, city_id)
-				self.statuslbl.setText('A new customer added successfully ')
 				self.close()
+				self.statuslbl.setText('A new customer added successfully ')
+				from uiview.ui_createBOM import Ui_createBOMDialog
+				self.b = Ui_createBOMDialog()
+				self.b.show()
+
+
 			else:
 				self.statuslbl.setText('This customer is already exists ')
 
 
 if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+
 	cnc_dialog = Ui_createNewCustomerWithMaintenance()
 	cnc_dialog.show()
+	sys.exit(app.exec_())

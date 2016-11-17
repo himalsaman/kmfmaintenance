@@ -1,16 +1,17 @@
-
+import random
 import re
 
 from datetime import date, datetime
 
 from pymysql import TIMESTAMP
 
-from Control.maintenanceLogic import claculateBOMItemRMCost, claculateBOMItemSPCost
 from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM
-from models.billOfMaterialModel import  add_new_bill_of_material, select_max_BOM_id, select_max_BOM_code
+from models.billOfMaterialModel import  add_new_bill_of_material, select_max_BOM_id, select_max_BOM_code, \
+	check_BOM_first_time, update_bill_of_material
+from models.maintenanceModel import select_maintenance_by_id, select_max_maintenance_id
 
 datetimestr = datetime.now()
-timestampstr = datetimestr.strftime('%Y/%m/%d %H:%M:%S')
+timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
 
 # maintanance code calculation
 def BOMCode():
@@ -19,6 +20,49 @@ def BOMCode():
 	nextgencode = intcode + 1
 	gencode = 'kmfBOM{}'.format(nextgencode)
 	return gencode
+
+
+#first maintenance for created new customer
+def creatBOMWithNewMAint(maint_id):
+
+	if not check_BOM_first_time():
+		gencode = 'kmfBOM{}'.format(random.randrange(1, 10, 2))
+	else:
+		gencode = BOMCode()
+	add_new_bill_of_material(maint_id, timestampstr, None, None, None, gencode)
+	return True
+
+
+# calculate raw material cost
+def claculateBOMItemRMCost():
+	bomid = select_max_BOM_id()
+	bomitem = select_bill_of_material_item_for_BOM(bomid)
+	costList = []
+	for item in bomitem:
+		if item.raw_material_id :
+			costList.append(item.cost_of_material)
+
+	return  sum(costList)
+
+# calculate raw material cost
+def claculateBOMItemSPCost():
+	bomid = select_max_BOM_id()
+	bomitem = select_bill_of_material_item_for_BOM(bomid)
+	costList = []
+	for item in bomitem:
+		if item.spare_part_id :
+			costList.append(item.cost_of_material)
+
+	return  sum(costList)
+
+
+
+def finishBOM():
+	bomid = select_max_BOM_id()
+	totall = claculateBOMItemSPCost() + claculateBOMItemRMCost()
+	update_bill_of_material(bomid, claculateBOMItemSPCost(),claculateBOMItemRMCost(), totall)
+
+
 
 #ctreate BOm for item
 def createBOM(maintenance_id, BOMId):

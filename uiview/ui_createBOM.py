@@ -5,16 +5,19 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+from datetime import date, datetime
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
 from Control.BOMControl import getAllItemForBOM
-from Control.maintenanceLogic import claculateBOMItemRMCost, claculateBOMItemSPCost
+from Control.BOMControl import claculateBOMItemRMCost, claculateBOMItemSPCost
 from Control.userControl import getLoginDataPKL
-from models.billOfMaterialModel import select_bill_of_material_by_id
+from models.billOfMaterialModel import select_bill_of_material_by_id, select_max_BOM_id, select_bill_of_material_by_code, \
+	update_bill_of_material
 from models.dbUtile import BillOfMaterialItem
+from models.maintenanceModel import update_maintenance
 
 from uiview.uimodels.bomItemTableModel import BomItemTableModel
 
@@ -227,7 +230,7 @@ class Ui_createBOMDialog(QDialog):
 		self.productMaintled = QtWidgets.QLineEdit(createBOMDialog)
 		self.productMaintled.setGeometry(QtCore.QRect(140, 80, 201, 20))
 		self.productMaintled.setObjectName("productMaintled")
-		self.maintdesled = QtWidgets.QPlainTextEdit(createBOMDialog)
+		self.maintdesled = QtWidgets.QTextEdit(createBOMDialog)
 		self.maintdesled.setGeometry(QtCore.QRect(143, 111, 291, 80))
 		self.maintdesled.setObjectName("maintdesled")
 
@@ -239,7 +242,7 @@ class Ui_createBOMDialog(QDialog):
 		self.savebtn = QtWidgets.QPushButton(createBOMDialog)
 		self.savebtn.setGeometry(QtCore.QRect(10, 370, 100, 40))
 		self.savebtn.setObjectName("savebtn")
-		# self.savebtn.clicked.connect()
+		self.savebtn.clicked.connect(self.save_data)
 		self.show_table_date()
 
 		self.show_data()
@@ -279,7 +282,7 @@ class Ui_createBOMDialog(QDialog):
 													   getAllItemForBOM()[idx].qty_of_material))
 
 	def show_data(self):
-		bomid = getAllItemForBOM()[1].bill_of_material_id
+		bomid = select_max_BOM_id()
 		bom = select_bill_of_material_by_id(bomid)
 		maintenanceCode = bom.maintenance.m_code
 		bomCode = bom.gen_code
@@ -314,6 +317,35 @@ class Ui_createBOMDialog(QDialog):
 		self.d = Ui_createBOMDialog()
 		self.d.show()
 		self.show_table_date()
+
+	def save_data(self):
+		datetimestr = datetime.now()
+		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
+
+		main_product = self.productMaintled.text()
+		produ_desc = self.maintdesled.toPlainText()
+		rwcost = claculateBOMItemRMCost()
+		spcost = claculateBOMItemSPCost()
+		totalcost = rwcost + spcost
+		bom = select_bill_of_material_by_code(self.bomCodelbl.text())
+		update_bill_of_material(bom.id, float(spcost), float(rwcost), float(totalcost))
+		if self.laborCostled.text():
+			laboCost = self.laborCostled.text()
+		else:
+			laboCost = None
+		if self.otherCostlbl.text():
+			otherCost = self.otherCostlbl.text()
+		else:
+			otherCost = None
+		createat = timestampstr
+		update_maintenance(bom.maintenance_id, totalcost, laboCost, otherCost,None, createat,
+						   None, main_product, produ_desc, None, None )
+
+
+
+
+
+
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	cnc_dialog = Ui_createBOMDialog()

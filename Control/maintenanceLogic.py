@@ -7,8 +7,10 @@ from datetime import datetime
 
 from pymysql import TIMESTAMP
 from pymysql.times import Timestamp
+from sqlalchemy.sql.functions import func, current_timestamp
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
+from Control.BOMControl import creatBOMWithNewMAint
 from Control.bomItemControl import createNewBOMItem
 from models.billOfMaterialItemModel import add_new_bill_of_material_item, select_bill_of_material_item_for_BOM
 from models.billOfMaterialModel import add_new_bill_of_material, select_max_BOM_id, update_bill_of_material, \
@@ -19,7 +21,7 @@ from models.maintenanceModel import select_all_maintenance, add_new_maintenance,
 	select_max_maintenance_code, select_maintenance, select_maintenance_by_id
 
 datetimestr = datetime.now()
-timestampstr = datetimestr.strftime('%Y/%m/%d %H:%M:%S')
+timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
 
 # maintanance code calculation
 def maintenanceCode():
@@ -36,37 +38,12 @@ def creatMaintenanceWithNewCustomer(name, mobile_number, gender, age, city_id):
 		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
 	else:
 		gencode = maintenanceCode()
-		new_customers = add_customer(name, mobile_number, gender, age, city_id)
-		add_new_maintenance( gencode, new_customers.id,None, None, None, None, None, None, None,
-							 None, None,None )
-		return True
-# calculate raw material cost
-def claculateBOMItemRMCost():
-	bomid = select_max_BOM_id()
-	bomitem = select_bill_of_material_item_for_BOM(bomid)
-	costList = []
-	for item in bomitem:
-		if item.raw_material_id :
-			costList.append(item.cost_of_material)
-
-	return  sum(costList)
-
-# calculate raw material cost
-def claculateBOMItemSPCost():
-	bomid = select_max_BOM_id()
-	bomitem = select_bill_of_material_item_for_BOM(bomid)
-	costList = []
-	for item in bomitem:
-		if item.spare_part_id :
-			costList.append(item.cost_of_material)
-
-	return  sum(costList)
-def finishBOM():
-	bomid = select_max_BOM_id()
-	totall = claculateBOMItemSPCost() + claculateBOMItemRMCost()
-	update_bill_of_material(bomid, timestampstr, claculateBOMItemSPCost(),
-							claculateBOMItemRMCost(),totall)
-
+	new_customers = add_customer(name, mobile_number, gender, age, city_id)
+	new_mainte = add_new_maintenance( gencode, new_customers.id,None, None, None, None, None, None,
+										None,None, None,None )
+	creatBOMWithNewMAint(new_mainte.id)
+	# print(new_mainte.id)
+	return True
 
 		#creat new maintenance for exsist customer
 def createMaintenanceForExsistCustomer(customer_id):
@@ -83,4 +60,4 @@ def getAllMaintenanceNotCreated():
 			simplelist.append(mainte.customers)
 	return simplelist
 
-
+print(getAllMaintenanceNotCreated())

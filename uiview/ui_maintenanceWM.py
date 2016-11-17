@@ -162,7 +162,7 @@ class Ui_maintenanceMW(QMainWindow):
 
     def do_addNewCustomerAndMaintenanceAction(self):
         self.target = Ui_createNewCustomerWithMaintenance()
-        self.target.exec_()
+        # self.target.exec_()
 
 
 

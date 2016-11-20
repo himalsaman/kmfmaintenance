@@ -110,8 +110,8 @@ class Ui_loginDialog(QDialog):
 		password = self.passwordinput.text()
 		if validLogin(username, password):
 			self.close()
-			from uiview.ui_mainWindow import Ui_MainWindow
-			self.main_window = Ui_MainWindow()
+			from uiview.ui_mmainWindow import Ui_MMainWindow
+			self.main_window = Ui_MMainWindow()
 			self.main_window.show()
 		else:
 			self.passwordinput.setText('')

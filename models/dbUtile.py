@@ -88,10 +88,11 @@ class Customers(Base):
 	# return and print customer table creation arch
 	def __repr__(self):
 		return "<Customer(name ="'{}'.format(self.name) + "\n" \
-	  			"mobile_number ="'{}'.format(self.mobile_number) + "\n" \
-				"gender ="'{}'.format(	self.gender) + "\n" \
-				"age ="'{}'.format(self.age) + "\n" \
-			  	"city_id ="'{}'.format(self.city_id) + ")>"
+														  "mobile_number ="'{}'.format(self.mobile_number) + "\n" \
+																											 "gender ="'{}'.format(
+			self.gender) + "\n" \
+						   "age ="'{}'.format(self.age) + "\n" \
+														  "city_id ="'{}'.format(self.city_id) + ")>"
 
 
 # create city db table as class
@@ -174,11 +175,13 @@ class SpareParts(Base):
 	# return and print spare parts table creation arch
 	def __repr__(self):
 		return "<Spare Parts (name ="'{}'.format(self.name) + "\n" \
-				"code ="'{}'.format(self.code) + "\n" \
-				"price ="'{}'.format(self.price) + "\n" \
-				"inv_qty ="'{}'.format(self.inv_qty) + "\n" \
-				"unit ="'{}'.format(self.unit) + "\n" \
-				"gen_code ="'{}'.format(self.gen_code) + ")>"
+															  "code ="'{}'.format(self.code) + "\n" \
+																							   "price ="'{}'.format(
+			self.price) + "\n" \
+						  "inv_qty ="'{}'.format(self.inv_qty) + "\n" \
+																 "unit ="'{}'.format(self.unit) + "\n" \
+																								  "gen_code ="'{}'.format(
+			self.gen_code) + ")>"
 
 
 # many bill_of_material_item  to one maintenance
@@ -205,21 +208,26 @@ class BillOfMaterialItem(Base):
 	# cost and qty can be for raw material or spare part not both together
 	cost_of_material = Column(Float)
 	qty_of_material = Column(Float)
+	gen_code = Column(String(100))
 
 	def __init__(self, raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material,
-				 qty_of_material):
+				 qty_of_material, gen_code):
 		self.raw_material_id = raw_material_id
 		self.spare_part_id = spare_parts_id
 		self.bill_of_material_id = bill_of_material_id
 		self.cost_of_material = cost_of_material
 		self.qty_of_material = qty_of_material
+		self.gen_code = gen_code
 
 	# return and print bill of material table creation arch
 	def __repr__(self):
 		return "<Bill of Material (raw_material_id ="'{}'.format(self.raw_material_id) + "\n" \
-				"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
-				"bill_of_material_id =" '{}'.format(self.bill_of_material_id) + "\n" \
-				"cost_of_material =" '{}'.format(
+																						 "gen_code =" '{}'.format(
+			self.gen_code) + "\n" \
+							 "spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
+																				 "bill_of_material_id =" '{}'.format(
+			self.bill_of_material_id) + "\n" \
+										"cost_of_material =" '{}'.format(
 			self.cost_of_material) + "\n" \
 									 "qty_of_material =" '{}'.format(self.qty_of_material) + ")>"
 
@@ -247,13 +255,15 @@ class BillOfMaterial(Base):
 		self.total_cost = total_cost
 		self.gen_code = gen_code
 
-	def __repr__(self, maintenance_id):
+	def __repr__(self):
 		return "BOM (maintenance_id = " '{}'.format(self.maintenance_id) + "\n" \
-				"cost_of_spare_parts = "'{}'.format(self.cost_of_spare_parts) + "\n" \
-				"cost_of_raw_material = "'{}'.format(self.cost_of_raw_material) + "\n" \
-				"total_cost= "'{}'.format(self.total_cost) + "\n" \
-				"gen_code = "'{}'.format(self.gen_code) + "\n" \
-				"created_at = " '{}'.format(self.created_at)
+																		   "cost_of_spare_parts = "'{}'.format(
+			self.cost_of_spare_parts) + "\n" \
+										"cost_of_raw_material = "'{}'.format(self.cost_of_raw_material) + "\n" \
+																										  "total_cost= "'{}'.format(
+			self.total_cost) + "\n" \
+							   "gen_code = "'{}'.format(self.gen_code) + "\n" \
+																		 "created_at = " '{}'.format(self.created_at)
 
 
 # create maintenance db table as class
@@ -285,8 +295,8 @@ class Maintenance(Base):
 	m_code = Column(String(100))
 
 	def __init__(self, m_code, customer_id, cost_of_bill_of_material, cost_of_labor,
-						cost_of_another, cost_of_another_description, created_at, close_at,
-						product_of_maintenance,maintenance_description, start_date, done_date):
+				 cost_of_another, cost_of_another_description, created_at, close_at,
+				 product_of_maintenance, maintenance_description, start_date, done_date):
 		self.m_code = m_code
 		self.customers_id = customer_id
 		self.cost_of_bill_of_material = cost_of_bill_of_material
@@ -299,12 +309,20 @@ class Maintenance(Base):
 		self.maintenance_description = maintenance_description
 		self.start_date = start_date
 		self.done_date = done_date
-		# self.customers = customers
-		# self.bill_of_material_id = bill_of_material_id
+
+	# self.customers = customers
+	# self.bill_of_material_id = bill_of_material_id
+	def getMainte(self):
+		return self.code
+
+	def setMainte(self, code):
+		self.code = code
 
 	def __repr__(self):
-		return "Maintenance (customers_id = " '{}'.format(self.customers.id) + "\n" \
-																			   "cost_of_bill_of_material = "'{}'.format(
+		return "Maintenance (m_code = " '{}'.format(self.m_code) + "\n" \
+																   "customers_id = " '{}'.format(
+			self.customers.id) + "\n" \
+								 "cost_of_bill_of_material = "'{}'.format(
 			self.cost_of_bill_of_material) + "\n" \
 											 "cost_of_labor ="'{}'.format(self.cost_of_labor) + "\n" \
 																								"cost_of_another ="'{}'.format(

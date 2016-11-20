@@ -9,9 +9,9 @@ session = Session()
 
 # add new bill of material item
 def add_new_bill_of_material_item(raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material,
-								  qty_of_material):
+								  qty_of_material, gen_code):
 	new_bill_of_material_item = BillOfMaterialItem(raw_material_id, spare_parts_id, bill_of_material_id,
-												   cost_of_material, qty_of_material)
+												   cost_of_material, qty_of_material, gen_code)
 	session.add(new_bill_of_material_item)
 	session.commit()
 
@@ -46,7 +46,9 @@ def select_bill_of_material_item(key, value):
 def select_all_bill_of_material_item():
 	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem).all()
 
-
+def select_bill_of_material_item_by_code(code):
+	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem.gen_code==
+													code).one()
 # select bill of material items for maintenance
 def select_bill_of_material_item_for_BOM(bill_of_material_id):
 	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem.bill_of_material_id ==
@@ -56,3 +58,6 @@ def select_max_BOMITEM_id():
 	maxcode = session.query(func.max(BillOfMaterialItem.id)).one()
 	return (maxcode[0])
 
+def select_max_BOMITEM_code():
+	maxcode = session.query(func.max(BillOfMaterialItem.gen_code)).one()
+	return (maxcode[0])

@@ -9,7 +9,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
 
-from Control.maintenanceLogic import getAllMaintenanceNotCreated
+from Control.maintenanceLogic import getAllMaintenanceNotCreated, createMaintenanceForExsistCustomerNotComplated
 from models.customersModel import select_customer_by_id, select_customer_by_mob_num
 from models.dbUtile import Customers
 from uiview.ui_createNewCustomerWithMaintenance import Ui_createNewCustomerWithMaintenance
@@ -93,6 +93,9 @@ class Ui_maintenanceMW(QMainWindow):
         self.createNewForSelectedCustbtn = QtWidgets.QPushButton(self.groupBox_3)
         self.createNewForSelectedCustbtn.setGeometry(QtCore.QRect(10, 9, 140, 60))
         self.createNewForSelectedCustbtn.setObjectName("createNewForSelectedCustbtn")
+
+        self.createNewForSelectedCustbtn.clicked.connect(self.do_addNewMaintenanceForExistsCustomer)
+
         self.statuslbl = QtWidgets.QLabel(self.centralwidget)
         self.statuslbl.setGeometry(QtCore.QRect(371, 367, 310, 50))
         self.statuslbl.setStyleSheet("color: rgb(255, 0, 0);")
@@ -163,6 +166,10 @@ class Ui_maintenanceMW(QMainWindow):
     def do_addNewCustomerAndMaintenanceAction(self):
         self.target = Ui_createNewCustomerWithMaintenance()
         # self.target.exec_()
+
+    def do_addNewMaintenanceForExistsCustomer(self):
+        cust = select_customer_by_mob_num(self.custMobled.text())
+        createMaintenanceForExsistCustomerNotComplated(cust.id)
 
 
 

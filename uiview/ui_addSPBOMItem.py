@@ -14,8 +14,9 @@ from models.sparePartsModel import select_all_spare_parts, select_spare_parts_by
 
 
 class Ui_addSPBOMItemDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, bomObj,parent=None):
         super(Ui_addSPBOMItemDialog, self).__init__()
+        self.bomObj = bomObj
         self.setupUi(self)
 
     def setupUi(self, addSPBOMItemDialog):
@@ -145,7 +146,7 @@ class Ui_addSPBOMItemDialog(QDialog):
         qty = self.reqqtyled_2.text()
         if not qty == '':
             self.close()
-            createNewBOMItem(None, spare.id, int(qty))
+            createNewBOMItem(self.bomObj.id,None, spare.id, int(qty))
         else:
             self.statulbl.setText("You must enter quantity you want")
 

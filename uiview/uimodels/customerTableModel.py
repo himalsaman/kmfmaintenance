@@ -7,7 +7,7 @@ class CustomerTableModel(QAbstractTableModel):
 
 	def __init__(self):
 		super(CustomerTableModel, self).__init__()
-		self.headers = ['Customer', 'Mobile Phone']
+		self.headers = ['Customer', 'Mobile Phone','']
 		self.customers = []
 
 	def rowCount(self, index=QModelIndex()):
@@ -29,6 +29,8 @@ class CustomerTableModel(QAbstractTableModel):
 				return QVariant(customer.name)
 			elif col == 1:
 				return QVariant(customer.mobile_number)
+			elif col == 2:
+				return QVariant(customer.gender)
 			return QVariant()
 
 	def headerData(self, section, orientation, role=Qt.DisplayRole):

@@ -1,4 +1,5 @@
 from models import customersModel, maintenanceModel
+from models.customersModel import select_all_customers
 
 
 def validCustomer(name, mobNum, gender, age, city_id):
@@ -14,3 +15,8 @@ def valiedDeleteCustomer(mobNum):
 			customersModel.delete_customer(selectedCust.id)
 		else :
 			return False
+
+def getAllcustomersCount():
+	print (len(select_all_customers()))
+
+getAllcustomersCount()

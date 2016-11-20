@@ -29,13 +29,12 @@ def creatBOMWithNewMAint(maint_id):
 		gencode = 'kmfBOM{}'.format(random.randrange(1, 10, 2))
 	else:
 		gencode = BOMCode()
-	add_new_bill_of_material(maint_id, timestampstr, None, None, None, gencode)
-	return True
+	bom = add_new_bill_of_material(maint_id, timestampstr, None, None, None, gencode)
+	return bom
 
 
 # calculate raw material cost
-def claculateBOMItemRMCost():
-	bomid = select_max_BOM_id()
+def claculateBOMItemRMCost(bomid):
 	bomitem = select_bill_of_material_item_for_BOM(bomid)
 	costList = []
 	for item in bomitem:
@@ -45,8 +44,7 @@ def claculateBOMItemRMCost():
 	return  sum(costList)
 
 # calculate raw material cost
-def claculateBOMItemSPCost():
-	bomid = select_max_BOM_id()
+def claculateBOMItemSPCost(bomid):
 	bomitem = select_bill_of_material_item_for_BOM(bomid)
 	costList = []
 	for item in bomitem:
@@ -76,16 +74,12 @@ def createBOM(maintenance_id, BOMId):
 	totalCost = RMC + SPC
 	add_new_bill_of_material(maintenance_id, created_at, SPC, RMC, totalCost, BOMCode())
 
-def getAllItemForBOM():
+def getAllItemForBOM(bomid):
 	simplelist = []
-	bomid = select_max_BOM_id()
 	itemList  = select_bill_of_material_item_for_BOM(bomid)
-	# for item in itemList:
-	# 	if not item.raw_material_id == None:
-	# 		simplelist.append(item.rawMaterial)
-	# 	if not item.raw_material_id == None:
-	# 		simplelist.append(item.spareParts)
 	return itemList
 
 def getTotalMaterialCost():
 	return  claculateBOMItemRMCost() + claculateBOMItemSPCost
+
+# getAllItemForBOM(19)

@@ -11,12 +11,12 @@ from PyQt5.QtWidgets import QDialog
 
 from Control.bomItemControl import createNewBOMItem
 from models.rawMaterialModel import select_all_raw_material, select_row_material_bycode
-from uiview.ui_createBOM import Ui_createBOMDialog
 
 
 class Ui_addRMBOMItemDialog(QDialog):
-	def __init__(self, parent=None):
+	def __init__(self, bomObj,parent=None):
 		super(Ui_addRMBOMItemDialog, self).__init__()
+		self.bomObj = bomObj
 		self.setupUi(self)
 
 	def setupUi(self, addRMBOMItemDialog):
@@ -149,8 +149,9 @@ class Ui_addRMBOMItemDialog(QDialog):
 		rawmat = select_row_material_bycode(code)
 		qty = self.reqqtyled_2.text()
 		if not qty == '':
+			# print(self.bomObj)
 			self.close()
-			createNewBOMItem(rawmat.id, None, int(qty))
+			createNewBOMItem(self.bomObj.id,rawmat.id, None, int(qty))
 		else:
 			self.statulbl.setText("You must enter quantity you want")
 

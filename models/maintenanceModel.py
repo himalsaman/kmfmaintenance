@@ -77,3 +77,5 @@ def select_max_maintenance_id():
 def check_maintenance_first_time():
 	return session.query(Maintenance).first()
 
+def select_maintenance_by_code(value):
+	return session.query(Maintenance).filter(Maintenance.m_code == value).one()

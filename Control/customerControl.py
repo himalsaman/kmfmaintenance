@@ -16,7 +16,9 @@ def valiedDeleteCustomer(mobNum):
 		else :
 			return False
 
-def getAllcustomersCount():
-	print (len(select_all_customers()))
-
-getAllcustomersCount()
+def getAllcustomers():
+	simplelist = []
+	custList  = select_all_customers()
+	for cust in custList:
+			simplelist.append(cust)
+	return simplelist

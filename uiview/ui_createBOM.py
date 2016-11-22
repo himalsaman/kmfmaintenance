@@ -6,6 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+from datetime import datetime
+
 from PyQt5 import Qt
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -15,15 +17,17 @@ from PyQt5.QtWidgets import QMenu
 from Control import BOMControl
 from Control.BOMControl import getAllItemForBOM, claculateBOMItemRMCost, claculateBOMItemSPCost, creatBOMWithNewMAint
 from Control.userControl import getLoginDataPKL
-from models.billOfMaterialItemModel import select_bill_of_material_item, select_bill_of_material_item_by_code, \
-	delete_bill_of_material_item
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
-from models.dbUtile import BillOfMaterialItem, Maintenance
-from models.maintenanceModel import select_maintenance_by_code, update_maintenance
-from models.rawMaterialModel import select_all_raw_material, select_row_material_by_id
+from models.billOfMaterialItemModel import  select_bill_of_material_item_by_code, \
+	delete_bill_of_material_item, select_bill_of_material_item_for_BOM
+from models.billOfMaterialModel import select_bill_of_material_for_maintenance, update_bill_of_material
+from models.dbUtile import BillOfMaterialItem
+from models.maintenanceModel import  update_maintenance, update_maintenance_from_BOM, update_maintenance_product
+from models.rawMaterialModel import  select_row_material_by_id
 from models.sparePartsModel import select_spare_parts_by_id
-from uiview.ui_pusedMaintenance import Ui_pusedMaintenanceDialog
 from uiview.uimodels.bomItemTableModel import BomItemTableModel
+
+datetimestr = datetime.now()
+timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Ui_createBOMDialog(QDialog):
@@ -285,7 +289,7 @@ class Ui_createBOMDialog(QDialog):
 			if not self.mainte.maintenance_description == None:
 				self.maintdesled.setText(self.mainte.maintenance_description)
 				self.maintdesled.setEnabled(False)
-			self.createBOMFun()
+			# self.createBOMFun()
 			self.bomgroupbox.setEnabled(True)
 			self.calcinibtn.setEnabled(True)
 		else:
@@ -295,6 +299,16 @@ class Ui_createBOMDialog(QDialog):
 		self.calcinibtn.clicked.connect(self.refresheddata)
 		self.addNewRMbtn.clicked.connect(self.addRMAction)
 		self.addNewSPbtn.clicked.connect(self.addSpAction)
+		self.savebtn.clicked.connect(self.saveBOM)
+		self.label_17.setVisible(False)
+		self.label_18.setVisible(False)
+		self.label_19.setVisible(False)
+		self.laborCostled.setVisible(False)
+		self.otherCostlbl.setVisible(False)
+		self.calcfinbtn.setVisible(False)
+		self.totalCostled.setVisible(False)
+		self.line_9.setVisible(False)
+
 		self.retranslateUi(createBOMDialog)
 		QtCore.QMetaObject.connectSlotsByName(createBOMDialog)
 		self.tableDataShow()
@@ -338,28 +352,28 @@ class Ui_createBOMDialog(QDialog):
 			QMessageBox.warning(QMessageBox(), "Oop's", 'Product and Description is required',
 								QMessageBox.Ok)
 		else:
-			maint = self.mainte
-			update_maintenance(maint.id, maint.cost_of_bill_of_material,
-							   maint.cost_of_labor,
-							   maint.cost_of_another, maint.cost_of_another_description,
-							   maint.created_at,
-							   maint.close_at,
-							   self.productMaintled.text(), self.maintdesled.toPlainText(),
-							   maint.start_date,
-							   maint.done_date)
+			# maint = self.mainte
+			maint_id = self.mainte.id
+			update_maintenance_product(self.mainte.id
+									   , self.productMaintled.text()
+									   , self.maintdesled.toPlainText())
 			self.createBOMFun()
 			self.bomgroupbox.setEnabled(True)
 			self.calcinibtn.setEnabled(True)
 			self.productMaintled.setEnabled(False)
 			self.maintdesled.setEnabled(False)
+			self.savereqdatabtn.setEnabled(False)
+
 	def tableDataShow(self):
-		bom = select_bill_of_material_for_maintenance(self.mainte.id)
-		for idx, val in enumerate(getAllItemForBOM(bom.id)):
-			self.tableData.addItems(BillOfMaterialItem(getAllItemForBOM(bom.id)[idx].raw_material_id
-									, getAllItemForBOM(bom.id)[idx].spare_part_id
-									, None, getAllItemForBOM(bom.id)[idx].cost_of_material,
-									getAllItemForBOM(bom.id)[idx].qty_of_material,
-									getAllItemForBOM(bom.id)[idx].gen_code))
+		if select_bill_of_material_for_maintenance(self.mainte.id):
+			bom = select_bill_of_material_for_maintenance(self.mainte.id)
+			for idx, val in enumerate(getAllItemForBOM(bom.id)):
+				self.tableData.addItems(BillOfMaterialItem(getAllItemForBOM(bom.id)[
+															   idx].raw_material_id
+										, getAllItemForBOM(bom.id)[idx].spare_part_id
+										, None, getAllItemForBOM(bom.id)[idx].cost_of_material,
+										getAllItemForBOM(bom.id)[idx].qty_of_material,
+										getAllItemForBOM(bom.id)[idx].gen_code))
 
 	def contextMenuEvent(self, event):
 		self.menu = QtWidgets.QMenu(self)
@@ -397,18 +411,19 @@ class Ui_createBOMDialog(QDialog):
 		self.lablesData()
 
 	def lablesData(self):
-		bom = select_bill_of_material_for_maintenance(self.mainte.id)
-		if claculateBOMItemRMCost(bom.id) == 0:
-			rwcost = 0
-		else:
-			rwcost = claculateBOMItemRMCost(bom.id)
-		if claculateBOMItemSPCost(bom.id) == 0:
-			spcost = 0
-		else:
-			spcost = claculateBOMItemSPCost(bom.id)
-		self.totalRMCled.setText(str(rwcost))
-		self.totalSPCled.setText(str(spcost))
-		self.totalRMSPCled.setText(str(rwcost + spcost))
+		if select_bill_of_material_for_maintenance(self.mainte.id):
+			bom = select_bill_of_material_for_maintenance(self.mainte.id)
+			if claculateBOMItemRMCost(bom.id) == 0:
+				rwcost = 0
+			else:
+				rwcost = claculateBOMItemRMCost(bom.id)
+			if claculateBOMItemSPCost(bom.id) == 0:
+				spcost = 0
+			else:
+				spcost = claculateBOMItemSPCost(bom.id)
+			self.totalRMCled.setText(str(rwcost))
+			self.totalSPCled.setText(str(spcost))
+			self.totalRMSPCled.setText(str(rwcost + spcost))
 
 	def addRMAction(self):
 		bomo = select_bill_of_material_for_maintenance(self.mainte.id)
@@ -421,6 +436,24 @@ class Ui_createBOMDialog(QDialog):
 		from uiview.ui_addSPBOMItem import Ui_addSPBOMItemDialog
 		self.addspdiloag = Ui_addSPBOMItemDialog(bomo)
 		self.addspdiloag.exec_()
+
+	def saveBOM(self):
+		if select_bill_of_material_for_maintenance(self.mainte.id):
+			bom = select_bill_of_material_for_maintenance(self.mainte.id)
+			rwmatcost = claculateBOMItemRMCost(bom.id)
+			spmatcost = claculateBOMItemSPCost(bom.id)
+			mattotalcost =  rwmatcost + spmatcost
+			update_bill_of_material(bom.id, spmatcost, rwmatcost, mattotalcost)
+			self.saveMainte()
+
+	def saveMainte(self):
+		totalCost = self.totalRMSPCled.text()
+		update_maintenance_from_BOM(
+			self.mainte.id
+			, totalCost
+			, timestampstr
+			  )
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

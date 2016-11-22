@@ -12,9 +12,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QMessageBox
 
-from Control.maintenanceLogic import getMaintenancePused, getMaintenanceHolded, getMaintenanceUnderProccessing, \
-	getMaintenanceWaitingDelevary, getMaintenanceFinishedAndDelivared, getMaintenanceHoldCost, \
-	getMaintenanceUnderProccessingCost, getMaintenanceFinishedAndDelivaredCost
+from Control.maintenanceLogic import getMaintenancePused, getMaintenanceHolded, \
+	getMaintenanceUnderProccessing, \
+	getMaintenanceWaitingDelevary, getMaintenanceFinishedAndDelivared, getMaintenanceCalcCost, \
+	getMaintenanceUnderProccessingCost, getMaintenanceFinishedAndDelivaredCost, getMaintenanceWaitLaborCost
 from Control.userControl import deleteLoginDataPKL, getLoginDataPKL
 from models.customersModel import select_all_customers
 from models.rawMaterialModel import select_all_raw_material
@@ -52,7 +53,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_16.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_16.setObjectName("line_16")
 		self.alocmbtn = QtWidgets.QPushButton(self.centralwidget)
-		self.alocmbtn.setGeometry(QtCore.QRect(549, 239, 260, 60))
+		self.alocmbtn.setGeometry(QtCore.QRect(549, 199, 260, 50))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
@@ -63,7 +64,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
 		self.label_33 = QtWidgets.QLabel(self.centralwidget)
-		self.label_33.setGeometry(QtCore.QRect(281, 351, 160, 30))
+		self.label_33.setGeometry(QtCore.QRect(549, 331, 160, 30))
 		self.label_33.setObjectName("label_33")
 		self.label = QtWidgets.QLabel(self.centralwidget)
 		self.label.setGeometry(QtCore.QRect(6, 3, 50, 13))
@@ -90,8 +91,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tmplbl.setFont(font)
 		self.tmplbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+								  "border-color: rgb(0, 0, 255);\n"
+								  "background-color: rgb(255, 255, 255);")
 		self.tmplbl.setText("")
 		self.tmplbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tmplbl.setObjectName("tmplbl")
@@ -113,7 +114,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_17.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_17.setObjectName("line_17")
 		self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-		self.groupBox_2.setGeometry(QtCore.QRect(7, 189, 251, 150))
+		self.groupBox_2.setGeometry(QtCore.QRect(7, 303, 251, 150))
 		self.groupBox_2.setTitle("")
 		self.groupBox_2.setObjectName("groupBox_2")
 		self.label_10 = QtWidgets.QLabel(self.groupBox_2)
@@ -134,8 +135,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tmhlbl.setFont(font)
 		self.tmhlbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+								  "border-color: rgb(0, 0, 255);\n"
+								  "background-color: rgb(255, 255, 255);")
 		self.tmhlbl.setText("")
 		self.tmhlbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tmhlbl.setObjectName("tmhlbl")
@@ -150,7 +151,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.label_18.setGeometry(QtCore.QRect(6, 112, 60, 30))
 		self.label_18.setObjectName("label_18")
 		self.tctmhlbl = QtWidgets.QLabel(self.groupBox_2)
-		self.tctmhlbl.setGeometry(QtCore.QRect(68, 112, 70, 30))
+		self.tctmhlbl.setGeometry(QtCore.QRect(68, 112, 150, 30))
 		font = QtGui.QFont()
 		font.setPointSize(10)
 		font.setBold(True)
@@ -158,8 +159,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tctmhlbl.setFont(font)
 		self.tctmhlbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+									"border-color: rgb(0, 0, 255);\n"
+									"background-color: rgb(255, 255, 255);")
 		self.tctmhlbl.setText("")
 		self.tctmhlbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tctmhlbl.setObjectName("tctmhlbl")
@@ -179,7 +180,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_18.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_18.setObjectName("line_18")
 		self.label_37 = QtWidgets.QLabel(self.centralwidget)
-		self.label_37.setGeometry(QtCore.QRect(281, 431, 100, 30))
+		self.label_37.setGeometry(QtCore.QRect(549, 411, 100, 30))
 		self.label_37.setObjectName("label_37")
 		self.line_3 = QtWidgets.QFrame(self.centralwidget)
 		self.line_3.setGeometry(QtCore.QRect(539, 69, 3, 440))
@@ -187,7 +188,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_3.setObjectName("line_3")
 		self.line_13 = QtWidgets.QFrame(self.centralwidget)
-		self.line_13.setGeometry(QtCore.QRect(275, 179, 260, 3))
+		self.line_13.setGeometry(QtCore.QRect(275, 224, 260, 3))
 		self.line_13.setFrameShape(QtWidgets.QFrame.HLine)
 		self.line_13.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_13.setObjectName("line_13")
@@ -199,7 +200,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.closebtn.setFont(font)
 		self.closebtn.setObjectName("closebtn")
 		self.tprmlbl = QtWidgets.QLabel(self.centralwidget)
-		self.tprmlbl.setGeometry(QtCore.QRect(440, 351, 70, 30))
+		self.tprmlbl.setGeometry(QtCore.QRect(700, 331, 100, 30))
 		font = QtGui.QFont()
 		font.setPointSize(10)
 		font.setBold(True)
@@ -207,13 +208,13 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tprmlbl.setFont(font)
 		self.tprmlbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+								   "border-color: rgb(0, 0, 255);\n"
+								   "background-color: rgb(255, 255, 255);")
 		self.tprmlbl.setText("")
 		self.tprmlbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tprmlbl.setObjectName("tprmlbl")
 		self.groupBox_7 = QtWidgets.QGroupBox(self.centralwidget)
-		self.groupBox_7.setGeometry(QtCore.QRect(280, 189, 251, 150))
+		self.groupBox_7.setGeometry(QtCore.QRect(280, 345, 251, 150))
 		self.groupBox_7.setTitle("")
 		self.groupBox_7.setObjectName("groupBox_7")
 		self.label_28 = QtWidgets.QLabel(self.groupBox_7)
@@ -234,8 +235,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tmfpdlbl.setFont(font)
 		self.tmfpdlbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+									"border-color: rgb(0, 0, 255);\n"
+									"background-color: rgb(255, 255, 255);")
 		self.tmfpdlbl.setText("")
 		self.tmfpdlbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tmfpdlbl.setObjectName("tmfpdlbl")
@@ -250,7 +251,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.label_30.setGeometry(QtCore.QRect(6, 112, 60, 30))
 		self.label_30.setObjectName("label_30")
 		self.tctmfpdlbl = QtWidgets.QLabel(self.groupBox_7)
-		self.tctmfpdlbl.setGeometry(QtCore.QRect(68, 112, 70, 30))
+		self.tctmfpdlbl.setGeometry(QtCore.QRect(68, 112, 150, 30))
 		font = QtGui.QFont()
 		font.setPointSize(10)
 		font.setBold(True)
@@ -258,8 +259,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tctmfpdlbl.setFont(font)
 		self.tctmfpdlbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+									  "border-color: rgb(0, 0, 255);\n"
+									  "background-color: rgb(255, 255, 255);")
 		self.tctmfpdlbl.setText("")
 		self.tctmfpdlbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tctmfpdlbl.setObjectName("tctmfpdlbl")
@@ -278,8 +279,56 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_21.setFrameShape(QtWidgets.QFrame.VLine)
 		self.line_21.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_21.setObjectName("line_21")
+		################################################################################
+
+		self.groupBox_33 = QtWidgets.QGroupBox(self.centralwidget)
+		self.groupBox_33.setGeometry(QtCore.QRect(10, 188, 251, 101))
+		self.groupBox_33.setTitle("")
+		self.groupBox_33.setObjectName("groupBox_33")
+		self.loctextlbl = QtWidgets.QLabel(self.groupBox_33)
+		self.loctextlbl.setGeometry(QtCore.QRect(5, 8, 241, 30))
+		font = QtGui.QFont()
+		font.setPointSize(10)
+		font.setBold(True)
+		font.setWeight(75)
+		self.loctextlbl.setFont(font)
+		self.loctextlbl.setAlignment(QtCore.Qt.AlignCenter)
+		self.loctextlbl.setObjectName("loctextlbl")
+		self.loclbl = QtWidgets.QLabel(self.groupBox_33)
+		self.loclbl.setGeometry(QtCore.QRect(16, 57, 70, 30))
+		font = QtGui.QFont()
+		font.setPointSize(10)
+		font.setBold(True)
+		font.setUnderline(True)
+		font.setWeight(75)
+		self.loclbl.setFont(font)
+		self.loclbl.setStyleSheet("color: rgb(255, 0, 0);\n"
+								  "border-color: rgb(0, 0, 255);\n"
+								  "background-color: rgb(255, 255, 255);")
+		self.loclbl.setText("")
+		self.loclbl.setAlignment(QtCore.Qt.AlignCenter)
+		self.loclbl.setObjectName("loclbl")
+		self.locbtn = QtWidgets.QPushButton(self.groupBox_33)
+		self.locbtn.setGeometry(QtCore.QRect(160, 52, 75, 40))
+		font = QtGui.QFont()
+		font.setBold(True)
+		font.setWeight(75)
+		self.locbtn.setFont(font)
+		self.locbtn.setObjectName("locbtn")
+		self.line_233 = QtWidgets.QFrame(self.groupBox_33)
+		self.line_233.setGeometry(QtCore.QRect(-2, 36, 240, 20))
+		self.line_233.setFrameShape(QtWidgets.QFrame.HLine)
+		self.line_233.setFrameShadow(QtWidgets.QFrame.Sunken)
+		self.line_233.setObjectName("line_233")
+		self.line_243 = QtWidgets.QFrame(self.groupBox_33)
+		self.line_243.setGeometry(QtCore.QRect(118, 52, 3, 40))
+		self.line_243.setFrameShape(QtWidgets.QFrame.VLine)
+		self.line_243.setFrameShadow(QtWidgets.QFrame.Sunken)
+		self.line_243.setObjectName("line_243")
+
+		##################################################################################
 		self.tclbl = QtWidgets.QLabel(self.centralwidget)
-		self.tclbl.setGeometry(QtCore.QRect(390, 431, 70, 30))
+		self.tclbl.setGeometry(QtCore.QRect(700, 411, 100, 30))
 		font = QtGui.QFont()
 		font.setPointSize(10)
 		font.setBold(True)
@@ -287,20 +336,20 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tclbl.setFont(font)
 		self.tclbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+								 "border-color: rgb(0, 0, 255);\n"
+								 "background-color: rgb(255, 255, 255);")
 		self.tclbl.setText("")
 		self.tclbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tclbl.setObjectName("tclbl")
 		self.cnmncbtn = QtWidgets.QPushButton(self.centralwidget)
-		self.cnmncbtn.setGeometry(QtCore.QRect(549, 99, 260, 60))
+		self.cnmncbtn.setGeometry(QtCore.QRect(549, 99, 260, 50))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
 		self.cnmncbtn.setFont(font)
 		self.cnmncbtn.setObjectName("cnmncbtn")
 		self.cnmecbtn = QtWidgets.QPushButton(self.centralwidget)
-		self.cnmecbtn.setGeometry(QtCore.QRect(549, 169, 260, 60))
+		self.cnmecbtn.setGeometry(QtCore.QRect(549, 149, 260, 50))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
@@ -325,12 +374,12 @@ class Ui_MMainWindow(QMainWindow):
 		self.label_3.setAlignment(QtCore.Qt.AlignCenter)
 		self.label_3.setObjectName("label_3")
 		self.line_12 = QtWidgets.QFrame(self.centralwidget)
-		self.line_12.setGeometry(QtCore.QRect(2, 345, 260, 3))
+		self.line_12.setGeometry(QtCore.QRect(2, 295, 260, 3))
 		self.line_12.setFrameShape(QtWidgets.QFrame.HLine)
 		self.line_12.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_12.setObjectName("line_12")
 		self.groupBox_4 = QtWidgets.QGroupBox(self.centralwidget)
-		self.groupBox_4.setGeometry(QtCore.QRect(280, 69, 251, 100))
+		self.groupBox_4.setGeometry(QtCore.QRect(280, 230, 251, 100))
 		self.groupBox_4.setTitle("")
 		self.groupBox_4.setObjectName("groupBox_4")
 		self.label_14 = QtWidgets.QLabel(self.groupBox_4)
@@ -351,8 +400,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tmfwpdlbl.setFont(font)
 		self.tmfwpdlbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+									 "border-color: rgb(0, 0, 255);\n"
+									 "background-color: rgb(255, 255, 255);")
 		self.tmfwpdlbl.setText("")
 		self.tmfwpdlbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tmfwpdlbl.setObjectName("tmfwpdlbl")
@@ -379,7 +428,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_2.setObjectName("line_2")
 		self.tpsplbl = QtWidgets.QLabel(self.centralwidget)
-		self.tpsplbl.setGeometry(QtCore.QRect(430, 391, 70, 30))
+		self.tpsplbl.setGeometry(QtCore.QRect(700, 371, 100, 30))
 		font = QtGui.QFont()
 		font.setPointSize(10)
 		font.setBold(True)
@@ -387,13 +436,13 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tpsplbl.setFont(font)
 		self.tpsplbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+								   "border-color: rgb(0, 0, 255);\n"
+								   "background-color: rgb(255, 255, 255);")
 		self.tpsplbl.setText("")
 		self.tpsplbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tpsplbl.setObjectName("tpsplbl")
 		self.label_35 = QtWidgets.QLabel(self.centralwidget)
-		self.label_35.setGeometry(QtCore.QRect(281, 391, 140, 30))
+		self.label_35.setGeometry(QtCore.QRect(549, 371, 140, 30))
 		self.label_35.setObjectName("label_35")
 		self.label_5 = QtWidgets.QLabel(self.centralwidget)
 		self.label_5.setGeometry(QtCore.QRect(548, 69, 261, 16))
@@ -411,7 +460,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_10.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_10.setObjectName("line_10")
 		self.groupBox_6 = QtWidgets.QGroupBox(self.centralwidget)
-		self.groupBox_6.setGeometry(QtCore.QRect(7, 353, 251, 150))
+		self.groupBox_6.setGeometry(QtCore.QRect(280, 69, 251, 150))
 		self.groupBox_6.setTitle("")
 		self.groupBox_6.setObjectName("groupBox_6")
 		self.label_24 = QtWidgets.QLabel(self.groupBox_6)
@@ -432,8 +481,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tmuplbl.setFont(font)
 		self.tmuplbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+								   "border-color: rgb(0, 0, 255);\n"
+								   "background-color: rgb(255, 255, 255);")
 		self.tmuplbl.setText("")
 		self.tmuplbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tmuplbl.setObjectName("tmuplbl")
@@ -448,7 +497,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.label_26.setGeometry(QtCore.QRect(6, 113, 60, 30))
 		self.label_26.setObjectName("label_26")
 		self.tctmuplbl = QtWidgets.QLabel(self.groupBox_6)
-		self.tctmuplbl.setGeometry(QtCore.QRect(68, 113, 70, 30))
+		self.tctmuplbl.setGeometry(QtCore.QRect(68, 113, 150, 30))
 		font = QtGui.QFont()
 		font.setPointSize(10)
 		font.setBold(True)
@@ -456,8 +505,8 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.tctmuplbl.setFont(font)
 		self.tctmuplbl.setStyleSheet("color: rgb(255, 0, 0);\n"
-	"border-color: rgb(0, 0, 255);\n"
-	"background-color: rgb(255, 255, 255);")
+									 "border-color: rgb(0, 0, 255);\n"
+									 "background-color: rgb(255, 255, 255);")
 		self.tctmuplbl.setText("")
 		self.tctmuplbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.tctmuplbl.setObjectName("tctmuplbl")
@@ -484,12 +533,12 @@ class Ui_MMainWindow(QMainWindow):
 		self.datetimelbl.setText("")
 		self.datetimelbl.setObjectName("datetimelbl")
 		self.line_22 = QtWidgets.QFrame(self.centralwidget)
-		self.line_22.setGeometry(QtCore.QRect(275, 345, 260, 3))
+		self.line_22.setGeometry(QtCore.QRect(275, 337, 260, 3))
 		self.line_22.setFrameShape(QtWidgets.QFrame.HLine)
 		self.line_22.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_22.setObjectName("line_22")
 		self.reportbtn = QtWidgets.QPushButton(self.centralwidget)
-		self.reportbtn.setGeometry(QtCore.QRect(549, 320, 260, 60))
+		self.reportbtn.setGeometry(QtCore.QRect(549, 250, 260, 60))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
@@ -581,11 +630,13 @@ class Ui_MMainWindow(QMainWindow):
 		# get logged user name
 		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
 
-		#get now time
+		# hid add labor cost button
+		self.alocmbtn.setVisible(False)
+		# get now time
 		datetimestr = datetime.now()
 		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
 		self.datetimelbl.setText(timestampstr)
-		#actions of menu bar
+		# actions of menu bar
 
 		## file menu actions
 		self.actionLogout.triggered.connect(self.doLogout)
@@ -607,28 +658,32 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionEdit_SP.triggered.connect(self.openEditeNewSparePart)
 		self.actionSearch_SP.triggered.connect(self.openSearchSparePart)
 
-		#labels counting
+		# labels counting
 		self.tmplbl.setText(str(len(getMaintenancePused())))
 		self.tmhlbl.setText(str(len(getMaintenanceHolded())))
 		self.tmuplbl.setText(str(len(getMaintenanceUnderProccessing())))
 		self.tmfwpdlbl.setText(str(len(getMaintenanceWaitingDelevary())))
 		self.tmfpdlbl.setText(str(len(getMaintenanceFinishedAndDelivared())))
+		self.loclbl.setText(str(len(getMaintenanceWaitLaborCost())))
 
-		#label cost counting
-		self.tctmhlbl.setText(str(getMaintenanceHoldCost()))
+		# label cost counting
+		self.tctmhlbl.setText(str(getMaintenanceCalcCost()))
 		self.tctmuplbl.setText(str(getMaintenanceUnderProccessingCost()))
 		self.tctmfpdlbl.setText(str(getMaintenanceFinishedAndDelivaredCost()))
 		self.tprmlbl.setText(str(len(select_all_raw_material())))
 		self.tpsplbl.setText(str(len(select_all_spare_parts())))
 		self.tclbl.setText(str(len(select_all_customers())))
 
-		#buttons actions
+		# buttons actions
 		self.closebtn.clicked.connect(self.doExit)
 		self.tmpbtn.clicked.connect(self.openPusedMaintenance)
-
-
-
-
+		self.locbtn.clicked.connect(self.openLaborCostHoldedMaintenance)
+		self.tmhbtn.clicked.connect(self.openConfirmHoldedMaintenance)
+		self.tmupbtn.clicked.connect(self.openUnderProcessMaintenance)
+		self.tmfwpdbtn.clicked.connect(self.openDelivaryWaitingMaintenance)
+		self.tmfpdbtn.clicked.connect(self.openLastMaintenance)
+		self.cnmncbtn.clicked.connect(self.openNewNaintenanceWithNewCustomer)
+		self.cnmecbtn.clicked.connect(self.openNewNaintenanceExtCustomer)
 		self.retranslateUi(MMainWindow)
 		QtCore.QMetaObject.connectSlotsByName(MMainWindow)
 
@@ -639,28 +694,28 @@ class Ui_MMainWindow(QMainWindow):
 		self.label_33.setText(_translate("MMainWindow", "Total Piece\'s of  Raw Materials:"))
 		self.label.setText(_translate("MMainWindow", "Welcome ,"))
 		self.label_4.setText(_translate("MMainWindow", "Total of Maintenance\'s Pused \n"
-	" Not Have BOM"))
+													   " Not Have BOM"))
 		self.tmpbtn.setText(_translate("MMainWindow", "Browse"))
 		self.label_10.setText(_translate("MMainWindow", "Total of Maintenance\'s Hold \n"
-	" waiting for customer confirm"))
+														" waiting for customer confirm"))
 		self.tmhbtn.setText(_translate("MMainWindow", "Browse"))
 		self.label_18.setText(_translate("MMainWindow", "Total Cost :"))
 		self.label_37.setText(_translate("MMainWindow", "Total Of Customers :"))
 		self.closebtn.setText(_translate("MMainWindow", "Close"))
 		self.label_28.setText(_translate("MMainWindow", "Total of Maintenance\'s \n"
-	" was finisehed and product delivary"))
+														" was finisehed and product delivary"))
 		self.tmfpdbtn.setText(_translate("MMainWindow", "Browse"))
 		self.label_30.setText(_translate("MMainWindow", "Total Cost :"))
 		self.cnmncbtn.setText(_translate("MMainWindow", "Create New Maintenance with New Customer"))
 		self.cnmecbtn.setText(_translate("MMainWindow", "Create New Maintenance for Exists Customer"))
 		self.label_3.setText(_translate("MMainWindow", "Maintenance Dashboard"))
 		self.label_14.setText(_translate("MMainWindow", "Total of Maintenance\'s was finisehed \n"
-	" waiting for product delivary"))
+														" waiting for product delivary"))
 		self.tmfwpdbtn.setText(_translate("MMainWindow", "Browse"))
 		self.label_35.setText(_translate("MMainWindow", "Total Piece\'s of Spare Parts :"))
 		self.label_5.setText(_translate("MMainWindow", "Direct Action\'s"))
 		self.label_24.setText(_translate("MMainWindow", "Total of Maitenance\'s \n"
-	" Under Proccessing"))
+														" Under Proccessing"))
 		self.tmupbtn.setText(_translate("MMainWindow", "Browse"))
 		self.label_26.setText(_translate("MMainWindow", "Total Cost :"))
 		self.label_6.setText(_translate("MMainWindow", "Date & Time :"))
@@ -688,6 +743,9 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionEdit_SP.setText(_translate("MMainWindow", "Edit"))
 		self.actionSearch_SP.setText(_translate("MMainWindow", "Search"))
 		self.actionReports_3.setText(_translate("MMainWindow", "Reports"))
+		self.loctextlbl.setText(_translate("MMainWindow", "Total of Maintenance\'s\n"
+														  " Without Labor Cost"))
+		self.locbtn.setText(_translate("MMainWindow", "Browse"))
 
 	def doLogout(self):
 		reply = QMessageBox.question(QMessageBox(), 'Logout', 'Are you sure to logout ?',
@@ -730,10 +788,12 @@ class Ui_MMainWindow(QMainWindow):
 		from uiview.ui_addNewRMType import Ui_addNewRMTypeDialog
 		self.di = Ui_addNewRMTypeDialog()
 		self.di.exec_()
+
 	def openEditeNewRawMaterial(self):
 		from uiview.ui_updateNewRM import Ui_editRWDialog
 		self.di = Ui_editRWDialog()
 		self.di.exec_()
+
 	def openSearchNewRawMaterial(self):
 		from uiview.ui_searchRM import Ui_searchRMDialog
 		self.di = Ui_searchRMDialog()
@@ -743,17 +803,56 @@ class Ui_MMainWindow(QMainWindow):
 		from uiview.ui_addNewSPType import Ui_addNewSPTypeDialog
 		self.di = Ui_addNewSPTypeDialog()
 		self.di.exec_()
+
 	def openEditeNewSparePart(self):
 		from uiview.ui_updateNewSP import Ui_editSPDialog
 		self.di = Ui_editSPDialog()
 		self.di.exec_()
+
 	def openSearchSparePart(self):
 		from uiview.ui_searchSP import Ui_searchSPDialog
 		self.di = Ui_searchSPDialog()
 		self.di.exec_()
+
 	def openPusedMaintenance(self):
 		from uiview.ui_pusedMaintenance import Ui_pusedMaintenanceDialog
 		self.pmd = Ui_pusedMaintenanceDialog()
+		self.pmd.exec_()
+
+	def openLaborCostHoldedMaintenance(self):
+		from uiview.ui_costHMaintenance import Ui_costHoldedMaintenanceDialog
+		self.pmd = Ui_costHoldedMaintenanceDialog()
+		self.pmd.exec_()
+
+	def openConfirmHoldedMaintenance(self):
+		from uiview.ui_confirmWMaintenance import Ui_confirmWMaintenanceDialog
+		self.pmd = Ui_confirmWMaintenanceDialog()
+		self.pmd.exec_()
+
+	def openUnderProcessMaintenance(self):
+		from uiview.ui_finishMaintenance import Ui_finishMaintenanceDialog
+		self.pmd = Ui_finishMaintenanceDialog()
+		self.pmd.exec_()
+
+	def openDelivaryWaitingMaintenance(self):
+		from uiview.ui_delivaryWMaintenance import Ui_delivaryMaintenanceDialog
+		self.pmd = Ui_delivaryMaintenanceDialog()
+		self.pmd.exec_()
+
+	def openLastMaintenance(self):
+		from uiview.ui_lastMaintenance import Ui_lastMaintenanceDialog
+		self.pmd = Ui_lastMaintenanceDialog()
+		self.pmd.exec_()
+
+	def openNewNaintenanceWithNewCustomer(self):
+		from uiview.ui_createNewCustomerWithMaintenance import Ui_createNewCustomerWithMaintenance
+		self.pmd = Ui_createNewCustomerWithMaintenance()
+		self.pmd.exec_()
+
+
+	def openNewNaintenanceExtCustomer(self):
+		from uiview.ui_createNewMaintExsistCust import Ui_createNewMaintenanceForExistsCustDialog
+		self.pmd = Ui_createNewMaintenanceForExistsCustDialog()
 		self.pmd.exec_()
 if __name__ == '__main__':
 	app = QtWidgets.QApplication(sys.argv)

@@ -26,8 +26,8 @@ def delete_city(id):
     session.commit()
 
 def select_city_by_id(id):
-    res = session.query(City).filter(City.id == id).one()
-    return res
+    return session.query(City).filter(City.id == id).one()
+
 
 
 def select_all_cities():

@@ -45,8 +45,7 @@ def select_customer(key, value):
 # select customer by key and value
 def select_customer_by_mob_num(mobile_number):
     try:
-        res = session.query(Customers).filter(Customers.mobile_number == mobile_number).one()
-        return res
+        return session.query(Customers).filter(Customers.mobile_number == mobile_number).one()
     except NoResultFound:
         return False
 

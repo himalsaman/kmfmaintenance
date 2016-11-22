@@ -32,18 +32,27 @@ def maintenanceCode():
 	return gencode
 
 #first maintenance for created new customer
-# def creatMaintenanceWithNewCustomer(name, mobile_number, gender, age, city_id):
-#
-# 	if not check_maintenance_first_time():
-# 		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
-# 	else:
-# 		gencode = maintenanceCode()
-# 	new_customers = add_customer(name, mobile_number, gender, age, city_id)
-# 	new_mainte = add_new_maintenance( gencode, new_customers.id,None, None, None, None, None, None,
-# 										None,None, None,None )
-# 	creatBOMWithNewMAint(new_mainte.id)
-# 	# print(new_mainte.id)
-# 	return True
+def creatMaintenanceWithNewCustomer(name, mobile_number, gender, age, city_id):
+
+	if not check_maintenance_first_time():
+		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
+	else:
+		gencode = maintenanceCode()
+	new_customers = add_customer(name, mobile_number, gender, age, city_id)
+	maint = add_new_maintenance( gencode, new_customers.id,None, None, None, None, None, None,
+										None,None, None,None )
+	# print(new_mainte.id)
+	return maint
+
+def creatMaintenanceExtCustomer(customer):
+	if not check_maintenance_first_time():
+		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
+	else:
+		gencode = maintenanceCode()
+	maint = add_new_maintenance( gencode, customer.id,None, None, None, None, None, None,
+										None,None, None,None )
+	# print(new_mainte.id)
+	return maint
 
 # 		#creat new maintenance for exsist customer
 # def createMaintenanceForExsistCustomerNotComplated(customer_id):
@@ -68,7 +77,17 @@ def getMaintenancePused():
 	simplelist = []
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
-		if mainte.created_at == None:
+		if mainte.created_at == None or mainte.cost_of_bill_of_material == None:
+			simplelist.append(mainte)
+	return simplelist
+
+def getMaintenanceWaitLaborCost():
+	simplelist = []
+	mainlist = select_all_maintenance()
+	for mainte in mainlist:
+		if mainte.created_at != None \
+				and mainte.cost_of_labor == None \
+				and mainte.cost_of_bill_of_material!= None:
 			simplelist.append(mainte)
 	return simplelist
 
@@ -76,11 +95,13 @@ def getMaintenanceHolded():
 	simplelist = []
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
-		if mainte.created_at != None and mainte.start_date == None:
-			simplelist.append(mainte.customers)
+		if mainte.created_at != None \
+				and mainte.start_date == None \
+				and mainte.cost_of_labor != None:
+			simplelist.append(mainte)
 	return simplelist
 
-def getMaintenanceHoldCost():
+def getMaintenanceCalcCost():
 	simplelistbm = []
 	simplelistla = []
 	simplelistan = []
@@ -88,15 +109,15 @@ def getMaintenanceHoldCost():
 	for mainte in mainlist:
 		if mainte.created_at != None \
 				and mainte.start_date == None :
-			if mainte.cost_of_bill_of_material == None:
-				mainte.cost_of_bill_of_material = 0
-			simplelistbm.append(mainte.cost_of_bill_of_material)
-			if mainte.cost_of_labor == None:
-				mainte.cost_of_labor = 0
-			simplelistla.append(mainte.cost_of_labor )
-			if mainte.cost_of_another == None:
-				mainte.cost_of_another = 0
-			simplelistan.append(mainte.cost_of_another)
+			if not mainte.cost_of_bill_of_material == None:
+				# mainte.cost_of_bill_of_material = None
+				simplelistbm.append(mainte.cost_of_bill_of_material)
+			if not mainte.cost_of_labor == None:
+				# mainte.cost_of_labor = None
+				simplelistla.append(mainte.cost_of_labor )
+			if not mainte.cost_of_another == None:
+				# mainte.cost_of_another = None
+				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
 	return summ
 
@@ -105,7 +126,7 @@ def getMaintenanceUnderProccessing():
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
 		if mainte.start_date != None and mainte.done_date== None:
-			simplelist.append(mainte.customers)
+			simplelist.append(mainte)
 	return simplelist
 
 def getMaintenanceUnderProccessingCost():
@@ -115,15 +136,15 @@ def getMaintenanceUnderProccessingCost():
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
 		if mainte.start_date != None and mainte.done_date == None:
-			if mainte.cost_of_bill_of_material == None:
-				mainte.cost_of_bill_of_material = 0
-			simplelistbm.append(mainte.cost_of_bill_of_material)
-			if mainte.cost_of_labor == None:
-				mainte.cost_of_labor = 0
-			simplelistla.append(mainte.cost_of_labor )
-			if mainte.cost_of_another == None:
-				mainte.cost_of_another = 0
-			simplelistan.append(mainte.cost_of_another)
+			if not mainte.cost_of_bill_of_material == None:
+			# 	mainte.cost_of_bill_of_material = 0
+				simplelistbm.append(mainte.cost_of_bill_of_material)
+			if not mainte.cost_of_labor == None:
+			# 	mainte.cost_of_labor = 0
+				simplelistla.append(mainte.cost_of_labor )
+			if not mainte.cost_of_another == None:
+			# 	mainte.cost_of_another = 0
+				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
 	return summ
 
@@ -133,7 +154,7 @@ def getMaintenanceWaitingDelevary():
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
 		if mainte.done_date != None and mainte.close_at == None:
-			simplelist.append(mainte.customers)
+			simplelist.append(mainte)
 	return simplelist
 
 def getMaintenanceFinishedAndDelivared():
@@ -141,7 +162,7 @@ def getMaintenanceFinishedAndDelivared():
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
 		if mainte.close_at != None :
-			simplelist.append(mainte.customers)
+			simplelist.append(mainte)
 	return simplelist
 
 def getMaintenanceFinishedAndDelivaredCost():
@@ -151,15 +172,15 @@ def getMaintenanceFinishedAndDelivaredCost():
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
 		if mainte.close_at != None:
-			if mainte.cost_of_bill_of_material == None:
-				mainte.cost_of_bill_of_material = 0
-			simplelistbm.append(mainte.cost_of_bill_of_material)
-			if mainte.cost_of_labor == None:
-				mainte.cost_of_labor = 0
-			simplelistla.append(mainte.cost_of_labor )
-			if mainte.cost_of_another == None:
-				mainte.cost_of_another = 0
-			simplelistan.append(mainte.cost_of_another)
+			if not mainte.cost_of_bill_of_material == None:
+			# 	mainte.cost_of_bill_of_material = 0
+				simplelistbm.append(mainte.cost_of_bill_of_material)
+			if not mainte.cost_of_labor == None:
+			# 	mainte.cost_of_labor = 0
+				simplelistla.append(mainte.cost_of_labor )
+			if not mainte.cost_of_another == None:
+			# 	mainte.cost_of_another = 0
+				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
 	return summ
 

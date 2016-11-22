@@ -197,7 +197,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 
 		from uiview.ui_createBOM import Ui_createBOMDialog
 		self.cbom = Ui_createBOMDialog(maint)
-		self.cbom.show()
+		self.cbom.exec_()
 
 
 if __name__ == '__main__':

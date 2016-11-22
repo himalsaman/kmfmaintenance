@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
 from Control.customerControl import validCustomer
+# from Control.maintenanceLogic import creatMaintenanceWithNewCustomer
 from Control.maintenanceLogic import creatMaintenanceWithNewCustomer
 from Control.userControl import getLoginDataPKL
 from models import cityModel
@@ -162,8 +163,5 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 
 
 if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-
 	cnc_dialog = Ui_createNewCustomerWithMaintenance()
 	cnc_dialog.show()
-	sys.exit(app.exec_())

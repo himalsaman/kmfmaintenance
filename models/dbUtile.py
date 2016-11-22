@@ -288,8 +288,8 @@ class Maintenance(Base):
 	cost_of_another_description = Column(String(1000))
 	created_at = Column(TIMESTAMP)  # date of created to calculate BOM
 	close_at = Column(TIMESTAMP)  # close date : the customer take product back
-	product_of_maintenance = Column(String(200), nullable=False)
-	maintenance_description = Column(UnicodeText)
+	product_of_maintenance = Column(String(200), nullable=True)
+	maintenance_description = Column(String(50000))
 	start_date = Column(TIMESTAMP)  # actually date for start
 	done_date = Column(TIMESTAMP)  # actually date for finish maintenance
 	m_code = Column(String(100))

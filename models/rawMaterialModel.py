@@ -30,6 +30,14 @@ def update_raw_material(id, code, name, default_size, string_size, unit, cost_pe
     else:
         return False
 
+def update_raw_material_inv_qty(id, inv_qty):
+    res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
+    res.inv_qty = inv_qty
+    if session.commit():
+        return True
+    else:
+        return False
+
 
 # delete raw material
 def delete_raw_material(id):

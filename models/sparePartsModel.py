@@ -26,6 +26,11 @@ def update_spare_parts(id, name, code, gen_code, price, inv_qty, unit):
     res.unit = unit
     session.commit()
 
+def update_spare_parts_inv_qty(id, inv_qty):
+    res = session.query(SpareParts).filter(SpareParts.id == id).one()
+    res.inv_qty = inv_qty
+    session.commit()
+
 
 # delete raw material
 def delete_spare_parts(id):

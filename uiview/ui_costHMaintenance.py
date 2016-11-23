@@ -157,7 +157,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.calcbtn.setFont(font)
 		self.calcbtn.setObjectName("calcbtn")
 		self.deletebtn = QtWidgets.QPushButton(costHoldedMaintenanceDialog)
-		self.deletebtn.setGeometry(QtCore.QRect(473, 415, 90, 40))
+		self.deletebtn.setGeometry(QtCore.QRect(573, 415, 90, 40))
 		font = QtGui.QFont()
 		font.setPointSize(12)
 		font.setBold(True)
@@ -167,10 +167,14 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 									 "color: rgb(255, 255, 255);")
 		self.deletebtn.setObjectName("deletebtn")
 		self.closebtn = QtWidgets.QPushButton(costHoldedMaintenanceDialog)
-		self.closebtn.setGeometry(QtCore.QRect(687, 414, 90, 40))
+		self.closebtn.setGeometry(QtCore.QRect(730, 414, 90, 40))
 		self.closebtn.setObjectName("closebtn")
 
 		self.closebtn.clicked.connect(self.close)
+
+		self.detailsbtn = QtWidgets.QPushButton(costHoldedMaintenanceDialog)
+		self.detailsbtn.setGeometry(QtCore.QRect(420, 414, 90, 40))
+		self.detailsbtn.setObjectName("detailsbtn")
 
 		self.line_4 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
 		self.line_4.setGeometry(QtCore.QRect(416, 391, 410, 20))
@@ -260,7 +264,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.totalCostlbl.setStyleSheet("color: rgb(255, 0, 0);")
 		self.totalCostlbl.setObjectName("totalCostlbl")
 		self.line_8 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
-		self.line_8.setGeometry(QtCore.QRect(629, 406, 3, 60))
+		self.line_8.setGeometry(QtCore.QRect(720, 406, 3, 60))
 		self.line_8.setFrameShape(QtWidgets.QFrame.VLine)
 		self.line_8.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_8.setObjectName("line_8")
@@ -270,6 +274,9 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 
 		self.retranslateUi(costHoldedMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(costHoldedMaintenanceDialog)
+
+		self.detailsbtn.clicked.connect(self.detailsDia)
+		self.detailsbtn.setEnabled(False)
 
 	def retranslateUi(self, costHoldedMaintenanceDialog):
 		_translate = QtCore.QCoreApplication.translate
@@ -290,7 +297,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.label_10.setText(_translate("costHoldedMaintenanceDialog", "Total Material Cost :"))
 		self.label_11.setText(_translate("costHoldedMaintenanceDialog", "Enter Labor Cost"))
 		self.label_12.setText(_translate("costHoldedMaintenanceDialog", "Total Cost "))
-
+		self.detailsbtn.setText(_translate("costHoldedMaintenanceDialog", "Details"))
 	def Clicked(self, item):
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
@@ -305,6 +312,8 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 			self.spCostlbl.setText(str(bom.cost_of_spare_parts))
 			self.matTotalCostlbl.setText(str(maint.cost_of_bill_of_material))
 			self.calcbtn.setEnabled(True)
+			self.detailsbtn.setEnabled(True)
+
 	def do_addLaborCost(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
@@ -344,3 +353,20 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 				, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
 				, getMaintenanceWaitLaborCost()[idx].m_code
 												 , None, None))
+
+
+	def detailsDia(self):
+		indexes = self.tableView.selectionModel().selectedRows(0)
+		for ind in sorted(indexes):
+			maint = select_maintenance_by_code(ind.data())
+		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
+		self.md = Ui_maintenanceDetailsDialog(maint)
+		self.md.exec_()
+
+
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_costHoldedMaintenanceDialog()
+	myapp.show()
+	app.exec_()
+

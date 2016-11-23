@@ -171,6 +171,11 @@ class Ui_finishMaintenanceDialog(QDialog):
 
         self.closebtn.clicked.connect(self.close)
 
+        self.detailsbtn = QtWidgets.QPushButton(finishMaintenanceDialog)
+        self.detailsbtn.setGeometry(QtCore.QRect(430, 413, 90, 40))
+        self.detailsbtn.setObjectName("detailsbtn")
+
+
         self.line_4 = QtWidgets.QFrame(finishMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -267,7 +272,7 @@ class Ui_finishMaintenanceDialog(QDialog):
         self.line_9.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_9.setObjectName("line_9")
         self.finishbtn = QtWidgets.QPushButton(finishMaintenanceDialog)
-        self.finishbtn.setGeometry(QtCore.QRect(565, 413, 130, 40))
+        self.finishbtn.setGeometry(QtCore.QRect(670, 413, 130, 40))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(True)
@@ -350,7 +355,7 @@ class Ui_finishMaintenanceDialog(QDialog):
         self.label_13.setText(_translate("finishMaintenanceDialog", "Created Date :"))
         self.label_14.setText(_translate("finishMaintenanceDialog", "Start Date :"))
         self.label_15.setText(_translate("finishMaintenanceDialog", "Finish Date :"))
-
+        self.detailsbtn.setText(_translate("finishMaintenanceDialog", "Details"))
 
     def Clicked(self, item):
         indexes = self.tableView.selectionModel().selectedRows(0)
@@ -408,3 +413,13 @@ class Ui_finishMaintenanceDialog(QDialog):
                 , getMaintenanceUnderProccessing()[idx].customers.mobile_number
                 , getMaintenanceUnderProccessing()[idx].m_code
                 , None, None))
+
+
+    def detailsDia(self):
+        indexes = self.tableView.selectionModel().selectedRows(0)
+        for ind in sorted(indexes):
+            maint = select_maintenance_by_code(ind.data())
+
+        from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
+        self.md = Ui_maintenanceDetailsDialog()
+        self.md.exec_()

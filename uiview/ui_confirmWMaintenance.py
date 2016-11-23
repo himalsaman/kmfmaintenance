@@ -267,7 +267,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.line_9.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_9.setObjectName("line_9")
 		self.confirmbtn = QtWidgets.QPushButton(confirmWMaintenanceDialog)
-		self.confirmbtn.setGeometry(QtCore.QRect(559, 351, 140, 40))
+		self.confirmbtn.setGeometry(QtCore.QRect(670, 351, 140, 40))
 		font = QtGui.QFont()
 		font.setPointSize(11)
 		font.setBold(True)
@@ -277,6 +277,18 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 									  "background-color: rgb(0, 203, 0);")
 		self.confirmbtn.setObjectName("confirmbtn")
 		self.confirmbtn.setEnabled(False)
+
+
+		self.detailesbtn = QtWidgets.QPushButton(confirmWMaintenanceDialog)
+		self.detailesbtn.setGeometry(QtCore.QRect(420, 351, 100, 40))
+		font = QtGui.QFont()
+		font.setPointSize(11)
+		font.setBold(True)
+		font.setWeight(75)
+		self.detailesbtn.setFont(font)
+		self.detailesbtn.setObjectName("detailesbtn")
+		self.detailesbtn.setEnabled(False)
+
 		self.confirmbtn.clicked.connect(self.confirmMainte)
 		self.deletebtn.clicked.connect(self.do_delete)
 
@@ -302,6 +314,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.label_11.setText(_translate("confirmWMaintenanceDialog", "Labor Cost :"))
 		self.label_12.setText(_translate("confirmWMaintenanceDialog", "Total Cost :"))
 		self.confirmbtn.setText(_translate("confirmWMaintenanceDialog", "Confirm"))
+		self.detailesbtn.setText(_translate("confirmWMaintenanceDialog", "Details"))
 
 	def Clicked(self, item):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -358,3 +371,18 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 				, getMaintenanceHolded()[idx].customers.mobile_number
 				, getMaintenanceHolded()[idx].m_code
 				, None, None))
+
+	def detailsDia(self):
+		indexes = self.tableView.selectionModel().selectedRows(0)
+		for ind in sorted(indexes):
+			maint = select_maintenance_by_code(ind.data())
+
+		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
+		self.md = Ui_maintenanceDetailsDialog()
+		self.md.exec_()
+
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_confirmWMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

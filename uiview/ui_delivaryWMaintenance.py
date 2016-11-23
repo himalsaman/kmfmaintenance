@@ -155,7 +155,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
         self.deletebtn = QtWidgets.QPushButton(delivaryMaintenanceDialog)
-        self.deletebtn.setGeometry(QtCore.QRect(473, 462, 90, 40))
+        self.deletebtn.setGeometry(QtCore.QRect(580, 462, 90, 40))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
@@ -165,10 +165,14 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 "color: rgb(255, 255, 255);")
         self.deletebtn.setObjectName("deletebtn")
         self.closebtn = QtWidgets.QPushButton(delivaryMaintenanceDialog)
-        self.closebtn.setGeometry(QtCore.QRect(687, 462, 90, 40))
+        self.closebtn.setGeometry(QtCore.QRect(730, 462, 90, 40))
         self.closebtn.setObjectName("closebtn")
 
         self.closebtn.clicked.connect(self.close)
+
+        self.detailsbtn = QtWidgets.QPushButton(delivaryMaintenanceDialog)
+        self.detailsbtn.setGeometry(QtCore.QRect(430, 462, 90, 40))
+        self.detailsbtn.setObjectName("detailsbtn")
 
         self.line_4 = QtWidgets.QFrame(delivaryMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
@@ -256,7 +260,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.totalCostlbl.setStyleSheet("color: rgb(255, 0, 0);")
         self.totalCostlbl.setObjectName("totalCostlbl")
         self.line_8 = QtWidgets.QFrame(delivaryMaintenanceDialog)
-        self.line_8.setGeometry(QtCore.QRect(630, 462, 3, 40))
+        self.line_8.setGeometry(QtCore.QRect(715, 462, 3, 40))
         self.line_8.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_8.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_8.setObjectName("line_8")
@@ -346,6 +350,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.label_13.setText(_translate("delivaryMaintenanceDialog", "Created Date :"))
         self.label_14.setText(_translate("delivaryMaintenanceDialog", "Start Date :"))
         self.label_15.setText(_translate("delivaryMaintenanceDialog", "Finish Date :"))
+        self.detailsbtn.setText(_translate("delivaryMaintenanceDialog", "Details"))
 
     def Clicked(self, item):
         indexes = self.tableView.selectionModel().selectedRows(0)
@@ -403,3 +408,13 @@ class Ui_delivaryMaintenanceDialog(QDialog):
                 , getMaintenanceWaitingDelevary()[idx].customers.mobile_number
                 , getMaintenanceWaitingDelevary()[idx].m_code
                 , None, None))
+
+
+    def detailsDia(self):
+        indexes = self.tableView.selectionModel().selectedRows(0)
+        for ind in sorted(indexes):
+            maint = select_maintenance_by_code(ind.data())
+
+        from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
+        self.md = Ui_maintenanceDetailsDialog()
+        self.md.exec_()

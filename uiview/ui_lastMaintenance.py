@@ -155,6 +155,10 @@ class Ui_lastMaintenanceDialog(QDialog):
 
         self.closebtn.clicked.connect(self.close)
 
+        self.detailsbtn = QtWidgets.QPushButton(lastMaintenanceDialog)
+        self.detailsbtn.setGeometry(QtCore.QRect(430, 462, 90, 40))
+        self.detailsbtn.setObjectName("detailsbtn")
+
         self.line_4 = QtWidgets.QFrame(lastMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -357,6 +361,7 @@ class Ui_lastMaintenanceDialog(QDialog):
         self.label_15.setText(_translate("lastMaintenanceDialog", "Finish Date :"))
         self.label_16.setText(_translate("lastMaintenanceDialog", "Well Done, The Maintenance ("))
         self.label_17.setText(_translate("lastMaintenanceDialog", ") Is Good Job"))
+        self.detailsbtn.setText(_translate("lastMaintenanceDialog", "Details"))
 
 
     def Clicked(self, item):
@@ -380,3 +385,11 @@ class Ui_lastMaintenanceDialog(QDialog):
             self.finishlbl.setText(str(maint.close_at))
 
 
+    def detailsDia(self):
+        indexes = self.tableView.selectionModel().selectedRows(0)
+        for ind in sorted(indexes):
+            maint = select_maintenance_by_code(ind.data())
+
+        from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
+        self.md = Ui_maintenanceDetailsDialog()
+        self.md.exec_()

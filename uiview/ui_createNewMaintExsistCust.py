@@ -157,6 +157,8 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
         self.closebtn = QtWidgets.QPushButton(createNewMaintenanceForExistsCustDialog)
         self.closebtn.setGeometry(QtCore.QRect(631, 411, 90, 40))
         self.closebtn.setObjectName("closebtn")
+        self.closebtn.clicked.connect(self.close)
+
         self.line_5 = QtWidgets.QFrame(createNewMaintenanceForExistsCustDialog)
         self.line_5.setGeometry(QtCore.QRect(381, 397, 340, 20))
         self.line_5.setFrameShape(QtWidgets.QFrame.HLine)
@@ -201,8 +203,3 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
             self.cbom = Ui_createBOMDialog(maint)
             self.cbom.exec_()
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_createNewMaintenanceForExistsCustDialog()
-	window.show()
-	sys.exit(app.exec_())

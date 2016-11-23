@@ -209,6 +209,9 @@ class Ui_createBOMDialog(QDialog):
 		self.label_17.setObjectName("label_17")
 		self.closebtn = QtWidgets.QPushButton(self.bomgroupbox)
 		self.closebtn.setGeometry(QtCore.QRect(7, 239, 90, 40))
+
+		self.closebtn.clicked.connect(self.close)
+
 		self.closebtn.setObjectName("closebtn")
 		self.calcfinbtn = QtWidgets.QPushButton(self.bomgroupbox)
 		self.calcfinbtn.setGeometry(QtCore.QRect(654, 126, 80, 40))
@@ -454,9 +457,3 @@ class Ui_createBOMDialog(QDialog):
 			, timestampstr
 			  )
 
-
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_createBOMDialog()
-	cnc_dialog.show()
-	sys.exit(app.exec_())

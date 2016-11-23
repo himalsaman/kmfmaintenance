@@ -169,8 +169,3 @@ class Ui_deleteCustomer(QDialog):
 					delete_customer(selectedCust.id)
 					self.close()
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	dc_dialog = Ui_deleteCustomer()
-	dc_dialog.show()
-	sys.exit(app.exec_())

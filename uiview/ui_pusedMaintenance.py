@@ -8,13 +8,14 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QMessageBox
 
 from Control.BOMControl import creatBOMWithNewMAint
 from Control.maintenanceLogic import getMaintenancePused
 from Control.userControl import getLoginDataPKL
 from models.customersModel import select_customer_by_mob_num
 from models.dbUtile import Customers, Maintenance
-from models.maintenanceModel import select_maintenance_by_code
+from models.maintenanceModel import select_maintenance_by_code, delete_maintenance
 from uiview.uimodels.customerTableModel import CustomerTableModel
 
 
@@ -56,14 +57,16 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 		self.tableView.horizontalHeader().setCascadingSectionResizes(True)
 
-		self.tableData = CustomerTableModel()
-		self.tableView.setModel(self.tableData)
+		# self.tableData = CustomerTableModel()
+		# self.tableView.setModel(self.tableData)
 		self.tableView.setColumnWidth(0, 261)
 		self.tableView.setColumnWidth(1, 88)
-
+		self.tableData = CustomerTableModel()
+		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenancePused()):
 			self.tableData.addCustomer(Customers(getMaintenancePused()[idx].customers.name
-												 , getMaintenancePused()[idx].customers.mobile_number
+												 , getMaintenancePused()[
+													 idx].customers.mobile_number
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
 
@@ -160,6 +163,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		# Buttons Action
 		self.closebtn.clicked.connect(self.close)
 		self.createBOMbtn.clicked.connect(self.openCreateBom)
+		self.deletebtn.clicked.connect(self.do_delete)
 
 		self.retranslateUi(pusedMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(pusedMaintenanceDialog)
@@ -200,8 +204,22 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		self.cbom.exec_()
 
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_pusedMaintenanceDialog()
-	window.show()
-	sys.exit(app.exec_())
+	def do_delete(self):
+		indexes = self.tableView.selectionModel().selectedRows(0)
+		for ind in sorted(indexes):
+			maint = select_maintenance_by_code(ind.data())
+		reply = QMessageBox.question(QMessageBox(), "OOP'S",
+									 'Are you sure to delete ?\n Maintenance \n Code : {}'.format(
+										 maint.m_code) + '\n Customer Name : {}'.format(
+										 maint.customers.name) + '\n This Action Cant Undo',
+									 QMessageBox.Yes | QMessageBox.No)
+		if reply == QMessageBox.Yes:
+			delete_maintenance(maint.id)
+		self.tableData = CustomerTableModel()
+		self.tableView.setModel(self.tableData)
+		for idx, val in enumerate(getMaintenancePused()):
+			self.tableData.addCustomer(Customers(getMaintenancePused()[idx].customers.name
+												 , getMaintenancePused()[
+													 idx].customers.mobile_number
+												 , getMaintenancePused()[idx].m_code
+												 , None, None))

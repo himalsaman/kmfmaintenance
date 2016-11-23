@@ -10,11 +10,14 @@ from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceUnderProccessing
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
+from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM, delete_bill_of_material_item
+from models.billOfMaterialModel import select_bill_of_material_for_maintenance, delete_bill_of_material
 from models.dbUtile import Customers
-from models.maintenanceModel import select_maintenance_by_code, update_maintenance_confirm, update_maintenance_finish
+from models.maintenanceModel import select_maintenance_by_code, update_maintenance_confirm, update_maintenance_finish, \
+    delete_maintenance
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
 
@@ -165,6 +168,9 @@ class Ui_finishMaintenanceDialog(QDialog):
         self.closebtn = QtWidgets.QPushButton(finishMaintenanceDialog)
         self.closebtn.setGeometry(QtCore.QRect(687, 462, 90, 40))
         self.closebtn.setObjectName("closebtn")
+
+        self.closebtn.clicked.connect(self.close)
+
         self.line_4 = QtWidgets.QFrame(finishMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -318,6 +324,7 @@ class Ui_finishMaintenanceDialog(QDialog):
         self.label_15.setVisible(False)
         self.finishbtn.setEnabled(False)
         self.finishbtn.clicked.connect(self.do_finish)
+        self.deletebtn.clicked.connect(self.do_delete)
 
         self.retranslateUi(finishMaintenanceDialog)
         QtCore.QMetaObject.connectSlotsByName(finishMaintenanceDialog)
@@ -372,9 +379,32 @@ class Ui_finishMaintenanceDialog(QDialog):
         for ind in sorted(indexes):
             maint = select_maintenance_by_code(ind.data())
             update_maintenance_finish(maint.id,timestampstr)
+        self.tableData = MaintenanceTableModel()
+        self.tableView.setModel(self.tableData)
+        for idx, val in enumerate(getMaintenanceUnderProccessing()):
+            self.tableData.addCustomer(Customers(
+                getMaintenanceUnderProccessing()[idx].customers.name
+                , getMaintenanceUnderProccessing()[idx].customers.mobile_number
+                , getMaintenanceUnderProccessing()[idx].m_code
+                , None, None))
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_finishMaintenanceDialog()
-	window.show()
-	sys.exit(app.exec_())
+
+    def do_delete(self):
+        indexes = self.tableView.selectionModel().selectedRows(0)
+        for ind in sorted(indexes):
+            maint = select_maintenance_by_code(ind.data())
+        reply = QMessageBox.question(QMessageBox(), "OOP'S",
+                                     'Are you sure to delete ?\n Maintenance \n Code : {}'.format(
+                                         maint.m_code) + '\n Customer Name : {}'.format(
+                                         maint.customers.name) + '\n This Action Cant Undo',
+                                     QMessageBox.Yes | QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            delete_maintenance(maint.id)
+        self.tableData = MaintenanceTableModel()
+        self.tableView.setModel(self.tableData)
+        for idx, val in enumerate(getMaintenanceUnderProccessing()):
+            self.tableData.addCustomer(Customers(
+                getMaintenanceUnderProccessing()[idx].customers.name
+                , getMaintenanceUnderProccessing()[idx].customers.mobile_number
+                , getMaintenanceUnderProccessing()[idx].m_code
+                , None, None))

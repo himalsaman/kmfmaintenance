@@ -293,10 +293,11 @@ class Maintenance(Base):
 	start_date = Column(TIMESTAMP)  # actually date for start
 	done_date = Column(TIMESTAMP)  # actually date for finish maintenance
 	m_code = Column(String(100))
+	hidden = Column(Integer)
 
 	def __init__(self, m_code, customer_id, cost_of_bill_of_material, cost_of_labor,
 				 cost_of_another, cost_of_another_description, created_at, close_at,
-				 product_of_maintenance, maintenance_description, start_date, done_date):
+				 product_of_maintenance, maintenance_description, start_date, done_date, hidden):
 		self.m_code = m_code
 		self.customers_id = customer_id
 		self.cost_of_bill_of_material = cost_of_bill_of_material
@@ -309,6 +310,7 @@ class Maintenance(Base):
 		self.maintenance_description = maintenance_description
 		self.start_date = start_date
 		self.done_date = done_date
+		self.hidden = hidden
 
 	# self.customers = customers
 	# self.bill_of_material_id = bill_of_material_id
@@ -334,7 +336,8 @@ class Maintenance(Base):
 																		 "product_of_maintenance ="'{}'.format(
 			self.product_of_maintenance) + "\n" \
 										   "maintenance_description = "'{}'.format(self.maintenance_description) + "\n" \
-																												   "start_date = "'{}'.format(
+																												   "hidden = "'{}'.format(
+			self.hidden) + "\n" + "start_date = "'{}'.format(
 			self.start_date) + "\n" \
 							   "done_date = "'{}'.format(self.done_date) + ")>"
 

@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.bomItemControl import createNewBOMItem
@@ -67,6 +68,11 @@ class Ui_addRMBOMItemDialog(QDialog):
 		self.reqqtyled = QtWidgets.QLabel(addRMBOMItemDialog)
 		self.reqqtyled.setGeometry(QtCore.QRect(478, 127, 130, 13))
 		self.reqqtyled.setObjectName("reqqtyled")
+
+
+		# self.reqqtyled_2.setValidator(QValidator())
+
+
 		self.rmdefaultsizeled = QtWidgets.QLineEdit(addRMBOMItemDialog)
 		self.rmdefaultsizeled.setEnabled(False)
 		self.rmdefaultsizeled.setGeometry(QtCore.QRect(452, 90, 160, 20))
@@ -163,7 +169,3 @@ def before(value, a):
 	if pos_a == -1: return ""
 	return value[0:pos_a]
 
-
-if __name__ == "__main__":
-	cnc_dialog = Ui_addRMBOMItemDialog()
-	cnc_dialog.show()

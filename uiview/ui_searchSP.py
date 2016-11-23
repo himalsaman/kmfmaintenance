@@ -8,8 +8,10 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QMessageBox
 
-from models.sparePartsModel import select_spare_parts_bygen_code, select_spare_parts
+from models.sparePartsModel import select_spare_parts_bygen_code, select_spare_parts, select_spare_parts_bycode, \
+    delete_spare_parts
 
 
 class Ui_searchSPDialog(QDialog):
@@ -175,6 +177,8 @@ class Ui_searchSPDialog(QDialog):
         self.closebtn = QtWidgets.QPushButton(self.groupBox_4)
         self.closebtn.setGeometry(QtCore.QRect(246, 9, 75, 40))
         self.closebtn.setObjectName("closebtn")
+        self.closebtn.clicked.connect(self.close)
+        self.deletebtn.clicked.connect(self.do_delete)
 
         self.retranslateUi(searchSPDialog)
         QtCore.QMetaObject.connectSlotsByName(searchSPDialog)
@@ -230,6 +234,16 @@ class Ui_searchSPDialog(QDialog):
         else:
             self.label_10.setText("You must select one method for search !")
 
+    def do_delete(self):
+        code = self.codeled.text()
+        if select_spare_parts_bycode(code):
+            rawMat = select_spare_parts_bycode(code)
+        reply = QMessageBox.question(QMessageBox(), "OOP'S",
+                                     'Are you sure to delete ?\n Spare Part \n Code : {}'.format(
+                                         rawMat.code) + '\n System Code : {}'.format(rawMat.gen_code) + '\n Name : {}'.format(rawMat.name) + '\n This Action Cant Undo',
+                                     QMessageBox.Yes | QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            delete_spare_parts(rawMat.id)
 
 
 def before(value, a):
@@ -238,8 +252,3 @@ def before(value, a):
     if pos_a == -1: return ""
     return value[0:pos_a]
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_searchSPDialog()
-	cnc_dialog.show()
-	sys.exit(app.exec_())

@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.customerControl import validCustomer
@@ -48,6 +49,7 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 		self.mobcustled = QtWidgets.QLineEdit(createNewCustomer)
 		self.mobcustled.setGeometry(QtCore.QRect(63, 79, 191, 20))
 		self.mobcustled.setObjectName("mobcustled")
+		self.mobcustled.setValidator(QIntValidator())
 		self.citycmbx = QtWidgets.QComboBox(createNewCustomer)
 		self.citycmbx.setGeometry(QtCore.QRect(60, 110, 171, 22))
 		self.citycmbx.setObjectName("citycmbx")
@@ -161,7 +163,3 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 			else:
 				self.statuslbl.setText('This customer is already exists ')
 
-
-if __name__ == "__main__":
-	cnc_dialog = Ui_createNewCustomerWithMaintenance()
-	cnc_dialog.show()

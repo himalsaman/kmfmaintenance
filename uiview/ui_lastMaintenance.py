@@ -152,6 +152,9 @@ class Ui_lastMaintenanceDialog(QDialog):
         self.closebtn = QtWidgets.QPushButton(lastMaintenanceDialog)
         self.closebtn.setGeometry(QtCore.QRect(730, 462, 90, 40))
         self.closebtn.setObjectName("closebtn")
+
+        self.closebtn.clicked.connect(self.close)
+
         self.line_4 = QtWidgets.QFrame(lastMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -377,8 +380,3 @@ class Ui_lastMaintenanceDialog(QDialog):
             self.finishlbl.setText(str(maint.close_at))
 
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_lastMaintenanceDialog()
-	window.show()
-	sys.exit(app.exec_())

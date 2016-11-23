@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
@@ -158,6 +159,7 @@ class Ui_editSPDialog(QDialog):
         self.newcostled = QtWidgets.QLineEdit(editSPDialog)
         self.newcostled.setGeometry(QtCore.QRect(603, 311, 110, 20))
         self.newcostled.setObjectName("newcostled")
+        self.newcostled.setValidator(QDoubleValidator())
         self.updatecostbtn = QtWidgets.QPushButton(editSPDialog)
         self.updatecostbtn.setGeometry(QtCore.QRect(724, 309, 75, 23))
         self.updatecostbtn.setObjectName("updatecostbtn")
@@ -337,8 +339,3 @@ def before(value, a):
     if pos_a == -1: return ""
     return value[0:pos_a]
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    cnc_dialog = Ui_editSPDialog()
-    cnc_dialog.show()
-    sys.exit(app.exec_())

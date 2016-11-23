@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.bomItemControl import createNewBOMItem
@@ -64,6 +65,8 @@ class Ui_addSPBOMItemDialog(QDialog):
         self.reqqtyled_2 = QtWidgets.QLineEdit(addSPBOMItemDialog)
         self.reqqtyled_2.setGeometry(QtCore.QRect(466, 145, 150, 20))
         self.reqqtyled_2.setObjectName("reqqtyled_2")
+        # self.reqqtyled_2.setValidator(QValidator())
+
         self.reqqtyled = QtWidgets.QLabel(addSPBOMItemDialog)
         self.reqqtyled.setGeometry(QtCore.QRect(478, 127, 130, 13))
         self.reqqtyled.setObjectName("reqqtyled")
@@ -94,6 +97,9 @@ class Ui_addSPBOMItemDialog(QDialog):
         self.closebtn = QtWidgets.QPushButton(addSPBOMItemDialog)
         self.closebtn.setGeometry(QtCore.QRect(548, 190, 70, 30))
         self.closebtn.setObjectName("closebtn")
+
+        self.closebtn.clicked.connect(self.close)
+
         self.listView = QtWidgets.QListWidget(addSPBOMItemDialog)
         self.listView.setGeometry(QtCore.QRect(10, 30, 360, 192))
         self.listView.setObjectName("listView")
@@ -159,9 +165,3 @@ def before(value, a):
     return value[0:pos_a]
 
 
-if __name__ == "__main__":
-    # app = QtWidgets.QApplication(sys.argv)
-
-    cnc_dialog = Ui_addSPBOMItemDialog()
-    cnc_dialog.show()
-    # sys.exit(app.exec_())

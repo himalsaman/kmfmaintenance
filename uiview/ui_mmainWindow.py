@@ -5,6 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+import os
 import sys
 from datetime import datetime
 
@@ -21,10 +22,15 @@ from models.customersModel import select_all_customers
 from models.rawMaterialModel import select_all_raw_material
 from models.sparePartsModel import select_all_spare_parts
 
-
+# get now time
+datetimestr = datetime.now()
+timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
 class Ui_MMainWindow(QMainWindow):
+
+
 	def __init__(self, parent=None):
 		super(Ui_MMainWindow, self).__init__()
+
 		self.setupUi(self)
 
 	def setupUi(self, MMainWindow):
@@ -193,7 +199,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_13.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_13.setObjectName("line_13")
 		self.closebtn = QtWidgets.QPushButton(self.centralwidget)
-		self.closebtn.setGeometry(QtCore.QRect(638, 459, 90, 50))
+		self.closebtn.setGeometry(QtCore.QRect(710, 459, 90, 50))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
@@ -544,6 +550,17 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.reportbtn.setFont(font)
 		self.reportbtn.setObjectName("reportbtn")
+		####################################################################
+		self.refreshbtn = QtWidgets.QPushButton(self.centralwidget)
+		self.refreshbtn.setGeometry(QtCore.QRect(548, 459, 100, 50))
+		font = QtGui.QFont()
+		font.setBold(True)
+		font.setWeight(95)
+		self.refreshbtn.setFont(font)
+		self.refreshbtn.setObjectName("reportbtn")
+		self.refreshbtn.setStyleSheet("color: rgb(255, 255, 255);\n"
+									   "background-color: rgb(0, 203, 0);")
+		####################################################################
 		MMainWindow.setCentralWidget(self.centralwidget)
 		self.menubar = QtWidgets.QMenuBar(MMainWindow)
 		self.menubar.setGeometry(QtCore.QRect(0, 0, 816, 21))
@@ -632,9 +649,7 @@ class Ui_MMainWindow(QMainWindow):
 
 		# hid add labor cost button
 		self.alocmbtn.setVisible(False)
-		# get now time
-		datetimestr = datetime.now()
-		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
+
 		self.datetimelbl.setText(timestampstr)
 		# actions of menu bar
 
@@ -686,6 +701,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.cnmecbtn.clicked.connect(self.openNewNaintenanceExtCustomer)
 		self.retranslateUi(MMainWindow)
 		QtCore.QMetaObject.connectSlotsByName(MMainWindow)
+		self.refreshbtn.clicked.connect(self.do_refresh)
+
 
 	def retranslateUi(self, MMainWindow):
 		_translate = QtCore.QCoreApplication.translate
@@ -746,6 +763,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.loctextlbl.setText(_translate("MMainWindow", "Total of Maintenance\'s\n"
 														  " Without Labor Cost"))
 		self.locbtn.setText(_translate("MMainWindow", "Browse"))
+		self.refreshbtn.setText(_translate("MMainWindow", "Refresh"))
 
 	def doLogout(self):
 		reply = QMessageBox.question(QMessageBox(), 'Logout', 'Are you sure to logout ?',
@@ -854,8 +872,30 @@ class Ui_MMainWindow(QMainWindow):
 		from uiview.ui_createNewMaintExsistCust import Ui_createNewMaintenanceForExistsCustDialog
 		self.pmd = Ui_createNewMaintenanceForExistsCustDialog()
 		self.pmd.exec_()
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_MMainWindow()
-	window.show()
-	sys.exit(app.exec_())
+
+
+
+	def do_refresh(self):
+		self.datetimelbl.setText(timestampstr)
+
+		# labels counting
+		self.tmplbl.setText(str(len(getMaintenancePused())))
+		self.tmhlbl.setText(str(len(getMaintenanceHolded())))
+		self.tmuplbl.setText(str(len(getMaintenanceUnderProccessing())))
+		self.tmfwpdlbl.setText(str(len(getMaintenanceWaitingDelevary())))
+		self.tmfpdlbl.setText(str(len(getMaintenanceFinishedAndDelivared())))
+		self.loclbl.setText(str(len(getMaintenanceWaitLaborCost())))
+
+		# label cost counting
+		self.tctmhlbl.setText(str(getMaintenanceCalcCost()))
+		self.tctmuplbl.setText(str(getMaintenanceUnderProccessingCost()))
+		self.tctmfpdlbl.setText(str(getMaintenanceFinishedAndDelivaredCost()))
+		self.tprmlbl.setText(str(len(select_all_raw_material())))
+		self.tpsplbl.setText(str(len(select_all_spare_parts())))
+		self.tclbl.setText(str(len(select_all_customers())))
+
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_MMainWindow()
+# 	myapp.show()
+# 	app.exec_()

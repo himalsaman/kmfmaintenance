@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.userControl import getLoginDataPKL
@@ -169,7 +170,7 @@ class Ui_updateCustomer(QDialog):
 		self.searchButton = QtWidgets.QPushButton(updateCustomer)
 		self.searchButton.setGeometry(QtCore.QRect(272, 45, 61, 31))
 		self.searchButton.setObjectName("searchButton")
-
+		self.mobcustled.setValidator(QIntValidator())
 		self.searchButton.clicked.connect(self.searchCustomer)
 
 		self.searchled = QtWidgets.QLineEdit(updateCustomer)
@@ -245,8 +246,3 @@ class Ui_updateCustomer(QDialog):
 			self.close()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_updateCustomer()
-	cnc_dialog.show()
-	sys.exit(app.exec_())

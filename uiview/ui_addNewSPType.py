@@ -8,6 +8,7 @@
 import random
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.userControl import getLoginDataPKL
@@ -77,6 +78,7 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.spcostled = QtWidgets.QLineEdit(addNewSPTypeDialog)
 		self.spcostled.setGeometry(QtCore.QRect(311, 143, 140, 20))
 		self.spcostled.setObjectName("spcostled")
+		self.spcostled.setValidator(QDoubleValidator())
 		self.savebtn = QtWidgets.QPushButton(addNewSPTypeDialog)
 		self.savebtn.setGeometry(QtCore.QRect(148, 223, 72, 41))
 		self.savebtn.setObjectName("savebtn")
@@ -142,8 +144,3 @@ class Ui_addNewSPTypeDialog(QDialog):
 			self.statulbl.setText(name + ", added successfully")
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_addNewSPTypeDialog()
-	cnc_dialog.show()
-	sys.exit(app.exec_())

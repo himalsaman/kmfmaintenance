@@ -7,12 +7,15 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QDoubleValidator, QDoubleValidator
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceWaitLaborCost
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
+from models.billOfMaterialItemModel import delete_bill_of_material_item, select_bill_of_material_item_for_BOM
+from models.billOfMaterialModel import select_bill_of_material_for_maintenance, delete_bill_of_material
 from models.dbUtile import Customers
-from models.maintenanceModel import select_maintenance_by_code, update_maintenance
+from models.maintenanceModel import select_maintenance_by_code, update_maintenance, delete_maintenance
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
 
@@ -166,6 +169,9 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.closebtn = QtWidgets.QPushButton(costHoldedMaintenanceDialog)
 		self.closebtn.setGeometry(QtCore.QRect(687, 414, 90, 40))
 		self.closebtn.setObjectName("closebtn")
+
+		self.closebtn.clicked.connect(self.close)
+
 		self.line_4 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
 		self.line_4.setGeometry(QtCore.QRect(416, 391, 410, 20))
 		self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -229,6 +235,9 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.laborled = QtWidgets.QLineEdit(costHoldedMaintenanceDialog)
 		self.laborled.setGeometry(QtCore.QRect(682, 242, 100, 30))
 		self.laborled.setObjectName("laborled")
+
+		self.laborled.setValidator(QDoubleValidator())
+
 		self.line_6 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
 		self.line_6.setGeometry(QtCore.QRect(418, 343, 410, 3))
 		self.line_6.setFrameShape(QtWidgets.QFrame.HLine)
@@ -257,6 +266,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.line_8.setObjectName("line_8")
 		self.calcbtn.setEnabled(False)
 		self.calcbtn.clicked.connect(self.do_addLaborCost)
+		self.deletebtn.clicked.connect(self.do_delete)
 
 		self.retranslateUi(costHoldedMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(costHoldedMaintenanceDialog)
@@ -307,8 +317,30 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 							   maint.product_of_maintenance, maint.maintenance_description,
 							   maint.start_date, maint.done_date)
 			self.totalCostlbl.setText(str(maint.cost_of_bill_of_material + maint.cost_of_labor))
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_costHoldedMaintenanceDialog()
-	window.show()
-	sys.exit(app.exec_())
+			self.tableData = MaintenanceTableModel()
+			self.tableView.setModel(self.tableData)
+			for idx, val in enumerate(getMaintenanceWaitLaborCost()):
+				self.tableData.addCustomer(Customers(
+					getMaintenanceWaitLaborCost()[idx].customers.name
+					, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
+					, getMaintenanceWaitLaborCost()[idx].m_code
+					, None, None))
+	def do_delete(self):
+		indexes = self.tableView.selectionModel().selectedRows(0)
+		for ind in sorted(indexes):
+			maint = select_maintenance_by_code(ind.data())
+		reply = QMessageBox.question(QMessageBox(), "OOP'S",
+									 'Are you sure to delete ?\n Maintenance \n Code : {}'.format(
+										 maint.m_code) + '\n Customer Name : {}'.format(
+										 maint.customers.name) + '\n This Action Cant Undo',
+									 QMessageBox.Yes | QMessageBox.No)
+		if reply == QMessageBox.Yes:
+			delete_maintenance(maint.id)
+		self.tableData = MaintenanceTableModel()
+		self.tableView.setModel(self.tableData)
+		for idx, val in enumerate(getMaintenanceWaitLaborCost()):
+			self.tableData.addCustomer(Customers(
+				getMaintenanceWaitLaborCost()[idx].customers.name
+				, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
+				, getMaintenanceWaitLaborCost()[idx].m_code
+												 , None, None))

@@ -7,9 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QMessageBox
 
-from models.rawMaterialModel import select_row_material, select_row_material_bycode
+from models.rawMaterialModel import select_row_material, select_row_material_bycode, delete_raw_material
 
 
 class Ui_searchRMDialog(QDialog):
@@ -186,6 +186,8 @@ class Ui_searchRMDialog(QDialog):
 		self.closebtn = QtWidgets.QPushButton(self.groupBox_4)
 		self.closebtn.setGeometry(QtCore.QRect(246, 9, 75, 40))
 		self.closebtn.setObjectName("closebtn")
+		self.closebtn.clicked.connect(self.close)
+		self.deletebtn.clicked.connect(self.do_delete)
 
 		self.retranslateUi(searchRMDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchRMDialog)
@@ -226,8 +228,8 @@ class Ui_searchRMDialog(QDialog):
 			search_key = 'string_size'
 		elif self.srcoderbtn.isChecked():
 			search_key = 'code'
-		if self.srnamerbtn.isChecked()or self.srunitrbtn.isChecked() or self.srsizerbtn.isChecked() or \
-				self.srcoderbtn.isChecked():
+		if self.srnamerbtn.isChecked()or self.srunitrbtn.isChecked() or self.srsizerbtn.isChecked(
+			) or self.srcoderbtn.isChecked():
 			for item in select_row_material(search_key, self.searchled.text()):
 				self.searchResultlistWidget.addItem(item.code + " - " + item.name)
 		else :
@@ -248,6 +250,14 @@ class Ui_searchRMDialog(QDialog):
 			self.invQtyled.setText(str(rawMat.inv_qty))
 		return rawMat
 
+	def do_delete(self):
+		code = self.codeled.text()
+		if select_row_material_bycode(code):
+			rawMat = select_row_material_bycode(code)
+		reply = QMessageBox.question(QMessageBox(), "OOP'S", 'Are you sure to delete ?\n Raw Material \n Code : {}'.format(rawMat.code)+'\n Name : {}'.format(rawMat.name)+'\n This Action Cant Undo',
+									 QMessageBox.Yes | QMessageBox.No)
+		if reply == QMessageBox.Yes:
+			delete_raw_material(rawMat.id)
 
 def before(value, a):
 	# Find first part and return slice before it.
@@ -256,8 +266,3 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_searchRMDialog()
-	cnc_dialog.show()
-	sys.exit(app.exec_())

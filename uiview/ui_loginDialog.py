@@ -92,6 +92,7 @@ class Ui_loginDialog(QDialog):
 		self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line.setObjectName("line")
 
+
 		self.retranslateUi(loginDialog)
 		QtCore.QMetaObject.connectSlotsByName(loginDialog)
 
@@ -121,4 +122,4 @@ if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_loginDialog()
 	myapp.show()
-	sys.exit(app.exec_())
+	app.exec_()

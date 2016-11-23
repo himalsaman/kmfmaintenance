@@ -10,11 +10,13 @@ from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceWaitingDelevary
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
+from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM, delete_bill_of_material_item
+from models.billOfMaterialModel import select_bill_of_material_for_maintenance, delete_bill_of_material
 from models.dbUtile import Customers
-from models.maintenanceModel import select_maintenance_by_code, update_maintenance_close
+from models.maintenanceModel import select_maintenance_by_code, update_maintenance_close, delete_maintenance
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
 datetimestr = datetime.now()
@@ -165,6 +167,9 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.closebtn = QtWidgets.QPushButton(delivaryMaintenanceDialog)
         self.closebtn.setGeometry(QtCore.QRect(687, 462, 90, 40))
         self.closebtn.setObjectName("closebtn")
+
+        self.closebtn.clicked.connect(self.close)
+
         self.line_4 = QtWidgets.QFrame(delivaryMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -315,6 +320,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.finishlbl.setStyleSheet("color: rgb(255, 0, 0);")
         self.finishlbl.setObjectName("finishlbl")
         self.delivarybtn.setEnabled(False)
+        self.deletebtn.clicked.connect(self.do_delete)
 
         self.retranslateUi(delivaryMaintenanceDialog)
         QtCore.QMetaObject.connectSlotsByName(delivaryMaintenanceDialog)
@@ -368,8 +374,32 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         for ind in sorted(indexes):
             maint = select_maintenance_by_code(ind.data())
             update_maintenance_close(maint.id, timestampstr)
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	window = Ui_delivaryMaintenanceDialog()
-	window.show()
-	sys.exit(app.exec_())
+        self.tableData = MaintenanceTableModel()
+        self.tableView.setModel(self.tableData)
+        for idx, val in enumerate(getMaintenanceWaitingDelevary()):
+            self.tableData.addCustomer(Customers(
+                getMaintenanceWaitingDelevary()[idx].customers.name
+                , getMaintenanceWaitingDelevary()[idx].customers.mobile_number
+                , getMaintenanceWaitingDelevary()[idx].m_code
+                , None, None))
+
+
+    def do_delete(self):
+        indexes = self.tableView.selectionModel().selectedRows(0)
+        for ind in sorted(indexes):
+            maint = select_maintenance_by_code(ind.data())
+        reply = QMessageBox.question(QMessageBox(), "OOP'S",
+                                     'Are you sure to delete ?\n Maintenance \n Code : {}'.format(
+                                         maint.m_code) + '\n Customer Name : {}'.format(
+                                         maint.customers.name) + '\n This Action Cant Undo',
+                                     QMessageBox.Yes | QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            delete_maintenance(maint.id)
+        self.tableData = MaintenanceTableModel()
+        self.tableView.setModel(self.tableData)
+        for idx, val in enumerate(getMaintenanceWaitingDelevary()):
+            self.tableData.addCustomer(Customers(
+                getMaintenanceWaitingDelevary()[idx].customers.name
+                , getMaintenanceWaitingDelevary()[idx].customers.mobile_number
+                , getMaintenanceWaitingDelevary()[idx].m_code
+                , None, None))

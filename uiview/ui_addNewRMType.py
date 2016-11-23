@@ -5,9 +5,11 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+import os
 import random
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.userControl import getLoginDataPKL
@@ -96,6 +98,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.rmcostled = QtWidgets.QLineEdit(addNewRMTypeDialog)
 		self.rmcostled.setGeometry(QtCore.QRect(334, 139, 140, 20))
 		self.rmcostled.setObjectName("rmcostled")
+		self.rmcostled.setValidator(QDoubleValidator())
 		self.savebtn = QtWidgets.QPushButton(addNewRMTypeDialog)
 		self.savebtn.setGeometry(QtCore.QRect(148, 260, 72, 41))
 		self.savebtn.setObjectName("savebtn")
@@ -106,7 +109,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.cancelbtn.setGeometry(QtCore.QRect(256, 260, 72, 41))
 		self.cancelbtn.setObjectName("cancelbtn")
 
-		self.cancelbtn.clicked.connect(self.close)
+		self.cancelbtn.clicked.connect(self.do_exit)
 
 		self.statulbl = QtWidgets.QLabel(addNewRMTypeDialog)
 		self.statulbl.setGeometry(QtCore.QRect(16, 214, 461, 41))
@@ -178,9 +181,8 @@ class Ui_addNewRMTypeDialog(QDialog):
 			add_raw_material(name, gencode, defsize, strsize, unit, cost, invqty)
 			self.statulbl.setText(name + ", added successfully")
 
+	def do_exit(self):
+		# from uiview.ui_mmainWindow import Ui_MMainWindow
+		self.close()
+		# Ui_MMainWindow.do_refresh
 
-if __name__ == "__main__":
-	# app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_addNewRMTypeDialog()
-	cnc_dialog.show()
-	# sys.exit(app.exec_())

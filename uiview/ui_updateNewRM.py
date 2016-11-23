@@ -13,6 +13,7 @@ from PyQt5.QtCore import QAbstractListModel
 from PyQt5.QtCore import QModelIndex
 from PyQt5.QtCore import QVariant
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
@@ -193,6 +194,7 @@ class Ui_editRWDialog(QDialog):
         self.newcostled = QtWidgets.QLineEdit(editRWDialog)
         self.newcostled.setGeometry(QtCore.QRect(603, 311, 110, 20))
         self.newcostled.setObjectName("newcostled")
+        self.newcostled.setValidator(QDoubleValidator())
         self.updatecostbtn = QtWidgets.QPushButton(editRWDialog)
         self.updatecostbtn.setGeometry(QtCore.QRect(724, 309, 75, 23))
         self.updatecostbtn.setObjectName("updatecostbtn")
@@ -383,8 +385,3 @@ def before(value, a):
     if pos_a == -1: return ""
     return value[0:pos_a]
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    cnc_dialog = Ui_editRWDialog()
-    cnc_dialog.show()
-    sys.exit(app.exec_())

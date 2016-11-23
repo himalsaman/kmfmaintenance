@@ -124,8 +124,3 @@ class Ui_changePasswordDilaod(QDialog):
             self.statuslbl.setText('New Password / Re-New Password not match')
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    cp_dialog = Ui_changePasswordDilaod()
-    cp_dialog.show()
-    sys.exit(app.exec_())

@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.customerControl import validCustomer
@@ -45,6 +46,7 @@ class Ui_createNewCustomer(QDialog):
 		self.mobcustled = QtWidgets.QLineEdit(createNewCustomer)
 		self.mobcustled.setGeometry(QtCore.QRect(63, 79, 191, 20))
 		self.mobcustled.setObjectName("mobcustled")
+		self.mobcustled.setValidator(QIntValidator())
 		self.citycmbx = QtWidgets.QComboBox(createNewCustomer)
 		self.citycmbx.setGeometry(QtCore.QRect(60, 110, 171, 22))
 		self.citycmbx.setObjectName("citycmbx")
@@ -111,6 +113,7 @@ class Ui_createNewCustomer(QDialog):
 		self.label_5 = QtWidgets.QLabel(self.layoutWidget)
 		self.label_5.setObjectName("label_5")
 		self.verticalLayout.addWidget(self.label_5)
+		self.malebtn.setChecked(True)
 
 		self.retranslateUi(createNewCustomer)
 		QtCore.QMetaObject.connectSlotsByName(createNewCustomer)
@@ -130,23 +133,24 @@ class Ui_createNewCustomer(QDialog):
 		self.label_5.setText(_translate("createNewCustomer", "Gender :"))
 
 	def do_createNewCustomer(self):
-		name = self.custnameled.text()
-		mobileNumber = self.mobcustled.text()
-		if self.malebtn.isChecked():
-			gndr = 'male'
-		elif self.femalerbtn.isChecked():
-			gndr = 'female'
-		age = self.agespin.text()
-		city_id = self.citycmbx.currentIndex()
-		if validCustomer(name, mobileNumber, gndr, age, city_id):
-			self.statuslbl.setText('A new customer added successfully ')
-			self.close()
+		if self.custnameled.text() == None or self.mobcustled.text() == None or self.agespin.value() == 0 or  self.citycmbx.currentIndex() == 0 :
+			self.statuslbl.setText('')
+			self.statuslbl.setText('All fields are required ')
 		else:
-			self.statuslbl.setText('This customer is already exist')
+			name = self.custnameled.text()
+			mobileNumber = self.mobcustled.text()
+			if self.malebtn.isChecked():
+				gndr = 'male'
+			elif self.femalerbtn.isChecked():
+				gndr = 'female'
+
+			age = self.agespin.text()
+			city_id = self.citycmbx.currentIndex()
+			if validCustomer(name, mobileNumber, gndr, age, city_id):
+				self.statuslbl.setText('A new customer added successfully ')
+				self.close()
+			else:
+				self.statuslbl.setText('This customer is already exist')
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	cnc_dialog = Ui_createNewCustomer()
-	cnc_dialog.show()
-	sys.exit(app.exec_())
+

@@ -59,8 +59,8 @@ def select_bill_of_material_by_code(value):
 # select bill of material for maintenance
 def select_bill_of_material_for_maintenance(maintenance_id):
 	try:
-		res = session.query(BillOfMaterial).filter(BillOfMaterial.maintenance_id == maintenance_id).one()
-		return res
+		return session.query(BillOfMaterial).filter(BillOfMaterial.maintenance_id == maintenance_id).one()
+
 	except NoResultFound:
 		return False
 

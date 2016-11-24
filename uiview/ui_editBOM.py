@@ -46,6 +46,7 @@ class Ui_editBOMDialog(QDialog):
 		self.loggedUserlbl.setFont(font)
 		self.loggedUserlbl.setText("")
 		self.loggedUserlbl.setObjectName("loggedUserlbl")
+		self.loggedUserlbl.setText(getLoginDataPKL()['name'])
 		self.line = QtWidgets.QFrame(editBOMDialog)
 		self.line.setGeometry(QtCore.QRect(12, 20, 740, 3))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)

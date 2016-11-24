@@ -10,6 +10,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
+from Control.userControl import getLoginDataPKL
 from models.rawMaterialModel import select_row_material, select_row_material_bycode, delete_raw_material
 
 
@@ -33,6 +34,7 @@ class Ui_searchRMDialog(QDialog):
 		self.loggeduserlbl.setFont(font)
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
+		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
 		self.line = QtWidgets.QFrame(searchRMDialog)
 		self.line.setGeometry(QtCore.QRect(6, 29, 700, 3))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)

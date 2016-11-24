@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QDialog
 
 from Control.customerControl import getAllcustomers
 from Control.maintenanceLogic import creatMaintenanceExtCustomer
+from Control.userControl import getLoginDataPKL
 from models.cityModel import select_city_by_id
 from models.customersModel import select_customer_by_mob_num
 from models.dbUtile import Customers
@@ -68,6 +69,7 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
 		self.loggeduser.setFont(font)
 		self.loggeduser.setText("")
 		self.loggeduser.setObjectName("loggeduser")
+		self.loggeduser.setText(getLoginDataPKL()['name'])
 		self.label_2 = QtWidgets.QLabel(createNewMaintenanceForExistsCustDialog)
 		self.label_2.setGeometry(QtCore.QRect(10, 29, 150, 13))
 		self.label_2.setObjectName("label_2")
@@ -198,8 +200,8 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
 			self.cbom = Ui_createBOMDialog(maint)
 			self.cbom.exec_()
 
-			# if __name__ == "__main__":
-			# 	app = QtWidgets.QApplication(sys.argv)
-			# 	myapp = Ui_createNewMaintenanceForExistsCustDialog()
-			# 	myapp.show()
-			# 	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_createNewMaintenanceForExistsCustDialog()
+# 	myapp.show()
+# 	app.exec_()

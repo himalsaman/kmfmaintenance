@@ -874,8 +874,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.tpsplbl.setText(str(len(select_all_spare_parts())))
 		self.tclbl.setText(str(len(select_all_customers())))
 
-	# if __name__ == "__main__":
-	# 	app = QtWidgets.QApplication(sys.argv)
-	# 	myapp = Ui_MMainWindow()
-	# 	myapp.show()
-	# 	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_MMainWindow()
+# 	myapp.show()
+# 	app.exec_()

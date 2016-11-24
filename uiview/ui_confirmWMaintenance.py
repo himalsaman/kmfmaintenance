@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceHolded
 from Control.materialsControl import decreaseRawMaterialInvQty, decreaseSparePartsInvQty
+from Control.userControl import getLoginDataPKL
 from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
@@ -41,6 +42,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.loggeduser.setFont(font)
 		self.loggeduser.setText("")
 		self.loggeduser.setObjectName("loggeduser")
+		self.loggeduser.setText(getLoginDataPKL()['name'])
 		self.line = QtWidgets.QFrame(confirmWMaintenanceDialog)
 		self.line.setGeometry(QtCore.QRect(3, 28, 820, 3))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -382,8 +384,8 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.md.exec_()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_confirmWMaintenanceDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_confirmWMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

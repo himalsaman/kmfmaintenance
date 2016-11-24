@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
+from Control.userControl import getLoginDataPKL
 from models.sparePartsModel import select_spare_parts_bygen_code, select_spare_parts, select_spare_parts_bycode, \
 	delete_spare_parts
 
@@ -32,6 +33,7 @@ class Ui_searchSPDialog(QDialog):
 		self.loggeduserlbl.setFont(font)
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
+		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
 		self.line = QtWidgets.QFrame(searchSPDialog)
 		self.line.setGeometry(QtCore.QRect(6, 29, 700, 3))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)

@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
 from Control.BOMControl import getAllItemForBOM
+from Control.userControl import getLoginDataPKL
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import BillOfMaterialItem
 from uiview.uimodels.bomItemTableModel import BomItemTableModel
@@ -35,6 +36,7 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		self.loggeduserlbl.setFont(font)
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
+		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
 		self.label_3 = QtWidgets.QLabel(maintenanceDetailsDialog)
 		self.label_3.setGeometry(QtCore.QRect(10, 33, 90, 13))
 		self.label_3.setObjectName("label_3")

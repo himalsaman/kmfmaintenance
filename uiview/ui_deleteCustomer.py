@@ -179,8 +179,8 @@ class Ui_deleteCustomer(QDialog):
 				self.hd.exec_()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_deleteCustomer()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_deleteCustomer()
+# 	myapp.show()
+# 	app.exec_()

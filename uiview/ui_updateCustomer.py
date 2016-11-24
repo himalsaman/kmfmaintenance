@@ -246,8 +246,8 @@ class Ui_updateCustomer(QDialog):
 			self.statuslbl.setText("Customer Not Updated")
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_updateCustomer()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_updateCustomer()
+# 	myapp.show()
+# 	app.exec_()

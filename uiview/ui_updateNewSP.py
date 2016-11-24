@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
 from Control.materialsControl import increaseSparePartsInvQty, upSparePartsCost
+from Control.userControl import getLoginDataPKL
 from models.sparePartsModel import select_spare_parts_bygen_code, select_all_spare_parts, update_spare_parts
 
 
@@ -35,6 +36,7 @@ class Ui_editSPDialog(QDialog):
 		self.loggeduserlbl.setFont(font)
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
+		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
 		self.line = QtWidgets.QFrame(editSPDialog)
 		self.line.setGeometry(QtCore.QRect(11, 28, 800, 16))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -331,8 +333,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_editSPDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_editSPDialog()
+# 	myapp.show()
+# 	app.exec_()

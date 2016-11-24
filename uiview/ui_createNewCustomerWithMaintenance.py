@@ -152,8 +152,8 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 			else:
 				self.statuslbl.setText('This customer is already exists ')
 
-				# if __name__ == "__main__":
-				# 	app = QtWidgets.QApplication(sys.argv)
-				# 	myapp = Ui_createNewCustomerWithMaintenance()
-				# 	myapp.show()
-				# 	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_createNewCustomerWithMaintenance()
+# 	myapp.show()
+# 	app.exec_()

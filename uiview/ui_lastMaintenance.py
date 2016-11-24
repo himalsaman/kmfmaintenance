@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
 from Control.maintenanceLogic import getMaintenanceFinishedAndDelivared
+from Control.userControl import getLoginDataPKL
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
 from models.maintenanceModel import select_maintenance_by_code
@@ -34,6 +35,7 @@ class Ui_lastMaintenanceDialog(QDialog):
 		self.loggeduser.setFont(font)
 		self.loggeduser.setText("")
 		self.loggeduser.setObjectName("loggeduser")
+		self.loggeduser.setText(getLoginDataPKL()['name'])
 		self.line = QtWidgets.QFrame(lastMaintenanceDialog)
 		self.line.setGeometry(QtCore.QRect(3, 28, 820, 3))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -380,8 +382,8 @@ class Ui_lastMaintenanceDialog(QDialog):
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
 
-		# if __name__ == "__main__":
-		# 	app = QtWidgets.QApplication(sys.argv)
-		# 	myapp = Ui_lastMaintenanceDialog()
-		# 	myapp.show()
-		# 	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_lastMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

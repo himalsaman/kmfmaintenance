@@ -37,7 +37,6 @@ def setLoginDataPKL(name, username, role):
 
 
 def getLoginDataPKL():
-	# PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 	f = open("loginUserData.pkl", "rb")
 	myNewObject = pickle.load(f)
 	f.close()

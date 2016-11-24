@@ -159,6 +159,7 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		QtCore.QMetaObject.connectSlotsByName(maintenanceDetailsDialog)
 		self.maintedata()
 		self.editbtn.clicked.connect(self.openEdit)
+		self.closebtn.clicked.connect(self.close)
 
 	def retranslateUi(self, maintenanceDetailsDialog):
 		_translate = QtCore.QCoreApplication.translate

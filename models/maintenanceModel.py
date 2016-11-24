@@ -87,6 +87,8 @@ def select_maintenance(key, value):
 def select_maintenance_customer(value):
 	return session.query(Maintenance).filter(Maintenance.customers_id == value and Maintenance.hidden == 0).all()
 
+def select_All_maintenance_customer(value):
+	return session.query(Maintenance).filter(Maintenance.customers_id == value).all()
 def select_maintenance_by_id(value):
 	return session.query(Maintenance).filter(Maintenance.id == value and Maintenance.hidden == 0).one()
 # select maintenance by key and value

@@ -233,8 +233,8 @@ class Ui_editBOMDialog(QDialog):
 		self.tableView.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
 		self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 		self.tableView.setObjectName("tableView")
-		self.tableData = BomItemTableModel()
-		self.tableView.setModel(self.tableData)
+		# self.tableData = BomItemTableModel()
+		# self.tableView.setModel(self.tableData)
 		self.tableView.setColumnWidth(1, 210)
 		self.tableView.setColumnWidth(2, 80)
 		self.tableView.setColumnWidth(3, 40)
@@ -320,7 +320,7 @@ class Ui_editBOMDialog(QDialog):
 
 	def retranslateUi(self, editBOMDialog):
 		_translate = QtCore.QCoreApplication.translate
-		editBOMDialog.setWindowTitle(_translate("editBOMDialog", "Create BOM"))
+		editBOMDialog.setWindowTitle(_translate("editBOMDialog", "Edit BOM"))
 		self.label.setText(_translate("editBOMDialog", "Welcome, "))
 		self.label_3.setText(_translate("editBOMDialog", "Customer Name :"))
 		self.label_4.setText(_translate("editBOMDialog", "Customer Mobile Phone :"))
@@ -368,6 +368,8 @@ class Ui_editBOMDialog(QDialog):
 			self.savereqdatabtn.setEnabled(False)
 
 	def tableDataShow(self):
+		self.tableData = BomItemTableModel()
+		self.tableView.setModel(self.tableData)
 		if select_bill_of_material_for_maintenance(self.mainte.id):
 			bom = select_bill_of_material_for_maintenance(self.mainte.id)
 			for idx, val in enumerate(getAllItemForBOM(bom.id)):
@@ -387,6 +389,7 @@ class Ui_editBOMDialog(QDialog):
 		self.menu.popup(QtGui.QCursor.pos())
 
 	def renameSlot(self):
+
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
 			bomitem = select_bill_of_material_item_by_code(ind.data())
@@ -400,7 +403,8 @@ class Ui_editBOMDialog(QDialog):
 				matname = mat.name
 				matcode = mat.gen_code
 				mattype = 'Spare Parts'
-		replay = QMessageBox.warning(QMessageBox(), "Oop's", 'You want delete\n {} : '.format(mattype)+'{}'.format(matcode)+' - {}'.format(matname)+'\n Are you sure?',
+		replay = QMessageBox.warning(QMessageBox(), "Oop's", 'You want delete\n {} : '.format(
+			mattype)+'{}'.format(matcode)+' - {}'.format(matname)+'\n Are you sure?',
 							QMessageBox.Yes | QMessageBox.Cancel)
 		if replay == QMessageBox.Yes :
 			delete_bill_of_material_item(bomitem.id)

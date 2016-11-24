@@ -18,7 +18,7 @@ from models.billOfMaterialModel import add_new_bill_of_material, select_max_BOM_
 from models.customersModel import select_all_customers, add_customer, select_customer_by_id, select_max_customer_id
 from models.dbUtile import Customers, Maintenance
 from models.maintenanceModel import select_all_maintenance, add_new_maintenance, check_maintenance_first_time,\
-	select_max_maintenance_code, select_maintenance, select_maintenance_by_id
+	select_max_maintenance_code, select_maintenance, select_maintenance_by_id, select_All_maintenance_customer
 
 datetimestr = datetime.now()
 timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
@@ -54,15 +54,6 @@ def creatMaintenanceExtCustomer(customer):
 	# print(new_mainte.id)
 	return maint
 
-# 		#creat new maintenance for exsist customer
-# def createMaintenanceForExsistCustomerNotComplated(customer_id):
-# 	new_maint = add_new_maintenance(maintenanceCode(), customer_id,  None, None,
-# 						None, None, None, None,
-# 						None,None, None, None)
-# 	creatBOMWithNewMAint(new_maint.id)
-#
-
-
 def getAllMaintenanceNotCreated():
 	simplelist = []
 	maintenancesList  = select_all_maintenance()
@@ -70,8 +61,6 @@ def getAllMaintenanceNotCreated():
 		if mainte.created_at == None :
 			simplelist.append(mainte.customers)
 	return simplelist
-
-# print(getAllMaintenanceNotCreated())
 
 def getMaintenancePused():
 	simplelist = []
@@ -148,7 +137,6 @@ def getMaintenanceUnderProccessingCost():
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
 	return summ
 
-
 def getMaintenanceWaitingDelevary():
 	simplelist = []
 	mainlist = select_all_maintenance()
@@ -183,4 +171,30 @@ def getMaintenanceFinishedAndDelivaredCost():
 				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
 	return summ
+
+
+def getMaintenanceForCustomer(customer):
+	simplelist = []
+	mainlist = select_All_maintenance_customer(customer.id)
+	for mainte in mainlist:
+			simplelist.append(mainte)
+	return simplelist
+
+def getMaintenanceStatus(mainte):
+	if mainte.created_at != None :
+		if mainte.cost_of_labor == None:
+			satus = 'Wait Labor Cost'
+		if mainte.start_date == None:
+			satus = 'Wait Customer Confirmation'
+		if mainte.done_date == None:
+			satus = 'Under Processing '
+		if mainte.close_at == None:
+			satus = 'Wait Delivery to Customer '
+		if mainte.close_at != None:
+			satus = 'Finished'
+		if mainte.hidden == 1:
+			satus = 'Canceled'
+		if mainte.hidden == 1 and mainte.start_date == None:
+			satus = 'Canceled By Customer'
+	return satus
 

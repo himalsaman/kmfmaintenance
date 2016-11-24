@@ -59,8 +59,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 
 		# self.tableData = CustomerTableModel()
 		# self.tableView.setModel(self.tableData)
-		self.tableView.setColumnWidth(0, 261)
-		self.tableView.setColumnWidth(1, 88)
+
 		self.tableData = CustomerTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenancePused()):
@@ -71,6 +70,8 @@ class Ui_pusedMaintenanceDialog(QDialog):
 												 , None, None))
 
 		self.tableView.clicked.connect(self.Clicked)
+		self.tableView.setColumnWidth(0, 261)
+		self.tableView.setColumnWidth(1, 88)
 		self.line_2 = QtWidgets.QFrame(pusedMaintenanceDialog)
 		self.line_2.setGeometry(QtCore.QRect(410, 35, 3, 430))
 		self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
@@ -203,11 +204,11 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		self.cbom = Ui_createBOMDialog(maint)
 		self.cbom.exec_()
 
-
 	def do_delete(self):
-		indexes = self.tableView.selectionModel().selectedRows(0)
+		indexes = self.tableView.selectionModel().selectedRows(2)
 		for ind in sorted(indexes):
 			maint = select_maintenance_by_code(ind.data())
+			# print(maint)
 		reply = QMessageBox.question(QMessageBox(), "OOP'S",
 									 'Are you sure to delete ?\n Maintenance \n Code : {}'.format(
 										 maint.m_code) + '\n Customer Name : {}'.format(
@@ -223,3 +224,10 @@ class Ui_pusedMaintenanceDialog(QDialog):
 													 idx].customers.mobile_number
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
+
+
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_pusedMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

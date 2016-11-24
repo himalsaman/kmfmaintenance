@@ -2,20 +2,20 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-class CustomerTableModel(QAbstractTableModel):
+class CustomerMaintenanceTableModel(QAbstractTableModel):
 	"""Model class that drives the population of tabular display"""
 
 	def __init__(self):
-		super(CustomerTableModel, self).__init__()
-		self.headers = ['Customer', 'Mobile Phone','Maint. Code']
-		self.customers = []
+		super(CustomerMaintenanceTableModel, self).__init__()
+		self.headers = ['Maint. Code','Product']
+		self.maintenances = []
 
 	def rowCount(self, index=QModelIndex()):
-		return len(self.customers)
+		return len(self.maintenances)
 
-	def addCustomer(self, customer):
+	def addMaintenance(self, maintenanc):
 		self.beginResetModel()
-		self.customers.append(customer)
+		self.maintenances.append(maintenanc)
 		self.endResetModel()
 
 	def columnCount(self, index=QModelIndex()):
@@ -23,14 +23,12 @@ class CustomerTableModel(QAbstractTableModel):
 
 	def data(self, index, role=Qt.DisplayRole):
 		col = index.column()
-		customer = self.customers[index.row()]
+		maintenance = self.maintenances[index.row()]
 		if role == Qt.DisplayRole:
 			if col == 0:
-				return QVariant(customer.name)
+				return QVariant(maintenance.m_code)
 			elif col == 1:
-				return QVariant(customer.mobile_number)
-			elif col == 2:
-				return QVariant(customer.gender)
+				return QVariant(maintenance.product_of_maintenance)
 			return QVariant()
 
 	def headerData(self, section, orientation, role=Qt.DisplayRole):

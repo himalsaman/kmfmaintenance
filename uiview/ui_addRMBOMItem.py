@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QValidator
+from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.bomItemControl import createNewBOMItem
@@ -65,13 +65,13 @@ class Ui_addRMBOMItemDialog(QDialog):
 		self.reqqtyled_2 = QtWidgets.QLineEdit(addRMBOMItemDialog)
 		self.reqqtyled_2.setGeometry(QtCore.QRect(466, 145, 150, 20))
 		self.reqqtyled_2.setObjectName("reqqtyled_2")
+
+		self.reqqtyled_2.setValidator(QDoubleValidator())
+
+
 		self.reqqtyled = QtWidgets.QLabel(addRMBOMItemDialog)
 		self.reqqtyled.setGeometry(QtCore.QRect(478, 127, 130, 13))
 		self.reqqtyled.setObjectName("reqqtyled")
-
-
-		# self.reqqtyled_2.setValidator(QValidator())
-
 
 		self.rmdefaultsizeled = QtWidgets.QLineEdit(addRMBOMItemDialog)
 		self.rmdefaultsizeled.setEnabled(False)

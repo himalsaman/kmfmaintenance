@@ -42,15 +42,20 @@ class Ui_deleteCustomer(QDialog):
 		self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line.setObjectName("line")
 		self.updatebtn = QtWidgets.QPushButton(deleteCustomer)
-		self.updatebtn.setGeometry(QtCore.QRect(70, 310, 75, 31))
+		self.updatebtn.setGeometry(QtCore.QRect(130, 310, 75, 31))
 		self.updatebtn.setObjectName("updatebtn")
 
 		self.updatebtn.clicked.connect(self.deleteCustomer)
 
 		self.cancelbtn = QtWidgets.QPushButton(deleteCustomer)
-		self.cancelbtn.setGeometry(QtCore.QRect(200, 310, 75, 31))
+		self.cancelbtn.setGeometry(QtCore.QRect(230, 310, 75, 31))
 		self.cancelbtn.setObjectName("cancelbtn")
 		self.cancelbtn.clicked.connect(self.close)
+
+		self.detailsbtn = QtWidgets.QPushButton(deleteCustomer)
+		self.detailsbtn.setGeometry(QtCore.QRect(30, 310, 75, 31))
+		self.detailsbtn.setObjectName("updatebtn")
+
 
 		self.statuslbl = QtWidgets.QLabel(deleteCustomer)
 		self.statuslbl.setGeometry(QtCore.QRect(10, 270, 331, 31))
@@ -120,10 +125,11 @@ class Ui_deleteCustomer(QDialog):
 
 		self.retranslateUi(deleteCustomer)
 		QtCore.QMetaObject.connectSlotsByName(deleteCustomer)
+		self.detailsbtn.clicked.connect(self.openHistory)
 
 	def retranslateUi(self, deleteCustomer):
 		_translate = QtCore.QCoreApplication.translate
-		deleteCustomer.setWindowTitle(_translate("deleteCustomer", "Delete Customer"))
+		deleteCustomer.setWindowTitle(_translate("deleteCustomer", "Search Customer"))
 		self.label.setText(_translate("deleteCustomer", "Welcome, "))
 		self.updatebtn.setText(_translate("deleteCustomer", "Delete"))
 		self.cancelbtn.setText(_translate("deleteCustomer", "Cancel"))
@@ -134,7 +140,7 @@ class Ui_deleteCustomer(QDialog):
 		self.label_12.setText(_translate("deleteCustomer", "Gender :"))
 		self.searchButton.setText(_translate("deleteCustomer", "Search"))
 		self.label_2.setText(_translate("deleteCustomer", "Mobile #"))
-
+		self.detailsbtn.setText(_translate("deleteCustomer", "Details"))
 	def searchCustomer(self):
 		mob_num = self.searchled.text()
 		if mob_num == '':
@@ -169,3 +175,16 @@ class Ui_deleteCustomer(QDialog):
 					delete_customer(selectedCust.id)
 					self.close()
 
+	def openHistory(self):
+		from uiview.ui_customerHistory import Ui_historyDialog
+		if self.searchCustomer:
+			mob_num = self.searchled.text()
+			selectedCust = select_customer_by_mob_num(mob_num)
+			self.hd = Ui_historyDialog(selectedCust)
+			self.hd.exec_()
+
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_deleteCustomer()
+	myapp.show()
+	app.exec_()

@@ -381,8 +381,8 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.md = Ui_maintenanceDetailsDialog()
 		self.md.exec_()
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_confirmWMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_confirmWMaintenanceDialog()
+	myapp.show()
+	app.exec_()

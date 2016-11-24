@@ -11,8 +11,6 @@ from PyQt5.QtCore import QLine
 from PyQt5.QtWidgets import QWidget, QDialog, QLineEdit
 
 from Control.userControl import validLogin
-
-
 class Ui_loginDialog(QDialog):
 
 	def __init__(self, parent=None):

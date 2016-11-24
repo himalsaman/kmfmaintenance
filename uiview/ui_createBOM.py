@@ -5,24 +5,20 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 from datetime import datetime
 
-from PyQt5 import Qt
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog, QMessageBox, qApp
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from Control import BOMControl
 from Control.BOMControl import getAllItemForBOM, claculateBOMItemRMCost, claculateBOMItemSPCost, creatBOMWithNewMAint
 from Control.userControl import getLoginDataPKL
-from models.billOfMaterialItemModel import  select_bill_of_material_item_by_code, \
-	delete_bill_of_material_item, select_bill_of_material_item_for_BOM
+from models.billOfMaterialItemModel import select_bill_of_material_item_by_code, \
+	delete_bill_of_material_item
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance, update_bill_of_material
 from models.dbUtile import BillOfMaterialItem
-from models.maintenanceModel import  update_maintenance, update_maintenance_from_BOM, update_maintenance_product
-from models.rawMaterialModel import  select_row_material_by_id
+from models.maintenanceModel import update_maintenance_from_BOM, update_maintenance_product
+from models.rawMaterialModel import select_row_material_by_id
 from models.sparePartsModel import select_spare_parts_by_id
 from uiview.uimodels.bomItemTableModel import BomItemTableModel
 
@@ -209,9 +205,7 @@ class Ui_createBOMDialog(QDialog):
 		self.label_17.setObjectName("label_17")
 		self.closebtn = QtWidgets.QPushButton(self.bomgroupbox)
 		self.closebtn.setGeometry(QtCore.QRect(7, 239, 90, 40))
-
 		self.closebtn.clicked.connect(self.close)
-
 		self.closebtn.setObjectName("closebtn")
 		self.calcfinbtn = QtWidgets.QPushButton(self.bomgroupbox)
 		self.calcfinbtn.setGeometry(QtCore.QRect(654, 126, 80, 40))
@@ -317,7 +311,6 @@ class Ui_createBOMDialog(QDialog):
 		self.tableDataShow()
 		self.lablesData()
 
-
 	def retranslateUi(self, createBOMDialog):
 		_translate = QtCore.QCoreApplication.translate
 		createBOMDialog.setWindowTitle(_translate("createBOMDialog", "Create BOM"))
@@ -373,10 +366,10 @@ class Ui_createBOMDialog(QDialog):
 			for idx, val in enumerate(getAllItemForBOM(bom.id)):
 				self.tableData.addItems(BillOfMaterialItem(getAllItemForBOM(bom.id)[
 															   idx].raw_material_id
-										, getAllItemForBOM(bom.id)[idx].spare_part_id
-										, None, getAllItemForBOM(bom.id)[idx].cost_of_material,
-										getAllItemForBOM(bom.id)[idx].qty_of_material,
-										getAllItemForBOM(bom.id)[idx].gen_code))
+														   , getAllItemForBOM(bom.id)[idx].spare_part_id
+														   , None, getAllItemForBOM(bom.id)[idx].cost_of_material,
+														   getAllItemForBOM(bom.id)[idx].qty_of_material,
+														   getAllItemForBOM(bom.id)[idx].gen_code))
 
 	def contextMenuEvent(self, event):
 		self.menu = QtWidgets.QMenu(self)
@@ -400,9 +393,11 @@ class Ui_createBOMDialog(QDialog):
 				matname = mat.name
 				matcode = mat.gen_code
 				mattype = 'Spare Parts'
-		replay = QMessageBox.warning(QMessageBox(), "Oop's", 'You want delete\n {} : '.format(mattype)+'{}'.format(matcode)+' - {}'.format(matname)+'\n Are you sure?',
-							QMessageBox.Yes | QMessageBox.Cancel)
-		if replay == QMessageBox.Yes :
+		replay = QMessageBox.warning(QMessageBox(), "Oop's",
+									 'You want delete\n {} : '.format(mattype) + '{}'.format(matcode) + ' - {}'.format(
+										 matname) + '\n Are you sure?',
+									 QMessageBox.Yes | QMessageBox.Cancel)
+		if replay == QMessageBox.Yes:
 			delete_bill_of_material_item(bomitem.id)
 
 	# get the selected cell and perform renaming
@@ -445,7 +440,7 @@ class Ui_createBOMDialog(QDialog):
 			bom = select_bill_of_material_for_maintenance(self.mainte.id)
 			rwmatcost = claculateBOMItemRMCost(bom.id)
 			spmatcost = claculateBOMItemSPCost(bom.id)
-			mattotalcost =  rwmatcost + spmatcost
+			mattotalcost = rwmatcost + spmatcost
 			update_bill_of_material(bom.id, spmatcost, rwmatcost, mattotalcost)
 			self.saveMainte()
 
@@ -455,5 +450,4 @@ class Ui_createBOMDialog(QDialog):
 			self.mainte.id
 			, totalCost
 			, timestampstr
-			  )
-
+		)

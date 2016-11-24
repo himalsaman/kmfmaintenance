@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
@@ -44,19 +45,14 @@ class Ui_deleteCustomer(QDialog):
 		self.updatebtn = QtWidgets.QPushButton(deleteCustomer)
 		self.updatebtn.setGeometry(QtCore.QRect(130, 310, 75, 31))
 		self.updatebtn.setObjectName("updatebtn")
-
 		self.updatebtn.clicked.connect(self.deleteCustomer)
-
 		self.cancelbtn = QtWidgets.QPushButton(deleteCustomer)
 		self.cancelbtn.setGeometry(QtCore.QRect(230, 310, 75, 31))
 		self.cancelbtn.setObjectName("cancelbtn")
 		self.cancelbtn.clicked.connect(self.close)
-
 		self.detailsbtn = QtWidgets.QPushButton(deleteCustomer)
 		self.detailsbtn.setGeometry(QtCore.QRect(30, 310, 75, 31))
 		self.detailsbtn.setObjectName("updatebtn")
-
-
 		self.statuslbl = QtWidgets.QLabel(deleteCustomer)
 		self.statuslbl.setGeometry(QtCore.QRect(10, 270, 331, 31))
 		self.statuslbl.setStyleSheet("color: rgb(255, 0, 0);")
@@ -113,16 +109,13 @@ class Ui_deleteCustomer(QDialog):
 		self.searchButton = QtWidgets.QPushButton(deleteCustomer)
 		self.searchButton.setGeometry(QtCore.QRect(272, 45, 61, 31))
 		self.searchButton.setObjectName("searchButton")
-
 		self.searchButton.clicked.connect(self.searchCustomer)
-
 		self.searchled = QtWidgets.QLineEdit(deleteCustomer)
 		self.searchled.setGeometry(QtCore.QRect(74, 51, 191, 20))
 		self.searchled.setObjectName("searchled")
 		self.label_2 = QtWidgets.QLabel(deleteCustomer)
 		self.label_2.setGeometry(QtCore.QRect(20, 54, 47, 13))
 		self.label_2.setObjectName("label_2")
-
 		self.retranslateUi(deleteCustomer)
 		QtCore.QMetaObject.connectSlotsByName(deleteCustomer)
 		self.detailsbtn.clicked.connect(self.openHistory)
@@ -141,6 +134,7 @@ class Ui_deleteCustomer(QDialog):
 		self.searchButton.setText(_translate("deleteCustomer", "Search"))
 		self.label_2.setText(_translate("deleteCustomer", "Mobile #"))
 		self.detailsbtn.setText(_translate("deleteCustomer", "Details"))
+
 	def searchCustomer(self):
 		mob_num = self.searchled.text()
 		if mob_num == '':
@@ -183,6 +177,7 @@ class Ui_deleteCustomer(QDialog):
 				selectedCust = select_customer_by_mob_num(mob_num)
 				self.hd = Ui_historyDialog(selectedCust)
 				self.hd.exec_()
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

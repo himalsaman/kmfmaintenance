@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
@@ -77,18 +78,14 @@ class Ui_searchRMDialog(QDialog):
 		self.searchbtn = QtWidgets.QPushButton(self.groupBox)
 		self.searchbtn.setGeometry(QtCore.QRect(203, 59, 60, 30))
 		self.searchbtn.setObjectName("searchbtn")
-
 		self.searchbtn.clicked.connect(self.do_search)
-
 		self.groupBox_2 = QtWidgets.QGroupBox(searchRMDialog)
 		self.groupBox_2.setGeometry(QtCore.QRect(10, 136, 330, 431))
 		self.groupBox_2.setObjectName("groupBox_2")
 		self.searchResultlistWidget = QtWidgets.QListWidget(self.groupBox_2)
 		self.searchResultlistWidget.setGeometry(QtCore.QRect(4, 14, 320, 410))
 		self.searchResultlistWidget.setObjectName("searchResultlistWidget")
-
 		self.searchResultlistWidget.itemClicked.connect(self.Clicked)
-
 		self.groupBox_3 = QtWidgets.QGroupBox(searchRMDialog)
 		self.groupBox_3.setGeometry(QtCore.QRect(360, 40, 330, 201))
 		self.groupBox_3.setObjectName("groupBox_3")
@@ -107,53 +104,44 @@ class Ui_searchRMDialog(QDialog):
 		self.label_8 = QtWidgets.QLabel(self.groupBox_3)
 		self.label_8.setGeometry(QtCore.QRect(10, 160, 30, 13))
 		self.label_8.setObjectName("label_8")
-
 		self.label_9 = QtWidgets.QLabel(self.groupBox_3)
 		self.label_9.setGeometry(QtCore.QRect(127, 160, 110, 13))
 		self.label_9.setObjectName("label_9")
-
 		self.codeled = QtWidgets.QLabel(self.groupBox_3)
 		self.codeled.setGeometry(QtCore.QRect(50, 28, 150, 20))
 		self.codeled.setObjectName("codeled")
 		self.codeled.setFont(font)
 		self.codeled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.nameled = QtWidgets.QLabel(self.groupBox_3)
 		self.nameled.setGeometry(QtCore.QRect(50, 58, 271, 20))
 		self.nameled.setObjectName("nameled")
 		self.nameled.setFont(font)
 		self.nameled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.strsizeled = QtWidgets.QLabel(self.groupBox_3)
 		self.strsizeled.setGeometry(QtCore.QRect(77, 92, 241, 20))
 		self.strsizeled.setObjectName("strsizeled")
 		self.strsizeled.setFont(font)
 		self.strsizeled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.numsizeled = QtWidgets.QLabel(self.groupBox_3)
 		self.numsizeled.setGeometry(QtCore.QRect(98, 125, 180, 20))
 		self.numsizeled.setObjectName("numsizeled")
 		self.numsizeled.setFont(font)
 		self.numsizeled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.unitled = QtWidgets.QLabel(self.groupBox_3)
 		self.unitled.setGeometry(QtCore.QRect(40, 155, 60, 20))
 		self.unitled.setObjectName("unitled")
 		self.unitled.setFont(font)
 		self.unitled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.invQtyled = QtWidgets.QLabel(self.groupBox_3)
 		self.invQtyled.setGeometry(QtCore.QRect(231, 156, 90, 20))
 		self.invQtyled.setObjectName("invQtyled")
 		self.invQtyled.setFont(font)
 		self.invQtyled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.costled = QtWidgets.QLabel(self.groupBox_3)
 		self.costled.setGeometry(QtCore.QRect(241, 28, 80, 20))
 		self.costled.setObjectName("costled")
 		self.costled.setFont(font)
 		self.costled.setStyleSheet("color: rgb(255, 0, 0);")
-
 		self.label_11 = QtWidgets.QLabel(self.groupBox_3)
 		self.label_11.setGeometry(QtCore.QRect(210, 32, 30, 13))
 		self.label_11.setObjectName("label_11")
@@ -195,7 +183,6 @@ class Ui_searchRMDialog(QDialog):
 		self.retranslateUi(searchRMDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchRMDialog)
 
-
 	def retranslateUi(self, searchRMDialog):
 		_translate = QtCore.QCoreApplication.translate
 		searchRMDialog.setWindowTitle(_translate("searchRMDialog", "Raw Material Search"))
@@ -231,11 +218,11 @@ class Ui_searchRMDialog(QDialog):
 			search_key = 'string_size'
 		elif self.srcoderbtn.isChecked():
 			search_key = 'code'
-		if self.srnamerbtn.isChecked()or self.srunitrbtn.isChecked() or self.srsizerbtn.isChecked(
-			) or self.srcoderbtn.isChecked():
+		if self.srnamerbtn.isChecked() or self.srunitrbtn.isChecked() or self.srsizerbtn.isChecked(
+		) or self.srcoderbtn.isChecked():
 			for item in select_row_material(search_key, self.searchled.text()):
 				self.searchResultlistWidget.addItem(item.code + " - " + item.name)
-		else :
+		else:
 			self.label_10.setText("You must select one method for search !")
 
 	def Clicked(self, item):
@@ -260,7 +247,7 @@ class Ui_searchRMDialog(QDialog):
 				rawMat = select_row_material_bycode(code)
 			reply = QMessageBox.question(QMessageBox(), "OOP'S", 'Are you sure to delete ?\n Raw '
 																 'Material \n Code : {}'.format(
-				rawMat.code)+'\n Name : {}'.format(rawMat.name)+'\n This Action Cant Undo',
+				rawMat.code) + '\n Name : {}'.format(rawMat.name) + '\n This Action Cant Undo',
 										 QMessageBox.Yes | QMessageBox.No)
 			if reply == QMessageBox.Yes:
 				delete_raw_material(rawMat.id)
@@ -270,15 +257,16 @@ class Ui_searchRMDialog(QDialog):
 		self.di = Ui_editRWDialog()
 		self.di.exec_()
 
+
 def before(value, a):
 	# Find first part and return slice before it.
 	pos_a = value.find(a)
 	if pos_a == -1: return ""
 	return value[0:pos_a]
 
+
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_searchRMDialog()
 	myapp.show()
 	app.exec_()
-

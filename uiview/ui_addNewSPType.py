@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import random
-import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
@@ -19,7 +19,6 @@ class Ui_addNewSPTypeDialog(QDialog):
 	def __init__(self, parent=None):
 		super(Ui_addNewSPTypeDialog, self).__init__()
 		self.setupUi(self)
-
 
 	def setupUi(self, addNewSPTypeDialog):
 		addNewSPTypeDialog.setObjectName("addNewSPTypeDialog")
@@ -82,15 +81,11 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.savebtn = QtWidgets.QPushButton(addNewSPTypeDialog)
 		self.savebtn.setGeometry(QtCore.QRect(148, 223, 72, 41))
 		self.savebtn.setObjectName("savebtn")
-
 		self.savebtn.clicked.connect(self.doAdd)
-
 		self.cancelbtn = QtWidgets.QPushButton(addNewSPTypeDialog)
 		self.cancelbtn.setGeometry(QtCore.QRect(256, 223, 72, 41))
 		self.cancelbtn.setObjectName("cancelbtn")
-
 		self.cancelbtn.clicked.connect(self.close)
-
 		self.statulbl = QtWidgets.QLabel(addNewSPTypeDialog)
 		self.statulbl.setGeometry(QtCore.QRect(16, 177, 461, 41))
 		self.statulbl.setText("")
@@ -107,7 +102,6 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.spunitcomboBox.setCurrentIndex(0)
 		QtCore.QMetaObject.connectSlotsByName(addNewSPTypeDialog)
 
-
 	def retranslateUi(self, addNewSPTypeDialog):
 		_translate = QtCore.QCoreApplication.translate
 		addNewSPTypeDialog.setWindowTitle(_translate("addNewSPTypeDialog", "Add New Spare Parts Type"))
@@ -123,10 +117,9 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.cancelbtn.setText(_translate("addNewSPTypeDialog", "Cancel"))
 		self.label_2.setText(_translate("addNewSPTypeDialog", "SAR"))
 
-
 	def doAdd(self):
 		if self.spNameled.text() == '' or \
-						self.spunitcomboBox.currentIndex() == 0 or\
+						self.spunitcomboBox.currentIndex() == 0 or \
 						self.spcostled.text() == '' or \
 						self.invQTYSpinBox.value() == 0:
 			self.statulbl.setText('All fields is required')
@@ -144,5 +137,3 @@ class Ui_addNewSPTypeDialog(QDialog):
 			gencode = 'sp {}'.format(random.randrange(10, 10000, 2))
 			add_spare_parts(name, code, gencode, cost, invqty, unit)
 			self.statulbl.setText(name + ", added successfully")
-
-

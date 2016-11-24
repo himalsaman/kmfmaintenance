@@ -1,6 +1,5 @@
-import sys
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+
 
 class NewCustomerTableModel(QAbstractTableModel):
 	"""Model class that drives the population of tabular display"""

@@ -26,4 +26,3 @@ def createNewBOMItem(bomId, raw_material_id, spare_parts_id, qty_of_material):
 
 	add_new_bill_of_material_item(raw_material_id, spare_parts_id, bill_of_material_id,
 								  BOMItemCost, qty_of_material, BOMItemCode())
-

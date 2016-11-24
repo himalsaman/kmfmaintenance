@@ -1,6 +1,6 @@
 # raw Material inventory Management
-from models.rawMaterialModel import update_raw_material, update_raw_material_inv_qty, update_raw_material_cost
-from models.sparePartsModel import update_spare_parts, update_spare_parts_inv_qty, update_spare_parts_cost
+from models.rawMaterialModel import update_raw_material_inv_qty, update_raw_material_cost
+from models.sparePartsModel import update_spare_parts_inv_qty, update_spare_parts_cost
 
 
 def increaseRawMaterialInvQty(rawMaterial, newqty):

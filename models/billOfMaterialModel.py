@@ -16,7 +16,7 @@ def add_new_bill_of_material(maintenance_id, created_at, cost_of_spare_parts, co
 										  cost_of_raw_material, total_cost, gen_code)
 	session.add(new_bill_of_material)
 	session.commit()
-	return  new_bill_of_material
+	return new_bill_of_material
 
 
 # update bill of material
@@ -50,11 +50,14 @@ def select_all_bill_of_material():
 	for b in res:
 		print(b)
 
+
 def select_bill_of_material_by_id(value):
 	return session.query(BillOfMaterial).filter(BillOfMaterial.id == value).one()
 
+
 def select_bill_of_material_by_code(value):
 	return session.query(BillOfMaterial).filter(BillOfMaterial.gen_code == value).one()
+
 
 # select bill of material for maintenance
 def select_bill_of_material_for_maintenance(maintenance_id):
@@ -64,13 +67,16 @@ def select_bill_of_material_for_maintenance(maintenance_id):
 	except NoResultFound:
 		return False
 
+
 def select_max_BOM_id():
 	maxcode = session.query(func.max(BillOfMaterial.id)).one()
 	return (maxcode[0])
 
+
 def select_max_BOM_code():
 	maxcode = session.query(func.max(BillOfMaterial.gen_code)).one()
 	return (maxcode[0])
+
 
 def check_BOM_first_time():
 	return session.query(BillOfMaterial).first()

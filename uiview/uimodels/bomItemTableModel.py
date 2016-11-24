@@ -1,8 +1,6 @@
-import sys
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
 
-from models.rawMaterialModel import select_all_raw_material, select_row_material_by_id
+from models.rawMaterialModel import select_row_material_by_id
 from models.sparePartsModel import select_spare_parts_by_id
 
 
@@ -11,7 +9,7 @@ class BomItemTableModel(QAbstractTableModel):
 
 	def __init__(self):
 		super(BomItemTableModel, self).__init__()
-		self.headers = ['Code', 'Item', 'Type','Qty', 'Cost']
+		self.headers = ['Code', 'Item', 'Type', 'Qty', 'Cost']
 		self.items = []
 
 	def rowCount(self, index=QModelIndex()):
@@ -28,7 +26,6 @@ class BomItemTableModel(QAbstractTableModel):
 	def data(self, index, role=Qt.DisplayRole):
 		col = index.column()
 		item = self.items[index.row()]
-
 
 		if role == Qt.DisplayRole:
 			if col == 0:

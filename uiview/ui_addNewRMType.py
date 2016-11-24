@@ -5,11 +5,10 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import os
 import random
-import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QValidator, QDoubleValidator
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.userControl import getLoginDataPKL
@@ -36,7 +35,6 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.loggeduserlbl.setText("")
 		self.loggeduserlbl.setObjectName("loggeduserlbl")
 		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
-
 		self.line = QtWidgets.QFrame(addNewRMTypeDialog)
 		self.line.setGeometry(QtCore.QRect(7, 25, 491, 16))
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -84,14 +82,14 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.rmunitcomboBox = QtWidgets.QComboBox(addNewRMTypeDialog)
 		self.rmunitcomboBox.setGeometry(QtCore.QRect(272, 97, 161, 22))
 		self.rmunitcomboBox.setObjectName("rmunitcomboBox")
-		self.rmunitcomboBox.addItem("","")
+		self.rmunitcomboBox.addItem("", "")
 		self.rmunitcomboBox.addItem("m", "")
-		self.rmunitcomboBox.addItem("cm","")
-		self.rmunitcomboBox.addItem("m","")
-		self.rmunitcomboBox.addItem("g","")
-		self.rmunitcomboBox.addItem("kg","")
-		self.rmunitcomboBox.addItem("ea","")
-		self.rmunitcomboBox.addItem("l","")
+		self.rmunitcomboBox.addItem("cm", "")
+		self.rmunitcomboBox.addItem("m", "")
+		self.rmunitcomboBox.addItem("g", "")
+		self.rmunitcomboBox.addItem("kg", "")
+		self.rmunitcomboBox.addItem("ea", "")
+		self.rmunitcomboBox.addItem("l", "")
 		self.label_8 = QtWidgets.QLabel(addNewRMTypeDialog)
 		self.label_8.setGeometry(QtCore.QRect(280, 141, 60, 13))
 		self.label_8.setObjectName("label_8")
@@ -102,15 +100,11 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.savebtn = QtWidgets.QPushButton(addNewRMTypeDialog)
 		self.savebtn.setGeometry(QtCore.QRect(148, 260, 72, 41))
 		self.savebtn.setObjectName("savebtn")
-
 		self.savebtn.clicked.connect(self.doAdd)
-
 		self.cancelbtn = QtWidgets.QPushButton(addNewRMTypeDialog)
 		self.cancelbtn.setGeometry(QtCore.QRect(256, 260, 72, 41))
 		self.cancelbtn.setObjectName("cancelbtn")
-
 		self.cancelbtn.clicked.connect(self.do_exit)
-
 		self.statulbl = QtWidgets.QLabel(addNewRMTypeDialog)
 		self.statulbl.setGeometry(QtCore.QRect(16, 214, 461, 41))
 		self.statulbl.setStyleSheet("color: rgb(255, 0, 0);")
@@ -121,7 +115,6 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.label_2 = QtWidgets.QLabel(addNewRMTypeDialog)
 		self.label_2.setGeometry(QtCore.QRect(477, 143, 47, 13))
 		self.label_2.setObjectName("label_2")
-
 		self.retranslateUi(addNewRMTypeDialog)
 		self.rmunitcomboBox.setCurrentIndex(0)
 		QtCore.QMetaObject.connectSlotsByName(addNewRMTypeDialog)
@@ -149,7 +142,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.label_2.setText(_translate("addNewRMTypeDialog", "SAR"))
 
 	def doAdd(self):
-		if self.rmNameled.text() == '' or\
+		if self.rmNameled.text() == '' or \
 						self.rmDefualtSizeSpinBox.value() == 0.000000 or \
 						self.rmunitcomboBox.currentIndex() == 0 or \
 						self.srtingSizeled.text() == '' or \
@@ -182,7 +175,4 @@ class Ui_addNewRMTypeDialog(QDialog):
 			self.statulbl.setText(name + ", added successfully")
 
 	def do_exit(self):
-		# from uiview.ui_mmainWindow import Ui_MMainWindow
 		self.close()
-		# Ui_MMainWindow.do_refresh
-

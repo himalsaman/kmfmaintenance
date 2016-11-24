@@ -5,7 +5,6 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import os
 import sys
 from datetime import datetime
 
@@ -25,9 +24,9 @@ from models.sparePartsModel import select_all_spare_parts
 # get now time
 datetimestr = datetime.now()
 timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
+
+
 class Ui_MMainWindow(QMainWindow):
-
-
 	def __init__(self, parent=None):
 		super(Ui_MMainWindow, self).__init__()
 
@@ -285,8 +284,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_21.setFrameShape(QtWidgets.QFrame.VLine)
 		self.line_21.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_21.setObjectName("line_21")
-		################################################################################
-
 		self.groupBox_33 = QtWidgets.QGroupBox(self.centralwidget)
 		self.groupBox_33.setGeometry(QtCore.QRect(10, 188, 251, 101))
 		self.groupBox_33.setTitle("")
@@ -331,8 +328,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.line_243.setFrameShape(QtWidgets.QFrame.VLine)
 		self.line_243.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_243.setObjectName("line_243")
-
-		##################################################################################
 		self.tclbl = QtWidgets.QLabel(self.centralwidget)
 		self.tclbl.setGeometry(QtCore.QRect(700, 411, 100, 30))
 		font = QtGui.QFont()
@@ -550,7 +545,6 @@ class Ui_MMainWindow(QMainWindow):
 		font.setWeight(75)
 		self.reportbtn.setFont(font)
 		self.reportbtn.setObjectName("reportbtn")
-		####################################################################
 		self.refreshbtn = QtWidgets.QPushButton(self.centralwidget)
 		self.refreshbtn.setGeometry(QtCore.QRect(548, 459, 100, 50))
 		font = QtGui.QFont()
@@ -559,8 +553,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.refreshbtn.setFont(font)
 		self.refreshbtn.setObjectName("reportbtn")
 		self.refreshbtn.setStyleSheet("color: rgb(255, 255, 255);\n"
-									   "background-color: rgb(0, 203, 0);")
-		####################################################################
+									  "background-color: rgb(0, 203, 0);")
 		MMainWindow.setCentralWidget(self.centralwidget)
 		self.menubar = QtWidgets.QMenuBar(MMainWindow)
 		self.menubar.setGeometry(QtCore.QRect(0, 0, 816, 21))
@@ -643,13 +636,10 @@ class Ui_MMainWindow(QMainWindow):
 		self.menubar.addAction(self.menuCustomer.menuAction())
 		self.menubar.addAction(self.menuRaw_Material.menuAction())
 		self.menubar.addAction(self.menuSpare_Parts.menuAction())
-
 		# get logged user name
 		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
-
 		# hid add labor cost button
 		self.alocmbtn.setVisible(False)
-
 		self.datetimelbl.setText(timestampstr)
 		# actions of menu bar
 
@@ -657,22 +647,18 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionLogout.triggered.connect(self.doLogout)
 		self.actionChange_Password.triggered.connect(self.openChangePasswordDialog)
 		self.actionExit.triggered.connect(self.doExit)
-
 		## customer menu actions
 		self.actionAdd_New_customer.triggered.connect(self.openCreateNewCustomerDialog)
 		self.actionEdit_customer.triggered.connect(self.openEditCustomerDialog)
 		self.actionSearch_customer.triggered.connect(self.openSearchCustomerDialog)
-
 		##raw material menu actions
 		self.actionAdd_New_RM.triggered.connect(self.openCreateNewRawMaterial)
 		self.actionEdit_RM.triggered.connect(self.openEditeNewRawMaterial)
 		self.actionSearch_RM.triggered.connect(self.openSearchNewRawMaterial)
-
 		## spare parts menu actions
 		self.actionAdd_New_SP.triggered.connect(self.openCreateNewSparePart)
 		self.actionEdit_SP.triggered.connect(self.openEditeNewSparePart)
 		self.actionSearch_SP.triggered.connect(self.openSearchSparePart)
-
 		# labels counting
 		self.tmplbl.setText(str(len(getMaintenancePused())))
 		self.tmhlbl.setText(str(len(getMaintenanceHolded())))
@@ -680,7 +666,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.tmfwpdlbl.setText(str(len(getMaintenanceWaitingDelevary())))
 		self.tmfpdlbl.setText(str(len(getMaintenanceFinishedAndDelivared())))
 		self.loclbl.setText(str(len(getMaintenanceWaitLaborCost())))
-
 		# label cost counting
 		self.tctmhlbl.setText(str(getMaintenanceCalcCost()))
 		self.tctmuplbl.setText(str(getMaintenanceUnderProccessingCost()))
@@ -688,7 +673,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.tprmlbl.setText(str(len(select_all_raw_material())))
 		self.tpsplbl.setText(str(len(select_all_spare_parts())))
 		self.tclbl.setText(str(len(select_all_customers())))
-
 		# buttons actions
 		self.closebtn.clicked.connect(self.doExit)
 		self.tmpbtn.clicked.connect(self.openPusedMaintenance)
@@ -702,7 +686,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.retranslateUi(MMainWindow)
 		QtCore.QMetaObject.connectSlotsByName(MMainWindow)
 		self.refreshbtn.clicked.connect(self.do_refresh)
-
 
 	def retranslateUi(self, MMainWindow):
 		_translate = QtCore.QCoreApplication.translate
@@ -867,13 +850,10 @@ class Ui_MMainWindow(QMainWindow):
 		self.pmd = Ui_createNewCustomerWithMaintenance()
 		self.pmd.exec_()
 
-
 	def openNewNaintenanceExtCustomer(self):
 		from uiview.ui_createNewMaintExsistCust import Ui_createNewMaintenanceForExistsCustDialog
 		self.pmd = Ui_createNewMaintenanceForExistsCustDialog()
 		self.pmd.exec_()
-
-
 
 	def do_refresh(self):
 		self.datetimelbl.setText(timestampstr)
@@ -894,8 +874,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.tpsplbl.setText(str(len(select_all_spare_parts())))
 		self.tclbl.setText(str(len(select_all_customers())))
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_MMainWindow()
-# 	myapp.show()
-# 	app.exec_()
+	# if __name__ == "__main__":
+	# 	app = QtWidgets.QApplication(sys.argv)
+	# 	myapp = Ui_MMainWindow()
+	# 	myapp.show()
+	# 	app.exec_()

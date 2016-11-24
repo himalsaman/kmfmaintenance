@@ -5,16 +5,13 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
-from Control.BOMControl import creatBOMWithNewMAint
 from Control.maintenanceLogic import getMaintenancePused
 from Control.userControl import getLoginDataPKL
-from models.customersModel import select_customer_by_mob_num
-from models.dbUtile import Customers, Maintenance
+from models.dbUtile import Customers
 from models.maintenanceModel import select_maintenance_by_code, delete_maintenance
 from uiview.uimodels.customerTableModel import CustomerTableModel
 
@@ -56,10 +53,6 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		self.tableView.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
 		self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 		self.tableView.horizontalHeader().setCascadingSectionResizes(True)
-
-		# self.tableData = CustomerTableModel()
-		# self.tableView.setModel(self.tableData)
-
 		self.tableData = CustomerTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenancePused()):
@@ -68,7 +61,6 @@ class Ui_pusedMaintenanceDialog(QDialog):
 													 idx].customers.mobile_number
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
-
 		self.tableView.clicked.connect(self.Clicked)
 		self.tableView.setColumnWidth(0, 261)
 		self.tableView.setColumnWidth(1, 88)
@@ -165,7 +157,6 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		self.closebtn.clicked.connect(self.close)
 		self.createBOMbtn.clicked.connect(self.openCreateBom)
 		self.deletebtn.clicked.connect(self.do_delete)
-
 		self.retranslateUi(pusedMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(pusedMaintenanceDialog)
 
@@ -208,7 +199,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		indexes = self.tableView.selectionModel().selectedRows(2)
 		for ind in sorted(indexes):
 			maint = select_maintenance_by_code(ind.data())
-			# print(maint)
+		# print(maint)
 		reply = QMessageBox.question(QMessageBox(), "OOP'S",
 									 'Are you sure to delete ?\n Maintenance \n Code : {}'.format(
 										 maint.m_code) + '\n Customer Name : {}'.format(
@@ -224,7 +215,6 @@ class Ui_pusedMaintenanceDialog(QDialog):
 													 idx].customers.mobile_number
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
-
 
 # if __name__ == "__main__":
 # 	app = QtWidgets.QApplication(sys.argv)

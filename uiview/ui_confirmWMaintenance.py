@@ -13,13 +13,12 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceHolded
-from Control.materialsControl import increaseRawMaterialInvQty, decreaseRawMaterialInvQty, decreaseSparePartsInvQty
-from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM, delete_bill_of_material_item
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance, delete_bill_of_material
+from Control.materialsControl import decreaseRawMaterialInvQty, decreaseSparePartsInvQty
+from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM
+from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
-from models.maintenanceModel import select_maintenance_by_code, update_maintenance, update_maintenance_confirm, \
+from models.maintenanceModel import select_maintenance_by_code, update_maintenance_confirm, \
 	delete_maintenance
-from models.rawMaterialModel import select_row_material_by_id
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
 
@@ -53,7 +52,6 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.tableView = QtWidgets.QTableView(confirmWMaintenanceDialog)
 		self.tableView.setGeometry(QtCore.QRect(10, 50, 390, 411))
 		self.tableView.setObjectName("tableView")
-
 		self.tableView = QtWidgets.QTableView(confirmWMaintenanceDialog)
 		self.tableView.setGeometry(QtCore.QRect(10, 50, 390, 411))
 		self.tableView.setObjectName("tableView")
@@ -64,7 +62,6 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.tableView.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
 		self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 		self.tableView.horizontalHeader().setCascadingSectionResizes(True)
-
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		self.tableView.setColumnWidth(0, 100)
@@ -76,9 +73,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 				, getMaintenanceHolded()[idx].customers.mobile_number
 				, getMaintenanceHolded()[idx].m_code
 				, None, None))
-
 		self.tableView.clicked.connect(self.Clicked)
-
 		self.line_2 = QtWidgets.QFrame(confirmWMaintenanceDialog)
 		self.line_2.setGeometry(QtCore.QRect(410, 35, 3, 430))
 		self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
@@ -168,9 +163,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.closebtn = QtWidgets.QPushButton(confirmWMaintenanceDialog)
 		self.closebtn.setGeometry(QtCore.QRect(687, 414, 90, 40))
 		self.closebtn.setObjectName("closebtn")
-
 		self.closebtn.clicked.connect(self.close)
-
 		self.line_4 = QtWidgets.QFrame(confirmWMaintenanceDialog)
 		self.line_4.setGeometry(QtCore.QRect(416, 391, 410, 20))
 		self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -279,8 +272,6 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 									  "background-color: rgb(0, 203, 0);")
 		self.confirmbtn.setObjectName("confirmbtn")
 		self.confirmbtn.setEnabled(False)
-
-
 		self.detailesbtn = QtWidgets.QPushButton(confirmWMaintenanceDialog)
 		self.detailesbtn.setGeometry(QtCore.QRect(420, 351, 100, 40))
 		font = QtGui.QFont()
@@ -290,10 +281,8 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.detailesbtn.setFont(font)
 		self.detailesbtn.setObjectName("detailesbtn")
 		self.detailesbtn.setEnabled(False)
-
 		self.confirmbtn.clicked.connect(self.confirmMainte)
 		self.deletebtn.clicked.connect(self.do_delete)
-
 		self.retranslateUi(confirmWMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(confirmWMaintenanceDialog)
 
@@ -346,7 +335,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		for ind in sorted(indexes):
 			maint = select_maintenance_by_code(ind.data())
 		bom = select_bill_of_material_for_maintenance(maint.id)
-		bomitem =  select_bill_of_material_item_for_BOM(bom.id)
+		bomitem = select_bill_of_material_item_for_BOM(bom.id)
 		for item in bomitem:
 			if item.rawMaterial != None:
 				decreaseRawMaterialInvQty(item.rawMaterial, item.qty_of_material)
@@ -391,6 +380,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

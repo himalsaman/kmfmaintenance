@@ -1,13 +1,12 @@
-import sys
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+
 
 class CustomerTableModel(QAbstractTableModel):
 	"""Model class that drives the population of tabular display"""
 
 	def __init__(self):
 		super(CustomerTableModel, self).__init__()
-		self.headers = ['Customer', 'Mobile Phone','Maint. Code']
+		self.headers = ['Customer', 'Mobile Phone', 'Maint. Code']
 		self.customers = []
 
 	def rowCount(self, index=QModelIndex()):

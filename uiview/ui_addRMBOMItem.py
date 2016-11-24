@@ -5,9 +5,8 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QValidator, QDoubleValidator
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 
 from Control.bomItemControl import createNewBOMItem
@@ -15,7 +14,7 @@ from models.rawMaterialModel import select_all_raw_material, select_row_material
 
 
 class Ui_addRMBOMItemDialog(QDialog):
-	def __init__(self, bomObj,parent=None):
+	def __init__(self, bomObj, parent=None):
 		super(Ui_addRMBOMItemDialog, self).__init__()
 		self.bomObj = bomObj
 		self.setupUi(self)
@@ -65,14 +64,10 @@ class Ui_addRMBOMItemDialog(QDialog):
 		self.reqqtyled_2 = QtWidgets.QLineEdit(addRMBOMItemDialog)
 		self.reqqtyled_2.setGeometry(QtCore.QRect(466, 145, 150, 20))
 		self.reqqtyled_2.setObjectName("reqqtyled_2")
-
 		self.reqqtyled_2.setValidator(QDoubleValidator())
-
-
 		self.reqqtyled = QtWidgets.QLabel(addRMBOMItemDialog)
 		self.reqqtyled.setGeometry(QtCore.QRect(478, 127, 130, 13))
 		self.reqqtyled.setObjectName("reqqtyled")
-
 		self.rmdefaultsizeled = QtWidgets.QLineEdit(addRMBOMItemDialog)
 		self.rmdefaultsizeled.setEnabled(False)
 		self.rmdefaultsizeled.setGeometry(QtCore.QRect(452, 90, 160, 20))
@@ -95,27 +90,21 @@ class Ui_addRMBOMItemDialog(QDialog):
 		self.addbtn.setObjectName("addbtn")
 		self.addbtn.setEnabled(False)
 		self.addbtn.clicked.connect(self.do_add)
-
 		self.closebtn = QtWidgets.QPushButton(addRMBOMItemDialog)
 		self.closebtn.setGeometry(QtCore.QRect(548, 190, 70, 30))
 		self.closebtn.setObjectName("closebtn")
-
 		self.closebtn.clicked.connect(self.close)
-
 		self.listView = QtWidgets.QListWidget(addRMBOMItemDialog)
 		self.listView.setGeometry(QtCore.QRect(10, 30, 360, 192))
 		self.listView.setObjectName("listView")
-
 		for item in select_all_raw_material():
 			self.listView.addItem(item.code + " - " + item.name)
 		self.listView.itemClicked.connect(self.Clicked)
-
 		self.line_2 = QtWidgets.QFrame(addRMBOMItemDialog)
 		self.line_2.setGeometry(QtCore.QRect(374, 6, 3, 220))
 		self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
 		self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_2.setObjectName("line_2")
-
 		self.statulbl = QtWidgets.QLabel(addRMBOMItemDialog)
 		self.statulbl.setGeometry(QtCore.QRect(440, 155, 200, 41))
 		self.statulbl.setStyleSheet("color: rgb(255, 0, 0);")
@@ -123,7 +112,6 @@ class Ui_addRMBOMItemDialog(QDialog):
 		self.statulbl.setText("")
 		self.statulbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.statulbl.setObjectName("statulbl")
-
 		self.retranslateUi(addRMBOMItemDialog)
 		QtCore.QMetaObject.connectSlotsByName(addRMBOMItemDialog)
 
@@ -157,10 +145,9 @@ class Ui_addRMBOMItemDialog(QDialog):
 		if not qty == '':
 			# print(self.bomObj)
 			self.close()
-			createNewBOMItem(self.bomObj.id,rawmat.id, None, int(qty))
+			createNewBOMItem(self.bomObj.id, rawmat.id, None, int(qty))
 		else:
 			self.statulbl.setText("You must enter quantity you want")
-
 
 
 def before(value, a):
@@ -168,4 +155,3 @@ def before(value, a):
 	pos_a = value.find(a)
 	if pos_a == -1: return ""
 	return value[0:pos_a]
-

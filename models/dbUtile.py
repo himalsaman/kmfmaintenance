@@ -1,7 +1,7 @@
-from sqlalchemy_utils.functions.database import create_database, database_exists
+from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, Float, ForeignKey, MetaData
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, Float, ForeignKey, MetaData, UnicodeText
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy_utils.functions.database import create_database, database_exists
 
 # create mysql engine
 engine = create_engine('mysql+pymysql://root:root@localhost/maintenancedb?charset=utf8', echo=True)

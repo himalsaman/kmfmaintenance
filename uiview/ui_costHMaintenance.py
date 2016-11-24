@@ -6,14 +6,14 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QDoubleValidator, QDoubleValidator
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceWaitLaborCost
-from models.billOfMaterialItemModel import delete_bill_of_material_item, select_bill_of_material_item_for_BOM
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance, delete_bill_of_material
+from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
 from models.maintenanceModel import select_maintenance_by_code, update_maintenance, delete_maintenance
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
@@ -56,22 +56,18 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.tableView.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
 		self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 		self.tableView.horizontalHeader().setCascadingSectionResizes(True)
-
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		self.tableView.setColumnWidth(0, 100)
 		self.tableView.setColumnWidth(1, 191)
 		self.tableView.setColumnWidth(2, 82)
-
 		for idx, val in enumerate(getMaintenanceWaitLaborCost()):
 			self.tableData.addCustomer(Customers(
 				getMaintenanceWaitLaborCost()[idx].customers.name
 				, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
 				, getMaintenanceWaitLaborCost()[idx].m_code
-												 , None, None))
-
+				, None, None))
 		self.tableView.clicked.connect(self.Clicked)
-
 		self.line_2 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
 		self.line_2.setGeometry(QtCore.QRect(410, 35, 3, 430))
 		self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
@@ -169,13 +165,10 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.closebtn = QtWidgets.QPushButton(costHoldedMaintenanceDialog)
 		self.closebtn.setGeometry(QtCore.QRect(730, 414, 90, 40))
 		self.closebtn.setObjectName("closebtn")
-
 		self.closebtn.clicked.connect(self.close)
-
 		self.detailsbtn = QtWidgets.QPushButton(costHoldedMaintenanceDialog)
 		self.detailsbtn.setGeometry(QtCore.QRect(420, 414, 90, 40))
 		self.detailsbtn.setObjectName("detailsbtn")
-
 		self.line_4 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
 		self.line_4.setGeometry(QtCore.QRect(416, 391, 410, 20))
 		self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
@@ -239,9 +232,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.laborled = QtWidgets.QLineEdit(costHoldedMaintenanceDialog)
 		self.laborled.setGeometry(QtCore.QRect(682, 242, 100, 30))
 		self.laborled.setObjectName("laborled")
-
 		self.laborled.setValidator(QDoubleValidator())
-
 		self.line_6 = QtWidgets.QFrame(costHoldedMaintenanceDialog)
 		self.line_6.setGeometry(QtCore.QRect(418, 343, 410, 3))
 		self.line_6.setFrameShape(QtWidgets.QFrame.HLine)
@@ -271,10 +262,8 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.calcbtn.setEnabled(False)
 		self.calcbtn.clicked.connect(self.do_addLaborCost)
 		self.deletebtn.clicked.connect(self.do_delete)
-
 		self.retranslateUi(costHoldedMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(costHoldedMaintenanceDialog)
-
 		self.detailsbtn.clicked.connect(self.detailsDia)
 		self.detailsbtn.setEnabled(False)
 
@@ -298,6 +287,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.label_11.setText(_translate("costHoldedMaintenanceDialog", "Enter Labor Cost"))
 		self.label_12.setText(_translate("costHoldedMaintenanceDialog", "Total Cost "))
 		self.detailsbtn.setText(_translate("costHoldedMaintenanceDialog", "Details"))
+
 	def Clicked(self, item):
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
@@ -334,6 +324,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 					, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
 					, getMaintenanceWaitLaborCost()[idx].m_code
 					, None, None))
+
 	def do_delete(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
@@ -352,8 +343,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 				getMaintenanceWaitLaborCost()[idx].customers.name
 				, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
 				, getMaintenanceWaitLaborCost()[idx].m_code
-												 , None, None))
-
+				, None, None))
 
 	def detailsDia(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -369,4 +359,3 @@ if __name__ == "__main__":
 	myapp = Ui_costHoldedMaintenanceDialog()
 	myapp.show()
 	app.exec_()
-

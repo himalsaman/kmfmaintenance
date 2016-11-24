@@ -1,17 +1,14 @@
 import random
 import re
-
-from datetime import date, datetime
-
-from pymysql import TIMESTAMP
+from datetime import datetime
 
 from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM
-from models.billOfMaterialModel import  add_new_bill_of_material, select_max_BOM_id, select_max_BOM_code, \
+from models.billOfMaterialModel import add_new_bill_of_material, select_max_BOM_id, select_max_BOM_code, \
 	check_BOM_first_time, update_bill_of_material
-from models.maintenanceModel import select_maintenance_by_id, select_max_maintenance_id
 
 datetimestr = datetime.now()
 timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
+
 
 # maintanance code calculation
 def BOMCode():
@@ -22,9 +19,8 @@ def BOMCode():
 	return gencode
 
 
-#first maintenance for created new customer
+# first maintenance for created new customer
 def creatBOMWithNewMAint(maint_id):
-
 	if not check_BOM_first_time():
 		gencode = 'kmfBOM{}'.format(random.randrange(1, 10, 2))
 	else:
@@ -38,31 +34,30 @@ def claculateBOMItemRMCost(bomid):
 	bomitem = select_bill_of_material_item_for_BOM(bomid)
 	costList = []
 	for item in bomitem:
-		if item.raw_material_id :
+		if item.raw_material_id:
 			costList.append(item.cost_of_material)
 
-	return  sum(costList)
+	return sum(costList)
+
 
 # calculate raw material cost
 def claculateBOMItemSPCost(bomid):
 	bomitem = select_bill_of_material_item_for_BOM(bomid)
 	costList = []
 	for item in bomitem:
-		if item.spare_part_id :
+		if item.spare_part_id:
 			costList.append(item.cost_of_material)
 
-	return  sum(costList)
-
+	return sum(costList)
 
 
 def finishBOM():
 	bomid = select_max_BOM_id()
 	totall = claculateBOMItemSPCost() + claculateBOMItemRMCost()
-	update_bill_of_material(bomid, claculateBOMItemSPCost(),claculateBOMItemRMCost(), totall)
+	update_bill_of_material(bomid, claculateBOMItemSPCost(), claculateBOMItemRMCost(), totall)
 
 
-
-#ctreate BOm for item
+# ctreate BOm for item
 def createBOM(maintenance_id, BOMId):
 	for item in select_bill_of_material_item_for_BOM(BOMId):
 		if item.raw_material_id:
@@ -74,12 +69,13 @@ def createBOM(maintenance_id, BOMId):
 	totalCost = RMC + SPC
 	add_new_bill_of_material(maintenance_id, created_at, SPC, RMC, totalCost, BOMCode())
 
+
 def getAllItemForBOM(bomid):
 	simplelist = []
-	itemList  = select_bill_of_material_item_for_BOM(bomid)
+	itemList = select_bill_of_material_item_for_BOM(bomid)
 	return itemList
 
-def getTotalMaterialCost():
-	return  claculateBOMItemRMCost() + claculateBOMItemSPCost
 
-# getAllItemForBOM(19)
+def getTotalMaterialCost():
+	return claculateBOMItemRMCost() + claculateBOMItemSPCost
+

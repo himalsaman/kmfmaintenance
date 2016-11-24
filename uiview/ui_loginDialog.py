@@ -6,13 +6,14 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QLine
-from PyQt5.QtWidgets import QWidget, QDialog, QLineEdit
+from PyQt5.QtWidgets import QDialog, QLineEdit
 
 from Control.userControl import validLogin
-class Ui_loginDialog(QDialog):
 
+
+class Ui_loginDialog(QDialog):
 	def __init__(self, parent=None):
 		# QWidget.__init__(self, parent)
 		super(Ui_loginDialog, self).__init__()
@@ -47,17 +48,11 @@ class Ui_loginDialog(QDialog):
 		self.loginbtn = QtWidgets.QPushButton(loginDialog)
 		self.loginbtn.setGeometry(QtCore.QRect(99, 212, 75, 31))
 		self.loginbtn.setObjectName("loginbtn")
-
 		self.loginbtn.clicked.connect(self.doLogin)
-
-
 		self.cancelbtn = QtWidgets.QPushButton(loginDialog)
 		self.cancelbtn.setGeometry(QtCore.QRect(217, 212, 75, 31))
 		self.cancelbtn.setObjectName("cancelbtn")
-
 		self.cancelbtn.clicked.connect(self.close)
-
-
 		self.statuplabel = QtWidgets.QLabel(loginDialog)
 		self.statuplabel.setGeometry(QtCore.QRect(10, 184, 381, 20))
 		font = QtGui.QFont()
@@ -89,8 +84,6 @@ class Ui_loginDialog(QDialog):
 		self.line.setFrameShape(QtWidgets.QFrame.HLine)
 		self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line.setObjectName("line")
-
-
 		self.retranslateUi(loginDialog)
 		QtCore.QMetaObject.connectSlotsByName(loginDialog)
 
@@ -115,6 +108,7 @@ class Ui_loginDialog(QDialog):
 		else:
 			self.passwordinput.setText('')
 			self.statuplabel.setText("Username / Password not valid")
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

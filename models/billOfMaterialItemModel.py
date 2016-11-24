@@ -1,5 +1,6 @@
 from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
+
 from models.dbUtile import BillOfMaterialItem, engine
 
 # create a session
@@ -46,17 +47,22 @@ def select_bill_of_material_item(key, value):
 def select_all_bill_of_material_item():
 	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem).all()
 
+
 def select_bill_of_material_item_by_code(code):
-	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem.gen_code==
+	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem.gen_code ==
 													code).one()
+
+
 # select bill of material items for maintenance
 def select_bill_of_material_item_for_BOM(bill_of_material_id):
 	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem.bill_of_material_id ==
 													bill_of_material_id).all()
 
+
 def select_max_BOMITEM_id():
 	maxcode = session.query(func.max(BillOfMaterialItem.id)).one()
 	return (maxcode[0])
+
 
 def select_max_BOMITEM_code():
 	maxcode = session.query(func.max(BillOfMaterialItem.gen_code)).one()

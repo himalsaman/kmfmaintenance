@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
@@ -14,15 +15,12 @@ from Control.userControl import getLoginDataPKL
 from models import cityModel
 from models.cityModel import select_city_by_id
 from models.customersModel import select_customer_by_mob_num, update_customer
-from models.maintenanceModel import select_maintenance_customer
-from uiview.ui_updateNewSP import Ui_editSPDialog
 
 
 class Ui_updateCustomer(QDialog):
 	def __init__(self, parent=None):
 		super(Ui_updateCustomer, self).__init__()
 		self.setupUi(self)
-
 
 	def setupUi(self, updateCustomer):
 		updateCustomer.setObjectName("updateCustomer")
@@ -53,11 +51,9 @@ class Ui_updateCustomer(QDialog):
 		self.citycmbx = QtWidgets.QComboBox(updateCustomer)
 		self.citycmbx.setGeometry(QtCore.QRect(401, 111, 171, 22))
 		self.citycmbx.setObjectName("citycmbx")
-
 		self.citycmbx.addItem("", 0)
 		for city in cityModel.select_all_cities():
 			self.citycmbx.addItem(city.name, city.id)
-
 		self.agespin = QtWidgets.QSpinBox(updateCustomer)
 		self.agespin.setGeometry(QtCore.QRect(404, 150, 81, 22))
 		self.agespin.setObjectName("agespin")
@@ -80,15 +76,11 @@ class Ui_updateCustomer(QDialog):
 		self.updatebtn = QtWidgets.QPushButton(updateCustomer)
 		self.updatebtn.setGeometry(QtCore.QRect(435, 257, 75, 31))
 		self.updatebtn.setObjectName("updatebtn")
-
 		self.updatebtn.clicked.connect(self.updateCustomer)
-
 		self.cancelbtn = QtWidgets.QPushButton(updateCustomer)
 		self.cancelbtn.setGeometry(QtCore.QRect(555, 257, 75, 31))
 		self.cancelbtn.setObjectName("cancelbtn")
-
 		self.cancelbtn.clicked.connect(self.close)
-
 		self.statuslbl = QtWidgets.QLabel(updateCustomer)
 		self.statuslbl.setGeometry(QtCore.QRect(10, 270, 331, 31))
 		self.statuslbl.setStyleSheet("color: rgb(255, 0, 0);")
@@ -173,17 +165,14 @@ class Ui_updateCustomer(QDialog):
 		self.searchButton.setObjectName("searchButton")
 		self.mobcustled.setValidator(QIntValidator())
 		self.searchButton.clicked.connect(self.searchCustomer)
-
 		self.searchled = QtWidgets.QLineEdit(updateCustomer)
 		self.searchled.setGeometry(QtCore.QRect(74, 51, 191, 20))
 		self.searchled.setObjectName("searchled")
 		self.label_2 = QtWidgets.QLabel(updateCustomer)
 		self.label_2.setGeometry(QtCore.QRect(20, 54, 47, 13))
 		self.label_2.setObjectName("label_2")
-
 		self.retranslateUi(updateCustomer)
 		QtCore.QMetaObject.connectSlotsByName(updateCustomer)
-
 
 	def retranslateUi(self, updateCustomer):
 		_translate = QtCore.QCoreApplication.translate
@@ -245,9 +234,9 @@ class Ui_updateCustomer(QDialog):
 				custname = self.renamelbl.text()
 			if not custmobnum:
 				custmobnum = self.remobilenumlbl.text()
-			if self.citycmbx.currentIndex() == 0 :
+			if self.citycmbx.currentIndex() == 0:
 				custcity_id = selectedCust.city_id
-			if self.agespin.value() == 0 :
+			if self.agespin.value() == 0:
 				custage = self.reagelbl.text()
 			if not self.malebtn.isChecked() | self.femalerbtn.isChecked():
 				gndr = self.regenderlbl.text()
@@ -255,6 +244,7 @@ class Ui_updateCustomer(QDialog):
 			self.close()
 		else:
 			self.statuslbl.setText("Customer Not Updated")
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

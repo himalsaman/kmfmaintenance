@@ -5,7 +5,6 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
@@ -50,11 +49,9 @@ class Ui_createNewCustomer(QDialog):
 		self.citycmbx = QtWidgets.QComboBox(createNewCustomer)
 		self.citycmbx.setGeometry(QtCore.QRect(60, 110, 171, 22))
 		self.citycmbx.setObjectName("citycmbx")
-
 		self.citycmbx.addItem("", 0)
 		for city in cityModel.select_all_cities():
 			self.citycmbx.addItem(city.name, city.id)
-
 		self.agespin = QtWidgets.QSpinBox(createNewCustomer)
 		self.agespin.setGeometry(QtCore.QRect(63, 149, 81, 22))
 		self.agespin.setObjectName("agespin")
@@ -77,15 +74,11 @@ class Ui_createNewCustomer(QDialog):
 		self.savebtn = QtWidgets.QPushButton(createNewCustomer)
 		self.savebtn.setGeometry(QtCore.QRect(85, 269, 75, 31))
 		self.savebtn.setObjectName("savebtn")
-
 		self.savebtn.clicked.connect(self.do_createNewCustomer)
-
 		self.cancelbtn = QtWidgets.QPushButton(createNewCustomer)
 		self.cancelbtn.setGeometry(QtCore.QRect(205, 269, 75, 31))
 		self.cancelbtn.setObjectName("cancelbtn")
-
 		self.cancelbtn.clicked.connect(self.close)
-
 		self.statuslbl = QtWidgets.QLabel(createNewCustomer)
 		self.statuslbl.setGeometry(QtCore.QRect(5, 228, 381, 31))
 		self.statuslbl.setStyleSheet("color: rgb(255, 0, 0);")
@@ -114,7 +107,6 @@ class Ui_createNewCustomer(QDialog):
 		self.label_5.setObjectName("label_5")
 		self.verticalLayout.addWidget(self.label_5)
 		self.malebtn.setChecked(True)
-
 		self.retranslateUi(createNewCustomer)
 		QtCore.QMetaObject.connectSlotsByName(createNewCustomer)
 
@@ -133,7 +125,7 @@ class Ui_createNewCustomer(QDialog):
 		self.label_5.setText(_translate("createNewCustomer", "Gender :"))
 
 	def do_createNewCustomer(self):
-		if self.custnameled.text() == None or self.mobcustled.text() == None or self.agespin.value() == 0 or  self.citycmbx.currentIndex() == 0 :
+		if self.custnameled.text() == None or self.mobcustled.text() == None or self.agespin.value() == 0 or self.citycmbx.currentIndex() == 0:
 			self.statuslbl.setText('')
 			self.statuslbl.setText('All fields are required ')
 		else:
@@ -151,6 +143,3 @@ class Ui_createNewCustomer(QDialog):
 				self.close()
 			else:
 				self.statuslbl.setText('This customer is already exist')
-
-
-

@@ -154,7 +154,6 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		self.line_4.setFrameShape(QtWidgets.QFrame.VLine)
 		self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_4.setObjectName("line_4")
-
 		self.retranslateUi(maintenanceDetailsDialog)
 		QtCore.QMetaObject.connectSlotsByName(maintenanceDetailsDialog)
 		self.maintedata()
@@ -184,6 +183,7 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		self.maintenanceProductlbl.setText(self.mainte.product_of_maintenance)
 		self.maintenanceDescriplbl.setText(self.mainte.maintenance_description)
 		self.tableDataShow()
+
 	def tableDataShow(self):
 		self.tableData = BomItemTableModel()
 		self.tableView.setModel(self.tableData)

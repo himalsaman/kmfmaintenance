@@ -13,11 +13,13 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
 from Control.maintenanceLogic import getMaintenanceHolded
+from Control.materialsControl import increaseRawMaterialInvQty, decreaseRawMaterialInvQty, decreaseSparePartsInvQty
 from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM, delete_bill_of_material_item
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance, delete_bill_of_material
 from models.dbUtile import Customers
 from models.maintenanceModel import select_maintenance_by_code, update_maintenance, update_maintenance_confirm, \
 	delete_maintenance
+from models.rawMaterialModel import select_row_material_by_id
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
 
@@ -334,6 +336,8 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 			total = maint.cost_of_labor + maint.cost_of_bill_of_material
 			self.totalCostlbl.setText(str(total))
 			self.confirmbtn.setEnabled(True)
+			self.detailesbtn.setEnabled(True)
+			self.detailesbtn.clicked.connect(self.detailsDia)
 
 	def confirmMainte(self):
 		datetimestr = datetime.now()
@@ -341,6 +345,13 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
 			maint = select_maintenance_by_code(ind.data())
+		bom = select_bill_of_material_for_maintenance(maint.id)
+		bomitem =  select_bill_of_material_item_for_BOM(bom.id)
+		for item in bomitem:
+			if item.rawMaterial != None:
+				decreaseRawMaterialInvQty(item.rawMaterial, item.qty_of_material)
+			if item.spareParts != None:
+				decreaseSparePartsInvQty(item.spareParts, item.qty_of_material)
 		update_maintenance_confirm(maint.id, timestampstr)
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
@@ -378,7 +389,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 			maint = select_maintenance_by_code(ind.data())
 
 		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
-		self.md = Ui_maintenanceDetailsDialog()
+		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
 
 if __name__ == "__main__":

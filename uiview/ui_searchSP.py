@@ -179,6 +179,7 @@ class Ui_searchSPDialog(QDialog):
         self.closebtn.setObjectName("closebtn")
         self.closebtn.clicked.connect(self.close)
         self.deletebtn.clicked.connect(self.do_delete)
+        self.editbtn.setVisible(False)
 
         self.retranslateUi(searchSPDialog)
         QtCore.QMetaObject.connectSlotsByName(searchSPDialog)

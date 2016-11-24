@@ -174,7 +174,7 @@ class Ui_finishMaintenanceDialog(QDialog):
         self.detailsbtn = QtWidgets.QPushButton(finishMaintenanceDialog)
         self.detailsbtn.setGeometry(QtCore.QRect(430, 413, 90, 40))
         self.detailsbtn.setObjectName("detailsbtn")
-
+        self.detailsbtn.setEnabled(False)
 
         self.line_4 = QtWidgets.QFrame(finishMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
@@ -330,6 +330,7 @@ class Ui_finishMaintenanceDialog(QDialog):
         self.finishbtn.setEnabled(False)
         self.finishbtn.clicked.connect(self.do_finish)
         self.deletebtn.clicked.connect(self.do_delete)
+        self.detailsbtn.clicked.connect(self.detailsDia)
 
         self.retranslateUi(finishMaintenanceDialog)
         QtCore.QMetaObject.connectSlotsByName(finishMaintenanceDialog)
@@ -375,6 +376,7 @@ class Ui_finishMaintenanceDialog(QDialog):
             self.matTotalCostlbl.setText(str(maint.cost_of_bill_of_material))
             self.totalCostlbl.setText(str(maint.cost_of_bill_of_material + maint.cost_of_labor))
             self.finishbtn.setEnabled(True)
+            self.detailsbtn.setEnabled(True)
 
 
     def do_finish(self):
@@ -421,5 +423,10 @@ class Ui_finishMaintenanceDialog(QDialog):
             maint = select_maintenance_by_code(ind.data())
 
         from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
-        self.md = Ui_maintenanceDetailsDialog()
+        self.md = Ui_maintenanceDetailsDialog(maint)
         self.md.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_finishMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

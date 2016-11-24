@@ -40,17 +40,16 @@ def creatMaintenanceWithNewCustomer(name, mobile_number, gender, age, city_id):
 		gencode = maintenanceCode()
 	new_customers = add_customer(name, mobile_number, gender, age, city_id)
 	maint = add_new_maintenance( gencode, new_customers.id,None, None, None, None, None, None,
-										None,None, None,None )
+										None,None, None,None,0 )
 	# print(new_mainte.id)
 	return maint
-
 def creatMaintenanceExtCustomer(customer):
 	if not check_maintenance_first_time():
 		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
 	else:
 		gencode = maintenanceCode()
 	maint = add_new_maintenance( gencode, customer.id,None, None, None, None, None, None,
-										None,None, None,None )
+										None,None, None,None,0 )
 	# print(new_mainte.id)
 	return maint
 

@@ -15,6 +15,7 @@ from models import cityModel
 from models.cityModel import select_city_by_id
 from models.customersModel import select_customer_by_mob_num, update_customer
 from models.maintenanceModel import select_maintenance_customer
+from uiview.ui_updateNewSP import Ui_editSPDialog
 
 
 class Ui_updateCustomer(QDialog):
@@ -209,14 +210,22 @@ class Ui_updateCustomer(QDialog):
 		mob_num = self.searchled.text()
 		if mob_num == '':
 			self.statuslbl.setText('Must enter mobilephone to start search')
-		if select_customer_by_mob_num(mob_num):
+		elif select_customer_by_mob_num(mob_num):
 			selectedCust = select_customer_by_mob_num(mob_num)
 			self.renamelbl.setText(selectedCust.name)
+			self.custnameled.setText(selectedCust.name)
 			self.remobilenumlbl.setText(selectedCust.mobile_number)
-			city_name = select_city_by_id(selectedCust.city_id).name
-			self.recitylbl.setText(city_name)
+			self.mobcustled.setText(selectedCust.mobile_number)
+			city = select_city_by_id(selectedCust.city_id)
+			self.recitylbl.setText(city.name)
+			self.citycmbx.setCurrentText(city.name)
 			self.reagelbl.setText(str(selectedCust.age))
+			self.agespin.setValue(selectedCust.age)
 			self.regenderlbl.setText(selectedCust.gender.capitalize())
+			if selectedCust.gender == 'male':
+				self.malebtn.setChecked(True)
+			else:
+				self.femalerbtn.setChecked(True)
 			self.statuslbl.setText('')
 		else:
 			self.statuslbl.setText("Can't found customer")
@@ -232,7 +241,7 @@ class Ui_updateCustomer(QDialog):
 				gndr = 'male'
 			elif self.femalerbtn.isChecked():
 				gndr = 'female'
-			if not custname:
+			if custname:
 				custname = self.renamelbl.text()
 			if not custmobnum:
 				custmobnum = self.remobilenumlbl.text()
@@ -244,5 +253,11 @@ class Ui_updateCustomer(QDialog):
 				gndr = self.regenderlbl.text()
 			update_customer(selectedCust.id, custname, custmobnum, gndr, custage, custcity_id)
 			self.close()
+		else:
+			self.statuslbl.setText("Customer Not Updated")
 
-
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_updateCustomer()
+	myapp.show()
+	app.exec_()

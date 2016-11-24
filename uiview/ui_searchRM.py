@@ -188,6 +188,9 @@ class Ui_searchRMDialog(QDialog):
 		self.closebtn.setObjectName("closebtn")
 		self.closebtn.clicked.connect(self.close)
 		self.deletebtn.clicked.connect(self.do_delete)
+		# self.editbtn.clicked.connect(self.openEditeNewRawMaterial)
+		self.editbtn.setVisible(False)
+		self.deletebtn.setEnabled(False)
 
 		self.retranslateUi(searchRMDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchRMDialog)
@@ -252,12 +255,20 @@ class Ui_searchRMDialog(QDialog):
 
 	def do_delete(self):
 		code = self.codeled.text()
-		if select_row_material_bycode(code):
-			rawMat = select_row_material_bycode(code)
-		reply = QMessageBox.question(QMessageBox(), "OOP'S", 'Are you sure to delete ?\n Raw Material \n Code : {}'.format(rawMat.code)+'\n Name : {}'.format(rawMat.name)+'\n This Action Cant Undo',
-									 QMessageBox.Yes | QMessageBox.No)
-		if reply == QMessageBox.Yes:
-			delete_raw_material(rawMat.id)
+		if not code == '':
+			if select_row_material_bycode(code):
+				rawMat = select_row_material_bycode(code)
+			reply = QMessageBox.question(QMessageBox(), "OOP'S", 'Are you sure to delete ?\n Raw '
+																 'Material \n Code : {}'.format(
+				rawMat.code)+'\n Name : {}'.format(rawMat.name)+'\n This Action Cant Undo',
+										 QMessageBox.Yes | QMessageBox.No)
+			if reply == QMessageBox.Yes:
+				delete_raw_material(rawMat.id)
+
+	def openEditeNewRawMaterial(self):
+		from uiview.ui_updateNewRM import Ui_editRWDialog
+		self.di = Ui_editRWDialog()
+		self.di.exec_()
 
 def before(value, a):
 	# Find first part and return slice before it.
@@ -265,4 +276,9 @@ def before(value, a):
 	if pos_a == -1: return ""
 	return value[0:pos_a]
 
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_searchRMDialog()
+	myapp.show()
+	app.exec_()
 

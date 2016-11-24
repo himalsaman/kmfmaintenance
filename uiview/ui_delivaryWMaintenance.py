@@ -173,6 +173,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.detailsbtn = QtWidgets.QPushButton(delivaryMaintenanceDialog)
         self.detailsbtn.setGeometry(QtCore.QRect(430, 462, 90, 40))
         self.detailsbtn.setObjectName("detailsbtn")
+        self.detailsbtn.setEnabled(False)
 
         self.line_4 = QtWidgets.QFrame(delivaryMaintenanceDialog)
         self.line_4.setGeometry(QtCore.QRect(416, 448, 410, 20))
@@ -325,6 +326,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
         self.finishlbl.setObjectName("finishlbl")
         self.delivarybtn.setEnabled(False)
         self.deletebtn.clicked.connect(self.do_delete)
+        self.detailsbtn.clicked.connect(self.detailsDia)
 
         self.retranslateUi(delivaryMaintenanceDialog)
         QtCore.QMetaObject.connectSlotsByName(delivaryMaintenanceDialog)
@@ -371,6 +373,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
             self.totalCostlbl.setText(str(maint.cost_of_bill_of_material + maint.cost_of_labor))
             self.delivarybtn.setEnabled(True)
             self.delivarybtn.clicked.connect(self.do_finish)
+            self.detailsbtn.setEnabled(True)
 
     def do_finish(self):
         datetimestr = datetime.now()
@@ -416,5 +419,10 @@ class Ui_delivaryMaintenanceDialog(QDialog):
             maint = select_maintenance_by_code(ind.data())
 
         from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
-        self.md = Ui_maintenanceDetailsDialog()
+        self.md = Ui_maintenanceDetailsDialog(maint)
         self.md.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_delivaryMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

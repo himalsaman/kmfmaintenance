@@ -102,7 +102,7 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.spcodeled = QtWidgets.QLineEdit(addNewSPTypeDialog)
 		self.spcodeled.setGeometry(QtCore.QRect(50, 97, 171, 20))
 		self.spcodeled.setObjectName("spcodeled")
-
+		self.statulbl.setStyleSheet("color: rgb(255, 0, 0);")
 		self.retranslateUi(addNewSPTypeDialog)
 		self.spunitcomboBox.setCurrentIndex(0)
 		QtCore.QMetaObject.connectSlotsByName(addNewSPTypeDialog)
@@ -126,17 +126,19 @@ class Ui_addNewSPTypeDialog(QDialog):
 
 	def doAdd(self):
 		if self.spNameled.text() == '' or \
-						self.spunitcomboBox.currentIndex() == 0 or \
-						self.spcodeled.text() == '' or \
+						self.spunitcomboBox.currentIndex() == 0 or\
 						self.spcostled.text() == '' or \
-						self.invQTYSpinBox.value() == 0.000000:
+						self.invQTYSpinBox.value() == 0:
 			self.statulbl.setText('All fields is required')
 		else:
 			self.statulbl.setText('ok')
 			name = self.spNameled.text()
 			if self.spunitcomboBox.currentIndex() == 1:
 				unit = 'ea'
-			code = self.spcodeled.text()
+			if self.spcodeled.text() == '':
+				code = '0'
+			else:
+				code = self.spcodeled.text()
 			cost = self.spcostled.text()
 			invqty = self.invQTYSpinBox.value()
 			gencode = 'sp {}'.format(random.randrange(10, 10000, 2))

@@ -14,10 +14,12 @@ session = Session()
 # add new maintenance
 def add_new_maintenance(m_code, customer_id, cost_of_bill_of_material, cost_of_labor,
 						cost_of_another, cost_of_another_description, created_at, close_at,
-						product_of_maintenance,maintenance_description, start_date, done_date):
+						product_of_maintenance,maintenance_description, start_date, done_date,
+						hidden):
 	new_maintenance = Maintenance(m_code, customer_id, cost_of_bill_of_material, cost_of_labor,
 						cost_of_another, cost_of_another_description, created_at, close_at,
-						product_of_maintenance,maintenance_description, start_date, done_date)
+						product_of_maintenance,maintenance_description, start_date, done_date,
+								  hidden)
 	session.add(new_maintenance)
 	session.commit()
 	return new_maintenance

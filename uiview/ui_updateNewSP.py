@@ -11,8 +11,10 @@ from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
+from Control.materialsControl import increaseSparePartsInvQty, upSparePartsCost
 from models.rawMaterialModel import update_raw_material
-from models.sparePartsModel import select_spare_parts_bygen_code, select_all_spare_parts, update_spare_parts
+from models.sparePartsModel import select_spare_parts_bygen_code, select_all_spare_parts, update_spare_parts, \
+    update_spare_parts_inv_qty
 
 
 class Ui_editSPDialog(QDialog):
@@ -199,7 +201,9 @@ class Ui_editSPDialog(QDialog):
         self.closebtn.setObjectName("closebtn")
 
         self.closebtn.clicked.connect(self.close)
-
+        self.dataupdatebtn.setEnabled(False)
+        self.updatecostbtn.setEnabled(False)
+        self.updateqtybtn.setEnabled(False)
         self.listWidget = QtWidgets.QListWidget(editSPDialog)
         self.listWidget.setGeometry(QtCore.QRect(10, 40, 361, 471))
         self.listWidget.setObjectName("listWidget")
@@ -300,38 +304,42 @@ class Ui_editSPDialog(QDialog):
 
 
     def update_cost(self):
-        reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
-                                                              "This action you can't undo",
-                                     QMessageBox.Yes | QMessageBox.No)
-        id_code = self.spgencodelbl.text()
-        upsp = select_spare_parts_bygen_code(id_code)
-
-        n_cost = self.newcostled.text()
-        if n_cost == '':
-            n_cost = upsp.price
-
-        if reply == QMessageBox.Yes:
-            update_spare_parts(upsp.id, upsp.name, upsp.code, upsp.gen_code, n_cost, upsp.inv_qty, upsp.unit)
-            self.statulbl.setText("Data updated successfully")
+        if self.newcostled.text() == '':
+            self.statulbl.setText('New Cost is Required ')
         else:
-            self.statulbl.setText("Data not updated ")
+            reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
+                                                                  "This action you can't undo",
+                                         QMessageBox.Yes | QMessageBox.No)
+            id_code = self.spgencodelbl.text()
+            upsp = select_spare_parts_bygen_code(id_code)
+
+            n_cost = self.newcostled.text()
+            if n_cost == '':
+                n_cost = upsp.price
+
+            if reply == QMessageBox.Yes:
+                upSparePartsCost(upsp, n_cost)
+                self.statulbl.setText("Data updated successfully")
+            else:
+                self.statulbl.setText("Data not updated ")
 
     def update_inv(self):
-        reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
-                                                              "This action you can't undo",
-                                     QMessageBox.Yes | QMessageBox.No)
-        id_code = self.spgencodelbl.text()
-        upsp = select_spare_parts_bygen_code(id_code)
-
-        n_inv = self.newqtySpinBox.value()
-        if n_inv == 0.0:
-            n_inv = upsp.inv_qty
-
-        if reply == QMessageBox.Yes:
-            update_spare_parts(upsp.id, upsp.name, upsp.code, upsp.gen_code, upsp.price, n_inv, upsp.unit)
-            self.statulbl.setText("Data updated successfully")
+        if self.newqtySpinBox.value() == 0:
+            self.statulbl.setText("New Quantity is Required ")
         else:
-            self.statulbl.setText("Data not updated ")
+            reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
+                                                                  "This action you can't undo",
+                                         QMessageBox.Yes | QMessageBox.No)
+            id_code = self.spgencodelbl.text()
+            upsp = select_spare_parts_bygen_code(id_code)
+
+            n_inv = self.newqtySpinBox.value()
+
+            if reply == QMessageBox.Yes:
+                increaseSparePartsInvQty(upsp,n_inv)
+                self.statulbl.setText("Data updated successfully")
+            else:
+                self.statulbl.setText("Data not updated ")
 
 def before(value, a):
     # Find first part and return slice before it.
@@ -339,3 +347,8 @@ def before(value, a):
     if pos_a == -1: return ""
     return value[0:pos_a]
 
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editSPDialog()
+	myapp.show()
+	app.exec_()

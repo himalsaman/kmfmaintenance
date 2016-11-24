@@ -145,7 +145,7 @@ class Ui_deleteCustomer(QDialog):
 		mob_num = self.searchled.text()
 		if mob_num == '':
 			self.statuslbl.setText('Must enter mobilephone to start search')
-		if select_customer_by_mob_num(mob_num):
+		elif select_customer_by_mob_num(mob_num):
 			selectedCust = select_customer_by_mob_num(mob_num)
 			self.renamelbl.setText(selectedCust.name)
 			self.remobilenumlbl.setText(selectedCust.mobile_number)
@@ -157,12 +157,12 @@ class Ui_deleteCustomer(QDialog):
 			if select_maintenance_customer(selectedCust.id):
 				self.statuslbl.setText("Can't delete, this customer have maintenance")
 			else:
-				return True
+				return False
 		else:
 			self.statuslbl.setText("Can't found customer")
 
 	def deleteCustomer(self):
-		if self.searchCustomer:
+		if self.searchCustomer == False:
 			mob_num = self.searchled.text()
 			selectedCust = select_customer_by_mob_num(mob_num)
 			if select_maintenance_customer(selectedCust.id):
@@ -176,12 +176,13 @@ class Ui_deleteCustomer(QDialog):
 					self.close()
 
 	def openHistory(self):
-		from uiview.ui_customerHistory import Ui_historyDialog
-		if self.searchCustomer:
-			mob_num = self.searchled.text()
-			selectedCust = select_customer_by_mob_num(mob_num)
-			self.hd = Ui_historyDialog(selectedCust)
-			self.hd.exec_()
+		if self.searchCustomer == False:
+			from uiview.ui_customerHistory import Ui_historyDialog
+			if self.searchCustomer:
+				mob_num = self.searchled.text()
+				selectedCust = select_customer_by_mob_num(mob_num)
+				self.hd = Ui_historyDialog(selectedCust)
+				self.hd.exec_()
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

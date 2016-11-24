@@ -203,3 +203,8 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
             self.cbom = Ui_createBOMDialog(maint)
             self.cbom.exec_()
 
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_createNewMaintenanceForExistsCustDialog()
+# 	myapp.show()
+# 	app.exec_()

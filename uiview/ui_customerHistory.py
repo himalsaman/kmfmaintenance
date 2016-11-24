@@ -106,6 +106,8 @@ class Ui_historyDialog(QDialog):
         self.detailsbtn = QtWidgets.QPushButton(historyDialog)
         self.detailsbtn.setGeometry(QtCore.QRect(20, 524, 75, 40))
         self.detailsbtn.setObjectName("detailsbtn")
+        self.detailsbtn.setEnabled(False)
+
         self.closebtn = QtWidgets.QPushButton(historyDialog)
         self.closebtn.setGeometry(QtCore.QRect(250, 524, 75, 40))
         self.closebtn.setObjectName("closebtn")
@@ -174,7 +176,8 @@ class Ui_historyDialog(QDialog):
         self.tableView.setColumnWidth(0, 102)
         self.tableView.setColumnWidth(1, 210)
         self.tableView.clicked.connect(self.Clicked)
-        self.detailsbtn.setEnabled(False)
+        self.detailsbtn.clicked.connect(self.detailsDia)
+        self.closebtn.clicked.connect(self.close)
 
     def retranslateUi(self, historyDialog):
         _translate = QtCore.QCoreApplication.translate
@@ -198,3 +201,12 @@ class Ui_historyDialog(QDialog):
             self.mainteProductlbl.setText(maint.product_of_maintenance)
             self.mainteStatuslbl.setText(str(getMaintenanceStatus(maint)))
         self.detailsbtn.setEnabled(True)
+
+
+    def detailsDia(self):
+        indexes = self.tableView.selectionModel().selectedRows(0)
+        for ind in sorted(indexes):
+            maint = select_maintenance_by_code(ind.data())
+        from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
+        self.md = Ui_maintenanceDetailsDialog(maint)
+        self.md.exec_()

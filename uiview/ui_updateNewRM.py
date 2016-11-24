@@ -17,6 +17,7 @@ from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
+from Control.materialsControl import increaseRawMaterialInvQty, upRawMaterialCost
 from models.rawMaterialModel import select_all_raw_material, select_row_material, select_row_material_bycode, \
     update_raw_material
 
@@ -344,39 +345,41 @@ class Ui_editRWDialog(QDialog):
 
 
     def update_cost(self):
-        reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
-                                                              "This action you can't undo",
-                                     QMessageBox.Yes | QMessageBox.No)
-        id_code = self.rwcodelbl.text()
-        uprm = select_row_material_bycode(id_code)
-
-        n_cost = self.newcostled.text()
-        if n_cost == '':
-            n_cost = uprm.cost_per_default_size
-
-        if reply == QMessageBox.Yes:
-            update_raw_material(uprm.id, uprm.code, uprm.name, uprm.default_size, uprm.string_size, uprm.unit,
-                                n_cost, uprm.inv_qty)
-            self.statulbl.setText("Data updated successfully")
+        if self.newcostled.text() == '':
+            self.statulbl.setText('The New Cost is Required')
         else:
-            self.statulbl.setText("Data not updated ")
+            reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
+                                                                  "This action you can't undo",
+                                         QMessageBox.Yes | QMessageBox.No)
+            id_code = self.rwcodelbl.text()
+            uprm = select_row_material_bycode(id_code)
+
+            n_cost = self.newcostled.text()
+            if n_cost == '':
+                n_cost = uprm.cost_per_default_size
+            if reply == QMessageBox.Yes:
+                upRawMaterialCost(uprm, n_cost)
+                self.statulbl.setText("Data updated successfully")
+            else:
+                self.statulbl.setText("Data not updated ")
 
     def update_inv(self):
-        reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update inventory quantity ?\n"
-                                                              "This action you can't undo",
-                                     QMessageBox.Yes | QMessageBox.No)
-        id_code = self.rwcodelbl.text()
-        uprm = select_row_material_bycode(id_code)
-
-        n_inv = self.newqtySpinBox.value()
-        if n_inv == 0.0:
-            n_inv = uprm.inv_qty
-        if reply == QMessageBox.Yes:
-            update_raw_material(uprm.id, uprm.code, uprm.name, uprm.default_size, uprm.string_size, uprm.unit,
-                                uprm.cost_per_default_size, n_inv)
-            self.statulbl.setText("Data updated successfully")
+        if self.newqtySpinBox.value() == 0:
+            self.statulbl.setText('New Quantity is required ')
         else:
-            self.statulbl.setText("Data not updated ")
+            reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update "
+                                                                  "inventory quantity ?\n"
+                                                                  "This action you can't undo",
+                                         QMessageBox.Yes | QMessageBox.No)
+            id_code = self.rwcodelbl.text()
+            uprm = select_row_material_bycode(id_code)
+
+            n_inv = self.newqtySpinBox.value()
+            if reply == QMessageBox.Yes:
+                increaseRawMaterialInvQty(uprm, n_inv)
+                self.statulbl.setText("Data updated successfully")
+            else:
+                self.statulbl.setText("Data not updated ")
 
 
 def before(value, a):
@@ -385,3 +388,8 @@ def before(value, a):
     if pos_a == -1: return ""
     return value[0:pos_a]
 
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editRWDialog()
+	myapp.show()
+	app.exec_()

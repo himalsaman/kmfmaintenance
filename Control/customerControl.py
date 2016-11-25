@@ -2,9 +2,9 @@ from models import customersModel, maintenanceModel
 from models.customersModel import select_all_customers
 
 
-def validCustomer(name, mobNum, gender, age, city_id):
+def validCustomer(name, mobNum, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4,gender, age, city_id):
 	if not customersModel.select_customer_by_mob_num(mobNum):
-		customersModel.add_customer(name, mobNum, gender, age, city_id)
+		customersModel.add_customer(name, mobNum, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4,gender, age, city_id)
 		return True
 	else:
 		return False

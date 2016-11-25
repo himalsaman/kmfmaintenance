@@ -24,7 +24,7 @@ class Ui_deleteCustomer(QDialog):
 
 	def setupUi(self, deleteCustomer):
 		deleteCustomer.setObjectName("deleteCustomer")
-		deleteCustomer.resize(345, 351)
+		deleteCustomer.resize(345, 410)
 		self.label = QtWidgets.QLabel(deleteCustomer)
 		self.label.setGeometry(QtCore.QRect(10, 10, 47, 16))
 		self.label.setObjectName("label")
@@ -43,24 +43,24 @@ class Ui_deleteCustomer(QDialog):
 		self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line.setObjectName("line")
 		self.updatebtn = QtWidgets.QPushButton(deleteCustomer)
-		self.updatebtn.setGeometry(QtCore.QRect(130, 310, 75, 31))
+		self.updatebtn.setGeometry(QtCore.QRect(130, 370, 75, 31))
 		self.updatebtn.setObjectName("updatebtn")
 		self.updatebtn.clicked.connect(self.deleteCustomer)
 		self.cancelbtn = QtWidgets.QPushButton(deleteCustomer)
-		self.cancelbtn.setGeometry(QtCore.QRect(230, 310, 75, 31))
+		self.cancelbtn.setGeometry(QtCore.QRect(230, 370, 75, 31))
 		self.cancelbtn.setObjectName("cancelbtn")
 		self.cancelbtn.clicked.connect(self.close)
 		self.detailsbtn = QtWidgets.QPushButton(deleteCustomer)
-		self.detailsbtn.setGeometry(QtCore.QRect(30, 310, 75, 31))
+		self.detailsbtn.setGeometry(QtCore.QRect(30, 370, 75, 31))
 		self.detailsbtn.setObjectName("updatebtn")
 		self.statuslbl = QtWidgets.QLabel(deleteCustomer)
-		self.statuslbl.setGeometry(QtCore.QRect(10, 270, 331, 31))
+		self.statuslbl.setGeometry(QtCore.QRect(10, 335, 331, 31))
 		self.statuslbl.setStyleSheet("color: rgb(255, 0, 0);")
 		self.statuslbl.setText("")
 		self.statuslbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.statuslbl.setObjectName("statuslbl")
 		self.layoutWidget_2 = QtWidgets.QWidget(deleteCustomer)
-		self.layoutWidget_2.setGeometry(QtCore.QRect(10, 88, 51, 171))
+		self.layoutWidget_2.setGeometry(QtCore.QRect(10, 88, 51, 251))
 		self.layoutWidget_2.setObjectName("layoutWidget_2")
 		self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget_2)
 		self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -68,9 +68,27 @@ class Ui_deleteCustomer(QDialog):
 		self.label_8 = QtWidgets.QLabel(self.layoutWidget_2)
 		self.label_8.setObjectName("label_8")
 		self.verticalLayout_2.addWidget(self.label_8)
+
 		self.label_9 = QtWidgets.QLabel(self.layoutWidget_2)
 		self.label_9.setObjectName("label_9")
 		self.verticalLayout_2.addWidget(self.label_9)
+
+		self.label_19 = QtWidgets.QLabel(self.layoutWidget_2)
+		self.label_19.setObjectName("label_19")
+		self.verticalLayout_2.addWidget(self.label_19)
+
+		self.label_20 = QtWidgets.QLabel(self.layoutWidget_2)
+		self.label_20.setObjectName("label_20")
+		self.verticalLayout_2.addWidget(self.label_20)
+
+		self.label_21 = QtWidgets.QLabel(self.layoutWidget_2)
+		self.label_21.setObjectName("label_21")
+		self.verticalLayout_2.addWidget(self.label_21)
+
+		self.label_22 = QtWidgets.QLabel(self.layoutWidget_2)
+		self.label_22.setObjectName("label_22")
+		self.verticalLayout_2.addWidget(self.label_22)
+
 		self.label_10 = QtWidgets.QLabel(self.layoutWidget_2)
 		self.label_10.setObjectName("label_10")
 		self.verticalLayout_2.addWidget(self.label_10)
@@ -81,19 +99,43 @@ class Ui_deleteCustomer(QDialog):
 		self.label_12.setObjectName("label_12")
 		self.verticalLayout_2.addWidget(self.label_12)
 		self.layoutWidget_3 = QtWidgets.QWidget(deleteCustomer)
-		self.layoutWidget_3.setGeometry(QtCore.QRect(60, 88, 271, 171))
+		self.layoutWidget_3.setGeometry(QtCore.QRect(60, 88, 271, 251))
 		self.layoutWidget_3.setObjectName("layoutWidget_3")
 		self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.layoutWidget_3)
 		self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
 		self.verticalLayout_3.setObjectName("verticalLayout_3")
+
 		self.renamelbl = QtWidgets.QLabel(self.layoutWidget_3)
 		self.renamelbl.setText("")
 		self.renamelbl.setObjectName("renamelbl")
 		self.verticalLayout_3.addWidget(self.renamelbl)
+
 		self.remobilenumlbl = QtWidgets.QLabel(self.layoutWidget_3)
 		self.remobilenumlbl.setText("")
 		self.remobilenumlbl.setObjectName("remobilenumlbl")
 		self.verticalLayout_3.addWidget(self.remobilenumlbl)
+
+		self.remobilenumlbl1 = QtWidgets.QLabel(self.layoutWidget_3)
+		self.remobilenumlbl1.setText("")
+		self.remobilenumlbl1.setObjectName("remobilenumlbl1")
+		self.verticalLayout_3.addWidget(self.remobilenumlbl1)
+
+		self.remobilenumlbl2 = QtWidgets.QLabel(self.layoutWidget_3)
+		self.remobilenumlbl2.setText("")
+		self.remobilenumlbl2.setObjectName("remobilenumlbl2")
+		self.verticalLayout_3.addWidget(self.remobilenumlbl2)
+
+		self.remobilenumlbl3 = QtWidgets.QLabel(self.layoutWidget_3)
+		self.remobilenumlbl3.setText("")
+		self.remobilenumlbl3.setObjectName("remobilenumlbl3")
+		self.verticalLayout_3.addWidget(self.remobilenumlbl3)
+
+		self.remobilenumlbl4 = QtWidgets.QLabel(self.layoutWidget_3)
+		self.remobilenumlbl4.setText("")
+		self.remobilenumlbl4.setObjectName("remobilenumlbl4")
+		self.verticalLayout_3.addWidget(self.remobilenumlbl4)
+
+
 		self.recitylbl = QtWidgets.QLabel(self.layoutWidget_3)
 		self.recitylbl.setText("")
 		self.recitylbl.setObjectName("recitylbl")
@@ -133,6 +175,10 @@ class Ui_deleteCustomer(QDialog):
 		self.label_12.setText(_translate("deleteCustomer", "Gender :"))
 		self.searchButton.setText(_translate("deleteCustomer", "Search"))
 		self.label_2.setText(_translate("deleteCustomer", "Mobile #"))
+		self.label_19.setText(_translate("deleteCustomer", "Mobile #1"))
+		self.label_20.setText(_translate("deleteCustomer", "Mobile #2"))
+		self.label_21.setText(_translate("deleteCustomer", "Mobile #3"))
+		self.label_22.setText(_translate("deleteCustomer", "Mobile #4"))
 		self.detailsbtn.setText(_translate("deleteCustomer", "Details"))
 
 	def searchCustomer(self):
@@ -143,6 +189,10 @@ class Ui_deleteCustomer(QDialog):
 			selectedCust = select_customer_by_mob_num(mob_num)
 			self.renamelbl.setText(selectedCust.name)
 			self.remobilenumlbl.setText(selectedCust.mobile_number)
+			self.remobilenumlbl1.setText(selectedCust.mobile_number_1)
+			self.remobilenumlbl2.setText(selectedCust.mobile_number_2)
+			self.remobilenumlbl3.setText(selectedCust.mobile_number_3)
+			self.remobilenumlbl4.setText(selectedCust.mobile_number_4)
 			city_name = select_city_by_id(selectedCust.city_id).name
 			self.recitylbl.setText(city_name)
 			self.reagelbl.setText(str(selectedCust.age))
@@ -179,8 +229,8 @@ class Ui_deleteCustomer(QDialog):
 				self.hd.exec_()
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_deleteCustomer()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_deleteCustomer()
+	myapp.show()
+	app.exec_()

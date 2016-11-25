@@ -10,19 +10,23 @@ session = Session()
 
 
 # add new customer
-def add_customer(name, mobile_number, gender, age, city_id):
-	new_customer = Customers(name, mobile_number, gender, age, city_id)
+def add_customer(name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age, city_id):
+	new_customer = Customers(name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age, city_id)
 	session.add(new_customer)
 	session.commit()
 	return new_customer
 
 
 # update or edit exists customer
-def update_customer(id, name, mobile_number, gender, age, city_id):
+def update_customer(id, name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4,gender, age, city_id):
 	res = session.query(Customers).filter(Customers.id == id).one()
 	print(res)
 	res.name = name
 	res.mobile_number = mobile_number
+	res.mobile_number_1 = mobile_number_1
+	res.mobile_number_2 = mobile_number_2
+	res.mobile_number_3 = mobile_number_3
+	res.mobile_number_4 = mobile_number_4
 	res.gender = gender
 	res.age = age
 	res.city_id = city_id

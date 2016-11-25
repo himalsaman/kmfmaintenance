@@ -660,6 +660,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionEdit_SP.triggered.connect(self.openEditeNewSparePart)
 		self.actionSearch_SP.triggered.connect(self.openSearchSparePart)
 		# labels counting
+
 		self.tmplbl.setText(str(len(getMaintenancePused())))
 		self.tmhlbl.setText(str(len(getMaintenanceHolded())))
 		self.tmuplbl.setText(str(len(getMaintenanceUnderProccessing())))
@@ -874,8 +875,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.tpsplbl.setText(str(len(select_all_spare_parts())))
 		self.tclbl.setText(str(len(select_all_customers())))
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_MMainWindow()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_MMainWindow()
+	myapp.show()
+	app.exec_()

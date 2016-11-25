@@ -20,12 +20,12 @@ def maintenanceCode():
 
 
 # first maintenance for created new customer
-def creatMaintenanceWithNewCustomer(name, mobile_number, gender, age, city_id):
+def creatMaintenanceWithNewCustomer(name, mobile_number, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,gender, age, city_id):
 	if not check_maintenance_first_time():
 		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
 	else:
 		gencode = maintenanceCode()
-	new_customers = add_customer(name, mobile_number, gender, age, city_id)
+	new_customers = add_customer(name, mobile_number, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,gender, age, city_id)
 	maint = add_new_maintenance(gencode, new_customers.id, None, None, None, None, None, None,
 								None, None, None, None, 0)
 	# print(new_mainte.id)
@@ -101,7 +101,9 @@ def getMaintenanceCalcCost():
 				# mainte.cost_of_another = None
 				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
-	return summ
+		# if summ == 0:
+		# 	summ =0
+		return summ
 
 
 def getMaintenanceUnderProccessing():
@@ -130,7 +132,9 @@ def getMaintenanceUnderProccessingCost():
 				# 	mainte.cost_of_another = 0
 				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
-	return summ
+		# if summ == 0:
+		# 	summ =0
+		return summ
 
 
 def getMaintenanceWaitingDelevary():
@@ -168,7 +172,9 @@ def getMaintenanceFinishedAndDelivaredCost():
 				# 	mainte.cost_of_another = 0
 				simplelistan.append(mainte.cost_of_another)
 		summ = sum(simplelistbm) + sum(simplelistla) + sum(simplelistan)
-	return summ
+		# if summ == 0:
+		# 	summ =0
+		return summ
 
 
 def getMaintenanceForCustomer(customer):

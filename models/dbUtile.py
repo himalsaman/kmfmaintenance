@@ -45,6 +45,9 @@ class User(Base):
 	created_at = Column(TIMESTAMP, nullable=False)
 	role = Column(String(20), nullable=False)
 
+
+
+
 	def __init__(self, name, username, password, created_at, role):
 		self.name = name
 		self.username = username
@@ -62,6 +65,7 @@ class User(Base):
 																		  "role="'{}'.format(self.role) + ")>"
 
 
+
 # create customer db table as class
 class Customers(Base):
 	__tablename__ = 'customers'  # name of table
@@ -70,6 +74,10 @@ class Customers(Base):
 	id = Column(Integer, primary_key=True, nullable=False)
 	name = Column(String(200), nullable=False)
 	mobile_number = Column(String(13), nullable=False, unique=True)
+	mobile_number_1 = Column(String(13))
+	mobile_number_2 = Column(String(13))
+	mobile_number_3 = Column(String(13))
+	mobile_number_4 = Column(String(13))
 	gender = Column(String(10), nullable=True)
 	age = Column(Integer, nullable=True)
 	# one to one relationship with city table
@@ -78,9 +86,13 @@ class Customers(Base):
 
 	maintenance = relationship('Maintenance', backref=backref('maintenance_customers'))
 
-	def __init__(self, name, mobile_number, gender, age, city_id):
+	def __init__(self, name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age, city_id):
 		self.name = name
 		self.mobile_number = mobile_number
+		self.mobile_number_1 = mobile_number_1
+		self.mobile_number_2 = mobile_number_2
+		self.mobile_number_3 = mobile_number_3
+		self.mobile_number_4 = mobile_number_4
 		self.gender = gender
 		self.age = age
 		self.city_id = city_id
@@ -88,8 +100,12 @@ class Customers(Base):
 	# return and print customer table creation arch
 	def __repr__(self):
 		return "<Customer(name ="'{}'.format(self.name) + "\n" \
-														  "mobile_number ="'{}'.format(self.mobile_number) + "\n" \
-																											 "gender ="'{}'.format(
+				"mobile_number ="'{}'.format(self.mobile_number) + "\n" \
+			   	"mobile_number_1 ="'{}'.format(self.mobile_number_1) + "\n" \
+				"mobile_number_2 ="'{}'.format(self.mobile_number_2) + "\n" \
+				"mobile_number_3 ="'{}'.format(self.mobile_number_3) + "\n" \
+				"mobile_number_4 ="'{}'.format(self.mobile_number_4) + "\n" \
+																					 "gender ="'{}'.format(
 			self.gender) + "\n" \
 						   "age ="'{}'.format(self.age) + "\n" \
 														  "city_id ="'{}'.format(self.city_id) + ")>"
@@ -119,7 +135,7 @@ class RawMaterial(Base):
 	# create row's of table
 	id = Column(Integer, primary_key=True, nullable=False)
 	name = Column(String(100))
-	code = Column(String(500), unique=True)
+	code = Column(String(100), unique=True)
 	default_size = Column(Float, nullable=False)
 	string_size = Column(String(50))
 	unit = Column(String(50), nullable=False)
@@ -289,7 +305,7 @@ class Maintenance(Base):
 	created_at = Column(TIMESTAMP)  # date of created to calculate BOM
 	close_at = Column(TIMESTAMP)  # close date : the customer take product back
 	product_of_maintenance = Column(String(200), nullable=True)
-	maintenance_description = Column(String(50000))
+	maintenance_description = Column(String(20000))
 	start_date = Column(TIMESTAMP)  # actually date for start
 	done_date = Column(TIMESTAMP)  # actually date for finish maintenance
 	m_code = Column(String(100))

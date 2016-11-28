@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import random
 
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
@@ -66,18 +67,14 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.srtingSizeled.setObjectName("srtingSizeled")
 		self.invQTYSpinBox = QtWidgets.QDoubleSpinBox(addNewRMTypeDialog)
 		self.invQTYSpinBox.setGeometry(QtCore.QRect(127, 181, 131, 22))
-		self.invQTYSpinBox.setDecimals(6)
-		self.invQTYSpinBox.setMaximum(100000000.0)
-		self.invQTYSpinBox.setSingleStep(0.0001)
+		self.invQTYSpinBox.setMaximum(100000000)
 		self.invQTYSpinBox.setObjectName("invQTYSpinBox")
 		self.label_7 = QtWidgets.QLabel(addNewRMTypeDialog)
 		self.label_7.setGeometry(QtCore.QRect(240, 99, 41, 16))
 		self.label_7.setObjectName("label_7")
 		self.rmDefualtSizeSpinBox = QtWidgets.QDoubleSpinBox(addNewRMTypeDialog)
 		self.rmDefualtSizeSpinBox.setGeometry(QtCore.QRect(86, 95, 131, 22))
-		self.rmDefualtSizeSpinBox.setDecimals(6)
-		self.rmDefualtSizeSpinBox.setMaximum(1000000.0)
-		self.rmDefualtSizeSpinBox.setSingleStep(0.0001)
+		self.rmDefualtSizeSpinBox.setMaximum(100000000)
 		self.rmDefualtSizeSpinBox.setObjectName("rmDefualtSizeSpinBox")
 		self.rmunitcomboBox = QtWidgets.QComboBox(addNewRMTypeDialog)
 		self.rmunitcomboBox.setGeometry(QtCore.QRect(272, 97, 161, 22))
@@ -143,11 +140,10 @@ class Ui_addNewRMTypeDialog(QDialog):
 
 	def doAdd(self):
 		if self.rmNameled.text() == '' or \
-						self.rmDefualtSizeSpinBox.value() == 0.000000 or \
+						self.rmDefualtSizeSpinBox.value() == 0 or \
 						self.rmunitcomboBox.currentIndex() == 0 or \
 						self.srtingSizeled.text() == '' or \
-						self.rmcostled.text() == '' or \
-						self.invQTYSpinBox.value() == 0.000000:
+						self.rmcostled.text() == '' :
 			self.statulbl.setText('All fields is required')
 		else:
 			self.statulbl.setText('ok')
@@ -176,3 +172,8 @@ class Ui_addNewRMTypeDialog(QDialog):
 
 	def do_exit(self):
 		self.close()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_addNewRMTypeDialog()
+	myapp.show()
+	app.exec_()

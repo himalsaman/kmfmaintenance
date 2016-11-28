@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 from datetime import datetime
+import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
@@ -64,11 +65,12 @@ class Ui_finishMaintenanceDialog(QDialog):
 		self.tableView.setColumnWidth(1, 191)
 		self.tableView.setColumnWidth(2, 82)
 		for idx, val in enumerate(getMaintenanceUnderProccessing()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceUnderProccessing()[idx].customers.name
-				, getMaintenanceUnderProccessing()[idx].customers.mobile_number
-				, getMaintenanceUnderProccessing()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceUnderProccessing()[idx].customers.name
+												 , getMaintenanceUnderProccessing()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceUnderProccessing()[idx].m_code
+												 , None, None))
 		self.tableView.clicked.connect(self.Clicked)
 		self.line_2 = QtWidgets.QFrame(finishMaintenanceDialog)
 		self.line_2.setGeometry(QtCore.QRect(410, 35, 3, 470))
@@ -321,6 +323,13 @@ class Ui_finishMaintenanceDialog(QDialog):
 		self.detailsbtn.clicked.connect(self.detailsDia)
 		self.retranslateUi(finishMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(finishMaintenanceDialog)
+		role = getLoginDataPKL()['role']
+		if int(role) == 2 or int(role) == 3:
+			self.label_11.setVisible(False)
+			self.label_12.setVisible(False)
+			self.laborled.setVisible(False)
+			self.totalCostlbl.setVisible(False)
+			self.deletebtn.setEnabled(False)
 
 	def retranslateUi(self, finishMaintenanceDialog):
 		_translate = QtCore.QCoreApplication.translate
@@ -375,11 +384,12 @@ class Ui_finishMaintenanceDialog(QDialog):
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenanceUnderProccessing()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceUnderProccessing()[idx].customers.name
-				, getMaintenanceUnderProccessing()[idx].customers.mobile_number
-				, getMaintenanceUnderProccessing()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceUnderProccessing()[idx].customers.name
+												 , getMaintenanceUnderProccessing()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceUnderProccessing()[idx].m_code
+												 , None, None))
 
 	def do_delete(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -395,11 +405,12 @@ class Ui_finishMaintenanceDialog(QDialog):
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenanceUnderProccessing()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceUnderProccessing()[idx].customers.name
-				, getMaintenanceUnderProccessing()[idx].customers.mobile_number
-				, getMaintenanceUnderProccessing()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceUnderProccessing()[idx].customers.name
+												 , getMaintenanceUnderProccessing()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceUnderProccessing()[idx].m_code
+												 , None, None))
 
 	def detailsDia(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -409,8 +420,8 @@ class Ui_finishMaintenanceDialog(QDialog):
 		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_finishMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_finishMaintenanceDialog()
+	myapp.show()
+	app.exec_()

@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy_utils.functions.database import create_database, database_exists
 
 # create mysql engine
-engine = create_engine('mysql+pymysql://root:root@localhost/maintenancedb?charset=utf8', echo=True)
+engine = create_engine('mysql+pymysql://root:root@127.0.0.1/maintenancedb?charset=utf8', echo=True)
 metadata = MetaData()
 
 # check if database is exists or not

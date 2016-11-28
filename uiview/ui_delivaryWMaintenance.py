@@ -68,7 +68,9 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		for idx, val in enumerate(getMaintenanceWaitingDelevary()):
 			self.tableData.addCustomer(Customers(
 				getMaintenanceWaitingDelevary()[idx].customers.name
-				, getMaintenanceWaitingDelevary()[idx].customers.mobile_number
+				, getMaintenanceWaitingDelevary()[
+					idx].customers.mobile_number
+				, None, None, None, None
 				, getMaintenanceWaitingDelevary()[idx].m_code
 				, None, None))
 		self.tableView.clicked.connect(self.Clicked)
@@ -320,6 +322,13 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		self.detailsbtn.clicked.connect(self.detailsDia)
 		self.retranslateUi(delivaryMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(delivaryMaintenanceDialog)
+		role = getLoginDataPKL()['role']
+		if int(role)== 2 or int(role)== 3:
+			self.label_11.setVisible(False)
+			self.label_12.setVisible(False)
+			self.laborled.setVisible(False)
+			self.totalCostlbl.setVisible(False)
+			self.deletebtn.setEnabled(False)
 
 	def retranslateUi(self, delivaryMaintenanceDialog):
 		_translate = QtCore.QCoreApplication.translate
@@ -378,7 +387,9 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		for idx, val in enumerate(getMaintenanceWaitingDelevary()):
 			self.tableData.addCustomer(Customers(
 				getMaintenanceWaitingDelevary()[idx].customers.name
-				, getMaintenanceWaitingDelevary()[idx].customers.mobile_number
+				, getMaintenanceWaitingDelevary()[
+					idx].customers.mobile_number
+				, None, None, None, None
 				, getMaintenanceWaitingDelevary()[idx].m_code
 				, None, None))
 
@@ -398,7 +409,9 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		for idx, val in enumerate(getMaintenanceWaitingDelevary()):
 			self.tableData.addCustomer(Customers(
 				getMaintenanceWaitingDelevary()[idx].customers.name
-				, getMaintenanceWaitingDelevary()[idx].customers.mobile_number
+				, getMaintenanceWaitingDelevary()[
+					idx].customers.mobile_number
+				, None, None, None, None
 				, getMaintenanceWaitingDelevary()[idx].m_code
 				, None, None))
 

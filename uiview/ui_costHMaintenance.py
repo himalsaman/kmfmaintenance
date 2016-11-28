@@ -265,6 +265,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.calcbtn.clicked.connect(self.do_addLaborCost)
 		self.deletebtn.clicked.connect(self.do_delete)
 		self.retranslateUi(costHoldedMaintenanceDialog)
+		self.deletebtn.setEnabled(False)
 		QtCore.QMetaObject.connectSlotsByName(costHoldedMaintenanceDialog)
 		self.detailsbtn.clicked.connect(self.detailsDia)
 		self.detailsbtn.setEnabled(False)
@@ -305,6 +306,10 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 			self.matTotalCostlbl.setText(str(maint.cost_of_bill_of_material))
 			self.calcbtn.setEnabled(True)
 			self.detailsbtn.setEnabled(True)
+			self.deletebtn.setEnabled(True)
+			role = getLoginDataPKL()['role']
+			if int(role) == 1 :
+				self.deletebtn.setEnabled(False)
 
 	def do_addLaborCost(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -321,11 +326,12 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 			self.tableData = MaintenanceTableModel()
 			self.tableView.setModel(self.tableData)
 			for idx, val in enumerate(getMaintenanceWaitLaborCost()):
-				self.tableData.addCustomer(Customers(
-					getMaintenanceWaitLaborCost()[idx].customers.name
-					, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
-					, getMaintenanceWaitLaborCost()[idx].m_code
-					, None, None))
+				self.tableData.addCustomer(Customers(getMaintenanceWaitLaborCost()[idx].customers.name
+												 , getMaintenanceWaitLaborCost()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceWaitLaborCost()[idx].m_code
+												 , None, None))
 
 	def do_delete(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -343,7 +349,9 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		for idx, val in enumerate(getMaintenanceWaitLaborCost()):
 			self.tableData.addCustomer(Customers(
 				getMaintenanceWaitLaborCost()[idx].customers.name
-				, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
+				, getMaintenanceWaitLaborCost()[
+					idx].customers.mobile_number
+				, None, None, None, None
 				, getMaintenanceWaitLaborCost()[idx].m_code
 				, None, None))
 
@@ -356,8 +364,8 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.md.exec_()
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_costHoldedMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_costHoldedMaintenanceDialog()
+	myapp.show()
+	app.exec_()

@@ -195,7 +195,7 @@ class Ui_searchSPDialog(QDialog):
 	def Clicked(self, item):
 		role = getLoginDataPKL()['role']
 		if int(role) == 1 or int(role) == 2 or int(role) == 3:
-			self.deletebtn.setEnabled(True)
+			self.deletebtn.setEnabled(False)
 		# self.editbtn.setEnabled(True)
 
 		gencode = before(item.text(), ' -')

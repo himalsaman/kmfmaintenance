@@ -147,9 +147,7 @@ class Ui_editRWDialog(QDialog):
 		self.defaultsizSpinBox = QtWidgets.QDoubleSpinBox(editRWDialog)
 		self.defaultsizSpinBox.setGeometry(QtCore.QRect(461, 208, 120, 22))
 		self.defaultsizSpinBox.setObjectName("defaultsizSpinBox")
-		self.defaultsizSpinBox.setDecimals(6)
 		self.defaultsizSpinBox.setMaximum(100000000.0)
-		self.defaultsizSpinBox.setSingleStep(0.0001)
 		self.label_18 = QtWidgets.QLabel(editRWDialog)
 		self.label_18.setGeometry(QtCore.QRect(393, 152, 400, 20))
 		self.label_18.setObjectName("label_18")
@@ -219,9 +217,7 @@ class Ui_editRWDialog(QDialog):
 		self.newqtySpinBox = QtWidgets.QDoubleSpinBox(editRWDialog)
 		self.newqtySpinBox.setGeometry(QtCore.QRect(600, 377, 110, 22))
 		self.newqtySpinBox.setObjectName("newqtySpinBox")
-		self.newqtySpinBox.setDecimals(6)
 		self.newqtySpinBox.setMaximum(100000000.0)
-		self.newqtySpinBox.setSingleStep(0.0001)
 		self.closebtn = QtWidgets.QPushButton(editRWDialog)
 		self.closebtn.setGeometry(QtCore.QRect(548, 460, 90, 40))
 		self.closebtn.setObjectName("closebtn")
@@ -279,11 +275,19 @@ class Ui_editRWDialog(QDialog):
 	unitdict = {'': 0, 'mm': 1, 'cm': 2, 'm': 3, 'g': 4, 'kg': 5, 'ea': 6, 'l': 7}
 
 	def Clicked(self, item):
-		self.dataupdatebtn.setEnabled(True)
 		role = getLoginDataPKL()['role']
-		if int(role) == 1 or int(role) == 2 or int(role) == 3:
-			self.updatecostbtn.setEnabled(True)
+		if int(role) == 2 :
+			self.updatecostbtn.setEnabled(False)
+			self.updateqtybtn.setEnabled(False)
+			self.dataupdatebtn.setEnabled(False)
+		if int(role) == 3:
+			self.dataupdatebtn.setEnabled(True)
+			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn.setEnabled(True)
+		if int(role) == 1 :
+			self.updatecostbtn.setEnabled(True)
+			self.updateqtybtn.setEnabled(False)
+			self.dataupdatebtn.setEnabled(False)
 
 		code = before(item.text(), '-')
 		if select_row_material_bycode(code):

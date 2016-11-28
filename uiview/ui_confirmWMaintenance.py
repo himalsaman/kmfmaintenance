@@ -70,11 +70,12 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.tableView.setColumnWidth(1, 191)
 		self.tableView.setColumnWidth(2, 82)
 		for idx, val in enumerate(getMaintenanceHolded()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceHolded()[idx].customers.name
-				, getMaintenanceHolded()[idx].customers.mobile_number
-				, getMaintenanceHolded()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceHolded()[idx].customers.name
+												 , getMaintenanceHolded()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceHolded()[idx].m_code
+												 , None, None))
 		self.tableView.clicked.connect(self.Clicked)
 		self.line_2 = QtWidgets.QFrame(confirmWMaintenanceDialog)
 		self.line_2.setGeometry(QtCore.QRect(410, 35, 3, 430))
@@ -321,7 +322,6 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 			self.maintDesclbl.setText(maint.maintenance_description)
 			self.laborled.setText(str(maint.cost_of_labor))
 			bom = select_bill_of_material_for_maintenance(maint.id)
-			# print(str(bom.cost_of_raw_material))
 			self.rowCostlbl.setText(str(bom.cost_of_raw_material))
 			self.spCostlbl.setText(str(bom.cost_of_spare_parts))
 			self.matTotalCostlbl.setText(str(maint.cost_of_bill_of_material))
@@ -349,11 +349,12 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenanceHolded()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceHolded()[idx].customers.name
-				, getMaintenanceHolded()[idx].customers.mobile_number
-				, getMaintenanceHolded()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceHolded()[idx].customers.name
+												 , getMaintenanceHolded()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceHolded()[idx].m_code
+												 , None, None))
 
 	def do_delete(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)
@@ -370,11 +371,12 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenanceHolded()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceHolded()[idx].customers.name
-				, getMaintenanceHolded()[idx].customers.mobile_number
-				, getMaintenanceHolded()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceHolded()[idx].customers.name
+												 , getMaintenanceHolded()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceHolded()[idx].m_code
+												 , None, None))
 
 	def detailsDia(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)

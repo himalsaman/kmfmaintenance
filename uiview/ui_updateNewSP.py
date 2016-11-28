@@ -243,11 +243,19 @@ class Ui_editSPDialog(QDialog):
 	unitdict = {" ": 0, 'ea': 1}
 
 	def Clicked(self, item):
-		self.dataupdatebtn.setEnabled(True)
 		role = getLoginDataPKL()['role']
-		if int(role) == 1 or int(role) == 2 or int(role) == 3:
-			self.updatecostbtn.setEnabled(True)
+		if int(role) == 2 :
+			self.updatecostbtn.setEnabled(False)
+			self.updateqtybtn.setEnabled(False)
+			self.dataupdatebtn.setEnabled(False)
+		if int(role) == 3:
+			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn.setEnabled(True)
+			self.dataupdatebtn.setEnabled(True)
+		if int(role) == 1 :
+			self.updatecostbtn.setEnabled(True)
+			self.updateqtybtn.setEnabled(False)
+			self.dataupdatebtn.setEnabled(False)
 
 		gencode = before(item.text(), '-')
 		if select_spare_parts_bygen_code(gencode):
@@ -335,8 +343,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_editSPDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editSPDialog()
+	myapp.show()
+	app.exec_()

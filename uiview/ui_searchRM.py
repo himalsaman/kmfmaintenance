@@ -231,7 +231,7 @@ class Ui_searchRMDialog(QDialog):
 		# role handel
 		role = getLoginDataPKL()['role']
 		if int(role) == 1 or int(role) == 2 or int(role) == 3:
-			self.deletebtn.setEnabled(True)
+			self.deletebtn.setEnabled(False)
 		# self.editbtn.setEnabled(True)
 		code = before(item.text(), '-')
 		if select_row_material_bycode(code):

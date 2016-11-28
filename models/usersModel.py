@@ -40,7 +40,7 @@ def select_user_by_username(username):
 	except NoResultFound:
 		return False
 
-
+# print(select_user_by_username(2))
 # select name and username of all users from users table in db
 def select_all_users():
 	res = session.query(User).all()

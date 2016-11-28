@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import random
 
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
@@ -59,9 +60,7 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.spNameled.setObjectName("spNameled")
 		self.invQTYSpinBox = QtWidgets.QDoubleSpinBox(addNewSPTypeDialog)
 		self.invQTYSpinBox.setGeometry(QtCore.QRect(125, 141, 131, 22))
-		self.invQTYSpinBox.setDecimals(6)
-		self.invQTYSpinBox.setMaximum(1000.0)
-		self.invQTYSpinBox.setSingleStep(0.0001)
+		self.invQTYSpinBox.setMaximum(1000)
 		self.invQTYSpinBox.setObjectName("invQTYSpinBox")
 		self.label_7 = QtWidgets.QLabel(addNewSPTypeDialog)
 		self.label_7.setGeometry(QtCore.QRect(240, 99, 41, 16))
@@ -120,8 +119,7 @@ class Ui_addNewSPTypeDialog(QDialog):
 	def doAdd(self):
 		if self.spNameled.text() == '' or \
 						self.spunitcomboBox.currentIndex() == 0 or \
-						self.spcostled.text() == '' or \
-						self.invQTYSpinBox.value() == 0:
+						self.spcostled.text() == '':
 			self.statulbl.setText('All fields is required')
 		else:
 			self.statulbl.setText('ok')
@@ -137,3 +135,8 @@ class Ui_addNewSPTypeDialog(QDialog):
 			gencode = 'sp {}'.format(random.randrange(10, 10000, 2))
 			add_spare_parts(name, code, gencode, cost, invqty, unit)
 			self.statulbl.setText(name + ", added successfully")
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_addNewSPTypeDialog()
+	myapp.show()
+	app.exec_()

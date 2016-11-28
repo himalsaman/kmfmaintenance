@@ -715,11 +715,11 @@ class Ui_MMainWindow(QMainWindow):
 			self.actionAddUser.setEnabled(False)
 			self.actionEdit_customer.setEnabled(False)
 
-		if int(role) == 2:
+		if int(role) == 3:
 			#Botton
 			self.tmupbtn.setEnabled(False)
 
-		if int(role) == 3:
+		if int(role) == 2:
 			#Botton
 			self.tmpbtn.setEnabled(False)
 			self.tmfwpdbtn.setEnabled(False)
@@ -734,11 +734,15 @@ class Ui_MMainWindow(QMainWindow):
 
 		if int(role) == 1 :
 			#Button
-			self.alocmbtn.setEnabled(False)
-			self.locbtn.setEnabled(False)
+			# self.alocmbtn.setEnabled(False)
+			# self.locbtn.setEnabled(False)
+			self.tmpbtn.setEnabled(False)
 			self.actionAddUser.setEnabled(False)
 			self.cnmncbtn.setEnabled(False)
 			self.cnmecbtn.setEnabled(False)
+			self.tmhbtn.setEnabled(False)
+			self.tmupbtn.setEnabled(False)
+			self.tmfwpdbtn.setEnabled(False)
 
 			#Actions
 			self.actionAdd_New_RM.setEnabled(False)

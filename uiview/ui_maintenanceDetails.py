@@ -163,7 +163,8 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		self.closebtn.clicked.connect(self.close)
 		# role handel
 		role = getLoginDataPKL()['role']
-		if int(role) == 1:
+		if int(role) == 1 or int(role) == 2:
+			# self.
 			self.editbtn.setEnabled(False)
 
 	def retranslateUi(self, maintenanceDetailsDialog):

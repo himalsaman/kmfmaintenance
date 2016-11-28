@@ -60,8 +60,9 @@ class Ui_pusedMaintenanceDialog(QDialog):
 			self.tableData.addCustomer(Customers(getMaintenancePused()[idx].customers.name
 												 , getMaintenancePused()[
 													 idx].customers.mobile_number
+												 , None, None, None, None
 												 , getMaintenancePused()[idx].m_code
-												 , None, None, None, None, None, None))
+												 , None, None))
 		self.tableView.clicked.connect(self.Clicked)
 		self.tableView.setColumnWidth(0, 261)
 		self.tableView.setColumnWidth(1, 88)
@@ -186,6 +187,9 @@ class Ui_pusedMaintenanceDialog(QDialog):
 			self.maintDesclbl.setText(maint.maintenance_description)
 		self.createBOMbtn.setEnabled(True)
 		self.deletebtn.setEnabled(True)
+		role = getLoginDataPKL()['role']
+		if int(role) == 2 or int(role) == 3 or int(role) == 1:
+			self.deletebtn.setEnabled(False)
 
 	def openCreateBom(self):
 		indexes = self.tableView.selectionModel().selectedRows(2)
@@ -214,6 +218,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 			self.tableData.addCustomer(Customers(getMaintenancePused()[idx].customers.name
 												 , getMaintenancePused()[
 													 idx].customers.mobile_number
+												 , None, None, None, None
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
 

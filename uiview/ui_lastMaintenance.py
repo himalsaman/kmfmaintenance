@@ -5,6 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
@@ -60,11 +61,12 @@ class Ui_lastMaintenanceDialog(QDialog):
 		self.tableView.setColumnWidth(1, 191)
 		self.tableView.setColumnWidth(2, 82)
 		for idx, val in enumerate(getMaintenanceFinishedAndDelivared()):
-			self.tableData.addCustomer(Customers(
-				getMaintenanceFinishedAndDelivared()[idx].customers.name
-				, getMaintenanceFinishedAndDelivared()[idx].customers.mobile_number
-				, getMaintenanceFinishedAndDelivared()[idx].m_code
-				, None, None))
+			self.tableData.addCustomer(Customers(getMaintenanceFinishedAndDelivared()[idx].customers.name
+												 , getMaintenanceFinishedAndDelivared()[
+													 idx].customers.mobile_number
+												 , None, None, None, None
+												 , getMaintenanceFinishedAndDelivared()[idx].m_code
+												 , None, None))
 
 		self.tableView.clicked.connect(self.Clicked)
 		self.line_2 = QtWidgets.QFrame(lastMaintenanceDialog)
@@ -328,6 +330,10 @@ class Ui_lastMaintenanceDialog(QDialog):
 
 		self.retranslateUi(lastMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(lastMaintenanceDialog)
+		role = getLoginDataPKL()['role']
+		if int(role) == 2 or int(role) == 3:
+			self.laborled.setVisible(False)
+			self.totalCostlbl.setVisible(False)
 
 	def retranslateUi(self, lastMaintenanceDialog):
 		_translate = QtCore.QCoreApplication.translate
@@ -382,8 +388,8 @@ class Ui_lastMaintenanceDialog(QDialog):
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_lastMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_lastMaintenanceDialog()
+	myapp.show()
+	app.exec_()

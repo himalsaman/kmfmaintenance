@@ -244,8 +244,10 @@ class Ui_editSPDialog(QDialog):
 
 	def Clicked(self, item):
 		self.dataupdatebtn.setEnabled(True)
-		self.updatecostbtn.setEnabled(True)
-		self.updateqtybtn.setEnabled(True)
+		role = getLoginDataPKL()['role']
+		if int(role) == 1 or int(role) == 2 or int(role) == 3:
+			self.updatecostbtn.setEnabled(True)
+			self.updateqtybtn.setEnabled(True)
 
 		gencode = before(item.text(), '-')
 		if select_spare_parts_bygen_code(gencode):

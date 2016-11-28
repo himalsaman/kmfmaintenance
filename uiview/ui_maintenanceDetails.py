@@ -161,6 +161,10 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		self.maintedata()
 		self.editbtn.clicked.connect(self.openEdit)
 		self.closebtn.clicked.connect(self.close)
+		# role handel
+		role = getLoginDataPKL()['role']
+		if int(role) == 1:
+			self.editbtn.setEnabled(False)
 
 	def retranslateUi(self, maintenanceDetailsDialog):
 		_translate = QtCore.QCoreApplication.translate

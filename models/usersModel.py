@@ -13,7 +13,6 @@ def add_user(name, username, password, created_at, role):
 	new_user = User(name, username, password, created_at, role)
 	session.add(new_user)
 	session.commit()
-	print(new_user)
 
 
 # update or edit exists user in users table

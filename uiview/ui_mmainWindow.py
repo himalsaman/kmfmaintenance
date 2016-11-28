@@ -582,6 +582,10 @@ class Ui_MMainWindow(QMainWindow):
 		self.statusbar = QtWidgets.QStatusBar(MMainWindow)
 		self.statusbar.setObjectName("statusbar")
 		MMainWindow.setStatusBar(self.statusbar)
+
+		self.actionAddUser = QtWidgets.QAction(MMainWindow)
+		self.actionAddUser.setObjectName("actionAddUser")
+
 		self.actionLogout = QtWidgets.QAction(MMainWindow)
 		self.actionLogout.setObjectName("actionLogout")
 		self.actionChange_Password = QtWidgets.QAction(MMainWindow)
@@ -620,6 +624,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionSearch_SP.setObjectName("actionSearch_SP")
 		self.actionReports_3 = QtWidgets.QAction(MMainWindow)
 		self.actionReports_3.setObjectName("actionReports_3")
+		self.menuFile.addAction(self.actionAddUser)
 		self.menuFile.addAction(self.actionLogout)
 		self.menuFile.addAction(self.actionChange_Password)
 		self.menuFile.addAction(self.actionExit)
@@ -644,6 +649,7 @@ class Ui_MMainWindow(QMainWindow):
 		# actions of menu bar
 
 		## file menu actions
+		self.actionAddUser.triggered.connect(self.openAddUser)
 		self.actionLogout.triggered.connect(self.doLogout)
 		self.actionChange_Password.triggered.connect(self.openChangePasswordDialog)
 		self.actionExit.triggered.connect(self.doExit)
@@ -688,6 +694,56 @@ class Ui_MMainWindow(QMainWindow):
 		QtCore.QMetaObject.connectSlotsByName(MMainWindow)
 		self.refreshbtn.clicked.connect(self.do_refresh)
 
+		#role handel
+		role = getLoginDataPKL()['role']
+		if int(role) == 2 or int(role) == 3:
+			#labels
+			self.label_18.setVisible(False)
+			self.tctmhlbl.setVisible(False)
+			self.label_26.setVisible(False)
+			self.tctmuplbl.setVisible(False)
+			self.label_30.setVisible(False)
+			self.tctmfpdlbl.setVisible(False)
+
+			#Botton
+			self.tmhbtn.setEnabled(False)
+			self.tmfpdbtn.setEnabled(False)
+			self.alocmbtn.setEnabled(False)
+			self.locbtn.setEnabled(False)
+
+			#Actions
+			self.actionAddUser.setEnabled(False)
+			self.actionEdit_customer.setEnabled(False)
+
+		if int(role) == 2:
+			#Botton
+			self.tmupbtn.setEnabled(False)
+
+		if int(role) == 3:
+			#Botton
+			self.tmpbtn.setEnabled(False)
+			self.tmfwpdbtn.setEnabled(False)
+			self.cnmncbtn.setEnabled(False)
+			self.cnmecbtn.setEnabled(False)
+
+			#Actions
+			self.actionAdd_New_RM.setEnabled(False)
+			self.actionEdit_RM.setEnabled(False)
+			self.actionAdd_New_SP.setEnabled(False)
+			self.actionEdit_SP.setEnabled(False)
+
+		if int(role) == 1 :
+			#Button
+			self.alocmbtn.setEnabled(False)
+			self.locbtn.setEnabled(False)
+			self.actionAddUser.setEnabled(False)
+			self.cnmncbtn.setEnabled(False)
+			self.cnmecbtn.setEnabled(False)
+
+			#Actions
+			self.actionAdd_New_RM.setEnabled(False)
+			self.actionAdd_New_SP.setEnabled(False)
+
 	def retranslateUi(self, MMainWindow):
 		_translate = QtCore.QCoreApplication.translate
 		MMainWindow.setWindowTitle(_translate("MMainWindow", "Maintenance System"))
@@ -725,6 +781,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.menuCustomer.setTitle(_translate("MMainWindow", "Customer"))
 		self.menuRaw_Material.setTitle(_translate("MMainWindow", "Raw Material"))
 		self.menuSpare_Parts.setTitle(_translate("MMainWindow", "Spare Parts"))
+		self.actionAddUser.setText(_translate("MMainWindow", "Add User"))
 		self.actionLogout.setText(_translate("MMainWindow", "Logout"))
 		self.actionChange_Password.setText(_translate("MMainWindow", "Change Password"))
 		self.actionExit.setText(_translate("MMainWindow", "Exit"))
@@ -855,6 +912,11 @@ class Ui_MMainWindow(QMainWindow):
 		from uiview.ui_createNewMaintExsistCust import Ui_createNewMaintenanceForExistsCustDialog
 		self.pmd = Ui_createNewMaintenanceForExistsCustDialog()
 		self.pmd.exec_()
+
+	def openAddUser(self):
+		from uiview.ui_addUser import Ui_adduserDialog
+		self.ad = Ui_adduserDialog()
+		self.ad.exec_()
 
 	def do_refresh(self):
 		self.datetimelbl.setText(timestampstr)

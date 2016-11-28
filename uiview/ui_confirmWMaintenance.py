@@ -283,6 +283,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.detailesbtn.setFont(font)
 		self.detailesbtn.setObjectName("detailesbtn")
 		self.detailesbtn.setEnabled(False)
+		self.deletebtn.setEnabled(False)
 		self.confirmbtn.clicked.connect(self.confirmMainte)
 		self.deletebtn.clicked.connect(self.do_delete)
 		self.retranslateUi(confirmWMaintenanceDialog)
@@ -328,6 +329,7 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 			self.totalCostlbl.setText(str(total))
 			self.confirmbtn.setEnabled(True)
 			self.detailesbtn.setEnabled(True)
+			self.deletebtn.setEnabled(True)
 			self.detailesbtn.clicked.connect(self.detailsDia)
 
 	def confirmMainte(self):
@@ -384,8 +386,8 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 		self.md.exec_()
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_confirmWMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_confirmWMaintenanceDialog()
+	myapp.show()
+	app.exec_()

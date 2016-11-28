@@ -59,7 +59,7 @@ def getMaintenancePused():
 		if mainte.created_at == None or mainte.cost_of_bill_of_material == None:
 			simplelist.append(mainte)
 	return simplelist
-
+# print(getMaintenancePused())
 
 def getMaintenanceWaitLaborCost():
 	simplelist = []

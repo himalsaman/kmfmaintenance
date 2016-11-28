@@ -228,8 +228,11 @@ class Ui_searchRMDialog(QDialog):
 			self.label_10.setText("You must select one method for search !")
 
 	def Clicked(self, item):
-		self.deletebtn.setEnabled(True)
-		self.editbtn.setEnabled(True)
+		# role handel
+		role = getLoginDataPKL()['role']
+		if int(role) == 1 or int(role) == 2 or int(role) == 3:
+			self.deletebtn.setEnabled(True)
+		# self.editbtn.setEnabled(True)
 		code = before(item.text(), '-')
 		if select_row_material_bycode(code):
 			rawMat = select_row_material_bycode(code)

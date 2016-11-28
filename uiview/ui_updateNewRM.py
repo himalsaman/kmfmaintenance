@@ -280,8 +280,10 @@ class Ui_editRWDialog(QDialog):
 
 	def Clicked(self, item):
 		self.dataupdatebtn.setEnabled(True)
-		self.updatecostbtn.setEnabled(True)
-		self.updateqtybtn.setEnabled(True)
+		role = getLoginDataPKL()['role']
+		if int(role) == 1 or int(role) == 2 or int(role) == 3:
+			self.updatecostbtn.setEnabled(True)
+			self.updateqtybtn.setEnabled(True)
 
 		code = before(item.text(), '-')
 		if select_row_material_bycode(code):
@@ -371,8 +373,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_editRWDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editRWDialog()
+	myapp.show()
+	app.exec_()

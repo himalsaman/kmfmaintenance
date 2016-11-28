@@ -5,6 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
@@ -60,7 +61,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 												 , getMaintenancePused()[
 													 idx].customers.mobile_number
 												 , getMaintenancePused()[idx].m_code
-												 , None, None))
+												 , None, None, None, None, None, None))
 		self.tableView.clicked.connect(self.Clicked)
 		self.tableView.setColumnWidth(0, 261)
 		self.tableView.setColumnWidth(1, 88)
@@ -216,8 +217,8 @@ class Ui_pusedMaintenanceDialog(QDialog):
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_pusedMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_pusedMaintenanceDialog()
+	myapp.show()
+	app.exec_()

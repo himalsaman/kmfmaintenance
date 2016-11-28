@@ -2,15 +2,17 @@ import os
 import pickle
 
 from models import usersModel
+from models.usersModel import select_all_users, select_user_by_username
 
 
 def validLogin(username, password):
 	if password == '':
 		return False
-	elif usersModel.select_user_by_username(username).password == password:
+	elif usersModel.select_user_by_username(username):
 		logUser = usersModel.select_user_by_username(username)
-		setLoginDataPKL(logUser.name, logUser.username, logUser.role)
-		return logUser
+		if logUser.password == password:
+			setLoginDataPKL(logUser.name, logUser.username, logUser.role)
+			return logUser
 	else:
 		return False
 
@@ -46,3 +48,11 @@ def getLoginDataPKL():
 def deleteLoginDataPKL():
 	# PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 	os.remove("loginUserData.pkl")
+
+def checkUsernameExsist(username):
+	if select_user_by_username(username):
+		return True
+	else:
+		return False
+
+# print(checkUsernameExsist('admin'))

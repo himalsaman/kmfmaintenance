@@ -161,6 +161,8 @@ class Ui_deleteCustomer(QDialog):
 		self.retranslateUi(deleteCustomer)
 		QtCore.QMetaObject.connectSlotsByName(deleteCustomer)
 		self.detailsbtn.clicked.connect(self.openHistory)
+		self.updatebtn.setEnabled(False)
+		self.detailsbtn.setEnabled(False)
 
 	def retranslateUi(self, deleteCustomer):
 		_translate = QtCore.QCoreApplication.translate
@@ -198,6 +200,14 @@ class Ui_deleteCustomer(QDialog):
 			self.reagelbl.setText(str(selectedCust.age))
 			self.regenderlbl.setText(selectedCust.gender.capitalize())
 			self.statuslbl.setText('')
+			self.detailsbtn.setEnabled(True)
+			# role handel
+			role = getLoginDataPKL()['role']
+			if int(role) == 1 or int(role) == 2 or int(role) == 3:
+				self.updatebtn.setEnabled(False)
+			else:
+				self.updatebtn.setEnabled(True)
+
 			if select_maintenance_customer(selectedCust.id):
 				self.statuslbl.setText("Can't delete, this customer have maintenance")
 			else:
@@ -206,27 +216,24 @@ class Ui_deleteCustomer(QDialog):
 			self.statuslbl.setText("Can't found customer")
 
 	def deleteCustomer(self):
-		if self.searchCustomer == False:
-			mob_num = self.searchled.text()
-			selectedCust = select_customer_by_mob_num(mob_num)
-			if select_maintenance_customer(selectedCust.id):
-				self.statuslbl.setText("Can't delete customer")
-			else:
-				reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to delete this customer ?\n"
-																	  "This action you can't undo",
-											 QMessageBox.Yes | QMessageBox.No)
-				if reply == QMessageBox.Yes:
-					delete_customer(selectedCust.id)
-					self.close()
+		mob_num = self.searchled.text()
+		selectedCust = select_customer_by_mob_num(mob_num)
+		if select_maintenance_customer(selectedCust.id):
+			self.statuslbl.setText("Can't delete customer")
+		else:
+			reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to delete this customer ?\n"
+																  "This action you can't undo",
+										 QMessageBox.Yes | QMessageBox.No)
+			if reply == QMessageBox.Yes:
+				delete_customer(selectedCust.id)
+				self.close()
 
 	def openHistory(self):
-		if self.searchCustomer == False:
-			from uiview.ui_customerHistory import Ui_historyDialog
-			if self.searchCustomer:
-				mob_num = self.searchled.text()
-				selectedCust = select_customer_by_mob_num(mob_num)
-				self.hd = Ui_historyDialog(selectedCust)
-				self.hd.exec_()
+		from uiview.ui_customerHistory import Ui_historyDialog
+		mob_num = self.searchled.text()
+		selectedCust = select_customer_by_mob_num(mob_num)
+		self.hd = Ui_historyDialog(selectedCust)
+		self.hd.exec_()
 
 
 if __name__ == "__main__":

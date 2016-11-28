@@ -193,8 +193,10 @@ class Ui_searchSPDialog(QDialog):
 		self.closebtn.setText(_translate("searchSPDialog", "Close"))
 
 	def Clicked(self, item):
-		self.deletebtn.setEnabled(True)
-		self.editbtn.setEnabled(True)
+		role = getLoginDataPKL()['role']
+		if int(role) == 1 or int(role) == 2 or int(role) == 3:
+			self.deletebtn.setEnabled(True)
+		# self.editbtn.setEnabled(True)
 
 		gencode = before(item.text(), ' -')
 		if select_spare_parts_bygen_code(gencode):

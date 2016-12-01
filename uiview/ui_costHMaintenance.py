@@ -66,7 +66,9 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		for idx, val in enumerate(getMaintenanceWaitLaborCost()):
 			self.tableData.addCustomer(Customers(
 				getMaintenanceWaitLaborCost()[idx].customers.name
-				, getMaintenanceWaitLaborCost()[idx].customers.mobile_number
+				, getMaintenanceWaitLaborCost()[
+					idx].customers.mobile_number
+				, None, None, None, None
 				, getMaintenanceWaitLaborCost()[idx].m_code
 				, None, None))
 		self.tableView.clicked.connect(self.Clicked)

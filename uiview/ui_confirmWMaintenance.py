@@ -11,6 +11,7 @@ from datetime import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
+from reportlab.lib.styles import LineStyle
 
 from Control.maintenanceLogic import getMaintenanceHolded
 from Control.materialsControl import decreaseRawMaterialInvQty, decreaseSparePartsInvQty
@@ -18,11 +19,18 @@ from Control.userControl import getLoginDataPKL
 from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
-from models.maintenanceModel import select_maintenance_by_code, update_maintenance_confirm, \
-	delete_maintenance
+from models.maintenanceModel import select_maintenance_by_code, delete_maintenance, update_maintenance_confirm
+from reports.acconfReport import  CreateAcConfReport
+from reports.proconfReport import  CreateProConfReport
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
+def stylesheet():
 
+	styles = {
+		'default': LineStyle(
+
+		)
+	}
 class Ui_confirmWMaintenanceDialog(QDialog):
 	def __init__(self, parent=None):
 		super(Ui_confirmWMaintenanceDialog, self).__init__()
@@ -346,6 +354,9 @@ class Ui_confirmWMaintenanceDialog(QDialog):
 			if item.spareParts != None:
 				decreaseSparePartsInvQty(item.spareParts, item.qty_of_material)
 		update_maintenance_confirm(maint.id, timestampstr)
+		CreateAcConfReport(maint).create_pdf()
+		CreateProConfReport(maint).create_pdf()
+
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenanceHolded()):

@@ -5,6 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+import  sys
 from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -16,6 +17,7 @@ from Control.userControl import getLoginDataPKL
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
 from models.maintenanceModel import select_maintenance_by_code, update_maintenance_close, delete_maintenance
+from reports.fcDelvReport import CreateDelvRecReport
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
 datetimestr = datetime.now()
@@ -366,6 +368,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 			self.createdlbl.setText(str(maint.created_at))
 			self.laborled.setText(str(maint.cost_of_labor))
 			self.startlbl.setText(str(maint.start_date))
+			self.finishlbl.setText(str(maint.done_date))
 			bom = select_bill_of_material_for_maintenance(maint.id)
 			self.rowCostlbl.setText(str(bom.cost_of_raw_material))
 			self.spCostlbl.setText(str(bom.cost_of_spare_parts))
@@ -381,7 +384,9 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		indexes = self.tableView.selectionModel().selectedRows(0)
 		for ind in sorted(indexes):
 			maint = select_maintenance_by_code(ind.data())
-			update_maintenance_close(maint.id, timestampstr)
+		update_maintenance_close(maint.id, timestampstr)
+		CreateDelvRecReport(maint).create_pdf()
+
 		self.tableData = MaintenanceTableModel()
 		self.tableView.setModel(self.tableData)
 		for idx, val in enumerate(getMaintenanceWaitingDelevary()):
@@ -423,8 +428,9 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_delivaryMaintenanceDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_delivaryMaintenanceDialog()
+	myapp.show()
+	app.exec_()
+

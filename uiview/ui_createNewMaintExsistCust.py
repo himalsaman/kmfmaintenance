@@ -50,7 +50,12 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
 				, getAllcustomers()[idx].mobile_number
 				, None
 				, None
-				, None))
+				, None
+				, None
+				, None
+				, None
+				, None
+			))
 		self.tableView.clicked.connect(self.Clicked)
 		self.line = QtWidgets.QFrame(createNewMaintenanceForExistsCustDialog)
 		self.line.setGeometry(QtCore.QRect(8, 25, 710, 3))

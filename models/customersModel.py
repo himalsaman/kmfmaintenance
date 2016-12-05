@@ -70,3 +70,12 @@ def select_all_customers():
 def select_max_customer_id():
 	maxcode = session.query(func.max(Customers.id)).one()
 	return (maxcode[0])
+
+def select_customer_exact(key, value):
+	try:
+		res = session.query(Customers).filter(getattr(Customers, key) == value).one()
+		return  res
+	except NoResultFound:
+		return False
+
+select_customer_exact('mobile_number', '0011')

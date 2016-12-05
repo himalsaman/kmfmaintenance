@@ -201,4 +201,21 @@ def getMaintenanceStatus(mainte):
 			satus = 'Canceled'
 		if mainte.hidden == 1 and mainte.start_date == None:
 			satus = 'Canceled By Customer'
-	return satus
+		return satus
+
+def getMaintenanceAmouted():
+	simplelist = []
+	mainlist = select_all_maintenance()
+	for mainte in mainlist:
+		if mainte.start_date != None:
+			simplelist.append(mainte)
+	return simplelist
+
+def getMaintenanceBTWDate(first, second):
+	simplelist = []
+	mainlist = select_all_maintenance()
+	for mainte in mainlist:
+		if mainte.start_date != None :
+			if mainte.created_at >= first and mainte.created_at <= second:
+				simplelist.append(mainte)
+	return simplelist

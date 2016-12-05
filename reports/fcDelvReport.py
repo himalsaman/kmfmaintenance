@@ -182,7 +182,7 @@ class CreateDelvRecReport(object):
 		"""
 				Create the line items
 				"""
-		text_data = ["#", "Material Name", "Material Type", "QTY", "Cost"]
+		text_data = ["#", "Material Name", "Material Type", "QTY"]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -208,7 +208,7 @@ class CreateDelvRecReport(object):
 				mname = spare.name
 				typeName = "Spare Parts"
 			line_data = [str(line_num), mname, typeName, val.qty_of_material
-				, val.cost_of_material]
+				]
 
 			for item in line_data:
 				ptext = "<font size=%s>%s</font>" % (font_size - 1, item)
@@ -218,37 +218,37 @@ class CreateDelvRecReport(object):
 			formatted_line_data = []
 			line_num += 1
 
-		table = Table(data, colWidths=[20, 220, 100, 80, 80], rowHeights=20
+		table = Table(data, colWidths=[20, 220, 100, 80], rowHeights=20
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
 		#########################################################################################
-		bomtxt = '<font size=9><p><b>BOM Cost</b></p></font>'
-		pbomtxt = Paragraph(bomtxt, styles["Normal"])
-
-		bomtxtnum = "<p>{}<p>".format(self.maint.cost_of_bill_of_material)
-		pbomtxtnum = Paragraph(bomtxtnum, styles["Normal"])
-
-		labtxt = '<font size=9><p><b>Extra Cost</b></p></font>'
-		plabtxt = Paragraph(labtxt, styles["Normal"])
-
-		labtxtnum = '<p>{}</p>'.format(self.maint.cost_of_labor)
-		plabtxtnum = Paragraph(labtxtnum, styles["Normal"])
-
-		totxt = '<font size=9><p><b>Total</b></p></font>'
-		ptotxt = Paragraph(totxt, styles["Normal"])
-
-		totxtnum = '<p>{}</p>'.format(self.maint.cost_of_labor +
-									  self.maint.cost_of_bill_of_material)
-		ptotxtnum = Paragraph(totxtnum, styles["Normal"])
-		data = [['', '', '', pbomtxt, pbomtxtnum],
-				['', '', '', plabtxt, plabtxtnum],
-				['', '', '', ptotxt, ptotxtnum]]
-		t = Table(data, colWidths=[5, 5, 380, 60, 50], rowHeights=15)
-		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
-		story.append(t)
-		for x in range(2):
-			story.append(spacer)
+		# bomtxt = '<font size=9><p><b>BOM Cost</b></p></font>'
+		# pbomtxt = Paragraph(bomtxt, styles["Normal"])
+		#
+		# bomtxtnum = "<p>{}<p>".format(self.maint.cost_of_bill_of_material)
+		# pbomtxtnum = Paragraph(bomtxtnum, styles["Normal"])
+		#
+		# labtxt = '<font size=9><p><b>Extra Cost</b></p></font>'
+		# plabtxt = Paragraph(labtxt, styles["Normal"])
+		#
+		# labtxtnum = '<p>{}</p>'.format(self.maint.cost_of_labor)
+		# plabtxtnum = Paragraph(labtxtnum, styles["Normal"])
+		#
+		# totxt = '<font size=9><p><b>Total</b></p></font>'
+		# ptotxt = Paragraph(totxt, styles["Normal"])
+		#
+		# totxtnum = '<p>{}</p>'.format(self.maint.cost_of_labor +
+		# 							  self.maint.cost_of_bill_of_material)
+		# ptotxtnum = Paragraph(totxtnum, styles["Normal"])
+		# data = [['', '', '', pbomtxt, pbomtxtnum],
+		# 		['', '', '', plabtxt, plabtxtnum],
+		# 		['', '', '', ptotxt, ptotxtnum]]
+		# t = Table(data, colWidths=[5, 5, 380, 60, 50], rowHeights=15)
+		# t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
+		# story.append(t)
+		# for x in range(2):
+		# 	story.append(spacer)
 		#########################################################################################
 		nottxt = "<font size=11><p>I'm <u>{}</u> admitted that, I received product his data " \
 				 "shown above after maintenance process <br/>The problems and the faults " \

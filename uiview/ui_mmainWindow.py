@@ -693,11 +693,12 @@ class Ui_MMainWindow(QMainWindow):
 		self.retranslateUi(MMainWindow)
 		QtCore.QMetaObject.connectSlotsByName(MMainWindow)
 		self.refreshbtn.clicked.connect(self.do_refresh)
+		self.reportbtn.clicked.connect(self.openReports)
 
-		#role handel
+		# role handel
 		role = getLoginDataPKL()['role']
 		if int(role) == 2 or int(role) == 3:
-			#labels
+			# labels
 			self.label_18.setVisible(False)
 			self.tctmhlbl.setVisible(False)
 			self.label_26.setVisible(False)
@@ -705,35 +706,36 @@ class Ui_MMainWindow(QMainWindow):
 			self.label_30.setVisible(False)
 			self.tctmfpdlbl.setVisible(False)
 
-			#Botton
+			# Botton
 			self.tmhbtn.setEnabled(False)
 			self.tmfpdbtn.setEnabled(False)
 			self.alocmbtn.setEnabled(False)
 			self.locbtn.setEnabled(False)
 
-			#Actions
+			# Actions
 			self.actionAddUser.setEnabled(False)
 			self.actionEdit_customer.setEnabled(False)
 
 		if int(role) == 3:
-			#Botton
+			# Botton
 			self.tmupbtn.setEnabled(False)
 
 		if int(role) == 2:
-			#Botton
+			# Botton
 			self.tmpbtn.setEnabled(False)
 			self.tmfwpdbtn.setEnabled(False)
 			self.cnmncbtn.setEnabled(False)
 			self.cnmecbtn.setEnabled(False)
+			self.reportbtn.setEnabled(False)
 
-			#Actions
+			# Actions
 			self.actionAdd_New_RM.setEnabled(False)
 			self.actionEdit_RM.setEnabled(False)
 			self.actionAdd_New_SP.setEnabled(False)
 			self.actionEdit_SP.setEnabled(False)
 
-		if int(role) == 1 :
-			#Button
+		if int(role) == 1:
+			# Button
 			# self.alocmbtn.setEnabled(False)
 			# self.locbtn.setEnabled(False)
 			self.tmpbtn.setEnabled(False)
@@ -744,7 +746,7 @@ class Ui_MMainWindow(QMainWindow):
 			self.tmupbtn.setEnabled(False)
 			self.tmfwpdbtn.setEnabled(False)
 
-			#Actions
+			# Actions
 			self.actionAdd_New_RM.setEnabled(False)
 			self.actionAdd_New_SP.setEnabled(False)
 
@@ -940,6 +942,11 @@ class Ui_MMainWindow(QMainWindow):
 		self.tprmlbl.setText(str(len(select_all_raw_material())))
 		self.tpsplbl.setText(str(len(select_all_spare_parts())))
 		self.tclbl.setText(str(len(select_all_customers())))
+
+	def openReports(self):
+		from uiview.ui_reporting import Ui_reportDialog
+		self.pmd = Ui_reportDialog()
+		self.pmd.exec_()
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

@@ -78,4 +78,4 @@ def select_customer_exact(key, value):
 	except NoResultFound:
 		return False
 
-select_customer_exact('mobile_number', '0011')
+# select_customer_exact('mobile_number', '0011')

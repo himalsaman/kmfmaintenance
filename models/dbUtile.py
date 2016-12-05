@@ -377,7 +377,7 @@ class FinishProducts(Base):
 	source = Column(String(50))
 	gen_code = Column(String(100))
 
-	outbound = relationship('Outbound', backref=backref('outbound_tools'))
+	outbound = relationship('Outbound', backref=backref('outbound_finish_product'))
 
 	manufacting = relationship('Manufacting', backref=backref('manufacting_tools'))
 
@@ -441,11 +441,11 @@ class Outbound(Base):
 	out_date = Column(TIMESTAMP)
 	reason = Column(String(100))
 
-	customers_id = Column(Integer, ForeignKey('customers.id'))
+	customer_id = Column(Integer, ForeignKey('customers.id'))
 	customers = relationship('Customers', backref=backref('outbound_customers'))
 
 	employee_id = Column(Integer, ForeignKey('employee.id'))
-	employee = relationship('Employee', backref=backref('outbound_employee'))
+	employee = relationship('Employees', backref=backref('outbound_employee'))
 
 	raw_material_id = Column(Integer, ForeignKey('raw_material.id'))
 	rawMaterial = relationship('RawMaterial', backref=backref('outbound_row_material'))
@@ -457,7 +457,7 @@ class Outbound(Base):
 	tools_id = Column(Integer, ForeignKey('tools.id'))
 	tools = relationship('Tools', backref=backref('outbound_tools'))
 
-	finish_product_id = Column(Integer, ForeignKey('finish_products.id'))
+	product_id = Column(Integer, ForeignKey('finish_products.id'))
 	finishProducts = relationship('FinishProducts', backref=backref('finish_products_outbound'))
 
 class ManBOMItem(Base):
@@ -468,16 +468,16 @@ class ManBOMItem(Base):
 
 	# relationship with raw material table, if null must spare_part_id not null
 	raw_material_id = Column(Integer, ForeignKey('raw_material.id'))
-	rawMaterial = relationship('RawMaterial', backref=backref('billOfMaterialItem_row_material'))
+	rawMaterial = relationship('RawMaterial', backref=backref('manBomItem_row_material'))
 
 	# relationship with spare part table, if null must raw_material_id not null
 	spare_part_id = Column(Integer, ForeignKey('spare_parts.id'))
-	spareParts = relationship('SpareParts', backref=backref('billOfMaterialItem_spareParts'))
+	spareParts = relationship('SpareParts', backref=backref('manBomItem_spareParts'))
 
 	# relationship with maintenance table
 	# because each row mu assign for the target maintenance
 	man_bom_id = Column(Integer, ForeignKey('man_bom.id'))
-	ManBom = relationship('ManBom', backref=backref('manBOMItem_manBom'))
+	manBom = relationship('ManBOM', backref=backref('manBOMItem_manBom'))
 
 	# cost and qty can be for raw material or spare part not both together
 	cost_of_material = Column(Float)

@@ -145,7 +145,7 @@ class Ui_searchFPDialog(QDialog):
         self.closebtn.setObjectName("closebtn")
         self.searchbtn.clicked.connect(self.do_search)
         self.searchResultlistWidget.itemClicked.connect(self.Clicked)
-        self.editbtn.setVisible(False)
+        self.editbtn.clicked.connect(self.do_edit)
         self.deletebtn.clicked.connect(self.do_delete)
         self.closebtn.clicked.connect(self.close)
 
@@ -177,7 +177,7 @@ class Ui_searchFPDialog(QDialog):
         role = getLoginDataPKL()['role']
         if int(role) == 1 or int(role) == 2 or int(role) == 3:
             self.deletebtn.setEnabled(False)
-        # self.editbtn.setEnabled(True)
+        self.editbtn.setEnabled(True)
 
         gencode = before(item.text(), ' -')
         if select_finish_product_by_gen_code(gencode):
@@ -216,6 +216,13 @@ class Ui_searchFPDialog(QDialog):
                                      QMessageBox.Yes | QMessageBox.No)
         if reply == QMessageBox.Yes:
             delete_finish_product(rawMat.id)
+
+
+    def do_edit(self):
+        from uiview.ui_updatereNewFP import Ui_editFPDialog
+        spp = select_finish_product_by_gen_code(self.codeled.text())
+        self.dd = Ui_editFPDialog(spp)
+        self.dd.exec_()
 
 
 def before(value, a):

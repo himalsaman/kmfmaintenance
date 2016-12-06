@@ -9,19 +9,18 @@ session = Session()
 
 
 # add new bill of material item
-def add_new_bill_of_material_item(tools_id, raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material, qty_of_material, gen_code):
-	new_bill_of_material_item = BillOfMaterialItem(tools_id, raw_material_id, spare_parts_id, bill_of_material_id,
+def add_new_bill_of_material_item( raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material, qty_of_material, gen_code):
+	new_bill_of_material_item = BillOfMaterialItem( raw_material_id, spare_parts_id, bill_of_material_id,
 												   cost_of_material, qty_of_material, gen_code)
 	session.add(new_bill_of_material_item)
 	session.commit()
 
 
 # update bill of material item
-def update_bill_of_material_item(id, tools_id,raw_material_id, spare_parts_id, bill_of_material_id,
+def update_bill_of_material_item(id,raw_material_id, spare_parts_id, bill_of_material_id,
 								 cost_of_material,qty_of_material):
 	res = session.query(BillOfMaterialItem).filter(BillOfMaterialItem.id == id).one()
 	print(res)
-	res.tools_id = tools_id,
 	res.raw_material_id = raw_material_id
 	res.spare_parts_id = spare_parts_id
 	res.bill_of_material_id = bill_of_material_id

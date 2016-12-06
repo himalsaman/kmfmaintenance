@@ -414,7 +414,7 @@ class Employees(Base):
 
 	outbound = relationship('Outbound', backref=backref('outbound_employee'))
 
-	def __init__(self, name, mobile_number, job_title, nationality, nat_id, gender, age, city_id):
+	def __init__(self, name, mobile_number, job_title, nationality, nat_id, gender, age):
 		self.name = name
 		self.mobile_number = mobile_number
 		self.job_title = job_title
@@ -460,6 +460,29 @@ class Outbound(Base):
 	product_id = Column(Integer, ForeignKey('finish_products.id'))
 	finishProducts = relationship('FinishProducts', backref=backref('finish_products_outbound'))
 
+	def __init__(self, code, out_date, reason, customer_id, employee_id, raw_material_id,
+				 spare_part_id, tools_id, product_id):
+		self.code = code
+		self.out_date = out_date
+		self.reason = reason
+		self.customer_id = customer_id
+		self.employee_id = employee_id
+		self.raw_material_id = raw_material_id
+		self.spare_part_id = spare_part_id
+		self.tools_id = tools_id
+		self.product_id = product_id
+
+	def __repr__(self):
+		return "<Outbound (code ="'{}'.format(self.code) + "\n" \
+				"out_date =" '{}'.format(self.out_date) + "\n" \
+				"reason =" '{}'.format(self.reason) + "\n" \
+				"customer_id =" '{}'.format(self.customer_id) + "\n" \
+				"employee_id =" '{}'.format(self.employee_id) + "\n" \
+				"raw_material_id =" '{}'.format(self.raw_material_id) + "\n" \
+				"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
+				"tools_id =" '{}'.format(self.tools_id) + "\n" \
+				"product_id =" '{}'.format(self.product_id) + ")>"
+
 class ManBOMItem(Base):
 	__tablename__ = 'man_bom_item'  # name of table
 
@@ -476,7 +499,7 @@ class ManBOMItem(Base):
 
 	# relationship with maintenance table
 	# because each row mu assign for the target maintenance
-	man_bom_id = Column(Integer, ForeignKey('man_bom.id'))
+	bill_of_material_id = Column(Integer, ForeignKey('man_bom.id'))
 	manBom = relationship('ManBOM', backref=backref('manBOMItem_manBom'))
 
 	# cost and qty can be for raw material or spare part not both together
@@ -493,7 +516,6 @@ class ManBOMItem(Base):
 		self.qty_of_material = qty_of_material
 		self.gen_code = gen_code
 
-	# return and print bill of material table creation arch
 	def __repr__(self):
 		return "<Bill of Material (raw_material_id ="'{}'.format(self.raw_material_id) + "\n" \
 																						 "gen_code =" '{}'.format(

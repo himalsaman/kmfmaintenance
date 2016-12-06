@@ -19,8 +19,9 @@ from models.rawMaterialModel import select_all_raw_material, select_row_material
 
 
 class Ui_editRWDialog(QDialog):
-	def __init__(self, parent=None):
+	def __init__(self, rawm,parent=None):
 		super(Ui_editRWDialog, self).__init__()
+		self.rawm = rawm
 		self.setupUi(self)
 
 	def setupUi(self, editRWDialog):
@@ -222,8 +223,7 @@ class Ui_editRWDialog(QDialog):
 		self.rawmateriallist = QtWidgets.QListWidget(editRWDialog)
 		self.rawmateriallist.setGeometry(QtCore.QRect(10, 40, 361, 471))
 		self.rawmateriallist.setObjectName("rawmateriallist")
-		for item in select_all_raw_material():
-			self.rawmateriallist.addItem(item.code + " - " + item.name)
+		self.rawmateriallist.addItem(self.rawm.code + " - " + self.rawm.name)
 		self.rawmateriallist.itemClicked.connect(self.Clicked)
 		self.statulbl = QtWidgets.QLabel(editRWDialog)
 		self.statulbl.setGeometry(QtCore.QRect(390, 425, 410, 41))
@@ -303,27 +303,25 @@ class Ui_editRWDialog(QDialog):
 			self.dataupdatebtn.setEnabled(False)
 
 		code = before(item.text(), '-')
-		if select_row_material_bycode(code):
-			rawMat = select_row_material_bycode(code)
-			self.rwcodelbl.setText(rawMat.code)
-			self.rwnamelbl.setText(rawMat.name)
-			self.rwunitlbl.setText(rawMat.unit)
-			self.rwdefaultsize.setText(str(rawMat.default_size))
-			self.rwstrsize.setText(rawMat.string_size)
-			self.rwcostlbl.setText(str(rawMat.cost_per_default_size))
-			self.rwinvqtylbl.setText(str(rawMat.inv_qty))
-			self.rwnameled.setText(rawMat.name)
-			self.unitcomboBox.setCurrentIndex(self.unitdict[rawMat.unit])
-			self.defaultsizSpinBox.setValue(rawMat.default_size)
-			self.strsizeled.setText(rawMat.string_size)
-			## old (cost and inv_qty)
-			self.oldcostlbl.setText(str(rawMat.cost_per_default_size))
-			self.oldqtylbl.setText(str(rawMat.inv_qty))
+		rawMat = self.rawm
+		self.rwcodelbl.setText(rawMat.code)
+		self.rwnamelbl.setText(rawMat.name)
+		self.rwunitlbl.setText(rawMat.unit)
+		self.rwdefaultsize.setText(str(rawMat.default_size))
+		self.rwstrsize.setText(rawMat.string_size)
+		self.rwcostlbl.setText(str(rawMat.cost_per_default_size))
+		self.rwinvqtylbl.setText(str(rawMat.inv_qty))
+		self.rwnameled.setText(rawMat.name)
+		self.unitcomboBox.setCurrentIndex(self.unitdict[rawMat.unit])
+		self.defaultsizSpinBox.setValue(rawMat.default_size)
+		self.strsizeled.setText(rawMat.string_size)
+		## old (cost and inv_qty)
+		self.oldcostlbl.setText(str(rawMat.cost_per_default_size))
+		self.oldqtylbl.setText(str(rawMat.inv_qty))
 		return rawMat
 
 	def update_data(self):
-		id_code = self.rwcodelbl.text()
-		uprm = select_row_material_bycode(id_code)
+		uprm = self.rawm
 		xname = self.rwnameled.text()
 		idx = self.unitcomboBox.currentIndex()
 		xunit = list(self.unitdict.keys())[list(self.unitdict.values()).index(idx)]
@@ -352,8 +350,7 @@ class Ui_editRWDialog(QDialog):
 			reply = QMessageBox.question(QMessageBox(), 'Delete', "Are you sure to update cost ?\n"
 																  "This action you can't undo",
 										 QMessageBox.Yes | QMessageBox.No)
-			id_code = self.rwcodelbl.text()
-			uprm = select_row_material_bycode(id_code)
+			uprm = self.rawm
 
 			n_cost = self.newcostled.text()
 			if n_cost == '':
@@ -372,8 +369,8 @@ class Ui_editRWDialog(QDialog):
 																  "inventory quantity ?\n"
 																  "This action you can't undo",
 										 QMessageBox.Yes | QMessageBox.No)
-			id_code = self.rwcodelbl.text()
-			uprm = select_row_material_bycode(id_code)
+
+			uprm = self.rawm
 
 			n_inv = self.newqtySpinBox.value()
 			if reply == QMessageBox.Yes:
@@ -390,8 +387,8 @@ class Ui_editRWDialog(QDialog):
 																  "inventory quantity ?\n"
 																  "This action you can't undo",
 										 QMessageBox.Yes | QMessageBox.No)
-			id_code = self.rwcodelbl.text()
-			uprm = select_row_material_bycode(id_code)
+
+			uprm = self.rawm
 
 			n_inv = self.newqtySpinBox_2.value()
 			if reply == QMessageBox.Yes:

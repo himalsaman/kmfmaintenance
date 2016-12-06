@@ -5,6 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
+import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
@@ -167,7 +168,8 @@ class Ui_searchSPDialog(QDialog):
 		self.closebtn.setObjectName("closebtn")
 		self.closebtn.clicked.connect(self.close)
 		self.deletebtn.clicked.connect(self.do_delete)
-		self.editbtn.setVisible(False)
+		self.editbtn.clicked.connect(self.do_edit)
+
 		self.retranslateUi(searchSPDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchSPDialog)
 
@@ -196,7 +198,7 @@ class Ui_searchSPDialog(QDialog):
 		role = getLoginDataPKL()['role']
 		if int(role) == 1 or int(role) == 2 or int(role) == 3:
 			self.deletebtn.setEnabled(False)
-		# self.editbtn.setEnabled(True)
+		self.editbtn.setEnabled(True)
 
 		gencode = before(item.text(), ' -')
 		if select_spare_parts_bygen_code(gencode):
@@ -236,9 +238,20 @@ class Ui_searchSPDialog(QDialog):
 		if reply == QMessageBox.Yes:
 			delete_spare_parts(rawMat.id)
 
+	def do_edit(self):
+		from uiview.ui_updatereNewrSP import Ui_editSPDialog
+		spp = select_spare_parts_bygen_code(self.codeled.text())
+		self.dd = Ui_editSPDialog(spp)
+		self.dd.exec_()
 
 def before(value, a):
 	# Find first part and return slice before it.
 	pos_a = value.find(a)
 	if pos_a == -1: return ""
 	return value[0:pos_a]
+
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_searchSPDialog()
+	myapp.show()
+	myapp.exec_()

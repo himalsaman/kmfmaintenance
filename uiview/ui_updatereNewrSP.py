@@ -9,6 +9,7 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QDoubleValidator
+from PyQt5.QtWidgets import QAbstractItemView
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
@@ -18,8 +19,9 @@ from models.sparePartsModel import select_spare_parts_bygen_code, select_all_spa
 
 
 class Ui_editSPDialog(QDialog):
-	def __init__(self, parent=None):
+	def __init__(self,sparep,parent=None):
 		super(Ui_editSPDialog, self).__init__()
+		self.sparep = sparep
 		self.setupUi(self)
 
 	def setupUi(self, editSPDialog):
@@ -198,8 +200,7 @@ class Ui_editSPDialog(QDialog):
 		self.listWidget = QtWidgets.QListWidget(editSPDialog)
 		self.listWidget.setGeometry(QtCore.QRect(10, 40, 361, 471))
 		self.listWidget.setObjectName("listWidget")
-		for item in select_all_spare_parts():
-			self.listWidget.addItem(item.gen_code + " - " + item.name + "(" + item.code + ")")
+		self.selitem = self.listWidget.addItem(self.sparep.gen_code + " - " + self.sparep.name + "(" + self.sparep.code + ")")
 		self.listWidget.itemClicked.connect(self.Clicked)
 		self.spcodeled = QtWidgets.QLineEdit(editSPDialog)
 		self.spcodeled.setGeometry(QtCore.QRect(430, 210, 151, 20))
@@ -270,27 +271,27 @@ class Ui_editSPDialog(QDialog):
 			self.dataupdatebtn.setEnabled(False)
 
 		gencode = before(item.text(), '-')
-		if select_spare_parts_bygen_code(gencode):
-			spart = select_spare_parts_bygen_code(gencode)
-			print(spart)
-			self.spnamelbl.setText(spart.name)
-			self.spunitlbl.setText(spart.unit)
-			self.spcodelbl.setText(spart.code)
-			self.spgencodelbl.setText(spart.gen_code)
-			self.spcostlbl.setText(str(spart.price))
-			self.spinvqtylbl.setText(str(spart.inv_qty))
+		# if select_spare_parts_bygen_code(gencode):
+		spart = self.sparep
+		print(spart)
+		self.spnamelbl.setText(spart.name)
+		self.spunitlbl.setText(spart.unit)
+		self.spcodelbl.setText(spart.code)
+		self.spgencodelbl.setText(spart.gen_code)
+		self.spcostlbl.setText(str(spart.price))
+		self.spinvqtylbl.setText(str(spart.inv_qty))
 
-			self.spnameled.setText(spart.name)
-			self.unitcomboBox.setCurrentIndex(self.unitdict[spart.unit])
-			self.spcodeled.setText(spart.code)
-			## old (cost and inv_qty)
-			self.oldcostlbl.setText(str(spart.price))
-			self.oldqtylbl.setText(str(spart.inv_qty))
+		self.spnameled.setText(spart.name)
+		self.unitcomboBox.setCurrentIndex(self.unitdict[spart.unit])
+		self.spcodeled.setText(spart.code)
+		## old (cost and inv_qty)
+		self.oldcostlbl.setText(str(spart.price))
+		self.oldqtylbl.setText(str(spart.inv_qty))
 		return spart
 
 	def update_data(self):
-		id_code = self.spgencodelbl.text()
-		upsp = select_spare_parts_bygen_code(id_code)
+		# id_code = self.spgencodelbl.text()
+		upsp = self.sparep
 		xname = self.spnameled.text()
 		idx = self.unitcomboBox.currentIndex()
 		xunit = list(self.unitdict.keys())[list(self.unitdict.values()).index(idx)]
@@ -317,7 +318,7 @@ class Ui_editSPDialog(QDialog):
 																  "This action you can't undo",
 										 QMessageBox.Yes | QMessageBox.No)
 			id_code = self.spgencodelbl.text()
-			upsp = select_spare_parts_bygen_code(id_code)
+			upsp = self.sparep
 
 			n_cost = self.newcostled.text()
 			if n_cost == '':
@@ -337,7 +338,7 @@ class Ui_editSPDialog(QDialog):
 																  "This action you can't undo",
 										 QMessageBox.Yes | QMessageBox.No)
 			id_code = self.spgencodelbl.text()
-			upsp = select_spare_parts_bygen_code(id_code)
+			upsp = self.sparep
 
 			n_inv = self.newqtySpinBox.value()
 
@@ -354,7 +355,7 @@ class Ui_editSPDialog(QDialog):
 																  "This action you can't undo",
 										 QMessageBox.Yes | QMessageBox.No)
 			id_code = self.spgencodelbl.text()
-			upsp = select_spare_parts_bygen_code(id_code)
+			upsp = self.sparep
 
 			n_inv = self.newqtySpinBox_2.value()
 

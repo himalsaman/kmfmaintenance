@@ -1,0 +1,524 @@
+Index: models/ouboundModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/ouboundModel.py	(revision )
++++ models/ouboundModel.py	(revision )
+@@ -0,0 +1,48 @@
++from sqlalchemy.orm.session import sessionmaker
++
++from models.dbUtile import engine, Outbound
++
++Session = sessionmaker(bind=engine)
++session = Session()
++
++def add_outbound(code, out_date, reason, customer_id, employee_id, raw_material_id,
++				 spare_part_id, tools_id, product_id):
++	new_outbound = Outbound(code, out_date, reason, customer_id, employee_id, raw_material_id,
++				 spare_part_id, tools_id, product_id)
++	session.add(new_outbound)
++	session.commit()
++
++def update_oubound(id, code, out_date, reason, customer_id, employee_id, raw_material_id,
++				 spare_part_id, tools_id, product_id):
++	res = session.query(Outbound).filter(Outbound.id == id).one()
++	res.code = code
++	res.out_date = out_date
++	res.reason = reason
++	res.customer_id = customer_id
++	res.employee_id = employee_id
++	res.raw_material_id = raw_material_id
++	res.spare_part_id = spare_part_id
++	res.tools_id = tools_id
++	res.product_id = product_id
++	if session.commit():
++		return True
++	else:
++		return False
++
++def select_outbound_by_id(id):
++	return session.query(Outbound).filter(Outbound.id == id).one()
++
++def select_outbound_by_code(code):
++	return session.query(Outbound).filter(Outbound.code == code).one()
++
++def select_outbound_by_customer(customer_id):
++	return session.query(Outbound).filter(Outbound.id == customer_id).one()
++
++def select_outbound_by_product(product_id):
++	return session.query(Outbound).filter(Outbound.id == product_id).one()
++
++def select_outbound(key, value):
++	return session.query(Outbound).filter(getattr(Outbound, key).contains(value)).all()
++
++def select_all_outbound():
++	return session.query(Outbound).all()
+Index: models/manBOMItemModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/manBOMItemModel.py	(revision )
++++ models/manBOMItemModel.py	(revision )
+@@ -0,0 +1,67 @@
++# create a session
++from sqlalchemy import func
++from sqlalchemy.orm import sessionmaker
++
++from models.dbUtile import engine, ManBOMItem
++
++Session = sessionmaker(bind=engine)
++session = Session()
++
++def add_manBOMItem(tools_id, raw_material_id, spare_parts_id, manBOM_id, cost_of_material, qty_of_material, gen_code):
++	new_manBOMItem = ManBOMItem(tools_id, raw_material_id, spare_parts_id, manBOM_id,
++												   cost_of_material, qty_of_material, gen_code)
++	session.add(new_manBOMItem)
++	session.commit()
++
++
++# update bill of material item
++def update_manBOMItem(id, tools_id,raw_material_id, spare_parts_id, manBOM_id,
++								 cost_of_material,qty_of_material):
++	res = session.query(ManBOMItem).filter(ManBOMItem.id == id).one()
++	print(res)
++	res.tools_id = tools_id,
++	res.raw_material_id = raw_material_id
++	res.spare_parts_id = spare_parts_id
++	res.manBOM_id = manBOM_id
++	res.cost_of_material = cost_of_material
++	res.qty_of_material = qty_of_material
++	session.commit()
++
++
++# delete bill of material
++def delete_manBOMItem(id):
++	res = session.query(ManBOMItem).filter(ManBOMItem.id == id).one()
++	print(res)
++	session.delete(res)
++	session.commit()
++
++
++# select bill of material by key and value
++def select_manBOMItem(key, value):
++	return session.query(ManBOMItem).filter(getattr(ManBOMItem, key).contains(value)).all()
++
++
++# select all bill of material item
++def select_all_manBOMItem():
++	return session.query(ManBOMItem).all()
++
++
++def select_manBOMItem_by_code(code):
++	return session.query(ManBOMItem).filter(ManBOMItem.gen_code ==
++													code).one()
++
++
++# select bill of material items for maintenance
++def select_manBOMItem_for_BOM(manBOM_id):
++	return session.query(ManBOMItem).filter(ManBOMItem.bill_of_material_id ==
++											manBOM_id).all()
++
++
++def select_max_manBOMItem_id():
++	maxcode = session.query(func.max(ManBOMItem.id)).one()
++	return (maxcode[0])
++
++
++def select_max_manBOMItem_code():
++	maxcode = session.query(func.max(ManBOMItem.gen_code)).one()
++	return (maxcode[0])
+Index: models/manufactModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/manufactModel.py	(revision )
++++ models/manufactModel.py	(revision )
+@@ -0,0 +1,67 @@
++from sqlalchemy.orm.session import sessionmaker
++
++from models.dbUtile import engine, Manufacting
++
++Session = sessionmaker(bind=engine)
++session = Session()
++
++def add_manufact( cost_of_bill_of_material, cost_of_labor, sales_price, created_at , product_of_manufact, start_date, done_date, m_code, hidden):
++	new_manufact = Manufacting( cost_of_bill_of_material, cost_of_labor, sales_price, created_at , product_of_manufact, start_date, done_date, m_code, hidden)
++	session.add(new_manufact)
++	session.commit()
++
++def update_manufact(id, cost_of_bill_of_material, cost_of_labor, sales_price, created_at , product_of_manufact, start_date, done_date, m_code, hidden):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.cost_of_bill_of_material = cost_of_bill_of_material
++	res.cost_of_labor = cost_of_labor
++	res.sales_price = sales_price
++	res.created_at = created_at
++	res.product_of_manufact = product_of_manufact
++	res.start_date = start_date
++	res.done_date = done_date
++	res.m_code = m_code
++	res.hidden = hidden
++	session.commit()
++
++def update_manufact_cost_bill(id, cost_of_bill_of_material):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.cost_of_bill_of_material = cost_of_bill_of_material
++	session.commit()
++
++def update_manufact_cost_labor(id,cost_of_labor):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.cost_of_labor = cost_of_labor
++	session.commit()
++
++def update_manufact_sale_price(id, sales_price):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.sales_price = sales_price
++	session.commit()
++
++def update_manufact_start_date(id, start_date):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.start_date = start_date
++	session.commit()
++
++def update_manufact_done_date(id, done_date):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.done_date = done_date
++	session.commit()
++
++def delete_manufact(id, hidden):
++	res = session.query(Manufacting).filter(Manufacting.id == id)
++	res.hidden = 1
++	session.commit()
++
++def select_all_manufact():
++	return session.query(Manufacting).all()
++
++def select_manuf_by_id(id):
++	return  session.query(Manufacting).filter(Manufacting.id == id).one()
++
++def select_manufact_by_key(key, value):
++	return session.query(Manufacting).filter(getattr(Manufacting, key).contains(value)).all()
++
++def select_manufact_by_key_one(key, value):
++	return session.query(Manufacting).filter(getattr(Manufacting, key).contains(value)).one()
++
+Index: models/billOfMaterialItemModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/billOfMaterialItemModel.py	(revision 899c22a4d5a4e5498de56b6edc5ad2d63cc0a604)
++++ models/billOfMaterialItemModel.py	(revision )
+@@ -9,19 +9,18 @@
+ 
+ 
+ # add new bill of material item
+-def add_new_bill_of_material_item(tools_id, raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material, qty_of_material, gen_code):
+-	new_bill_of_material_item = BillOfMaterialItem(tools_id, raw_material_id, spare_parts_id, bill_of_material_id,
++def add_new_bill_of_material_item( raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material, qty_of_material, gen_code):
++	new_bill_of_material_item = BillOfMaterialItem( raw_material_id, spare_parts_id, bill_of_material_id,
+ 												   cost_of_material, qty_of_material, gen_code)
+ 	session.add(new_bill_of_material_item)
+ 	session.commit()
+ 
+ 
+ # update bill of material item
+-def update_bill_of_material_item(id, tools_id,raw_material_id, spare_parts_id, bill_of_material_id,
++def update_bill_of_material_item(id,raw_material_id, spare_parts_id, bill_of_material_id,
+ 								 cost_of_material,qty_of_material):
+ 	res = session.query(BillOfMaterialItem).filter(BillOfMaterialItem.id == id).one()
+ 	print(res)
+-	res.tools_id = tools_id,
+ 	res.raw_material_id = raw_material_id
+ 	res.spare_parts_id = spare_parts_id
+ 	res.bill_of_material_id = bill_of_material_id
+Index: models/dbUtile.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/dbUtile.py	(revision 899c22a4d5a4e5498de56b6edc5ad2d63cc0a604)
++++ models/dbUtile.py	(revision )
+@@ -414,7 +414,7 @@
+ 
+ 	outbound = relationship('Outbound', backref=backref('outbound_employee'))
+ 
+-	def __init__(self, name, mobile_number, job_title, nationality, nat_id, gender, age, city_id):
++	def __init__(self, name, mobile_number, job_title, nationality, nat_id, gender, age):
+ 		self.name = name
+ 		self.mobile_number = mobile_number
+ 		self.job_title = job_title
+@@ -460,6 +460,29 @@
+ 	product_id = Column(Integer, ForeignKey('finish_products.id'))
+ 	finishProducts = relationship('FinishProducts', backref=backref('finish_products_outbound'))
+ 
++	def __init__(self, code, out_date, reason, customer_id, employee_id, raw_material_id,
++				 spare_part_id, tools_id, product_id):
++		self.code = code
++		self.out_date = out_date
++		self.reason = reason
++		self.customer_id = customer_id
++		self.employee_id = employee_id
++		self.raw_material_id = raw_material_id
++		self.spare_part_id = spare_part_id
++		self.tools_id = tools_id
++		self.product_id = product_id
++
++	def __repr__(self):
++		return "<Outbound (code ="'{}'.format(self.code) + "\n" \
++				"out_date =" '{}'.format(self.out_date) + "\n" \
++				"reason =" '{}'.format(self.reason) + "\n" \
++				"customer_id =" '{}'.format(self.customer_id) + "\n" \
++				"employee_id =" '{}'.format(self.employee_id) + "\n" \
++				"raw_material_id =" '{}'.format(self.raw_material_id) + "\n" \
++				"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
++				"tools_id =" '{}'.format(self.tools_id) + "\n" \
++				"product_id =" '{}'.format(self.product_id) + ")>"
++
+ class ManBOMItem(Base):
+ 	__tablename__ = 'man_bom_item'  # name of table
+ 
+@@ -476,7 +499,7 @@
+ 
+ 	# relationship with maintenance table
+ 	# because each row mu assign for the target maintenance
+-	man_bom_id = Column(Integer, ForeignKey('man_bom.id'))
++	bill_of_material_id = Column(Integer, ForeignKey('man_bom.id'))
+ 	manBom = relationship('ManBOM', backref=backref('manBOMItem_manBom'))
+ 
+ 	# cost and qty can be for raw material or spare part not both together
+@@ -493,7 +516,6 @@
+ 		self.qty_of_material = qty_of_material
+ 		self.gen_code = gen_code
+ 
+-	# return and print bill of material table creation arch
+ 	def __repr__(self):
+ 		return "<Bill of Material (raw_material_id ="'{}'.format(self.raw_material_id) + "\n" \
+ 																						 "gen_code =" '{}'.format(
+Index: models/employeeModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/employeeModel.py	(revision )
++++ models/employeeModel.py	(revision )
+@@ -0,0 +1,65 @@
++from sqlalchemy import func
++from sqlalchemy.orm.exc import NoResultFound
++from sqlalchemy.orm.session import sessionmaker
++
++from models.dbUtile import engine, Employees
++
++Session = sessionmaker(bind=engine)
++session = Session()
++
++def add_employee(name, mobile_number, job_title, nationality, nat_id, gender, age):
++	new_employee = Employees(name, mobile_number, job_title, nationality, nat_id, gender, age)
++	session.add(new_employee)
++	session.commit()
++	return  new_employee
++
++def update_employee(id, name, mobile_number, job_title, nationality, nat_id, gender, age):
++	res = session.query(Employees).filter(Employees.id == id).one()
++	res.name = name
++	res.mobile_number = mobile_number
++	res.job_title = job_title
++	res.nationality = nationality
++	res.nat_id = nat_id
++	res.gender = gender
++	res.age = age
++	session.commit()
++
++def delete_employee(id):
++	res = session.query(Employees).filter(Employees.id == id).one()
++	session.delete(res)
++	session.commit()
++
++
++def select_employee(key, value):
++	res = session.query(Employees).filter(getattr(Employees, key).contains(value)).all()
++	for i in res:
++		return i
++
++def select_employee_by_mob_num(mobile_number):
++	try:
++		return session.query(Employees).filter(Employees.mobile_number == mobile_number).one()
++	except NoResultFound:
++		return False
++
++def select_employee_by_id(id):
++	try:
++		res = session.query(Employees).filter(Employees.id == id).one()
++		return res
++	except NoResultFound:
++		return False
++
++def select_all_employees():
++	return session.query(Employees).all()
++
++def select_max_employee_id():
++	maxcode = session.query(func.max(Employees.id)).one()
++	return (maxcode[0])
++
++def select_employee_exact(key, value):
++	try:
++		res = session.query(Employees).filter(getattr(Employees, key) == value).one()
++		return  res
++	except NoResultFound:
++		return False
++
++# select_customer_exact('mobile_number', '0011')
+Index: models/rawMaterialModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/rawMaterialModel.py	(revision 899c22a4d5a4e5498de56b6edc5ad2d63cc0a604)
++++ models/rawMaterialModel.py	(revision )
+@@ -14,7 +14,6 @@
+ 	session.commit()
+ 	print(new_raw_material)
+ 
+-
+ # update raw material
+ def update_raw_material(id, code, name, default_size, string_size, unit, cost_per_default_size, inv_qty):
+ 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
+@@ -31,7 +30,6 @@
+ 	else:
+ 		return False
+ 
+-
+ def update_raw_material_inv_qty(id, inv_qty):
+ 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
+ 	res.inv_qty = inv_qty
+@@ -40,7 +38,6 @@
+ 	else:
+ 		return False
+ 
+-
+ def update_raw_material_cost(id, cost):
+ 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
+ 	res.cost_per_default_size = cost
+@@ -49,7 +46,6 @@
+ 	else:
+ 		return False
+ 
+-
+ # delete raw material
+ def delete_raw_material(id):
+ 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
+@@ -57,20 +53,16 @@
+ 	session.delete(res)
+ 	session.commit()
+ 
+-
+ # select row material by key and value
+ def select_row_material(key, value):
+ 	return session.query(RawMaterial).filter(getattr(RawMaterial, key).contains(value)).all()
+ 
+-
+ def select_row_material_bycode(value):
+ 	return session.query(RawMaterial).filter(RawMaterial.code == value).one()
+ 
+-
+ def select_row_material_by_id(value):
+ 	return session.query(RawMaterial).filter(RawMaterial.id == value).one()
+ 
+-
+ # select all raw material
+ def select_all_raw_material():
+ 	return session.query(RawMaterial).all()
+Index: models/cityModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/cityModel.py	(revision 899c22a4d5a4e5498de56b6edc5ad2d63cc0a604)
++++ models/cityModel.py	(revision )
+@@ -14,16 +14,12 @@
+ 	session.commit()
+ 	print(new_city)
+ 
+-	# update exists city
+-
+-
+ def update_city(id, name):
+ 	res = session.query(City).filter(City.id == id).one()
+ 	print(res)
+ 	res.name = name
+ 	session.commit()
+ 
+-
+ # delete city
+ def delete_city(id):
+ 	res = session.query(City).filter(City.id == id).one()
+@@ -31,13 +27,11 @@
+ 	session.delete(res)
+ 	session.commit()
+ 
+-
+ def select_city_by_id(id):
+ 	return session.query(City).filter(City.id == id).one()
+ 
+-
+ def select_all_cities():
+ 	res = session.query(City).all()
+ 	# for c in res:
+ 	#     return c
+-	return res
++	return res
+\ No newline at end of file
+Index: models/manBOMModel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- models/manBOMModel.py	(revision )
++++ models/manBOMModel.py	(revision )
+@@ -0,0 +1,43 @@
++from sqlalchemy.orm.session import sessionmaker
++
++from models.dbUtile import engine, ManBOM
++
++Session = sessionmaker(bind=engine)
++session = Session()
++
++def add_manBOM( manufact_id, created_at, cost_of_raw_material, cost_of_spare_parts, total_cost, gen_code):
++	new_manBOM = ManBOM( manufact_id, created_at, cost_of_raw_material, cost_of_spare_parts, total_cost, gen_code)
++	session.add(new_manBOM)
++	session.commit()
++
++def update_manBOM(id, manufact_id, created_at, cost_of_raw_material, cost_of_spare_parts, total_cost, gen_code):
++	res = session.query(ManBOM).filter(ManBOM.id == id).one()
++	res.manufact_id = manufact_id
++	res.created_at = created_at
++	res.cost_of_raw_material = cost_of_raw_material
++	res.cost_of_spare_parts = cost_of_spare_parts
++	res.total_cost = total_cost
++	res.gen_code = gen_code
++	if session.commit():
++		return True
++	else:
++		return  False
++
++def delete_manBOM(id):
++	res = session.query(ManBOM).filter(ManBOM.id == id).one()
++	session.delete(res)
++	session.commit()
++
++def select_manBOM_by_id(id):
++	return session.query(ManBOM).filter(ManBOM.id == id).one()
++
++def select_manBOM_by_code(code):
++	return session.query(ManBOM).filter(ManBOM.gen_code == code).one()
++
++def select_manBOM_by_manuf(manu_id):
++	return session.query(ManBOM).filter(ManBOM.manufact_id == manu_id).one()
++
++def select_all_manBOM():
++	return session.query(ManBOM).all()
++
++select_all_manBOM()
+\ No newline at end of file

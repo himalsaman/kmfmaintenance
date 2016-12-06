@@ -1,4 +1,5 @@
 # raw Material inventory Management
+from models.finishProductsModel import update_finish_product_inv_qty, update_finish_product_cost
 from models.rawMaterialModel import update_raw_material_inv_qty, update_raw_material_cost
 from models.sparePartsModel import update_spare_parts_inv_qty, update_spare_parts_cost
 
@@ -29,3 +30,16 @@ def decreaseSparePartsInvQty(spareParts, newqty):
 
 def upSparePartsCost(spareParts, newCost):
 	update_spare_parts_cost(spareParts.id, newCost)
+
+
+# spare Parts
+def increaseFinishProductInvQty(finpro, newqty):
+	newinvqty = finpro.inv_qty + newqty
+	update_finish_product_inv_qty(finpro.id, newinvqty)
+
+def decreaseFinishProductInvQty(finpro, newqty):
+	newinvqty = finpro.inv_qty - newqty
+	update_finish_product_inv_qty(finpro.id, newinvqty)
+
+def upFinishProductCost(finpro, newCost):
+	update_finish_product_cost(finpro.id, newCost)

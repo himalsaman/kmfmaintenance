@@ -4,7 +4,9 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy_utils.functions.database import create_database, database_exists
 
 # create mysql engine
-engine = create_engine('mysql+pymysql://root:root@127.0.0.1/maintenancedb?charset=utf8', echo=True)
+sdb = '10.0.0.3'
+tdb = '127.0.0.1'
+engine = create_engine('mysql+pymysql://root:root@'+tdb+'/maintenancedb?charset=utf8', echo=True)
 metadata = MetaData()
 
 # check if database is exists or not
@@ -128,8 +130,6 @@ class RawMaterial(Base):
 	# one to many relationship with bill_of_material
 	billOfMaterialItem = relationship('BillOfMaterialItem', backref=backref('billOfMaterial_rawMaterial'))
 
-	manBOMItem = relationship('ManBOMItem', backref=backref('manBOMItem_rawMaterial'))
-
 	outbound = relationship('Outbound', backref=backref('outbound_raw_material'))
 
 	def __init__(self, name, code, default_size, string_size, unit, cost_per_default_size, inv_qty):
@@ -166,8 +166,6 @@ class SpareParts(Base):
 	inv_qty = Column(Integer, nullable=False)
 	unit = Column(String(20))
 	billOfMaterialItem = relationship('BillOfMaterialItem', backref=backref('billOfMaterial_sparePart'))
-
-	manBOMItem = relationship('ManBOMItem', backref=backref('manBOMItem_sparePart'))
 
 	outbound = relationship('Outbound', backref=backref('outbound_spare_part'))
 
@@ -379,9 +377,6 @@ class FinishProducts(Base):
 
 	outbound = relationship('Outbound', backref=backref('outbound_finish_product'))
 
-	manufacting = relationship('Manufacting', backref=backref('manufacting_tools'))
-
-
 	def __init__(self, name, code, price, inv_qty, source, gen_code):
 		self.name = name
 		self.code = code
@@ -482,120 +477,5 @@ class Outbound(Base):
 				"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
 				"tools_id =" '{}'.format(self.tools_id) + "\n" \
 				"product_id =" '{}'.format(self.product_id) + ")>"
-
-class ManBOMItem(Base):
-	__tablename__ = 'man_bom_item'  # name of table
-
-	# create row's of table
-	id = Column(Integer, primary_key=True, nullable=False)
-
-	# relationship with raw material table, if null must spare_part_id not null
-	raw_material_id = Column(Integer, ForeignKey('raw_material.id'))
-	rawMaterial = relationship('RawMaterial', backref=backref('manBomItem_row_material'))
-
-	# relationship with spare part table, if null must raw_material_id not null
-	spare_part_id = Column(Integer, ForeignKey('spare_parts.id'))
-	spareParts = relationship('SpareParts', backref=backref('manBomItem_spareParts'))
-
-	# relationship with maintenance table
-	# because each row mu assign for the target maintenance
-	bill_of_material_id = Column(Integer, ForeignKey('man_bom.id'))
-	manBom = relationship('ManBOM', backref=backref('manBOMItem_manBom'))
-
-	# cost and qty can be for raw material or spare part not both together
-	cost_of_material = Column(Float)
-	qty_of_material = Column(Float)
-	gen_code = Column(String(100))
-
-	def __init__(self,raw_material_id, spare_parts_id, man_bom_id, cost_of_material,
-				 qty_of_material, gen_code):
-		self.raw_material_id = raw_material_id
-		self.spare_part_id = spare_parts_id
-		self.man_bom_id = man_bom_id
-		self.cost_of_material = cost_of_material
-		self.qty_of_material = qty_of_material
-		self.gen_code = gen_code
-
-	def __repr__(self):
-		return "<Bill of Material (raw_material_id ="'{}'.format(self.raw_material_id) + "\n" \
-																						 "gen_code =" '{}'.format(
-			self.gen_code) + "\n" \
-							 "spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
-																				 "man_bom_id =" '{}'.format(
-			self.man_bom_id) + "\n" \
-										"cost_of_material =" '{}'.format(
-			self.cost_of_material) + "\n" \
-									 "qty_of_material =" '{}'.format(self.qty_of_material) + ")>"
-
-class ManBOM(Base):
-	__tablename__ = 'man_bom'
-
-	id = Column(Integer, primary_key=True, nullable=False)
-	manBOMItem = relationship('ManBOMItem', backref=backref('ManBOMItem_bom'))
-
-	manufact_id = Column(Integer, ForeignKey('manufacting.id'))
-	manufacting = relationship('Manufacting', backref=backref('bom_manufact_id'))
-
-	created_at = Column(TIMESTAMP)
-	cost_of_spare_parts = Column(Float)
-	cost_of_raw_material = Column(Float)
-	total_cost = Column(Float)
-	gen_code = Column(String(100))
-
-	def __init__(self, manufact_id, created_at, cost_of_raw_material, cost_of_spare_parts, total_cost, gen_code):
-		self.manufact_id = manufact_id
-		self.created_at = created_at
-		self.cost_of_spare_parts = cost_of_spare_parts
-		self.cost_of_raw_material = cost_of_raw_material
-		self.total_cost = total_cost
-		self.gen_code = gen_code
-
-	def __repr__(self):
-		return "BOM (manufact_id = " '{}'.format(self.manufact_id) + "\n" \
-																		   "cost_of_spare_parts = "'{}'.format(
-			self.cost_of_spare_parts) + "\n" \
-										"cost_of_raw_material = "'{}'.format(self.cost_of_raw_material) + "\n" \
-																										  "total_cost= "'{}'.format(
-			self.total_cost) + "\n" \
-							   "gen_code = "'{}'.format(self.gen_code) + "\n" \
-																		 "created_at = " '{}'.format(self.created_at)
-
-class Manufacting(Base):
-
-	__tablename__ = 'manufacting'
-
-	id = Column(Integer, primary_key=True, nullable=False)
-	cost_of_bill_of_material = Column(Float)
-	cost_of_labor = Column(Float)
-	sales_price = Column(Float)
-	created_at = Column(TIMESTAMP)
-	product_of_manufact = Column(Integer, ForeignKey('finish_products.id'))
-	finishProducts = relationship('FinishProducts', backref=backref(
-		'finishproductsbom_manufact_id'))
-	start_date = Column(TIMESTAMP)
-	done_date = Column(TIMESTAMP)
-	m_code = Column(String(100))
-	hidden = Column(Integer)
-	def __init__(self, cost_of_bill_of_material, cost_of_labor, sales_price, created_at , product_of_manufact, start_date, done_date, m_code, hidden):
-		self.cost_of_bill_of_material = cost_of_bill_of_material
-		self.cost_of_labor = cost_of_labor
-		self.sales_price = sales_price
-		self.created_at = created_at
-		self.product_of_manufact = product_of_manufact
-		self.start_date = start_date
-		self.done_date = done_date
-		self.m_code = m_code
-		self.hidden = hidden
-	def __repr__(self):
-		return "Manufactring (cost_of_bill_of_material = "'{}'.format(
-			self.cost_of_bill_of_material) + "\n" \
-				"cost_of_labor = "'{}'.format(self.cost_of_labor) + "\n" \
-				"sales_price = "'{}'.format(self.sales_price) + "\n" \
-				"created_at = "'{}'.format(self.created_at) + "\n" \
-				"product_of_manufact = "'{}'.format(self.product_of_manufact) + "\n" \
-				"start_date = "'{}'.format(self.start_date) + "\n" \
-				"done_date = "'{}'.format(self.done_date) + "\n" \
-				"m_code = "'{}'.format(self.m_code) + "\n" \
-				"hidden = "'{}'.format(self.hidden) + "\n"
 
 Base.metadata.create_all(engine)

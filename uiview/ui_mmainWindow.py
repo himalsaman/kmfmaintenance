@@ -570,14 +570,29 @@ class Ui_MMainWindow(QMainWindow):
 		self.menubar.setAcceptDrops(False)
 		self.menubar.setStyleSheet("")
 		self.menubar.setObjectName("menubar")
+
 		self.menuFile = QtWidgets.QMenu(self.menubar)
 		self.menuFile.setObjectName("menuFile")
+
 		self.menuCustomer = QtWidgets.QMenu(self.menubar)
 		self.menuCustomer.setObjectName("menuCustomer")
+
 		self.menuRaw_Material = QtWidgets.QMenu(self.menubar)
 		self.menuRaw_Material.setObjectName("menuRaw_Material")
+
 		self.menuSpare_Parts = QtWidgets.QMenu(self.menubar)
 		self.menuSpare_Parts.setObjectName("menuSpare_Parts")
+
+		self.menuTools = QtWidgets.QMenu(self.menubar)
+		self.menuTools.setObjectName("menuTools")
+
+		self.menuFP = QtWidgets.QMenu(self.menubar)
+		self.menuFP.setObjectName("menuFB")
+
+		self.menuoutbound = QtWidgets.QMenu(self.menubar)
+		self.menuoutbound.setObjectName("menuoutbound")
+
+
 		MMainWindow.setMenuBar(self.menubar)
 		self.statusbar = QtWidgets.QStatusBar(MMainWindow)
 		self.statusbar.setObjectName("statusbar")
@@ -588,59 +603,123 @@ class Ui_MMainWindow(QMainWindow):
 
 		self.actionLogout = QtWidgets.QAction(MMainWindow)
 		self.actionLogout.setObjectName("actionLogout")
+
 		self.actionChange_Password = QtWidgets.QAction(MMainWindow)
 		self.actionChange_Password.setObjectName("actionChange_Password")
+
 		self.actionExit = QtWidgets.QAction(MMainWindow)
 		self.actionExit.setObjectName("actionExit")
+
 		self.actionAdd_New_customer = QtWidgets.QAction(MMainWindow)
 		self.actionAdd_New_customer.setObjectName("actionAdd_New_customer")
+
 		self.actionEdit_customer = QtWidgets.QAction(MMainWindow)
 		self.actionEdit_customer.setObjectName("actionEdit_customer")
+
 		self.actionSearch_customer = QtWidgets.QAction(MMainWindow)
 		self.actionSearch_customer.setObjectName("actionSearch_customer")
+
 		self.actionRports = QtWidgets.QAction(MMainWindow)
 		self.actionRports.setObjectName("actionRports")
+
 		self.actionAdd_New_2 = QtWidgets.QAction(MMainWindow)
 		self.actionAdd_New_2.setObjectName("actionAdd_New_2")
+
 		self.actionEdit_2 = QtWidgets.QAction(MMainWindow)
 		self.actionEdit_2.setObjectName("actionEdit_2")
+
 		self.actionSearch_2 = QtWidgets.QAction(MMainWindow)
 		self.actionSearch_2.setObjectName("actionSearch_2")
+
 		self.actionReports = QtWidgets.QAction(MMainWindow)
 		self.actionReports.setObjectName("actionReports")
+
 		self.actionAdd_New_RM = QtWidgets.QAction(MMainWindow)
 		self.actionAdd_New_RM.setObjectName("actionAdd_New_RM")
+
 		self.actionEdit_RM = QtWidgets.QAction(MMainWindow)
 		self.actionEdit_RM.setObjectName("actionEdit_RM")
+
 		self.actionSearch_RM = QtWidgets.QAction(MMainWindow)
 		self.actionSearch_RM.setObjectName("actionSearch_RM")
+
 		self.actionReports_2 = QtWidgets.QAction(MMainWindow)
 		self.actionReports_2.setObjectName("actionReports_2")
+
 		self.actionAdd_New_SP = QtWidgets.QAction(MMainWindow)
 		self.actionAdd_New_SP.setObjectName("actionAdd_New_SP")
+
 		self.actionEdit_SP = QtWidgets.QAction(MMainWindow)
 		self.actionEdit_SP.setObjectName("actionEdit_SP")
+
 		self.actionSearch_SP = QtWidgets.QAction(MMainWindow)
 		self.actionSearch_SP.setObjectName("actionSearch_SP")
+
 		self.actionReports_3 = QtWidgets.QAction(MMainWindow)
 		self.actionReports_3.setObjectName("actionReports_3")
+
+		self.actionAdd_TO = QtWidgets.QAction(MMainWindow)
+		self.actionAdd_TO.setObjectName("actionAdd_TO")
+
+		self.actionEdit_TO = QtWidgets.QAction(MMainWindow)
+		self.actionEdit_TO.setObjectName("actionEdit_TO")
+
+		self.actionSearch_TO = QtWidgets.QAction(MMainWindow)
+		self.actionSearch_TO.setObjectName("actionSearch_TO")
+
+		self.actionAdd_FP = QtWidgets.QAction(MMainWindow)
+		self.actionAdd_FP.setObjectName("actionAdd_FP")
+
+		self.actionEdit_FP = QtWidgets.QAction(MMainWindow)
+		self.actionEdit_FP.setObjectName("actionEdit_FP")
+
+		self.actionSearch_FP = QtWidgets.QAction(MMainWindow)
+		self.actionSearch_FP.setObjectName("actionSearch_FP")
+
+		self.actionAdd_New_OB = QtWidgets.QAction(MMainWindow)
+		self.actionAdd_New_OB.setObjectName("actionAdd_New_OB")
+
+		self.actionSearch_OB = QtWidgets.QAction(MMainWindow)
+		self.actionSearch_OB.setObjectName("actionSearch_OB")
+
 		self.menuFile.addAction(self.actionAddUser)
 		self.menuFile.addAction(self.actionLogout)
 		self.menuFile.addAction(self.actionChange_Password)
 		self.menuFile.addAction(self.actionExit)
+
 		self.menuCustomer.addAction(self.actionAdd_New_customer)
 		self.menuCustomer.addAction(self.actionEdit_customer)
 		self.menuCustomer.addAction(self.actionSearch_customer)
+
 		self.menuRaw_Material.addAction(self.actionAdd_New_RM)
 		self.menuRaw_Material.addAction(self.actionEdit_RM)
 		self.menuRaw_Material.addAction(self.actionSearch_RM)
+
 		self.menuSpare_Parts.addAction(self.actionAdd_New_SP)
 		self.menuSpare_Parts.addAction(self.actionEdit_SP)
 		self.menuSpare_Parts.addAction(self.actionSearch_SP)
+
+		self.menuTools.addAction(self.actionAdd_TO)
+		self.menuTools.addAction(self.actionEdit_TO)
+		self.menuTools.addAction(self.actionSearch_TO)
+
+		self.menuFP.addAction(self.actionAdd_FP)
+		self.menuFP.addAction(self.actionEdit_FP)
+		self.menuFP.addAction(self.actionSearch_FP)
+
+		self.menuoutbound.addAction(self.actionAdd_New_OB)
+		self.menuoutbound.addAction(self.actionSearch_OB)
+
+
 		self.menubar.addAction(self.menuFile.menuAction())
 		self.menubar.addAction(self.menuCustomer.menuAction())
 		self.menubar.addAction(self.menuRaw_Material.menuAction())
 		self.menubar.addAction(self.menuSpare_Parts.menuAction())
+		self.menubar.addAction(self.menuTools.menuAction())
+		self.menubar.addAction(self.menuFP.menuAction())
+		self.menubar.addAction(self.menuoutbound.menuAction())
+
+
 		# get logged user name
 		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
 		# hid add labor cost button
@@ -665,6 +744,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionAdd_New_SP.triggered.connect(self.openCreateNewSparePart)
 		self.actionEdit_SP.triggered.connect(self.openEditeNewSparePart)
 		self.actionSearch_SP.triggered.connect(self.openSearchSparePart)
+
+		self.actionAdd_FP.triggered.connect(self.openCreateNewFinishProduct)
 		# labels counting
 
 		self.tmplbl.setText(str(len(getMaintenancePused())))
@@ -694,6 +775,10 @@ class Ui_MMainWindow(QMainWindow):
 		QtCore.QMetaObject.connectSlotsByName(MMainWindow)
 		self.refreshbtn.clicked.connect(self.do_refresh)
 		self.reportbtn.clicked.connect(self.openReports)
+
+		self.actionAdd_FP.triggered.connect(self.openCreateNewFinishProduct)
+		self.actionEdit_FP.triggered.connect(self.openEditNewFinishProduct)
+		self.actionSearch_FP.triggered.connect(self.openSearchNewFinishProduct)
 
 		# role handel
 		role = getLoginDataPKL()['role']
@@ -733,6 +818,8 @@ class Ui_MMainWindow(QMainWindow):
 			self.actionEdit_RM.setEnabled(False)
 			self.actionAdd_New_SP.setEnabled(False)
 			self.actionEdit_SP.setEnabled(False)
+			self.actionAdd_FP.setEnabled(False)
+			self.actionEdit_FP.setEnabled(False)
 
 		if int(role) == 1:
 			# Button
@@ -749,6 +836,8 @@ class Ui_MMainWindow(QMainWindow):
 			# Actions
 			self.actionAdd_New_RM.setEnabled(False)
 			self.actionAdd_New_SP.setEnabled(False)
+			self.actionAdd_FP.setEnabled(False)
+			self.actionAdd_FP.setEnabled(False)
 
 	def retranslateUi(self, MMainWindow):
 		_translate = QtCore.QCoreApplication.translate
@@ -803,9 +892,28 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionEdit_RM.setText(_translate("MMainWindow", "Edit"))
 		self.actionSearch_RM.setText(_translate("MMainWindow", "Search"))
 		self.actionReports_2.setText(_translate("MMainWindow", "Reports"))
+
+		self.menuTools.setTitle(_translate("MMainWindow", "Tools"))
+		self.menuFP.setTitle(_translate("MMainWindow", "Finish Product"))
+		self.menuoutbound.setTitle(_translate("MMainWindow", "Outbound"))
+
 		self.actionAdd_New_SP.setText(_translate("MMainWindow", "Add New"))
 		self.actionEdit_SP.setText(_translate("MMainWindow", "Edit"))
 		self.actionSearch_SP.setText(_translate("MMainWindow", "Search"))
+
+		self.actionAdd_TO.setText(_translate("MMainWindow", "Add New"))
+		self.actionEdit_TO.setText(_translate("MMainWindow", "Edit"))
+		self.actionSearch_TO.setText(_translate("MMainWindow", "Search"))
+
+		self.actionAdd_FP.setText(_translate("MMainWindow", "Add New"))
+		self.actionEdit_FP.setText(_translate("MMainWindow", "Edit"))
+		self.actionSearch_FP.setText(_translate("MMainWindow", "Search"))
+
+
+		self.actionAdd_New_OB.setText(_translate("MMainWindow", "Add New"))
+		self.actionSearch_OB.setText(_translate("MMainWindow", "Search"))
+
+
 		self.actionReports_3.setText(_translate("MMainWindow", "Reports"))
 		self.loctextlbl.setText(_translate("MMainWindow", "Total of Maintenance\'s\n"
 														  " Without Labor Cost"))
@@ -877,6 +985,21 @@ class Ui_MMainWindow(QMainWindow):
 	def openSearchSparePart(self):
 		from uiview.ui_searchSP import Ui_searchSPDialog
 		self.di = Ui_searchSPDialog()
+		self.di.exec_()
+
+	def openCreateNewFinishProduct(self):
+		from uiview.ui_addNewFPType import Ui_addNewFPTypeDialog
+		self.di = Ui_addNewFPTypeDialog()
+		self.di.exec_()
+
+	def openEditNewFinishProduct(self):
+		from uiview.ui_updateNewFP import Ui_editFPDialog
+		self.di = Ui_editFPDialog()
+		self.di.exec_()
+
+	def openSearchNewFinishProduct(self):
+		from uiview.ui_searchFP import Ui_searchFPDialog
+		self.di = Ui_searchFPDialog()
 		self.di.exec_()
 
 	def openPusedMaintenance(self):

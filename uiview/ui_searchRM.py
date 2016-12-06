@@ -178,8 +178,7 @@ class Ui_searchRMDialog(QDialog):
 		self.closebtn.setObjectName("closebtn")
 		self.closebtn.clicked.connect(self.close)
 		self.deletebtn.clicked.connect(self.do_delete)
-		# self.editbtn.clicked.connect(self.openEditeNewRawMaterial)
-		self.editbtn.setVisible(False)
+		self.editbtn.clicked.connect(self.do_edit)
 		self.deletebtn.setEnabled(False)
 
 		self.retranslateUi(searchRMDialog)
@@ -232,7 +231,7 @@ class Ui_searchRMDialog(QDialog):
 		role = getLoginDataPKL()['role']
 		if int(role) == 1 or int(role) == 2 or int(role) == 3:
 			self.deletebtn.setEnabled(False)
-		# self.editbtn.setEnabled(True)
+		self.editbtn.setEnabled(True)
 		code = before(item.text(), '-')
 		if select_row_material_bycode(code):
 			rawMat = select_row_material_bycode(code)
@@ -262,6 +261,11 @@ class Ui_searchRMDialog(QDialog):
 		self.di = Ui_editRWDialog()
 		self.di.exec_()
 
+	def do_edit(self):
+		from uiview.ui_updatereNewRM import Ui_editRWDialog
+		spp = select_row_material_bycode(self.codeled.text())
+		self.dd = Ui_editRWDialog(spp)
+		self.dd.exec_()
 
 def before(value, a):
 	# Find first part and return slice before it.

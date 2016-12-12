@@ -31,9 +31,10 @@ def delete_employee(id):
 
 
 def select_employee(key, value):
-	res = session.query(Employees).filter(getattr(Employees, key).contains(value)).all()
-	for i in res:
-		return i
+	try:
+		return session.query(Employees).filter(getattr(Employees, key).contains(value)).all()
+	except NoResultFound:
+		return  False
 
 def select_employee_by_mob_num(mobile_number):
 	try:
@@ -62,4 +63,10 @@ def select_employee_exact(key, value):
 	except NoResultFound:
 		return False
 
-# select_customer_exact('mobile_number', '0011')
+def select_employee_obj(obj):
+	try:
+		res = session.query(Employees).filter(Employees == obj).one()
+		return  res
+	except NoResultFound:
+		return False
+

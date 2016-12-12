@@ -780,6 +780,13 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionEdit_FP.triggered.connect(self.openEditNewFinishProduct)
 		self.actionSearch_FP.triggered.connect(self.openSearchNewFinishProduct)
 
+		self.actionAdd_TO.triggered.connect(self.openCreateNewTools)
+		self.actionEdit_TO.triggered.connect(self.openEditeTools)
+		self.actionSearch_TO.triggered.connect(self.openSearchTools)
+
+		self.actionAdd_New_OB.triggered.connect(self.openNewOB)
+		self.actionSearch_OB.triggered.connect(self.openSreachOB)
+
 		# role handel
 		role = getLoginDataPKL()['role']
 		if int(role) == 2 or int(role) == 3:
@@ -820,6 +827,8 @@ class Ui_MMainWindow(QMainWindow):
 			self.actionEdit_SP.setEnabled(False)
 			self.actionAdd_FP.setEnabled(False)
 			self.actionEdit_FP.setEnabled(False)
+			self.actionAdd_TO.setEnabled(False)
+			self.actionEdit_TO.setEnabled(False)
 
 		if int(role) == 1:
 			# Button
@@ -837,7 +846,7 @@ class Ui_MMainWindow(QMainWindow):
 			self.actionAdd_New_RM.setEnabled(False)
 			self.actionAdd_New_SP.setEnabled(False)
 			self.actionAdd_FP.setEnabled(False)
-			self.actionAdd_FP.setEnabled(False)
+			self.actionAdd_TO.setEnabled(False)
 
 	def retranslateUi(self, MMainWindow):
 		_translate = QtCore.QCoreApplication.translate
@@ -1000,6 +1009,31 @@ class Ui_MMainWindow(QMainWindow):
 	def openSearchNewFinishProduct(self):
 		from uiview.ui_searchFP import Ui_searchFPDialog
 		self.di = Ui_searchFPDialog()
+		self.di.exec_()
+
+	def openCreateNewTools(self):
+		from uiview.ui_addNewTOType import Ui_addNewTOTypeDialog
+		self.di = Ui_addNewTOTypeDialog()
+		self.di.exec_()
+
+	def openEditeTools(self):
+		from uiview.ui_updateNewTO import Ui_editTODialog
+		self.di = Ui_editTODialog()
+		self.di.exec_()
+
+	def openSearchTools(self):
+		from uiview.ui_searchTO import Ui_searchTODialog
+		self.di = Ui_searchTODialog()
+		self.di.exec_()
+
+	def openNewOB(self):
+		from uiview.ui_oubound import Ui_createOBDialog
+		self.di = Ui_createOBDialog()
+		self.di.exec_()
+
+	def openSreachOB(self):
+		from uiview.ui_obsearch import Ui_OBsearch
+		self.di = Ui_OBsearch()
 		self.di.exec_()
 
 	def openPusedMaintenance(self):

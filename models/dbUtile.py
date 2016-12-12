@@ -340,28 +340,28 @@ class Tools(Base):
 
 	id = Column(Integer, primary_key=True, nullable=False)
 	name = Column(String(200))
-	code =  Column(String(50))
 	price = Column(Float)
 	inv_qty = Column(Integer)
 	unit = Column(String(50))
 	gen_code = Column(String(100))
+	back = Column(Integer)
 
 	outbound = relationship('Outbound', backref=backref('outbound_tools'))
 
-	def __init__(self, name, code, price, inv_qty, unit, gen_code):
+	def __init__(self, name, price, inv_qty, unit, gen_code, back):
 		self.name = name
-		self.code = code
 		self.price = price
 		self.inv_qty = inv_qty
 		self.unit = unit
 		self.gen_code = gen_code
+		self.back = back
 
 	def __repr__(self):
 		return "Tools (name = " '{}'.format(self.name) + "\n" \
-				"code = " '{}'.format(self.code) + "\n" \
 				"price = " '{}'.format(self.price) + "\n" \
 				"inv_qty = " '{}'.format(self.inv_qty) + "\n" \
 				"unit = " '{}'.format(self.unit) + "\n" \
+				"back = " '{}'.format(self.back) + "\n" \
 				"gen_code = " '{}'.format(self.gen_code) + "\n)>"
 
 class FinishProducts(Base):
@@ -435,6 +435,8 @@ class Outbound(Base):
 	code = Column(String(50))
 	out_date = Column(TIMESTAMP)
 	reason = Column(String(100))
+	status = Column(Integer)
+	req_qty = Column(Float)
 
 	customer_id = Column(Integer, ForeignKey('customers.id'))
 	customers = relationship('Customers', backref=backref('outbound_customers'))
@@ -456,7 +458,7 @@ class Outbound(Base):
 	finishProducts = relationship('FinishProducts', backref=backref('finish_products_outbound'))
 
 	def __init__(self, code, out_date, reason, customer_id, employee_id, raw_material_id,
-				 spare_part_id, tools_id, product_id):
+				 spare_part_id, tools_id, product_id, req_qty,status):
 		self.code = code
 		self.out_date = out_date
 		self.reason = reason
@@ -466,6 +468,8 @@ class Outbound(Base):
 		self.spare_part_id = spare_part_id
 		self.tools_id = tools_id
 		self.product_id = product_id
+		self.status = status
+		self.req_qty = req_qty
 
 	def __repr__(self):
 		return "<Outbound (code ="'{}'.format(self.code) + "\n" \
@@ -476,6 +480,8 @@ class Outbound(Base):
 				"raw_material_id =" '{}'.format(self.raw_material_id) + "\n" \
 				"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
 				"tools_id =" '{}'.format(self.tools_id) + "\n" \
-				"product_id =" '{}'.format(self.product_id) + ")>"
+				"product_id =" '{}'.format(self.product_id) + "\n" \
+				"status=" '{}'.format(self.status) + "\n" \
+				"req_qty=" '{}'.format(self.req_qty) + ")>"
 
 Base.metadata.create_all(engine)

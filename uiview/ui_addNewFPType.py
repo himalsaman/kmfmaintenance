@@ -103,9 +103,9 @@ class Ui_addNewFPTypeDialog(QDialog):
         self.fpcodeled.setGeometry(QtCore.QRect(50, 97, 171, 20))
         self.fpcodeled.setObjectName("fpcodeled")
 
-        self.retranslateUi(addNewFPTypeDialog)
         self.savebtn.clicked.connect(self.do_Add)
         self.cancelbtn.clicked.connect(self.close)
+        self.retranslateUi(addNewFPTypeDialog)
         QtCore.QMetaObject.connectSlotsByName(addNewFPTypeDialog)
 
     def retranslateUi(self, addNewFPTypeDialog):
@@ -148,4 +148,4 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     myapp = Ui_addNewFPTypeDialog()
     myapp.show()
-    app.exec_()
+    myapp.exec_()

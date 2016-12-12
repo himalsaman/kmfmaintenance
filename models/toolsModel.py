@@ -5,15 +5,14 @@ from models.dbUtile import engine, Tools
 Session = sessionmaker(bind=engine)
 session = Session()
 
-def add_tools(name, code, price, inv_qty, unit, gen_code):
-	new_tools = Tools(name, code, price, inv_qty, unit, gen_code)
+def add_tools(name, price, inv_qty, unit, gen_code, back):
+	new_tools = Tools(name, price, inv_qty, unit, gen_code, back)
 	session.add(new_tools)
 	session.commit()
 
-def update_tools(id, name, code, price, inv_qty, unit, gen_code):
+def update_tools(id, name, price, inv_qty, unit, gen_code):
 	res = session.query(Tools).filter(Tools.id == id).one()
 	res.name = name
-	res.code = code
 	res.price = price
 	res.inv_qty = inv_qty
 	res.unit = unit

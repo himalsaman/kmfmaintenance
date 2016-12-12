@@ -46,6 +46,11 @@ def select_customer(key, value):
 	for i in res:
 		return i
 
+def select_customer_key(key, value):
+	try:
+		return session.query(Customers).filter(getattr(Customers, key).contains(value)).all()
+	except NoResultFound:
+		return False
 
 # select customer by key and value
 def select_customer_by_mob_num(mobile_number):

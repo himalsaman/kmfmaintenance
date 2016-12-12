@@ -246,6 +246,19 @@
     <string>SAR</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>140</y>
+     <width>70</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Backable</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -139,8 +139,8 @@ class Ui_addNewSPTypeDialog(QDialog):
 			self.close()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_addNewSPTypeDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_addNewSPTypeDialog()
+# 	myapp.show()
+	# app.exec_()

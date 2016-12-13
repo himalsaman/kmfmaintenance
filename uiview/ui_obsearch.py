@@ -90,7 +90,7 @@ class Ui_OBsearch(QDialog):
 		self.closebtn.setText(_translate("OBsearch", "Close"))
 
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_OBsearch()
-	myapp.exec_()
+# if __name__ == '__main__':
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_OBsearch()
+# 	myapp.exec_()

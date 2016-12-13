@@ -392,8 +392,8 @@ class Ui_lastMaintenanceDialog(QDialog):
 		self.md.exec_()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_lastMaintenanceDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_lastMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

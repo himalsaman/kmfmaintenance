@@ -368,8 +368,8 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.md.exec_()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_costHoldedMaintenanceDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_costHoldedMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

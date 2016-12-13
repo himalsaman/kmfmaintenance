@@ -139,8 +139,8 @@ class Ui_addNewTOTypeDialog(QDialog):
 			self.close()
 
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_addNewTOTypeDialog()
-	myapp.show()
-	myapp.exec_()
+# if __name__ == '__main__':
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_addNewTOTypeDialog()
+# 	myapp.show()
+# 	myapp.exec_()

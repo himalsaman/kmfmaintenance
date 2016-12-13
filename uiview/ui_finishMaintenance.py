@@ -424,8 +424,8 @@ class Ui_finishMaintenanceDialog(QDialog):
 		self.md.exec_()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_finishMaintenanceDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_finishMaintenanceDialog()
+# 	myapp.show()
+# 	app.exec_()

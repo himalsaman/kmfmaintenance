@@ -176,8 +176,8 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.close()
 
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_addNewRMTypeDialog()
-	myapp.show()
-	app.exec_()
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_addNewRMTypeDialog()
+# 	myapp.show()
+# 	app.exec_()

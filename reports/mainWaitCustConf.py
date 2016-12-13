@@ -58,7 +58,7 @@ class CreateWaitCustConfReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-		logo = "D:\himalsaman\dev\pyworkspace\maintenance\images\khatemalogo.jpg"
+		logo = "../images/khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
 		img.drawOn(self.c, *self.coord(10, 20, mm))

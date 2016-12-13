@@ -204,8 +204,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-if __name__ == '__main__':
-	app = QtWidgets.QApplication(sys.argv)
-	myapp = Ui_searchTODialog()
-	myapp.show()
-	myapp.exec_()
+# if __name__ == '__main__':
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_searchTODialog()
+# 	myapp.show()
+# 	myapp.exec_()

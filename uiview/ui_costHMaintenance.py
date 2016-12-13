@@ -26,6 +26,8 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, costHoldedMaintenanceDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		costHoldedMaintenanceDialog.setObjectName("costHoldedMaintenanceDialog")
 		costHoldedMaintenanceDialog.resize(832, 470)
 		self.label = QtWidgets.QLabel(costHoldedMaintenanceDialog)
@@ -310,7 +312,7 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 			self.detailsbtn.setEnabled(True)
 			self.deletebtn.setEnabled(True)
 			role = getLoginDataPKL()['role']
-			if int(role) == 1 :
+			if int(role) == 1:
 				self.deletebtn.setEnabled(False)
 
 	def do_addLaborCost(self):
@@ -329,11 +331,11 @@ class Ui_costHoldedMaintenanceDialog(QDialog):
 			self.tableView.setModel(self.tableData)
 			for idx, val in enumerate(getMaintenanceWaitLaborCost()):
 				self.tableData.addCustomer(Customers(getMaintenanceWaitLaborCost()[idx].customers.name
-												 , getMaintenanceWaitLaborCost()[
-													 idx].customers.mobile_number
-												 , None, None, None, None
-												 , getMaintenanceWaitLaborCost()[idx].m_code
-												 , None, None))
+													 , getMaintenanceWaitLaborCost()[
+														 idx].customers.mobile_number
+													 , None, None, None, None
+													 , getMaintenanceWaitLaborCost()[idx].m_code
+													 , None, None))
 
 	def do_delete(self):
 		indexes = self.tableView.selectionModel().selectedRows(0)

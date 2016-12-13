@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
@@ -23,6 +24,8 @@ class Ui_pusedMaintenanceDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, pusedMaintenanceDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		pusedMaintenanceDialog.setObjectName("pusedMaintenanceDialog")
 		pusedMaintenanceDialog.resize(832, 470)
 		self.label = QtWidgets.QLabel(pusedMaintenanceDialog)
@@ -221,6 +224,7 @@ class Ui_pusedMaintenanceDialog(QDialog):
 												 , None, None, None, None
 												 , getMaintenancePused()[idx].m_code
 												 , None, None))
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

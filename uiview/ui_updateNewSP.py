@@ -23,6 +23,8 @@ class Ui_editSPDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, editSPDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		editSPDialog.setObjectName("editSPDialog")
 		editSPDialog.resize(818, 523)
 		self.label = QtWidgets.QLabel(editSPDialog)
@@ -221,6 +223,12 @@ class Ui_editSPDialog(QDialog):
 		self.newqtySpinBox_2.setGeometry(QtCore.QRect(600, 412, 110, 22))
 		self.newqtySpinBox_2.setObjectName("newqtySpinBox_2")
 		self.updateqtybtn_2.clicked.connect(self.minupdate_inv)
+
+		self.dataupdatebtn.setEnabled(False)
+		self.updatecostbtn.setEnabled(False)
+		self.updateqtybtn.setEnabled(False)
+		self.updateqtybtn_2.setEnabled(False)
+
 		self.retranslateUi(editSPDialog)
 		QtCore.QMetaObject.connectSlotsByName(editSPDialog)
 
@@ -255,8 +263,12 @@ class Ui_editSPDialog(QDialog):
 	unitdict = {" ": 0, 'ea': 1}
 
 	def Clicked(self, item):
+		self.dataupdatebtn.setEnabled(True)
+		self.updatecostbtn.setEnabled(True)
+		self.updateqtybtn.setEnabled(True)
+		self.updateqtybtn_2.setEnabled(True)
 		role = getLoginDataPKL()['role']
-		if int(role) == 2 :
+		if int(role) == 2:
 			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn.setEnabled(False)
 			self.dataupdatebtn.setEnabled(False)
@@ -264,7 +276,7 @@ class Ui_editSPDialog(QDialog):
 			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn.setEnabled(True)
 			self.dataupdatebtn.setEnabled(True)
-		if int(role) == 1 :
+		if int(role) == 1:
 			self.updatecostbtn.setEnabled(True)
 			self.updateqtybtn.setEnabled(False)
 			self.dataupdatebtn.setEnabled(False)
@@ -346,6 +358,7 @@ class Ui_editSPDialog(QDialog):
 				self.statulbl.setText("Data updated successfully")
 			else:
 				self.statulbl.setText("Data not updated ")
+
 	def minupdate_inv(self):
 		if self.newqtySpinBox_2.value() == 0:
 			self.statulbl.setText("New Quantity is Required ")

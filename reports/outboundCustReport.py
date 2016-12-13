@@ -3,19 +3,16 @@ import subprocess
 from datetime import datetime
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
 from reportlab.platypus import Table
-from reportlab.platypus import TableStyle
 
-from Control.ouboundControl import getOutbounEmployeeRow, getOutbounCustomerRow, getOutbounOneCustomerRow
+from Control.ouboundControl import getOutbounOneCustomerRow
 
 
 class MCLine(Flowable):
@@ -34,9 +31,12 @@ class MCLine(Flowable):
 		"""
 		self.canv.line(self.start, self.height, self.width, self.height)
 
+
 datetimestr = datetime.now()
 timestampstr = datetimestr.strftime('%Y-%m-%d-%H:%M:%S')
 timestampstr2 = datetimestr.strftime('%Y-%m-%d')
+
+
 class CreateOutboundCustReport(object):
 	def __init__(self, cust):
 		"""Constructor"""
@@ -44,7 +44,7 @@ class CreateOutboundCustReport(object):
 		self.styles = getSampleStyleSheet()
 		self.cust = cust
 
-		pdfname = 'outbound-'+'{}'.format(self.cust.name[0:3])+'{}'.format(timestampstr2) + '.pdf'
+		pdfname = 'outbound-' + '{}'.format(self.cust.name[0:3]) + '{}'.format(timestampstr2) + '.pdf'
 		self.refile = os.path.join(os.path.expanduser("~"), "Documents/", pdfname)
 
 	def coord(self, x, y, unit=1):
@@ -62,7 +62,6 @@ class CreateOutboundCustReport(object):
 		self.c = canvas
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
-
 
 		logo = "D:\himalsaman\dev\pyworkspace\maintenance\images\khatemalogo.jpg"
 		img = Image(logo, 50, 50)
@@ -96,7 +95,6 @@ class CreateOutboundCustReport(object):
 
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
-
 		ptext = '<font size=10><u><b>Outbound : {}</b></u></font>'.format(timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
@@ -104,7 +102,8 @@ class CreateOutboundCustReport(object):
 
 		# datetimestr = datetime.now()
 		# timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
-		ptext = "<font size=6><a>{} - </a></font>".format(self.refile)+"<font size=6><a>{} </a></font>".format(timestampstr)
+		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
+			timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(10, 286, mm))
@@ -124,12 +123,10 @@ class CreateOutboundCustReport(object):
 		doc = SimpleDocTemplate(self.refile, pagesize=A4)
 		styles = getSampleStyleSheet()
 
-
 		spacer = Spacer(0, 0.07 * inch)
 
 		story.append(spacer)
 		story.append(spacer)
-
 
 		ptext = '<font size=10><a>Customer Name: {}</a></font>'.format(self.cust.name)
 		story.append(Paragraph(ptext, styles["Normal"]))
@@ -143,7 +140,7 @@ class CreateOutboundCustReport(object):
 		"""
 				Create the line items
 				"""
-		text_data = ["#","Material Name" ,"Material Type", "QTY"]
+		text_data = ["#", "Material Name", "Material Type", "QTY"]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -180,7 +177,7 @@ class CreateOutboundCustReport(object):
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
-#########################################################################################
+		#########################################################################################
 		actxt = '<font size=11><p><u>Accountant</u><br/>Rani Mohamed</p></font>'
 		pactxt = Paragraph(actxt, centered)
 
@@ -195,7 +192,7 @@ class CreateOutboundCustReport(object):
 				[pactxt, '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
 		story.append(t)
-#########################################################################################
+		#########################################################################################
 
 		story.append(spacer)
 
@@ -204,5 +201,7 @@ class CreateOutboundCustReport(object):
 		subprocess.Popen([self.refile], shell=True)
 
 	# ----------------------------------------------------------------------
+
+
 if __name__ == "__main__":
 	CreateOutboundCustReport().create_pdf()

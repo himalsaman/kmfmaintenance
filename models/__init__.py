@@ -1,8 +1,8 @@
-import models.billOfMaterialItemModel, \
-    models.cityModel, \
-    models.customersModel, \
-    models.dbUtile, \
-    models.maintenanceModel, \
-    models.rawMaterialModel, \
-    models.sparePartsModel, \
-    models.usersModel
+import models.billOfMaterialItemModel
+import models.cityModel
+import models.customersModel
+import models.dbUtile
+import models.maintenanceModel
+import models.rawMaterialModel
+import models.sparePartsModel
+import models.usersModel

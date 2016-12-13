@@ -3,17 +3,14 @@ import subprocess
 from datetime import datetime
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
 from reportlab.platypus import Table
-from reportlab.platypus import TableStyle
 
 from Control.ouboundControl import getOutbounEmployeeRow
 
@@ -34,9 +31,12 @@ class MCLine(Flowable):
 		"""
 		self.canv.line(self.start, self.height, self.width, self.height)
 
+
 datetimestr = datetime.now()
 timestampstr = datetimestr.strftime('%Y-%m-%d-%H:%M:%S')
 timestampstr2 = datetimestr.strftime('%Y-%m-%d')
+
+
 class CreateOutboundReport(object):
 	def __init__(self):
 		"""Constructor"""
@@ -61,7 +61,6 @@ class CreateOutboundReport(object):
 		self.c = canvas
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
-
 
 		logo = "D:\himalsaman\dev\pyworkspace\maintenance\images\khatemalogo.jpg"
 		img = Image(logo, 50, 50)
@@ -95,7 +94,6 @@ class CreateOutboundReport(object):
 
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
-
 		ptext = '<font size=10><u><b>Outbound : {}</b></u></font>'.format(timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
@@ -103,7 +101,8 @@ class CreateOutboundReport(object):
 
 		# datetimestr = datetime.now()
 		# timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
-		ptext = "<font size=6><a>{} - </a></font>".format(self.refile)+"<font size=6><a>{} </a></font>".format(timestampstr)
+		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
+			timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(10, 286, mm))
@@ -123,7 +122,6 @@ class CreateOutboundReport(object):
 		doc = SimpleDocTemplate(self.refile, pagesize=A4)
 		styles = getSampleStyleSheet()
 
-
 		spacer = Spacer(0, 0.07 * inch)
 
 		story.append(spacer)
@@ -132,7 +130,7 @@ class CreateOutboundReport(object):
 		"""
 				Create the line items
 				"""
-		text_data = ["#", "Employee Name","Material Name" ,"Material Type", "QTY", "Sign"]
+		text_data = ["#", "Employee Name", "Material Name", "Material Type", "QTY", "Sign"]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -169,7 +167,7 @@ class CreateOutboundReport(object):
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
-#########################################################################################
+		#########################################################################################
 		actxt = '<font size=11><p><u>Accountant</u><br/>Rani Mohamed</p></font>'
 		pactxt = Paragraph(actxt, centered)
 
@@ -178,7 +176,7 @@ class CreateOutboundReport(object):
 		data = [[pactxt, '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
 		story.append(t)
-#########################################################################################
+		#########################################################################################
 
 		story.append(spacer)
 
@@ -187,5 +185,6 @@ class CreateOutboundReport(object):
 		subprocess.Popen([self.refile], shell=True)
 
 	# ----------------------------------------------------------------------
+
 # if __name__ == "__main__":
 # 	CreateOutboundReport().create_pdf()

@@ -1,4 +1,3 @@
-import select
 from PyQt5.QtCore import *
 
 from models.customersModel import select_customer_by_id
@@ -14,7 +13,7 @@ class OutboundTableModel(QAbstractTableModel):
 
 	def __init__(self):
 		super(OutboundTableModel, self).__init__()
-		self.headers = ['Code','User Name', 'Item', 'Type', 'Qty']
+		self.headers = ['Code', 'User Name', 'Item', 'Type', 'Qty']
 		self.items = []
 
 	def rowCount(self, index=QModelIndex()):
@@ -46,15 +45,15 @@ class OutboundTableModel(QAbstractTableModel):
 				if item.raw_material_id:
 					raw = select_row_material_by_id(item.raw_material_id)
 					mname = raw.name
-					# return QVariant(mname)
+				# return QVariant(mname)
 				if item.spare_part_id:
 					spare = select_spare_parts_by_id(item.spare_part_id)
 					mname = spare.name
-					# return QVariant(mname)
+				# return QVariant(mname)
 				if item.tools_id:
 					tool = select_tools_by_id(item.tools_id)
 					mname = tool.name
-					# return QVariant(mname)
+				# return QVariant(mname)
 				if item.product_id:
 					tool = select_finish_product_by_id(item.product_id)
 					mname = tool.name

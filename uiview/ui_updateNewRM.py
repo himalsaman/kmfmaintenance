@@ -24,6 +24,8 @@ class Ui_editRWDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, editRWDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		editRWDialog.setObjectName("editRWDialog")
 		editRWDialog.resize(819, 523)
 		self.label = QtWidgets.QLabel(editRWDialog)
@@ -241,6 +243,10 @@ class Ui_editRWDialog(QDialog):
 		self.newqtySpinBox_2 = QtWidgets.QDoubleSpinBox(editRWDialog)
 		self.newqtySpinBox_2.setGeometry(QtCore.QRect(600, 412, 110, 22))
 		self.newqtySpinBox_2.setObjectName("newqtySpinBox_2")
+		self.dataupdatebtn.setEnabled(False)
+		self.updatecostbtn.setEnabled(False)
+		self.updateqtybtn.setEnabled(False)
+		self.updateqtybtn_2.setEnabled(False)
 
 		self.updateqtybtn_2.clicked.connect(self.minupdate_inv)
 
@@ -285,8 +291,12 @@ class Ui_editRWDialog(QDialog):
 	unitdict = {'': 0, 'mm': 1, 'cm': 2, 'm': 3, 'g': 4, 'kg': 5, 'ea': 6, 'l': 7}
 
 	def Clicked(self, item):
+		self.dataupdatebtn.setEnabled(True)
+		self.updatecostbtn.setEnabled(True)
+		self.updateqtybtn.setEnabled(True)
+		self.updateqtybtn_2.setEnabled(True)
 		role = getLoginDataPKL()['role']
-		if int(role) == 2 :
+		if int(role) == 2:
 			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn.setEnabled(False)
 			self.updateqtybtn_2.setEnabled(False)
@@ -296,7 +306,7 @@ class Ui_editRWDialog(QDialog):
 			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn_2.setEnabled(True)
 			self.updateqtybtn.setEnabled(True)
-		if int(role) == 1 :
+		if int(role) == 1:
 			self.updatecostbtn.setEnabled(True)
 			self.updateqtybtn.setEnabled(False)
 			self.updateqtybtn_2.setEnabled(False)

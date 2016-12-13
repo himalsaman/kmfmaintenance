@@ -122,5 +122,6 @@ def check_maintenance_first_time():
 def select_maintenance_by_code(value):
 	return session.query(Maintenance).filter(Maintenance.m_code == value and Maintenance.hidden == 0).one()
 
+
 def select_maintenance_customer_re(value):
 	return session.query(Maintenance).filter(Maintenance.customers_id == value).all()

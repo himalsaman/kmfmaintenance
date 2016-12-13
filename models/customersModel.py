@@ -10,15 +10,18 @@ session = Session()
 
 
 # add new customer
-def add_customer(name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age, city_id):
-	new_customer = Customers(name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age, city_id)
+def add_customer(name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age,
+				 city_id):
+	new_customer = Customers(name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4,
+							 gender, age, city_id)
 	session.add(new_customer)
 	session.commit()
 	return new_customer
 
 
 # update or edit exists customer
-def update_customer(id, name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4,gender, age, city_id):
+def update_customer(id, name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender,
+					age, city_id):
 	res = session.query(Customers).filter(Customers.id == id).one()
 	print(res)
 	res.name = name
@@ -46,11 +49,13 @@ def select_customer(key, value):
 	for i in res:
 		return i
 
+
 def select_customer_key(key, value):
 	try:
 		return session.query(Customers).filter(getattr(Customers, key).contains(value)).all()
 	except NoResultFound:
 		return False
+
 
 # select customer by key and value
 def select_customer_by_mob_num(mobile_number):
@@ -76,11 +81,12 @@ def select_max_customer_id():
 	maxcode = session.query(func.max(Customers.id)).one()
 	return (maxcode[0])
 
+
 def select_customer_exact(key, value):
 	try:
 		res = session.query(Customers).filter(getattr(Customers, key) == value).one()
-		return  res
+		return res
 	except NoResultFound:
 		return False
 
-# select_customer_exact('mobile_number', '0011')
+		# select_customer_exact('mobile_number', '0011')

@@ -11,7 +11,6 @@ from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
 from reportlab.platypus import Image
 from reportlab.platypus import Table
-from reportlab.platypus import TableStyle
 
 from Control.BOMControl import getAllItemForBOM
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
@@ -208,7 +207,7 @@ class CreateDelvRecReport(object):
 				mname = spare.name
 				typeName = "Spare Parts"
 			line_data = [str(line_num), mname, typeName, val.qty_of_material
-				]
+						 ]
 
 			for item in line_data:
 				ptext = "<font size=%s>%s</font>" % (font_size - 1, item)

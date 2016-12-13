@@ -1,386 +1,389 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>maintenanceMW</class>
- <widget class="QMainWindow" name="maintenanceMW">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>695</width>
-    <height>633</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Maintenance</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Welcome,</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="loggedUserlbl">
-    <property name="geometry">
-     <rect>
-      <x>62</x>
-      <y>11</y>
-      <width>150</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>45</y>
-      <width>290</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Please, enter customer phone number select him from table</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>33</y>
-      <width>680</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>321</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <widget class="QLineEdit" name="searchled">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>210</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="searchbtn">
-     <property name="geometry">
-      <rect>
-       <x>237</x>
-       <y>11</y>
-       <width>70</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Search</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>130</y>
-      <width>340</width>
-      <height>3</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>138</y>
-      <width>140</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>OR, select direct from table</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>50</y>
-      <width>3</width>
-      <height>560</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>163</y>
-      <width>311</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Selected Customer Information</string>
-    </property>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>23</y>
-       <width>47</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Name :</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="cusNamelbl">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>46</x>
-       <y>21</y>
-       <width>250</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>52</y>
-       <width>80</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Mobile Number :</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="custMobled">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>49</y>
-       <width>201</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>80</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Gender :</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="custGendled">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>55</x>
-       <y>77</y>
-       <width>100</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>164</x>
-       <y>81</y>
-       <width>80</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>City :</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="custCityled">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>194</x>
-       <y>78</y>
-       <width>100</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>283</y>
-      <width>310</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <widget class="QPushButton" name="editOneForSelectedCustbtn">
-     <property name="geometry">
-      <rect>
-       <x>180</x>
-       <y>9</y>
-       <width>120</width>
-       <height>60</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Edit One 
- for selected customer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="createNewForSelectedCustbtn">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>9</y>
-       <width>140</width>
-       <height>60</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Create New Maintenance 
- for selected customer</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="statuslbl">
-    <property name="geometry">
-     <rect>
-      <x>371</x>
-      <y>367</y>
-      <width>310</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="createNewForNewCustbtn">
-    <property name="geometry">
-     <rect>
-      <x>425</x>
-      <y>67</y>
-      <width>200</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Create New Maintenance 
- with new customer</string>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>9</x>
-      <y>160</y>
-      <width>341</width>
-      <height>451</height>
-     </rect>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="tabKeyNavigation">
-     <bool>false</bool>
-    </property>
-    <property name="showDropIndicator" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="dragDropOverwriteMode">
-     <bool>false</bool>
-    </property>
-    <property name="selectionMode">
-     <enum>QAbstractItemView::SingleSelection</enum>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
-    </property>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>true</bool>
-    </attribute>
-   </widget>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
- </widget>
- <resources/>
- <connections/>
+	<class>maintenanceMW</class>
+	<widget class="QMainWindow" name="maintenanceMW">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>695</width>
+				<height>633</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Maintenance</string>
+		</property>
+		<widget class="QWidget" name="centralwidget">
+			<widget class="QLabel" name="label">
+				<property name="geometry">
+					<rect>
+						<x>10</x>
+						<y>10</y>
+						<width>51</width>
+						<height>21</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Welcome,</string>
+				</property>
+			</widget>
+			<widget class="QLabel" name="loggedUserlbl">
+				<property name="geometry">
+					<rect>
+						<x>62</x>
+						<y>11</y>
+						<width>150</width>
+						<height>21</height>
+					</rect>
+				</property>
+				<property name="font">
+					<font>
+						<weight>75</weight>
+						<bold>true</bold>
+					</font>
+				</property>
+				<property name="text">
+					<string/>
+				</property>
+			</widget>
+			<widget class="QLabel" name="label_3">
+				<property name="geometry">
+					<rect>
+						<x>10</x>
+						<y>45</y>
+						<width>290</width>
+						<height>21</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Please, enter customer phone number select him from table</string>
+				</property>
+				<property name="alignment">
+					<set>Qt::AlignCenter</set>
+				</property>
+			</widget>
+			<widget class="Line" name="line">
+				<property name="geometry">
+					<rect>
+						<x>10</x>
+						<y>33</y>
+						<width>680</width>
+						<height>16</height>
+					</rect>
+				</property>
+				<property name="orientation">
+					<enum>Qt::Horizontal</enum>
+				</property>
+			</widget>
+			<widget class="QGroupBox" name="groupBox">
+				<property name="geometry">
+					<rect>
+						<x>20</x>
+						<y>70</y>
+						<width>321</width>
+						<height>51</height>
+					</rect>
+				</property>
+				<property name="title">
+					<string/>
+				</property>
+				<widget class="QLineEdit" name="searchled">
+					<property name="geometry">
+						<rect>
+							<x>10</x>
+							<y>10</y>
+							<width>210</width>
+							<height>31</height>
+						</rect>
+					</property>
+					<property name="alignment">
+						<set>Qt::AlignCenter</set>
+					</property>
+				</widget>
+				<widget class="QPushButton" name="searchbtn">
+					<property name="geometry">
+						<rect>
+							<x>237</x>
+							<y>11</y>
+							<width>70</width>
+							<height>30</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Search</string>
+					</property>
+				</widget>
+			</widget>
+			<widget class="Line" name="line_3">
+				<property name="geometry">
+					<rect>
+						<x>10</x>
+						<y>130</y>
+						<width>340</width>
+						<height>3</height>
+					</rect>
+				</property>
+				<property name="orientation">
+					<enum>Qt::Horizontal</enum>
+				</property>
+			</widget>
+			<widget class="QLabel" name="label_4">
+				<property name="geometry">
+					<rect>
+						<x>11</x>
+						<y>138</y>
+						<width>140</width>
+						<height>21</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>OR, select direct from table</string>
+				</property>
+				<property name="alignment">
+					<set>Qt::AlignCenter</set>
+				</property>
+			</widget>
+			<widget class="Line" name="line_2">
+				<property name="geometry">
+					<rect>
+						<x>360</x>
+						<y>50</y>
+						<width>3</width>
+						<height>560</height>
+					</rect>
+				</property>
+				<property name="orientation">
+					<enum>Qt::Vertical</enum>
+				</property>
+			</widget>
+			<widget class="QGroupBox" name="groupBox_2">
+				<property name="geometry">
+					<rect>
+						<x>370</x>
+						<y>163</y>
+						<width>311</width>
+						<height>110</height>
+					</rect>
+				</property>
+				<property name="title">
+					<string>Selected Customer Information</string>
+				</property>
+				<widget class="QLabel" name="label_5">
+					<property name="geometry">
+						<rect>
+							<x>10</x>
+							<y>23</y>
+							<width>47</width>
+							<height>13</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Name :</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="cusNamelbl">
+					<property name="enabled">
+						<bool>false</bool>
+					</property>
+					<property name="geometry">
+						<rect>
+							<x>46</x>
+							<y>21</y>
+							<width>250</width>
+							<height>20</height>
+						</rect>
+					</property>
+				</widget>
+				<widget class="QLabel" name="label_6">
+					<property name="geometry">
+						<rect>
+							<x>10</x>
+							<y>52</y>
+							<width>80</width>
+							<height>13</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Mobile Number :</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="custMobled">
+					<property name="enabled">
+						<bool>false</bool>
+					</property>
+					<property name="geometry">
+						<rect>
+							<x>90</x>
+							<y>49</y>
+							<width>201</width>
+							<height>20</height>
+						</rect>
+					</property>
+				</widget>
+				<widget class="QLabel" name="label_7">
+					<property name="geometry">
+						<rect>
+							<x>10</x>
+							<y>80</y>
+							<width>80</width>
+							<height>13</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Gender :</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="custGendled">
+					<property name="enabled">
+						<bool>false</bool>
+					</property>
+					<property name="geometry">
+						<rect>
+							<x>55</x>
+							<y>77</y>
+							<width>100</width>
+							<height>20</height>
+						</rect>
+					</property>
+				</widget>
+				<widget class="QLabel" name="label_8">
+					<property name="geometry">
+						<rect>
+							<x>164</x>
+							<y>81</y>
+							<width>80</width>
+							<height>13</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>City :</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="custCityled">
+					<property name="enabled">
+						<bool>false</bool>
+					</property>
+					<property name="geometry">
+						<rect>
+							<x>194</x>
+							<y>78</y>
+							<width>100</width>
+							<height>20</height>
+						</rect>
+					</property>
+				</widget>
+			</widget>
+			<widget class="QGroupBox" name="groupBox_3">
+				<property name="geometry">
+					<rect>
+						<x>370</x>
+						<y>283</y>
+						<width>310</width>
+						<height>80</height>
+					</rect>
+				</property>
+				<property name="title">
+					<string/>
+				</property>
+				<widget class="QPushButton" name="editOneForSelectedCustbtn">
+					<property name="geometry">
+						<rect>
+							<x>180</x>
+							<y>9</y>
+							<width>120</width>
+							<height>60</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Edit One
+							for selected customer
+						</string>
+					</property>
+				</widget>
+				<widget class="QPushButton" name="createNewForSelectedCustbtn">
+					<property name="geometry">
+						<rect>
+							<x>10</x>
+							<y>9</y>
+							<width>140</width>
+							<height>60</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Create New Maintenance
+							for selected customer
+						</string>
+					</property>
+				</widget>
+			</widget>
+			<widget class="QLabel" name="statuslbl">
+				<property name="geometry">
+					<rect>
+						<x>371</x>
+						<y>367</y>
+						<width>310</width>
+						<height>50</height>
+					</rect>
+				</property>
+				<property name="styleSheet">
+					<string notr="true">color: rgb(255, 0, 0);</string>
+				</property>
+				<property name="text">
+					<string/>
+				</property>
+				<property name="alignment">
+					<set>Qt::AlignCenter</set>
+				</property>
+			</widget>
+			<widget class="QPushButton" name="createNewForNewCustbtn">
+				<property name="geometry">
+					<rect>
+						<x>425</x>
+						<y>67</y>
+						<width>200</width>
+						<height>60</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Create New Maintenance
+						with new customer
+					</string>
+				</property>
+			</widget>
+			<widget class="QTableView" name="tableView">
+				<property name="geometry">
+					<rect>
+						<x>9</x>
+						<y>160</y>
+						<width>341</width>
+						<height>451</height>
+					</rect>
+				</property>
+				<property name="editTriggers">
+					<set>QAbstractItemView::NoEditTriggers</set>
+				</property>
+				<property name="tabKeyNavigation">
+					<bool>false</bool>
+				</property>
+				<property name="showDropIndicator" stdset="0">
+					<bool>false</bool>
+				</property>
+				<property name="dragDropOverwriteMode">
+					<bool>false</bool>
+				</property>
+				<property name="selectionMode">
+					<enum>QAbstractItemView::SingleSelection</enum>
+				</property>
+				<property name="selectionBehavior">
+					<enum>QAbstractItemView::SelectRows</enum>
+				</property>
+				<attribute name="horizontalHeaderCascadingSectionResizes">
+					<bool>true</bool>
+				</attribute>
+			</widget>
+		</widget>
+		<widget class="QStatusBar" name="statusbar"/>
+	</widget>
+	<resources/>
+	<connections/>
 </ui>

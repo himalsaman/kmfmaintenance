@@ -6,8 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 import random
-
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
@@ -22,6 +22,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, addNewRMTypeDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
 		addNewRMTypeDialog.setObjectName("addNewRMTypeDialog")
 		addNewRMTypeDialog.resize(506, 310)
 		self.label = QtWidgets.QLabel(addNewRMTypeDialog)
@@ -143,7 +144,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 						self.rmDefualtSizeSpinBox.value() == 0 or \
 						self.rmunitcomboBox.currentIndex() == 0 or \
 						self.srtingSizeled.text() == '' or \
-						self.rmcostled.text() == '' :
+						self.rmcostled.text() == '':
 			self.statulbl.setText('All fields is required')
 		else:
 			self.statulbl.setText('ok')
@@ -169,9 +170,12 @@ class Ui_addNewRMTypeDialog(QDialog):
 			gencode = 'rw{}'.format(random.randrange(10, 10000, 2))
 			add_raw_material(name, gencode, defsize, strsize, unit, cost, invqty)
 			self.statulbl.setText(name + ", added successfully")
+			self.close()
 
 	def do_exit(self):
 		self.close()
+
+
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_addNewRMTypeDialog()

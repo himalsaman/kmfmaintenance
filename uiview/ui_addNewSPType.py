@@ -6,8 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 import random
-
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
@@ -22,6 +22,7 @@ class Ui_addNewSPTypeDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, addNewSPTypeDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
 		addNewSPTypeDialog.setObjectName("addNewSPTypeDialog")
 		addNewSPTypeDialog.resize(479, 276)
 		self.label = QtWidgets.QLabel(addNewSPTypeDialog)
@@ -135,6 +136,9 @@ class Ui_addNewSPTypeDialog(QDialog):
 			gencode = 'sp {}'.format(random.randrange(10, 10000, 2))
 			add_spare_parts(name, code, gencode, cost, invqty, unit)
 			self.statulbl.setText(name + ", added successfully")
+			self.close()
+
+
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_addNewSPTypeDialog()

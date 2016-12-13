@@ -33,6 +33,8 @@ class Ui_createBOMDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, createBOMDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		createBOMDialog.setObjectName("createBOMDialog")
 		createBOMDialog.resize(763, 510)
 		self.label = QtWidgets.QLabel(createBOMDialog)

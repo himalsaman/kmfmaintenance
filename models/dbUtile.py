@@ -6,7 +6,7 @@ from sqlalchemy_utils.functions.database import create_database, database_exists
 # create mysql engine
 sdb = '10.0.0.3'
 tdb = '127.0.0.1'
-engine = create_engine('mysql+pymysql://root:root@'+tdb+'/maintenancedb?charset=utf8', echo=True)
+engine = create_engine('mysql+pymysql://root:root@' + tdb + '/maintenancedb?charset=utf8', echo=True)
 metadata = MetaData()
 
 # check if database is exists or not
@@ -21,6 +21,7 @@ else:
 # create Base
 Base = declarative_base()
 
+
 # create user db table as class
 class User(Base):
 	__tablename__ = 'users'  # name of table
@@ -32,9 +33,6 @@ class User(Base):
 	password = Column(String(20), nullable=False)
 	created_at = Column(TIMESTAMP, nullable=False)
 	role = Column(String(20), nullable=False)
-
-
-
 
 	def __init__(self, name, username, password, created_at, role):
 		self.name = name
@@ -51,6 +49,7 @@ class User(Base):
 			self.password) + "\n" \
 							 "created_at ="'{}'.format(self.created_at) + "\n" \
 																		  "role="'{}'.format(self.role) + ")>"
+
 
 # create customer db table as class
 class Customers(Base):
@@ -74,7 +73,8 @@ class Customers(Base):
 
 	outbound = relationship('Outbound', backref=backref('outbound_customers'))
 
-	def __init__(self, name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender, age, city_id):
+	def __init__(self, name, mobile_number, mobile_number_1, mobile_number_2, mobile_number_3, mobile_number_4, gender,
+				 age, city_id):
 		self.name = name
 		self.mobile_number = mobile_number
 		self.mobile_number_1 = mobile_number_1
@@ -88,15 +88,18 @@ class Customers(Base):
 	# return and print customer table creation arch
 	def __repr__(self):
 		return "<Customer(name ="'{}'.format(self.name) + "\n" \
-				"mobile_number ="'{}'.format(self.mobile_number) + "\n" \
-			   	"mobile_number_1 ="'{}'.format(self.mobile_number_1) + "\n" \
-				"mobile_number_2 ="'{}'.format(self.mobile_number_2) + "\n" \
-				"mobile_number_3 ="'{}'.format(self.mobile_number_3) + "\n" \
-				"mobile_number_4 ="'{}'.format(self.mobile_number_4) + "\n" \
-																					 "gender ="'{}'.format(
+														  "mobile_number ="'{}'.format(self.mobile_number) + "\n" \
+																											 "mobile_number_1 ="'{}'.format(
+			self.mobile_number_1) + "\n" \
+									"mobile_number_2 ="'{}'.format(self.mobile_number_2) + "\n" \
+																						   "mobile_number_3 ="'{}'.format(
+			self.mobile_number_3) + "\n" \
+									"mobile_number_4 ="'{}'.format(self.mobile_number_4) + "\n" \
+																						   "gender ="'{}'.format(
 			self.gender) + "\n" \
 						   "age ="'{}'.format(self.age) + "\n" \
 														  "city_id ="'{}'.format(self.city_id) + ")>"
+
 
 # create city db table as class
 class City(Base):
@@ -113,6 +116,7 @@ class City(Base):
 	# return and print city table creation arch
 	def __repr__(self):
 		return "<City (name ="'{}'.format(self.name) + ")>"
+
 
 # create raw material db table as class
 class RawMaterial(Base):
@@ -153,6 +157,7 @@ class RawMaterial(Base):
 			self.cost_per_default_size) + "\n" \
 										  "inv_qty ="'{}'.format(self.inv_qty) + ")>"
 
+
 # create spare parts db table as class
 class SpareParts(Base):
 	__tablename__ = 'spare_parts'
@@ -188,6 +193,7 @@ class SpareParts(Base):
 																								  "gen_code ="'{}'.format(
 			self.gen_code) + ")>"
 
+
 # many bill_of_material_item  to one maintenance
 # one row can be raw material or spare part with him calculation
 class BillOfMaterialItem(Base):
@@ -214,7 +220,7 @@ class BillOfMaterialItem(Base):
 	qty_of_material = Column(Float)
 	gen_code = Column(String(100))
 
-	def __init__(self,raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material,
+	def __init__(self, raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material,
 				 qty_of_material, gen_code):
 		self.raw_material_id = raw_material_id
 		self.spare_part_id = spare_parts_id
@@ -234,6 +240,7 @@ class BillOfMaterialItem(Base):
 										"cost_of_material =" '{}'.format(
 			self.cost_of_material) + "\n" \
 									 "qty_of_material =" '{}'.format(self.qty_of_material) + ")>"
+
 
 class BillOfMaterial(Base):
 	__tablename__ = 'bill_of_material'
@@ -267,6 +274,7 @@ class BillOfMaterial(Base):
 			self.total_cost) + "\n" \
 							   "gen_code = "'{}'.format(self.gen_code) + "\n" \
 																		 "created_at = " '{}'.format(self.created_at)
+
 
 # create maintenance db table as class
 class Maintenance(Base):
@@ -323,17 +331,23 @@ class Maintenance(Base):
 
 	def __repr__(self):
 		return "Maintenance (m_code = " '{}'.format(self.m_code) + "\n" \
-				"customers_id = " '{}'.format(self.customers.id) + "\n" \
-				"cost_of_bill_of_material = "'{}'.format(self.cost_of_bill_of_material) + "\n" \
-				"cost_of_labor ="'{}'.format(self.cost_of_labor) + "\n" \
-				"cost_of_another ="'{}'.format(self.cost_of_another) + "\n" \
-				"cost_of_another_description = "'{}'.format(self.cost_of_another_description) + \
-			    "\n created_at = "'{}'.format(self.created_at) + "\n" \
-				"close_at = "'{}'.format(self.close_at) + "\n" \
-				"product_of_maintenance ="'{}'.format(self.product_of_maintenance) + "\n" \
-				"maintenance_description = "'{}'.format(self.maintenance_description) + "\n" \
-				"hidden = "'{}'.format(self.hidden) + "\n" + "start_date = "'{}'.format(
-				self.start_date) + "\n done_date = "'{}'.format(self.done_date) + ")>"
+																   "customers_id = " '{}'.format(
+			self.customers.id) + "\n" \
+								 "cost_of_bill_of_material = "'{}'.format(self.cost_of_bill_of_material) + "\n" \
+																										   "cost_of_labor ="'{}'.format(
+			self.cost_of_labor) + "\n" \
+								  "cost_of_another ="'{}'.format(self.cost_of_another) + "\n" \
+																						 "cost_of_another_description = "'{}'.format(
+			self.cost_of_another_description) + \
+			   "\n created_at = "'{}'.format(self.created_at) + "\n" \
+																"close_at = "'{}'.format(self.close_at) + "\n" \
+																										  "product_of_maintenance ="'{}'.format(
+			self.product_of_maintenance) + "\n" \
+										   "maintenance_description = "'{}'.format(self.maintenance_description) + "\n" \
+																												   "hidden = "'{}'.format(
+			self.hidden) + "\n" + "start_date = "'{}'.format(
+			self.start_date) + "\n done_date = "'{}'.format(self.done_date) + ")>"
+
 
 class Tools(Base):
 	__tablename__ = 'tools'
@@ -358,18 +372,21 @@ class Tools(Base):
 
 	def __repr__(self):
 		return "Tools (name = " '{}'.format(self.name) + "\n" \
-				"price = " '{}'.format(self.price) + "\n" \
-				"inv_qty = " '{}'.format(self.inv_qty) + "\n" \
-				"unit = " '{}'.format(self.unit) + "\n" \
-				"back = " '{}'.format(self.back) + "\n" \
-				"gen_code = " '{}'.format(self.gen_code) + "\n)>"
+														 "price = " '{}'.format(self.price) + "\n" \
+																							  "inv_qty = " '{}'.format(
+			self.inv_qty) + "\n" \
+							"unit = " '{}'.format(self.unit) + "\n" \
+															   "back = " '{}'.format(self.back) + "\n" \
+																								  "gen_code = " '{}'.format(
+			self.gen_code) + "\n)>"
+
 
 class FinishProducts(Base):
 	__tablename__ = 'finish_products'
 
 	id = Column(Integer, primary_key=True, nullable=False)
 	name = Column(String(200))
-	code =  Column(String(50))
+	code = Column(String(50))
 	price = Column(Float)
 	inv_qty = Column(Integer)
 	source = Column(String(50))
@@ -387,11 +404,14 @@ class FinishProducts(Base):
 
 	def __repr__(self):
 		return "Tools (name = " '{}'.format(self.name) + "\n" \
-				"code = " '{}'.format(self.code) + "\n" \
-				"price = " '{}'.format(self.price) + "\n" \
-				"inv_qty = " '{}'.format(self.inv_qty) + "\n" \
-				"source = " '{}'.format(self.source) + "\n" \
-				"gen_code = " '{}'.format(self.gen_code) + "\n)>"
+														 "code = " '{}'.format(self.code) + "\n" \
+																							"price = " '{}'.format(
+			self.price) + "\n" \
+						  "inv_qty = " '{}'.format(self.inv_qty) + "\n" \
+																   "source = " '{}'.format(self.source) + "\n" \
+																										  "gen_code = " '{}'.format(
+			self.gen_code) + "\n)>"
+
 
 class Employees(Base):
 	__tablename__ = 'employee'  # name of table
@@ -421,12 +441,15 @@ class Employees(Base):
 	# return and print customer table creation arch
 	def __repr__(self):
 		return "<Customer(name ="'{}'.format(self.name) + "\n" \
-				"mobile_number ="'{}'.format(self.mobile_number) + "\n" \
-			   	"job_title ="'{}'.format(self.job_title) + "\n" \
-				"nationality ="'{}'.format(self.nationality) + "\n" \
-				"nat_id ="'{}'.format(self.nat_id) + "\n" \
-				"gender ="'{}'.format(self.gender) + "\n" \
-				"age ="'{}'.format(self.age) + ")>"
+														  "mobile_number ="'{}'.format(self.mobile_number) + "\n" \
+																											 "job_title ="'{}'.format(
+			self.job_title) + "\n" \
+							  "nationality ="'{}'.format(self.nationality) + "\n" \
+																			 "nat_id ="'{}'.format(self.nat_id) + "\n" \
+																												  "gender ="'{}'.format(
+			self.gender) + "\n" \
+						   "age ="'{}'.format(self.age) + ")>"
+
 
 class Outbound(Base):
 	__tablename__ = 'outbound'
@@ -458,7 +481,7 @@ class Outbound(Base):
 	finishProducts = relationship('FinishProducts', backref=backref('finish_products_outbound'))
 
 	def __init__(self, code, out_date, reason, customer_id, employee_id, raw_material_id,
-				 spare_part_id, tools_id, product_id, req_qty,status):
+				 spare_part_id, tools_id, product_id, req_qty, status):
 		self.code = code
 		self.out_date = out_date
 		self.reason = reason
@@ -473,15 +496,20 @@ class Outbound(Base):
 
 	def __repr__(self):
 		return "<Outbound (code ="'{}'.format(self.code) + "\n" \
-				"out_date =" '{}'.format(self.out_date) + "\n" \
-				"reason =" '{}'.format(self.reason) + "\n" \
-				"customer_id =" '{}'.format(self.customer_id) + "\n" \
-				"employee_id =" '{}'.format(self.employee_id) + "\n" \
-				"raw_material_id =" '{}'.format(self.raw_material_id) + "\n" \
-				"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
-				"tools_id =" '{}'.format(self.tools_id) + "\n" \
-				"product_id =" '{}'.format(self.product_id) + "\n" \
-				"status=" '{}'.format(self.status) + "\n" \
-				"req_qty=" '{}'.format(self.req_qty) + ")>"
+														   "out_date =" '{}'.format(self.out_date) + "\n" \
+																									 "reason =" '{}'.format(
+			self.reason) + "\n" \
+						   "customer_id =" '{}'.format(self.customer_id) + "\n" \
+																		   "employee_id =" '{}'.format(
+			self.employee_id) + "\n" \
+								"raw_material_id =" '{}'.format(self.raw_material_id) + "\n" \
+																						"spare_part_id =" '{}'.format(
+			self.spare_part_id) + "\n" \
+								  "tools_id =" '{}'.format(self.tools_id) + "\n" \
+																			"product_id =" '{}'.format(
+			self.product_id) + "\n" \
+							   "status=" '{}'.format(self.status) + "\n" \
+																	"req_qty=" '{}'.format(self.req_qty) + ")>"
+
 
 Base.metadata.create_all(engine)

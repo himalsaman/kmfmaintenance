@@ -1,673 +1,674 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>createBOMDialog</class>
- <widget class="QDialog" name="createBOMDialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>763</width>
-    <height>510</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Create BOM</string>
-  </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>-1</y>
-     <width>47</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Welcome, </string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="loggedUserlbl">
-   <property name="geometry">
-    <rect>
-     <x>61</x>
-     <y>0</y>
-     <width>180</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>12</x>
-     <y>20</y>
-     <width>740</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>31</y>
-     <width>90</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Customer Name :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>253</x>
-     <y>31</y>
-     <width>130</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Customer Mobile Phone :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>61</y>
-     <width>130</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Product for Maintenance :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>12</x>
-     <y>78</y>
-     <width>130</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Maintenance Descreption :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="customerNamelbl">
-   <property name="geometry">
-    <rect>
-     <x>96</x>
-     <y>32</y>
-     <width>151</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="customerMPhonelbl">
-   <property name="geometry">
-    <rect>
-     <x>376</x>
-     <y>31</y>
-     <width>121</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="Line" name="line_2">
-   <property name="geometry">
-    <rect>
-     <x>6</x>
-     <y>201</y>
-     <width>750</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>405</x>
-     <y>5</y>
-     <width>100</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Maintenance Code :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="maintenanceCodelbl">
-   <property name="geometry">
-    <rect>
-     <x>505</x>
-     <y>5</y>
-     <width>100</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_12">
-   <property name="geometry">
-    <rect>
-     <x>602</x>
-     <y>6</y>
-     <width>47</width>
-     <height>10</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>BOM ID :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="bomCodelbl">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>2</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_14">
-   <property name="geometry">
-    <rect>
-     <x>524</x>
-     <y>30</y>
-     <width>120</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Total Raw Material Cost :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_15">
-   <property name="geometry">
-    <rect>
-     <x>524</x>
-     <y>60</y>
-     <width>120</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Total Spare Parts Cost :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_16">
-   <property name="geometry">
-    <rect>
-     <x>524</x>
-     <y>90</y>
-     <width>100</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Total RM &amp; SP Cost :</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="totalRMCled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>653</x>
-     <y>27</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="totalSPCled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>653</x>
-     <y>55</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="totalRMSPCled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>653</x>
-     <y>87</y>
-     <width>100</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="Line" name="line_8">
-   <property name="geometry">
-    <rect>
-     <x>510</x>
-     <y>36</y>
-     <width>3</width>
-     <height>150</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="Line" name="line_3">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>50</y>
-     <width>490</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="productMaintled">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>59</y>
-     <width>201</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="maintdesled">
-   <property name="geometry">
-    <rect>
-     <x>143</x>
-     <y>86</y>
-     <width>291</width>
-     <height>80</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="bomgroupbox">
-   <property name="geometry">
-    <rect>
-     <x>8</x>
-     <y>211</y>
-     <width>750</width>
-     <height>290</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QPushButton" name="savebtn">
-    <property name="geometry">
-     <rect>
-      <x>7</x>
-      <y>179</y>
-      <width>90</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Save</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="laborCostled">
-    <property name="geometry">
-     <rect>
-      <x>645</x>
-      <y>29</y>
-      <width>100</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="otherCostlbl">
-    <property name="geometry">
-     <rect>
-      <x>645</x>
-      <y>83</y>
-      <width>100</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_19">
-    <property name="geometry">
-     <rect>
-      <x>665</x>
-      <y>189</y>
-      <width>60</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Total Cost</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addNewRMbtn">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>15</y>
-      <width>100</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Raw Material</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_18">
-    <property name="geometry">
-     <rect>
-      <x>665</x>
-      <y>63</y>
-      <width>60</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Other Cost</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="totalCostled">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>645</x>
-      <y>209</y>
-      <width>100</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 0, 0);</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="Line" name="line_7">
-    <property name="geometry">
-     <rect>
-      <x>106</x>
-      <y>12</y>
-      <width>10</width>
-      <height>280</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_17">
-    <property name="geometry">
-     <rect>
-      <x>666</x>
-      <y>9</y>
-      <width>60</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Labor Cost</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="closebtn">
-    <property name="geometry">
-     <rect>
-      <x>7</x>
-      <y>239</y>
-      <width>90</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Close</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="calcfinbtn">
-    <property name="geometry">
-     <rect>
-      <x>654</x>
-      <y>126</y>
-      <width>80</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Cost  
- Re-Calculate</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addNewSPbtn">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>69</y>
-      <width>100</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Spare Part</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line_9">
-    <property name="geometry">
-     <rect>
-      <x>637</x>
-      <y>8</y>
-      <width>3</width>
-      <height>280</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>119</x>
-      <y>15</y>
-      <width>510</width>
-      <height>270</height>
-     </rect>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="tabKeyNavigation">
-     <bool>false</bool>
-    </property>
-    <property name="showDropIndicator" stdset="0">
-     <bool>false</bool>
-    </property>
-    <property name="dragDropOverwriteMode">
-     <bool>false</bool>
-    </property>
-    <property name="selectionMode">
-     <enum>QAbstractItemView::SingleSelection</enum>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="calcinibtn">
-   <property name="geometry">
-    <rect>
-     <x>668</x>
-     <y>165</y>
-     <width>90</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="savereqdatabtn">
-   <property name="geometry">
-    <rect>
-     <x>346</x>
-     <y>171</y>
-     <width>160</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Save Product &amp; Descreption</string>
-   </property>
-  </widget>
-  <zorder>label</zorder>
-  <zorder>loggedUserlbl</zorder>
-  <zorder>line</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>label_5</zorder>
-  <zorder>label_6</zorder>
-  <zorder>customerNamelbl</zorder>
-  <zorder>customerMPhonelbl</zorder>
-  <zorder>line_2</zorder>
-  <zorder>label_10</zorder>
-  <zorder>maintenanceCodelbl</zorder>
-  <zorder>label_12</zorder>
-  <zorder>bomCodelbl</zorder>
-  <zorder>label_14</zorder>
-  <zorder>label_15</zorder>
-  <zorder>label_16</zorder>
-  <zorder>totalRMCled</zorder>
-  <zorder>totalSPCled</zorder>
-  <zorder>totalRMSPCled</zorder>
-  <zorder>line_8</zorder>
-  <zorder>line_3</zorder>
-  <zorder>productMaintled</zorder>
-  <zorder>maintdesled</zorder>
-  <zorder>bomgroupbox</zorder>
-  <zorder>calcinibtn</zorder>
-  <zorder>addNewRMbtn</zorder>
-  <zorder>addNewSPbtn</zorder>
-  <zorder>calcinibtn</zorder>
-  <zorder>savereqdatabtn</zorder>
- </widget>
- <resources/>
- <connections/>
+	<class>createBOMDialog</class>
+	<widget class="QDialog" name="createBOMDialog">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>763</width>
+				<height>510</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Create BOM</string>
+		</property>
+		<widget class="QLabel" name="label">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>-1</y>
+					<width>47</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Welcome,</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="loggedUserlbl">
+			<property name="geometry">
+				<rect>
+					<x>61</x>
+					<y>0</y>
+					<width>180</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+		</widget>
+		<widget class="Line" name="line">
+			<property name="geometry">
+				<rect>
+					<x>12</x>
+					<y>20</y>
+					<width>740</width>
+					<height>3</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Horizontal</enum>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_3">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>31</y>
+					<width>90</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Customer Name :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_4">
+			<property name="geometry">
+				<rect>
+					<x>253</x>
+					<y>31</y>
+					<width>130</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Customer Mobile Phone :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_5">
+			<property name="geometry">
+				<rect>
+					<x>11</x>
+					<y>61</y>
+					<width>130</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Product for Maintenance :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_6">
+			<property name="geometry">
+				<rect>
+					<x>12</x>
+					<y>78</y>
+					<width>130</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Maintenance Descreption :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="customerNamelbl">
+			<property name="geometry">
+				<rect>
+					<x>96</x>
+					<y>32</y>
+					<width>151</width>
+					<height>16</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+		</widget>
+		<widget class="QLabel" name="customerMPhonelbl">
+			<property name="geometry">
+				<rect>
+					<x>376</x>
+					<y>31</y>
+					<width>121</width>
+					<height>16</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+		</widget>
+		<widget class="Line" name="line_2">
+			<property name="geometry">
+				<rect>
+					<x>6</x>
+					<y>201</y>
+					<width>750</width>
+					<height>3</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Horizontal</enum>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_10">
+			<property name="geometry">
+				<rect>
+					<x>405</x>
+					<y>5</y>
+					<width>100</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Maintenance Code :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="maintenanceCodelbl">
+			<property name="geometry">
+				<rect>
+					<x>505</x>
+					<y>5</y>
+					<width>100</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_12">
+			<property name="geometry">
+				<rect>
+					<x>602</x>
+					<y>6</y>
+					<width>47</width>
+					<height>10</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>BOM ID :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="bomCodelbl">
+			<property name="geometry">
+				<rect>
+					<x>650</x>
+					<y>2</y>
+					<width>100</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_14">
+			<property name="geometry">
+				<rect>
+					<x>524</x>
+					<y>30</y>
+					<width>120</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Total Raw Material Cost :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_15">
+			<property name="geometry">
+				<rect>
+					<x>524</x>
+					<y>60</y>
+					<width>120</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Total Spare Parts Cost :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_16">
+			<property name="geometry">
+				<rect>
+					<x>524</x>
+					<y>90</y>
+					<width>100</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Total RM &amp; SP Cost :</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="totalRMCled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>653</x>
+					<y>27</y>
+					<width>100</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignCenter</set>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="totalSPCled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>653</x>
+					<y>55</y>
+					<width>100</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignCenter</set>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="totalRMSPCled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>653</x>
+					<y>87</y>
+					<width>100</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignCenter</set>
+			</property>
+		</widget>
+		<widget class="Line" name="line_8">
+			<property name="geometry">
+				<rect>
+					<x>510</x>
+					<y>36</y>
+					<width>3</width>
+					<height>150</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Vertical</enum>
+			</property>
+		</widget>
+		<widget class="Line" name="line_3">
+			<property name="geometry">
+				<rect>
+					<x>11</x>
+					<y>50</y>
+					<width>490</width>
+					<height>3</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Horizontal</enum>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="productMaintled">
+			<property name="geometry">
+				<rect>
+					<x>140</x>
+					<y>59</y>
+					<width>201</width>
+					<height>20</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="QPlainTextEdit" name="maintdesled">
+			<property name="geometry">
+				<rect>
+					<x>143</x>
+					<y>86</y>
+					<width>291</width>
+					<height>80</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="QGroupBox" name="bomgroupbox">
+			<property name="geometry">
+				<rect>
+					<x>8</x>
+					<y>211</y>
+					<width>750</width>
+					<height>290</height>
+				</rect>
+			</property>
+			<property name="title">
+				<string/>
+			</property>
+			<widget class="QPushButton" name="savebtn">
+				<property name="geometry">
+					<rect>
+						<x>7</x>
+						<y>179</y>
+						<width>90</width>
+						<height>40</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Save</string>
+				</property>
+			</widget>
+			<widget class="QLineEdit" name="laborCostled">
+				<property name="geometry">
+					<rect>
+						<x>645</x>
+						<y>29</y>
+						<width>100</width>
+						<height>20</height>
+					</rect>
+				</property>
+				<property name="alignment">
+					<set>Qt::AlignCenter</set>
+				</property>
+			</widget>
+			<widget class="QLineEdit" name="otherCostlbl">
+				<property name="geometry">
+					<rect>
+						<x>645</x>
+						<y>83</y>
+						<width>100</width>
+						<height>20</height>
+					</rect>
+				</property>
+				<property name="alignment">
+					<set>Qt::AlignCenter</set>
+				</property>
+			</widget>
+			<widget class="QLabel" name="label_19">
+				<property name="geometry">
+					<rect>
+						<x>665</x>
+						<y>189</y>
+						<width>60</width>
+						<height>13</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Total Cost</string>
+				</property>
+			</widget>
+			<widget class="QPushButton" name="addNewRMbtn">
+				<property name="geometry">
+					<rect>
+						<x>5</x>
+						<y>15</y>
+						<width>100</width>
+						<height>40</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Add Raw Material</string>
+				</property>
+			</widget>
+			<widget class="QLabel" name="label_18">
+				<property name="geometry">
+					<rect>
+						<x>665</x>
+						<y>63</y>
+						<width>60</width>
+						<height>13</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Other Cost</string>
+				</property>
+			</widget>
+			<widget class="QLineEdit" name="totalCostled">
+				<property name="enabled">
+					<bool>false</bool>
+				</property>
+				<property name="geometry">
+					<rect>
+						<x>645</x>
+						<y>209</y>
+						<width>100</width>
+						<height>20</height>
+					</rect>
+				</property>
+				<property name="font">
+					<font>
+						<weight>75</weight>
+						<bold>true</bold>
+					</font>
+				</property>
+				<property name="styleSheet">
+					<string notr="true">color: rgb(255, 0, 0);</string>
+				</property>
+				<property name="alignment">
+					<set>Qt::AlignCenter</set>
+				</property>
+			</widget>
+			<widget class="Line" name="line_7">
+				<property name="geometry">
+					<rect>
+						<x>106</x>
+						<y>12</y>
+						<width>10</width>
+						<height>280</height>
+					</rect>
+				</property>
+				<property name="orientation">
+					<enum>Qt::Vertical</enum>
+				</property>
+			</widget>
+			<widget class="QLabel" name="label_17">
+				<property name="geometry">
+					<rect>
+						<x>666</x>
+						<y>9</y>
+						<width>60</width>
+						<height>13</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Labor Cost</string>
+				</property>
+			</widget>
+			<widget class="QPushButton" name="closebtn">
+				<property name="geometry">
+					<rect>
+						<x>7</x>
+						<y>239</y>
+						<width>90</width>
+						<height>40</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Close</string>
+				</property>
+			</widget>
+			<widget class="QPushButton" name="calcfinbtn">
+				<property name="geometry">
+					<rect>
+						<x>654</x>
+						<y>126</y>
+						<width>80</width>
+						<height>40</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Add Cost
+						Re-Calculate
+					</string>
+				</property>
+			</widget>
+			<widget class="QPushButton" name="addNewSPbtn">
+				<property name="geometry">
+					<rect>
+						<x>5</x>
+						<y>69</y>
+						<width>100</width>
+						<height>40</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Add Spare Part</string>
+				</property>
+			</widget>
+			<widget class="Line" name="line_9">
+				<property name="geometry">
+					<rect>
+						<x>637</x>
+						<y>8</y>
+						<width>3</width>
+						<height>280</height>
+					</rect>
+				</property>
+				<property name="orientation">
+					<enum>Qt::Vertical</enum>
+				</property>
+			</widget>
+			<widget class="QTableView" name="tableView">
+				<property name="geometry">
+					<rect>
+						<x>119</x>
+						<y>15</y>
+						<width>510</width>
+						<height>270</height>
+					</rect>
+				</property>
+				<property name="editTriggers">
+					<set>QAbstractItemView::NoEditTriggers</set>
+				</property>
+				<property name="tabKeyNavigation">
+					<bool>false</bool>
+				</property>
+				<property name="showDropIndicator" stdset="0">
+					<bool>false</bool>
+				</property>
+				<property name="dragDropOverwriteMode">
+					<bool>false</bool>
+				</property>
+				<property name="selectionMode">
+					<enum>QAbstractItemView::SingleSelection</enum>
+				</property>
+				<property name="selectionBehavior">
+					<enum>QAbstractItemView::SelectRows</enum>
+				</property>
+			</widget>
+		</widget>
+		<widget class="QPushButton" name="calcinibtn">
+			<property name="geometry">
+				<rect>
+					<x>668</x>
+					<y>165</y>
+					<width>90</width>
+					<height>30</height>
+				</rect>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+			<property name="text">
+				<string>Refresh</string>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="savereqdatabtn">
+			<property name="geometry">
+				<rect>
+					<x>346</x>
+					<y>171</y>
+					<width>160</width>
+					<height>23</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Save Product &amp; Descreption</string>
+			</property>
+		</widget>
+		<zorder>label</zorder>
+		<zorder>loggedUserlbl</zorder>
+		<zorder>line</zorder>
+		<zorder>label_3</zorder>
+		<zorder>label_4</zorder>
+		<zorder>label_5</zorder>
+		<zorder>label_6</zorder>
+		<zorder>customerNamelbl</zorder>
+		<zorder>customerMPhonelbl</zorder>
+		<zorder>line_2</zorder>
+		<zorder>label_10</zorder>
+		<zorder>maintenanceCodelbl</zorder>
+		<zorder>label_12</zorder>
+		<zorder>bomCodelbl</zorder>
+		<zorder>label_14</zorder>
+		<zorder>label_15</zorder>
+		<zorder>label_16</zorder>
+		<zorder>totalRMCled</zorder>
+		<zorder>totalSPCled</zorder>
+		<zorder>totalRMSPCled</zorder>
+		<zorder>line_8</zorder>
+		<zorder>line_3</zorder>
+		<zorder>productMaintled</zorder>
+		<zorder>maintdesled</zorder>
+		<zorder>bomgroupbox</zorder>
+		<zorder>calcinibtn</zorder>
+		<zorder>addNewRMbtn</zorder>
+		<zorder>addNewSPbtn</zorder>
+		<zorder>calcinibtn</zorder>
+		<zorder>savereqdatabtn</zorder>
+	</widget>
+	<resources/>
+	<connections/>
 </ui>

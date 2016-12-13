@@ -14,11 +14,13 @@ def add_city(name):
 	session.commit()
 	print(new_city)
 
+
 def update_city(id, name):
 	res = session.query(City).filter(City.id == id).one()
 	print(res)
 	res.name = name
 	session.commit()
+
 
 # delete city
 def delete_city(id):
@@ -27,8 +29,10 @@ def delete_city(id):
 	session.delete(res)
 	session.commit()
 
+
 def select_city_by_id(id):
 	return session.query(City).filter(City.id == id).one()
+
 
 def select_all_cities():
 	res = session.query(City).all()

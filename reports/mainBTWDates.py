@@ -2,31 +2,18 @@ import os
 import subprocess
 from datetime import datetime
 
-from reportlab.graphics.shapes import Drawing, Line
 from reportlab.lib import colors
-from reportlab.lib.colors import purple, black
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
-from reportlab.platypus import KeepTogether
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
-from Control.BOMControl import getAllItemForBOM
-from Control.maintenanceLogic import getMaintenanceStatus, getMaintenanceWaitingDelevary, getMaintenanceAmouted, \
-	getMaintenanceBTWDate
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
-from models.customersModel import select_customer_by_id
-from models.maintenanceModel import select_maintenance_customer, select_maintenance_customer_re, \
-	select_All_maintenance_customer
-from models.rawMaterialModel import select_row_material_by_id
-from models.sparePartsModel import select_spare_parts_by_id
+from Control.maintenanceLogic import getMaintenanceBTWDate
 
 
 class MCLine(Flowable):
@@ -106,7 +93,7 @@ class CreateMainBTWDatesReport(object):
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
 		ptext = "<font size=10><u><b>Maintenance's Created between {}</b></u></font>".format(
-			self.firstDt)+"<font size=10><u><b> and {}</b></u></font>".format(self.secondDt)
+			self.firstDt) + "<font size=10><u><b> and {}</b></u></font>".format(self.secondDt)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(12, 30, mm))
@@ -159,17 +146,17 @@ class CreateMainBTWDatesReport(object):
 		formatted_line_data = []
 
 		for idx, val in enumerate(getMaintenanceBTWDate(self.firstDt, self.secondDt)):
-				cost = val.cost_of_bill_of_material + val.cost_of_labor
-				line_data = [str(line_num), val.m_code, val.customers.name,
-							 val.product_of_maintenance,val.created_at, cost]
+			cost = val.cost_of_bill_of_material + val.cost_of_labor
+			line_data = [str(line_num), val.m_code, val.customers.name,
+						 val.product_of_maintenance, val.created_at, cost]
 
-				for item in line_data:
-					ptext = "<font size=%s>%s</font>" % (font_size - 1, item)
-					p = Paragraph(ptext, centered)
-					formatted_line_data.append(p)
-				data.append(formatted_line_data)
-				formatted_line_data = []
-				line_num += 1
+			for item in line_data:
+				ptext = "<font size=%s>%s</font>" % (font_size - 1, item)
+				p = Paragraph(ptext, centered)
+				formatted_line_data.append(p)
+			data.append(formatted_line_data)
+			formatted_line_data = []
+			line_num += 1
 
 		table = Table(data, colWidths=[20, 80, 160, 130, 80, 50], rowHeights=20
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
@@ -179,8 +166,7 @@ class CreateMainBTWDatesReport(object):
 		simplelistFN = []
 		# mainlist = select_All_maintenance_customer(self.custo.id)
 		for idx, val in enumerate(getMaintenanceBTWDate(self.firstDt, self.secondDt)):
-				simplelistFN.append(val.cost_of_bill_of_material + val.cost_of_labor)
-
+			simplelistFN.append(val.cost_of_bill_of_material + val.cost_of_labor)
 
 		totxt = '<font size=9><p><b>Total</b></p></font>'
 		ptotxt = Paragraph(totxt, styles["Normal"])
@@ -212,7 +198,9 @@ class CreateMainBTWDatesReport(object):
 
 		subprocess.Popen([self.refile], shell=True)
 
-		# ----------------------------------------------------------------------
+	# ----------------------------------------------------------------------
+
+
 if __name__ == "__main__":
 	# create_pdf()
 	CreateMainBTWDatesReport().create_pdf()

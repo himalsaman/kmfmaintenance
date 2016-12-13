@@ -23,6 +23,8 @@ class Ui_maintenanceDetailsDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, maintenanceDetailsDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		maintenanceDetailsDialog.setObjectName("maintenanceDetailsDialog")
 		maintenanceDetailsDialog.resize(696, 588)
 		self.label = QtWidgets.QLabel(maintenanceDetailsDialog)

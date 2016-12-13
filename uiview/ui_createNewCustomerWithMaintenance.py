@@ -5,7 +5,6 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
@@ -22,6 +21,8 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, createNewCustomer):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		createNewCustomer.setObjectName("createNewCustomer")
 		createNewCustomer.resize(391, 388)
 		self.label = QtWidgets.QLabel(createNewCustomer)
@@ -191,7 +192,8 @@ class Ui_createNewCustomerWithMaintenance(QDialog):
 					gndr = 'female'
 				age = self.agespin.text()
 				city_id = self.citycmbx.currentIndex()
-				mainte = creatMaintenanceWithNewCustomer(name, mobileNumber, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,gndr, age, city_id)
+				mainte = creatMaintenanceWithNewCustomer(name, mobileNumber, mobileNumber_1, mobileNumber_2,
+														 mobileNumber_3, mobileNumber_4, gndr, age, city_id)
 				self.statuslbl.setText('A new customer added successfully ')
 				# print(mainte)
 				from uiview.ui_createBOM import Ui_createBOMDialog

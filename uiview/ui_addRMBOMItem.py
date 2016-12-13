@@ -20,6 +20,8 @@ class Ui_addRMBOMItemDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, addRMBOMItemDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		addRMBOMItemDialog.setObjectName("addRMBOMItemDialog")
 		addRMBOMItemDialog.resize(726, 231)
 		self.label = QtWidgets.QLabel(addRMBOMItemDialog)

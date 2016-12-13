@@ -23,6 +23,8 @@ class Ui_createNewMaintenanceForExistsCustDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, createNewMaintenanceForExistsCustDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		createNewMaintenanceForExistsCustDialog.setObjectName("createNewMaintenanceForExistsCustDialog")
 		createNewMaintenanceForExistsCustDialog.resize(726, 455)
 		sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)

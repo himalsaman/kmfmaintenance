@@ -11,6 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from Control.userControl import getLoginDataPKL
+from models.billOfMaterialItemModel import select_all_bill_of_material_item
+from models.ouboundModel import select_all_outbound
 from models.rawMaterialModel import select_row_material, select_row_material_bycode, delete_raw_material
 
 
@@ -20,6 +22,8 @@ class Ui_searchRMDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, searchRMDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		searchRMDialog.setObjectName("searchRMDialog")
 
 		searchRMDialog.resize(711, 580)
@@ -180,6 +184,7 @@ class Ui_searchRMDialog(QDialog):
 		self.deletebtn.clicked.connect(self.do_delete)
 		self.editbtn.clicked.connect(self.do_edit)
 		self.deletebtn.setEnabled(False)
+		self.editbtn.setEnabled(False)
 
 		self.retranslateUi(searchRMDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchRMDialog)
@@ -229,9 +234,10 @@ class Ui_searchRMDialog(QDialog):
 	def Clicked(self, item):
 		# role handel
 		role = getLoginDataPKL()['role']
-		if int(role) == 1 or int(role) == 2 or int(role) == 3:
+		if int(role) == 1 or int(role) == 2:
 			self.deletebtn.setEnabled(False)
 		self.editbtn.setEnabled(True)
+		self.deletebtn.setEnabled(True)
 		code = before(item.text(), '-')
 		if select_row_material_bycode(code):
 			rawMat = select_row_material_bycode(code)
@@ -242,6 +248,12 @@ class Ui_searchRMDialog(QDialog):
 			self.strsizeled.setText(rawMat.string_size)
 			self.costled.setText(str(rawMat.cost_per_default_size))
 			self.invQtyled.setText(str(rawMat.inv_qty))
+		for item in select_all_bill_of_material_item():
+			if item.raw_material_id == rawMat.id:
+				self.deletebtn.setEnabled(False)
+		for item in select_all_outbound():
+			if item.raw_material_id == rawMat.id:
+				self.deletebtn.setEnabled(False)
 		return rawMat
 
 	def do_delete(self):
@@ -255,17 +267,15 @@ class Ui_searchRMDialog(QDialog):
 										 QMessageBox.Yes | QMessageBox.No)
 			if reply == QMessageBox.Yes:
 				delete_raw_material(rawMat.id)
-
-	def openEditeNewRawMaterial(self):
-		from uiview.ui_updateNewRM import Ui_editRWDialog
-		self.di = Ui_editRWDialog()
-		self.di.exec_()
+				self.deletebtn.setEnabled(False)
+				self.editbtn.setEnabled(False)
 
 	def do_edit(self):
 		from uiview.ui_updatereNewRM import Ui_editRWDialog
 		spp = select_row_material_bycode(self.codeled.text())
 		self.dd = Ui_editRWDialog(spp)
 		self.dd.exec_()
+
 
 def before(value, a):
 	# Find first part and return slice before it.

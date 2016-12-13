@@ -5,10 +5,12 @@ from models.dbUtile import engine, Tools
 Session = sessionmaker(bind=engine)
 session = Session()
 
+
 def add_tools(name, price, inv_qty, unit, gen_code, back):
 	new_tools = Tools(name, price, inv_qty, unit, gen_code, back)
 	session.add(new_tools)
 	session.commit()
+
 
 def update_tools(id, name, price, inv_qty, unit, gen_code):
 	res = session.query(Tools).filter(Tools.id == id).one()
@@ -22,6 +24,7 @@ def update_tools(id, name, price, inv_qty, unit, gen_code):
 	else:
 		return False
 
+
 def update_tools_inv_qty(id, inv_qty):
 	res = session.query(Tools).filter(Tools.id == id).one()
 	res.inv_qty = inv_qty
@@ -29,6 +32,7 @@ def update_tools_inv_qty(id, inv_qty):
 		return True
 	else:
 		return False
+
 
 def update_tools_cost(id, cost):
 	res = session.query(Tools).filter(Tools.id == id).one()
@@ -38,22 +42,26 @@ def update_tools_cost(id, cost):
 	else:
 		return False
 
+
 def delete_tools(id):
 	res = session.query(Tools).filter(Tools.id == id).one()
 	print(res)
 	session.delete(res)
 	session.commit()
 
+
 def select_tools(key, value):
 	return session.query(Tools).filter(getattr(Tools, key).contains(value)).all()
+
 
 def select_tools_by_gen_code(value):
 	return session.query(Tools).filter(Tools.gen_code == value).one()
 
+
 def select_tools_by_id(value):
 	return session.query(Tools).filter(Tools.id == value).one()
+
 
 # select all raw material
 def select_all_tools():
 	return session.query(Tools).all()
-

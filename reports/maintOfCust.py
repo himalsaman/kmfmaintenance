@@ -2,30 +2,19 @@ import os
 import subprocess
 from datetime import datetime
 
-from reportlab.graphics.shapes import Drawing, Line
 from reportlab.lib import colors
-from reportlab.lib.colors import purple, black
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
-from reportlab.platypus import KeepTogether
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
-from Control.BOMControl import getAllItemForBOM
 from Control.maintenanceLogic import getMaintenanceStatus
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
-from models.customersModel import select_customer_by_id
-from models.maintenanceModel import select_maintenance_customer, select_maintenance_customer_re, \
-	select_All_maintenance_customer
-from models.rawMaterialModel import select_row_material_by_id
-from models.sparePartsModel import select_spare_parts_by_id
+
 
 class MCLine(Flowable):
 	def __init__(self, start, width, height=0):
@@ -70,7 +59,6 @@ class CreateMaintOfCustReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-
 		logo = "D:\himalsaman\dev\pyworkspace\maintenance\images\khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
@@ -103,7 +91,6 @@ class CreateMaintOfCustReport(object):
 
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
-
 		ptext = '<font size=10><u><b>Maintenance Of Customer - {}</b></u></font>'.format(
 			self.custo.id)
 		p = Paragraph(ptext, style=normal)
@@ -112,7 +99,8 @@ class CreateMaintOfCustReport(object):
 
 		datetimestr = datetime.now()
 		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
-		ptext = "<font size=6><a>{} - </a></font>".format(self.refile)+"<font size=6><a>{} </a></font>".format(timestampstr)
+		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
+			timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(10, 286, mm))
@@ -132,7 +120,6 @@ class CreateMaintOfCustReport(object):
 		doc = SimpleDocTemplate(self.refile, pagesize=A4)
 		styles = getSampleStyleSheet()
 
-
 		spacer = Spacer(0, 0.07 * inch)
 
 		story.append(spacer)
@@ -151,7 +138,7 @@ class CreateMaintOfCustReport(object):
 		story.append(line)
 		story.append(spacer)
 
-		text_data = ["#", "Maint. Code","Maint. Product","Created Date", "Status", "Cost"]
+		text_data = ["#", "Maint. Code", "Maint. Product", "Created Date", "Status", "Cost"]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -167,12 +154,12 @@ class CreateMaintOfCustReport(object):
 		formatted_line_data = []
 
 		for val in self.custo.maintenance:
-			if val.start_date != None\
+			if val.start_date != None \
 					and val.cost_of_bill_of_material != None \
 					and val.cost_of_labor != None:
 				cost = val.cost_of_bill_of_material + val.cost_of_labor
 				line_data = [str(line_num), val.m_code, val.product_of_maintenance,
-							 val.created_at,getMaintenanceStatus(val)
+							 val.created_at, getMaintenanceStatus(val)
 					, cost]
 
 				for item in line_data:
@@ -187,7 +174,7 @@ class CreateMaintOfCustReport(object):
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
-#########################################################################################
+		#########################################################################################
 		simplelistUP = []
 		simplelistFN = []
 		# mainlist = select_All_maintenance_customer(self.custo.id)
@@ -197,7 +184,7 @@ class CreateMaintOfCustReport(object):
 					and mainte.cost_of_labor != None:
 				simplelistUP.append(mainte.cost_of_bill_of_material + mainte.cost_of_labor)
 			if mainte.done_date != None and mainte.close_at != None \
-					and mainte.cost_of_bill_of_material !=None \
+					and mainte.cost_of_bill_of_material != None \
 					and mainte.cost_of_labor != None:
 				simplelistFN.append(mainte.cost_of_bill_of_material + mainte.cost_of_labor)
 
@@ -221,13 +208,13 @@ class CreateMaintOfCustReport(object):
 		data = [['', '', '', pbomtxt, pbomtxtnum],
 				['', '', '', plabtxt, plabtxtnum],
 				['', '', '', ptotxt, ptotxtnum]]
-		t = Table(data, colWidths=[5, 5, 250, 170, 60],rowHeights=15)
-		t.setStyle(TableStyle([('LINEABOVE', (3,2), (-1,-1), 0.25, colors.black)]))
+		t = Table(data, colWidths=[5, 5, 250, 170, 60], rowHeights=15)
+		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
 		story.append(t)
 		for x in range(10):
 			story.append(spacer)
-#
-# #########################################################################################
+		#
+		# #########################################################################################
 		actxt = '<font size=11><p><u>Accountant</u><br/>Rani Mohamed</p></font>'
 		pactxt = Paragraph(actxt, centered)
 
@@ -235,9 +222,9 @@ class CreateMaintOfCustReport(object):
 		pmatxtnum = Paragraph(matxtnum, centered)
 		data = [[pactxt, '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
-		t.setStyle(TableStyle([('LINEABOVE', (3,2), (-1,-1), 0.25, colors.black)]))
+		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
 		story.append(t)
-#########################################################################################
+		#########################################################################################
 
 		story.append(spacer)
 
@@ -245,7 +232,7 @@ class CreateMaintOfCustReport(object):
 
 		subprocess.Popen([self.refile], shell=True)
 
-	# ----------------------------------------------------------------------
-# if __name__ == "__main__":
-# 	create_pdf()
-# CreateMaintOfCustReport().create_pdf()
+		# ----------------------------------------------------------------------
+		# if __name__ == "__main__":
+		# 	create_pdf()
+		# CreateMaintOfCustReport().create_pdf()

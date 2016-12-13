@@ -5,7 +5,6 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QDialog
@@ -21,6 +20,8 @@ class Ui_createNewCustomer(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, createNewCustomer):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		createNewCustomer.setObjectName("createNewCustomer")
 		createNewCustomer.resize(391, 388)
 		self.label = QtWidgets.QLabel(createNewCustomer)
@@ -69,7 +70,6 @@ class Ui_createNewCustomer(QDialog):
 		self.mobcustled_4.setGeometry(QtCore.QRect(63, 190, 191, 20))
 		self.mobcustled_4.setObjectName("mobcustled_4")
 		self.mobcustled_4.setValidator(QIntValidator())
-
 
 		self.citycmbx = QtWidgets.QComboBox(createNewCustomer)
 		self.citycmbx.setGeometry(QtCore.QRect(60, 217, 171, 22))
@@ -173,8 +173,6 @@ class Ui_createNewCustomer(QDialog):
 		self.label_6.setText(_translate("createNewCustomer", "Age :"))
 		self.label_5.setText(_translate("createNewCustomer", "Gender :"))
 
-
-
 	def do_createNewCustomer(self):
 		if self.custnameled.text() == None or self.mobcustled.text() == None or self.agespin.value() == 0 or self.citycmbx.currentIndex() == 0:
 			self.statuslbl.setText('')
@@ -193,14 +191,15 @@ class Ui_createNewCustomer(QDialog):
 
 			age = self.agespin.text()
 			city_id = self.citycmbx.currentIndex()
-			if validCustomer(name, mobileNumber, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,gndr, age, city_id):
+			if validCustomer(name, mobileNumber, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4, gndr,
+							 age, city_id):
 				self.statuslbl.setText('A new customer added successfully ')
 				self.close()
 			else:
 				self.statuslbl.setText('This customer is already exist')
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_createNewCustomer()
-# 	myapp.show()
-# 	app.exec_()
+				# if __name__ == "__main__":
+				# 	app = QtWidgets.QApplication(sys.argv)
+				# 	myapp = Ui_createNewCustomer()
+				# 	myapp.show()
+				# 	app.exec_()

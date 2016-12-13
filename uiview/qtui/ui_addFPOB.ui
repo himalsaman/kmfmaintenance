@@ -1,293 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addFPOBDialog</class>
- <widget class="QDialog" name="addFPOBDialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>726</width>
-    <height>244</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Add Finish Product Outbound</string>
-  </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>150</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Select Spare Part From List :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>14</y>
-     <width>120</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Selected Spare Part :</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="spnameled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>486</x>
-     <y>12</y>
-     <width>230</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="spcodeled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>418</x>
-     <y>44</y>
-     <width>90</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>383</x>
-     <y>46</y>
-     <width>30</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Code :</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="spinqtyled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>596</x>
-     <y>44</y>
-     <width>80</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>517</x>
-     <y>47</y>
-     <width>80</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Inventory QTY:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="reqqtyled_2">
-   <property name="geometry">
-    <rect>
-     <x>466</x>
-     <y>125</y>
-     <width>150</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="reqqtyled">
-   <property name="geometry">
-    <rect>
-     <x>478</x>
-     <y>106</y>
-     <width>130</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>How mauch qty you want ?</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="spgencodeled">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>456</x>
-     <y>74</y>
-     <width>160</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>385</x>
-     <y>77</y>
-     <width>70</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>System Code :</string>
-   </property>
-  </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>385</x>
-     <y>101</y>
-     <width>330</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="addbtn">
-   <property name="geometry">
-    <rect>
-     <x>461</x>
-     <y>211</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="closebtn">
-   <property name="geometry">
-    <rect>
-     <x>551</x>
-     <y>211</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Close</string>
-   </property>
-  </widget>
-  <widget class="QListView" name="listView">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>27</y>
-     <width>360</width>
-     <height>211</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Line" name="line_2">
-   <property name="geometry">
-    <rect>
-     <x>374</x>
-     <y>6</y>
-     <width>3</width>
-     <height>230</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>154</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Reason</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="reasonled">
-   <property name="geometry">
-    <rect>
-     <x>387</x>
-     <y>173</y>
-     <width>330</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="Line" name="line_3">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>204</y>
-     <width>340</width>
-     <height>3</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+	<class>addFPOBDialog</class>
+	<widget class="QDialog" name="addFPOBDialog">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>726</width>
+				<height>244</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Add Finish Product Outbound</string>
+		</property>
+		<widget class="QLabel" name="label">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>10</y>
+					<width>150</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Select Spare Part From List :</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_2">
+			<property name="geometry">
+				<rect>
+					<x>380</x>
+					<y>14</y>
+					<width>120</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Selected Spare Part :</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="spnameled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>486</x>
+					<y>12</y>
+					<width>230</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="spcodeled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>418</x>
+					<y>44</y>
+					<width>90</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_3">
+			<property name="geometry">
+				<rect>
+					<x>383</x>
+					<y>46</y>
+					<width>30</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Code :</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="spinqtyled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>596</x>
+					<y>44</y>
+					<width>80</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_4">
+			<property name="geometry">
+				<rect>
+					<x>517</x>
+					<y>47</y>
+					<width>80</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Inventory QTY:</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="reqqtyled_2">
+			<property name="geometry">
+				<rect>
+					<x>466</x>
+					<y>125</y>
+					<width>150</width>
+					<height>20</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="QLabel" name="reqqtyled">
+			<property name="geometry">
+				<rect>
+					<x>478</x>
+					<y>106</y>
+					<width>130</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>How mauch qty you want ?</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="spgencodeled">
+			<property name="enabled">
+				<bool>false</bool>
+			</property>
+			<property name="geometry">
+				<rect>
+					<x>456</x>
+					<y>74</y>
+					<width>160</width>
+					<height>20</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="styleSheet">
+				<string notr="true">color: rgb(255, 0, 0);</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_6">
+			<property name="geometry">
+				<rect>
+					<x>385</x>
+					<y>77</y>
+					<width>70</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>System Code :</string>
+			</property>
+		</widget>
+		<widget class="Line" name="line">
+			<property name="geometry">
+				<rect>
+					<x>385</x>
+					<y>101</y>
+					<width>330</width>
+					<height>3</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Horizontal</enum>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="addbtn">
+			<property name="geometry">
+				<rect>
+					<x>461</x>
+					<y>211</y>
+					<width>70</width>
+					<height>30</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Add</string>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="closebtn">
+			<property name="geometry">
+				<rect>
+					<x>551</x>
+					<y>211</y>
+					<width>70</width>
+					<height>30</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Close</string>
+			</property>
+		</widget>
+		<widget class="QListView" name="listView">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>27</y>
+					<width>360</width>
+					<height>211</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="Line" name="line_2">
+			<property name="geometry">
+				<rect>
+					<x>374</x>
+					<y>6</y>
+					<width>3</width>
+					<height>230</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Vertical</enum>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_5">
+			<property name="geometry">
+				<rect>
+					<x>520</x>
+					<y>154</y>
+					<width>47</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Reason</string>
+			</property>
+		</widget>
+		<widget class="QLineEdit" name="reasonled">
+			<property name="geometry">
+				<rect>
+					<x>387</x>
+					<y>173</y>
+					<width>330</width>
+					<height>20</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="Line" name="line_3">
+			<property name="geometry">
+				<rect>
+					<x>380</x>
+					<y>204</y>
+					<width>340</width>
+					<height>3</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Horizontal</enum>
+			</property>
+		</widget>
+	</widget>
+	<resources/>
+	<connections/>
 </ui>

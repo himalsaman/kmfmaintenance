@@ -20,12 +20,14 @@ def maintenanceCode():
 
 
 # first maintenance for created new customer
-def creatMaintenanceWithNewCustomer(name, mobile_number, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,gender, age, city_id):
+def creatMaintenanceWithNewCustomer(name, mobile_number, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,
+									gender, age, city_id):
 	if not check_maintenance_first_time():
 		gencode = 'kmfma{}'.format(random.randrange(1, 10, 2))
 	else:
 		gencode = maintenanceCode()
-	new_customers = add_customer(name, mobile_number, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,gender, age, city_id)
+	new_customers = add_customer(name, mobile_number, mobileNumber_1, mobileNumber_2, mobileNumber_3, mobileNumber_4,
+								 gender, age, city_id)
 	maint = add_new_maintenance(gencode, new_customers.id, None, None, None, None, None, None,
 								None, None, None, None, 0)
 	# print(new_mainte.id)
@@ -59,6 +61,8 @@ def getMaintenancePused():
 		if mainte.created_at == None or mainte.cost_of_bill_of_material == None:
 			simplelist.append(mainte)
 	return simplelist
+
+
 # print(getMaintenancePused())
 
 def getMaintenanceWaitLaborCost():
@@ -203,6 +207,7 @@ def getMaintenanceStatus(mainte):
 			satus = 'Canceled By Customer'
 		return satus
 
+
 def getMaintenanceAmouted():
 	simplelist = []
 	mainlist = select_all_maintenance()
@@ -211,11 +216,12 @@ def getMaintenanceAmouted():
 			simplelist.append(mainte)
 	return simplelist
 
+
 def getMaintenanceBTWDate(first, second):
 	simplelist = []
 	mainlist = select_all_maintenance()
 	for mainte in mainlist:
-		if mainte.start_date != None :
+		if mainte.start_date != None:
 			if mainte.created_at >= first and mainte.created_at <= second:
 				simplelist.append(mainte)
 	return simplelist

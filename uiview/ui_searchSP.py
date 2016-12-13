@@ -6,11 +6,14 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
 from Control.userControl import getLoginDataPKL
+from models.billOfMaterialItemModel import select_all_bill_of_material_item
+from models.ouboundModel import select_all_outbound
 from models.sparePartsModel import select_spare_parts_bygen_code, select_spare_parts, select_spare_parts_bycode, \
 	delete_spare_parts
 
@@ -21,6 +24,8 @@ class Ui_searchSPDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, searchSPDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		searchSPDialog.setObjectName("searchSPDialog")
 		searchSPDialog.resize(711, 580)
 		self.label = QtWidgets.QLabel(searchSPDialog)
@@ -196,9 +201,10 @@ class Ui_searchSPDialog(QDialog):
 
 	def Clicked(self, item):
 		role = getLoginDataPKL()['role']
-		if int(role) == 1 or int(role) == 2 or int(role) == 3:
+		if int(role) == 1 or int(role) == 2:
 			self.deletebtn.setEnabled(False)
 		self.editbtn.setEnabled(True)
+		self.deletebtn.setEnabled(True)
 
 		gencode = before(item.text(), ' -')
 		if select_spare_parts_bygen_code(gencode):
@@ -210,6 +216,12 @@ class Ui_searchSPDialog(QDialog):
 			self.codeled.setText(spart.gen_code)
 			self.costled.setText(str(spart.price))
 			self.invQtyled.setText(str(spart.inv_qty))
+			for item in select_all_bill_of_material_item():
+				if item.spare_part_id == spart.id:
+					self.deletebtn.setEnabled(False)
+			for item in select_all_outbound():
+				if item.spare_part_id == spart.id:
+					self.deletebtn.setEnabled(False)
 		return spart
 
 	def do_search(self):
@@ -244,11 +256,13 @@ class Ui_searchSPDialog(QDialog):
 		self.dd = Ui_editSPDialog(spp)
 		self.dd.exec_()
 
+
 def before(value, a):
 	# Find first part and return slice before it.
 	pos_a = value.find(a)
 	if pos_a == -1: return ""
 	return value[0:pos_a]
+
 
 if __name__ == '__main__':
 	app = QtWidgets.QApplication(sys.argv)

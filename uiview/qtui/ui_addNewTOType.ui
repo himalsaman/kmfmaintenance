@@ -1,265 +1,265 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addNewTOTypeDialog</class>
- <widget class="QDialog" name="addNewTOTypeDialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>436</width>
-    <height>269</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Add New Tools Type</string>
-  </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>5</y>
-     <width>51</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Welcome,</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="loggeduserlbl">
-   <property name="geometry">
-    <rect>
-     <x>62</x>
-     <y>6</y>
-     <width>171</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>7</x>
-     <y>25</y>
-     <width>491</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>8</x>
-     <y>40</y>
-     <width>111</width>
-     <height>121</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Name :</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>Cost / ds :</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>Initial Inventory QTY :</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QLineEdit" name="toNameled">
-   <property name="geometry">
-    <rect>
-     <x>48</x>
-     <y>50</y>
-     <width>370</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="invQTYSpinBox">
-   <property name="geometry">
-    <rect>
-     <x>121</x>
-     <y>133</y>
-     <width>131</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="decimals">
-    <number>6</number>
-   </property>
-   <property name="maximum">
-    <double>1000.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>0.000100000000000</double>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>237</x>
-     <y>95</y>
-     <width>41</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Unit :</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="tounitcomboBox">
-   <property name="geometry">
-    <rect>
-     <x>269</x>
-     <y>93</y>
-     <width>161</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>1</number>
-   </property>
-   <item>
-    <property name="text">
-     <string>Millimetre ( MM )  </string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Centimeter ( CM )</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Metre ( M )</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Gram ( G )</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Kilogram ( KG )</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Each ( EA )</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Litre ( L )</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLineEdit" name="rmcostled">
-   <property name="geometry">
-    <rect>
-     <x>62</x>
-     <y>92</y>
-     <width>140</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="savebtn">
-   <property name="geometry">
-    <rect>
-     <x>148</x>
-     <y>215</y>
-     <width>72</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="cancelbtn">
-   <property name="geometry">
-    <rect>
-     <x>256</x>
-     <y>215</y>
-     <width>72</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="statulbl">
-   <property name="geometry">
-    <rect>
-     <x>6</x>
-     <y>167</y>
-     <width>461</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>205</x>
-     <y>96</y>
-     <width>47</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>SAR</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>140</y>
-     <width>70</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Backable</string>
-   </property>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+	<class>addNewTOTypeDialog</class>
+	<widget class="QDialog" name="addNewTOTypeDialog">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>436</width>
+				<height>269</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>Add New Tools Type</string>
+		</property>
+		<widget class="QLabel" name="label">
+			<property name="geometry">
+				<rect>
+					<x>10</x>
+					<y>5</y>
+					<width>51</width>
+					<height>21</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Welcome,</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="loggeduserlbl">
+			<property name="geometry">
+				<rect>
+					<x>62</x>
+					<y>6</y>
+					<width>171</width>
+					<height>21</height>
+				</rect>
+			</property>
+			<property name="font">
+				<font>
+					<weight>75</weight>
+					<bold>true</bold>
+				</font>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+		</widget>
+		<widget class="Line" name="line">
+			<property name="geometry">
+				<rect>
+					<x>7</x>
+					<y>25</y>
+					<width>491</width>
+					<height>16</height>
+				</rect>
+			</property>
+			<property name="orientation">
+				<enum>Qt::Horizontal</enum>
+			</property>
+		</widget>
+		<widget class="QWidget" name="verticalLayoutWidget">
+			<property name="geometry">
+				<rect>
+					<x>8</x>
+					<y>40</y>
+					<width>111</width>
+					<height>121</height>
+				</rect>
+			</property>
+			<layout class="QVBoxLayout" name="verticalLayout">
+				<item>
+					<widget class="QLabel" name="label_3">
+						<property name="text">
+							<string>Name :</string>
+						</property>
+					</widget>
+				</item>
+				<item>
+					<widget class="QLabel" name="label_8">
+						<property name="text">
+							<string>Cost / ds :</string>
+						</property>
+					</widget>
+				</item>
+				<item>
+					<widget class="QLabel" name="label_6">
+						<property name="text">
+							<string>Initial Inventory QTY :</string>
+						</property>
+					</widget>
+				</item>
+			</layout>
+		</widget>
+		<widget class="QLineEdit" name="toNameled">
+			<property name="geometry">
+				<rect>
+					<x>48</x>
+					<y>50</y>
+					<width>370</width>
+					<height>20</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="QDoubleSpinBox" name="invQTYSpinBox">
+			<property name="geometry">
+				<rect>
+					<x>121</x>
+					<y>133</y>
+					<width>131</width>
+					<height>22</height>
+				</rect>
+			</property>
+			<property name="decimals">
+				<number>6</number>
+			</property>
+			<property name="maximum">
+				<double>1000.000000000000000</double>
+			</property>
+			<property name="singleStep">
+				<double>0.000100000000000</double>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_7">
+			<property name="geometry">
+				<rect>
+					<x>237</x>
+					<y>95</y>
+					<width>41</width>
+					<height>16</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Unit :</string>
+			</property>
+		</widget>
+		<widget class="QComboBox" name="tounitcomboBox">
+			<property name="geometry">
+				<rect>
+					<x>269</x>
+					<y>93</y>
+					<width>161</width>
+					<height>22</height>
+				</rect>
+			</property>
+			<property name="currentIndex">
+				<number>1</number>
+			</property>
+			<item>
+				<property name="text">
+					<string>Millimetre ( MM )</string>
+				</property>
+			</item>
+			<item>
+				<property name="text">
+					<string>Centimeter ( CM )</string>
+				</property>
+			</item>
+			<item>
+				<property name="text">
+					<string>Metre ( M )</string>
+				</property>
+			</item>
+			<item>
+				<property name="text">
+					<string>Gram ( G )</string>
+				</property>
+			</item>
+			<item>
+				<property name="text">
+					<string>Kilogram ( KG )</string>
+				</property>
+			</item>
+			<item>
+				<property name="text">
+					<string>Each ( EA )</string>
+				</property>
+			</item>
+			<item>
+				<property name="text">
+					<string>Litre ( L )</string>
+				</property>
+			</item>
+		</widget>
+		<widget class="QLineEdit" name="rmcostled">
+			<property name="geometry">
+				<rect>
+					<x>62</x>
+					<y>92</y>
+					<width>140</width>
+					<height>20</height>
+				</rect>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="savebtn">
+			<property name="geometry">
+				<rect>
+					<x>148</x>
+					<y>215</y>
+					<width>72</width>
+					<height>41</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Add</string>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="cancelbtn">
+			<property name="geometry">
+				<rect>
+					<x>256</x>
+					<y>215</y>
+					<width>72</width>
+					<height>41</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Cancel</string>
+			</property>
+		</widget>
+		<widget class="QLabel" name="statulbl">
+			<property name="geometry">
+				<rect>
+					<x>6</x>
+					<y>167</y>
+					<width>461</width>
+					<height>41</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string/>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignCenter</set>
+			</property>
+		</widget>
+		<widget class="QLabel" name="label_2">
+			<property name="geometry">
+				<rect>
+					<x>205</x>
+					<y>96</y>
+					<width>47</width>
+					<height>13</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>SAR</string>
+			</property>
+		</widget>
+		<widget class="QCheckBox" name="checkBox">
+			<property name="geometry">
+				<rect>
+					<x>280</x>
+					<y>140</y>
+					<width>70</width>
+					<height>17</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>Backable</string>
+			</property>
+		</widget>
+	</widget>
+	<resources/>
+	<connections/>
 </ui>

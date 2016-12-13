@@ -20,6 +20,8 @@ class Ui_addSPBOMItemDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, addSPBOMItemDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		addSPBOMItemDialog.setObjectName("addSPBOMItemDialog")
 		addSPBOMItemDialog.resize(726, 231)
 		self.label = QtWidgets.QLabel(addSPBOMItemDialog)

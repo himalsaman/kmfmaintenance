@@ -1,10 +1,10 @@
 import re
 from datetime import datetime
 
-from models.customersModel import select_customer_by_id
 from models.ouboundModel import select_all_outbound, select_max_outb_code, select_outbound_by_customer
 
 datetimestr = datetime.now().date()
+
 
 def OutBCode():
 	maxcode = select_max_outb_code()
@@ -31,6 +31,7 @@ def getOutbounCustomerRow():
 			simplelist.append(item)
 	return simplelist
 
+
 def getOutbounOneCustomerRow(cust):
 	simplelist = []
 	objlist = select_outbound_by_customer(cust.id)
@@ -38,11 +39,13 @@ def getOutbounOneCustomerRow(cust):
 		if item.out_date.date() == datetimestr and item.status == 1:
 			simplelist.append(item)
 	return simplelist
-		# print(item.out_date.date())
+
+
+# print(item.out_date.date())
 
 def geAlltOutboun():
 	simplelist = []
 	objlist = select_all_outbound()
 	for item in objlist:
-			simplelist.append(item)
+		simplelist.append(item)
 	return simplelist

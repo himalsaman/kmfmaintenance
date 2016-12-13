@@ -9,16 +9,17 @@ session = Session()
 
 
 # add new bill of material item
-def add_new_bill_of_material_item( raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material, qty_of_material, gen_code):
-	new_bill_of_material_item = BillOfMaterialItem( raw_material_id, spare_parts_id, bill_of_material_id,
+def add_new_bill_of_material_item(raw_material_id, spare_parts_id, bill_of_material_id, cost_of_material,
+								  qty_of_material, gen_code):
+	new_bill_of_material_item = BillOfMaterialItem(raw_material_id, spare_parts_id, bill_of_material_id,
 												   cost_of_material, qty_of_material, gen_code)
 	session.add(new_bill_of_material_item)
 	session.commit()
 
 
 # update bill of material item
-def update_bill_of_material_item(id,raw_material_id, spare_parts_id, bill_of_material_id,
-								 cost_of_material,qty_of_material):
+def update_bill_of_material_item(id, raw_material_id, spare_parts_id, bill_of_material_id,
+								 cost_of_material, qty_of_material):
 	res = session.query(BillOfMaterialItem).filter(BillOfMaterialItem.id == id).one()
 	print(res)
 	res.raw_material_id = raw_material_id
@@ -44,8 +45,10 @@ def select_bill_of_material_item(key, value):
 
 # select all bill of material item
 def select_all_bill_of_material_item():
-	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem).all()
+	return session.query(BillOfMaterialItem).all()
 
+
+# print(select_all_bill_of_material_item())
 
 def select_bill_of_material_item_by_code(code):
 	return session.query(BillOfMaterialItem).filter(BillOfMaterialItem.gen_code ==

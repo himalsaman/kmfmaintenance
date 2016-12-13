@@ -2,31 +2,20 @@ import os
 import subprocess
 from datetime import datetime
 
-from reportlab.graphics.shapes import Drawing, Line
 from reportlab.lib import colors
-from reportlab.lib.colors import purple, black
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
-from reportlab.platypus import KeepTogether
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
-from Control.BOMControl import getAllItemForBOM
-from Control.maintenanceLogic import getMaintenanceStatus
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.cityModel import select_city_by_id
-from models.customersModel import select_customer_by_id, select_all_customers
-from models.maintenanceModel import select_maintenance_customer, select_maintenance_customer_re, \
-	select_All_maintenance_customer
-from models.rawMaterialModel import select_row_material_by_id
-from models.sparePartsModel import select_spare_parts_by_id
+from models.customersModel import select_all_customers
+
 
 class MCLine(Flowable):
 	def __init__(self, start, width, height=0):
@@ -70,7 +59,6 @@ class CreateAllCustomsReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-
 		logo = "D:\himalsaman\dev\pyworkspace\maintenance\images\khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
@@ -103,7 +91,6 @@ class CreateAllCustomsReport(object):
 
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
-
 		ptext = '<font size=10><u><b>All Customers </b></u></font>'
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
@@ -111,7 +98,8 @@ class CreateAllCustomsReport(object):
 
 		datetimestr = datetime.now()
 		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
-		ptext = "<font size=6><a>{} - </a></font>".format(self.refile)+"<font size=6><a>{} </a></font>".format(timestampstr)
+		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
+			timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(10, 286, mm))
@@ -131,7 +119,6 @@ class CreateAllCustomsReport(object):
 		doc = SimpleDocTemplate(self.refile, pagesize=A4)
 		styles = getSampleStyleSheet()
 
-
 		spacer = Spacer(0, 0.07 * inch)
 
 		story.append(spacer)
@@ -141,7 +128,7 @@ class CreateAllCustomsReport(object):
 		story.append(line)
 		story.append(spacer)
 
-		text_data = ["#", "Cust. Name","Cust. Mobile #","Cust. Age", "Cust. City"]
+		text_data = ["#", "Cust. Name", "Cust. Mobile #", "Cust. Age", "Cust. City"]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -175,17 +162,17 @@ class CreateAllCustomsReport(object):
 		story.append(table)
 		story.append(spacer)
 
-#
-# #########################################################################################
+		#
+		# #########################################################################################
 
 
 		matxtnum = '<font size=11><p><u>Manager</u><br/>Mohamed Althubiti</p></font>'
 		pmatxtnum = Paragraph(matxtnum, centered)
 		data = [['', '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
-		t.setStyle(TableStyle([('LINEABOVE', (3,2), (-1,-1), 0.25, colors.black)]))
+		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
 		story.append(t)
-#########################################################################################
+		#########################################################################################
 
 		story.append(spacer)
 
@@ -194,5 +181,7 @@ class CreateAllCustomsReport(object):
 		subprocess.Popen([self.refile], shell=True)
 
 	# ----------------------------------------------------------------------
+
+
 if __name__ == "__main__":
 	CreateAllCustomsReport().create_pdf()

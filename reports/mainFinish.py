@@ -2,31 +2,18 @@ import os
 import subprocess
 from datetime import datetime
 
-from reportlab.graphics.shapes import Drawing, Line
 from reportlab.lib import colors
-from reportlab.lib.colors import purple, black
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
-from reportlab.platypus import KeepTogether
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
-from Control.BOMControl import getAllItemForBOM
-from Control.maintenanceLogic import getMaintenanceStatus, getMaintenanceWaitingDelevary, \
-	getMaintenanceFinishedAndDelivared
-from models.billOfMaterialModel import select_bill_of_material_for_maintenance
-from models.customersModel import select_customer_by_id
-from models.maintenanceModel import select_maintenance_customer, select_maintenance_customer_re, \
-	select_All_maintenance_customer
-from models.rawMaterialModel import select_row_material_by_id
-from models.sparePartsModel import select_spare_parts_by_id
+from Control.maintenanceLogic import getMaintenanceFinishedAndDelivared
 
 
 class MCLine(Flowable):
@@ -140,7 +127,7 @@ class CreateMaintFinishReport(object):
 		story.append(line)
 		story.append(spacer)
 
-		text_data = ["#", "Maint. Code", "Cust. Name", "Maint. Product", "Created Date","Close Date", "Cost"]
+		text_data = ["#", "Maint. Code", "Cust. Name", "Maint. Product", "Created Date", "Close Date", "Cost"]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -156,19 +143,19 @@ class CreateMaintFinishReport(object):
 		formatted_line_data = []
 
 		for idx, val in enumerate(getMaintenanceFinishedAndDelivared()):
-				cost = val.cost_of_bill_of_material + val.cost_of_labor
-				line_data = [str(line_num), val.m_code, val.customers.name,
-							 val.product_of_maintenance,val.close_at,val.created_at, cost]
+			cost = val.cost_of_bill_of_material + val.cost_of_labor
+			line_data = [str(line_num), val.m_code, val.customers.name,
+						 val.product_of_maintenance, val.close_at, val.created_at, cost]
 
-				for item in line_data:
-					ptext = "<font size=%s>%s</font>" % (font_size - 1, item)
-					p = Paragraph(ptext, centered)
-					formatted_line_data.append(p)
-				data.append(formatted_line_data)
-				formatted_line_data = []
-				line_num += 1
+			for item in line_data:
+				ptext = "<font size=%s>%s</font>" % (font_size - 1, item)
+				p = Paragraph(ptext, centered)
+				formatted_line_data.append(p)
+			data.append(formatted_line_data)
+			formatted_line_data = []
+			line_num += 1
 
-		table = Table(data, colWidths=[20, 70, 140, 110, 80,80, 50], rowHeights=20
+		table = Table(data, colWidths=[20, 70, 140, 110, 80, 80, 50], rowHeights=20
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
@@ -176,8 +163,7 @@ class CreateMaintFinishReport(object):
 		simplelistFN = []
 		# mainlist = select_All_maintenance_customer(self.custo.id)
 		for idx, val in enumerate(getMaintenanceFinishedAndDelivared()):
-				simplelistFN.append(val.cost_of_bill_of_material + val.cost_of_labor)
-
+			simplelistFN.append(val.cost_of_bill_of_material + val.cost_of_labor)
 
 		totxt = '<font size=9><p><b>Total</b></p></font>'
 		ptotxt = Paragraph(totxt, styles["Normal"])
@@ -209,7 +195,9 @@ class CreateMaintFinishReport(object):
 
 		subprocess.Popen([self.refile], shell=True)
 
-		# ----------------------------------------------------------------------
+	# ----------------------------------------------------------------------
+
+
 if __name__ == "__main__":
 	# create_pdf()
 	CreateMaintFinishReport().create_pdf()

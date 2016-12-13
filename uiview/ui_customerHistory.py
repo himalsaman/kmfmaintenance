@@ -22,6 +22,8 @@ class Ui_historyDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, historyDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		historyDialog.setObjectName("historyDialog")
 		historyDialog.resize(348, 569)
 		self.label = QtWidgets.QLabel(historyDialog)

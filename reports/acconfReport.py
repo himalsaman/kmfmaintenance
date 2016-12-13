@@ -2,19 +2,14 @@ import os
 import subprocess
 from datetime import datetime
 
-from reportlab.graphics.shapes import Drawing, Line
 from reportlab.lib import colors
-from reportlab.lib.colors import purple, black
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
-
-########################################################################
 from reportlab.platypus import Image
-from reportlab.platypus import KeepTogether
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
@@ -22,6 +17,7 @@ from Control.BOMControl import getAllItemForBOM
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.rawMaterialModel import select_row_material_by_id
 from models.sparePartsModel import select_spare_parts_by_id
+
 
 class MCLine(Flowable):
 	def __init__(self, start, width, height=0):
@@ -66,7 +62,6 @@ class CreateAcConfReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-
 		logo = "D:\himalsaman\dev\pyworkspace\maintenance\images\khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
@@ -99,16 +94,16 @@ class CreateAcConfReport(object):
 
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
-
 		ptext = '<font size=10><u><b>Confirmation Maintenance : {}</b></u></font>'.format(
-			self.maint.m_code)+'<font size=10><u><b> / {}</b></u></font>'.format(self.maint.created_at)
+			self.maint.m_code) + '<font size=10><u><b> / {}</b></u></font>'.format(self.maint.created_at)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(12, 30, mm))
 
 		datetimestr = datetime.now()
 		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
-		ptext = "<font size=6><a>{} - </a></font>".format(self.refile)+"<font size=6><a>{} </a></font>".format(timestampstr)
+		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
+			timestampstr)
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(10, 286, mm))
@@ -127,7 +122,6 @@ class CreateAcConfReport(object):
 
 		doc = SimpleDocTemplate(self.refile, pagesize=A4)
 		styles = getSampleStyleSheet()
-
 
 		spacer = Spacer(0, 0.07 * inch)
 
@@ -203,7 +197,7 @@ class CreateAcConfReport(object):
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
-#########################################################################################
+		#########################################################################################
 		bomtxt = '<font size=9><p><b>BOM Cost</b></p></font>'
 		pbomtxt = Paragraph(bomtxt, styles["Normal"])
 
@@ -225,13 +219,13 @@ class CreateAcConfReport(object):
 		data = [['', '', '', pbomtxt, pbomtxtnum],
 				['', '', '', plabtxt, plabtxtnum],
 				['', '', '', ptotxt, ptotxtnum]]
-		t = Table(data, colWidths=[5, 5, 380, 60, 50],rowHeights=15)
-		t.setStyle(TableStyle([('LINEABOVE', (3,2), (-1,-1), 0.25, colors.black)]))
+		t = Table(data, colWidths=[5, 5, 380, 60, 50], rowHeights=15)
+		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
 		story.append(t)
 		for x in range(10):
 			story.append(spacer)
 
-#########################################################################################
+		#########################################################################################
 		actxt = '<font size=11><p><u>Accountant</u><br/>Rani Mohamed</p></font>'
 		pactxt = Paragraph(actxt, centered)
 
@@ -239,9 +233,9 @@ class CreateAcConfReport(object):
 		pmatxtnum = Paragraph(matxtnum, centered)
 		data = [[pactxt, '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
-		t.setStyle(TableStyle([('LINEABOVE', (3,2), (-1,-1), 0.25, colors.black)]))
+		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
 		story.append(t)
-#########################################################################################
+		#########################################################################################
 
 		story.append(spacer)
 

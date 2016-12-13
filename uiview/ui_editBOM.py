@@ -33,6 +33,8 @@ class Ui_editBOMDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, editBOMDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		editBOMDialog.setObjectName("editBOMDialog")
 		editBOMDialog.resize(763, 510)
 		self.label = QtWidgets.QLabel(editBOMDialog)

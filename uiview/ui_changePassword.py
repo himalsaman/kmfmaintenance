@@ -17,6 +17,8 @@ class Ui_changePasswordDilaod(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, changePasswordDilaod):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		changePasswordDilaod.setObjectName("changePasswordDilaod")
 		changePasswordDilaod.resize(400, 331)
 		self.label = QtWidgets.QLabel(changePasswordDilaod)

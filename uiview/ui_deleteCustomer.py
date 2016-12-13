@@ -23,6 +23,8 @@ class Ui_deleteCustomer(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, deleteCustomer):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		deleteCustomer.setObjectName("deleteCustomer")
 		deleteCustomer.resize(345, 410)
 		self.label = QtWidgets.QLabel(deleteCustomer)
@@ -134,7 +136,6 @@ class Ui_deleteCustomer(QDialog):
 		self.remobilenumlbl4.setText("")
 		self.remobilenumlbl4.setObjectName("remobilenumlbl4")
 		self.verticalLayout_3.addWidget(self.remobilenumlbl4)
-
 
 		self.recitylbl = QtWidgets.QLabel(self.layoutWidget_3)
 		self.recitylbl.setText("")

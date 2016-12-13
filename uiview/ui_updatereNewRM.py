@@ -14,17 +14,18 @@ from PyQt5.QtWidgets import QMessageBox
 
 from Control.materialsControl import increaseRawMaterialInvQty, upRawMaterialCost, decreaseRawMaterialInvQty
 from Control.userControl import getLoginDataPKL
-from models.rawMaterialModel import select_all_raw_material, select_row_material_bycode, \
-	update_raw_material
+from models.rawMaterialModel import update_raw_material
 
 
 class Ui_editRWDialog(QDialog):
-	def __init__(self, rawm,parent=None):
+	def __init__(self, rawm, parent=None):
 		super(Ui_editRWDialog, self).__init__()
 		self.rawm = rawm
 		self.setupUi(self)
 
 	def setupUi(self, editRWDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		editRWDialog.setObjectName("editRWDialog")
 		editRWDialog.resize(819, 523)
 		self.label = QtWidgets.QLabel(editRWDialog)
@@ -244,6 +245,11 @@ class Ui_editRWDialog(QDialog):
 
 		self.updateqtybtn_2.clicked.connect(self.minupdate_inv)
 
+		self.dataupdatebtn.setEnabled(False)
+		self.updatecostbtn.setEnabled(False)
+		self.updateqtybtn.setEnabled(False)
+		self.updateqtybtn_2.setEnabled(False)
+
 		self.retranslateUi(editRWDialog)
 		QtCore.QMetaObject.connectSlotsByName(editRWDialog)
 
@@ -285,8 +291,12 @@ class Ui_editRWDialog(QDialog):
 	unitdict = {'': 0, 'mm': 1, 'cm': 2, 'm': 3, 'g': 4, 'kg': 5, 'ea': 6, 'l': 7}
 
 	def Clicked(self, item):
+		self.dataupdatebtn.setEnabled(True)
+		self.updatecostbtn.setEnabled(True)
+		self.updateqtybtn.setEnabled(True)
+		self.updateqtybtn_2.setEnabled(True)
 		role = getLoginDataPKL()['role']
-		if int(role) == 2 :
+		if int(role) == 2:
 			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn.setEnabled(False)
 			self.updateqtybtn_2.setEnabled(False)
@@ -296,7 +306,7 @@ class Ui_editRWDialog(QDialog):
 			self.updatecostbtn.setEnabled(False)
 			self.updateqtybtn_2.setEnabled(True)
 			self.updateqtybtn.setEnabled(True)
-		if int(role) == 1 :
+		if int(role) == 1:
 			self.updatecostbtn.setEnabled(True)
 			self.updateqtybtn.setEnabled(False)
 			self.updateqtybtn_2.setEnabled(False)

@@ -20,23 +20,27 @@ from models.billOfMaterialItemModel import select_bill_of_material_item_for_BOM
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.dbUtile import Customers
 from models.maintenanceModel import select_maintenance_by_code, delete_maintenance, update_maintenance_confirm
-from reports.acconfReport import  CreateAcConfReport
-from reports.proconfReport import  CreateProConfReport
+from reports.acconfReport import CreateAcConfReport
+from reports.proconfReport import CreateProConfReport
 from uiview.uimodels.MaintenanceTableModel import MaintenanceTableModel
 
-def stylesheet():
 
+def stylesheet():
 	styles = {
 		'default': LineStyle(
 
 		)
 	}
+
+
 class Ui_confirmWMaintenanceDialog(QDialog):
 	def __init__(self, parent=None):
 		super(Ui_confirmWMaintenanceDialog, self).__init__()
 		self.setupUi(self)
 
 	def setupUi(self, confirmWMaintenanceDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		confirmWMaintenanceDialog.setObjectName("confirmWMaintenanceDialog")
 		confirmWMaintenanceDialog.resize(832, 470)
 		self.label = QtWidgets.QLabel(confirmWMaintenanceDialog)

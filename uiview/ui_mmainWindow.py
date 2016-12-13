@@ -33,6 +33,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.setupUi(self)
 
 	def setupUi(self, MMainWindow):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		MMainWindow.setObjectName("MMainWindow")
 		MMainWindow.resize(816, 550)
 		sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -592,7 +594,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.menuoutbound = QtWidgets.QMenu(self.menubar)
 		self.menuoutbound.setObjectName("menuoutbound")
 
-
 		MMainWindow.setMenuBar(self.menubar)
 		self.statusbar = QtWidgets.QStatusBar(MMainWindow)
 		self.statusbar.setObjectName("statusbar")
@@ -710,7 +711,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.menuoutbound.addAction(self.actionAdd_New_OB)
 		self.menuoutbound.addAction(self.actionSearch_OB)
 
-
 		self.menubar.addAction(self.menuFile.menuAction())
 		self.menubar.addAction(self.menuCustomer.menuAction())
 		self.menubar.addAction(self.menuRaw_Material.menuAction())
@@ -718,7 +718,6 @@ class Ui_MMainWindow(QMainWindow):
 		self.menubar.addAction(self.menuTools.menuAction())
 		self.menubar.addAction(self.menuFP.menuAction())
 		self.menubar.addAction(self.menuoutbound.menuAction())
-
 
 		# get logged user name
 		self.loggeduserlbl.setText(getLoginDataPKL()['name'])
@@ -918,10 +917,8 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionEdit_FP.setText(_translate("MMainWindow", "Edit"))
 		self.actionSearch_FP.setText(_translate("MMainWindow", "Search"))
 
-
 		self.actionAdd_New_OB.setText(_translate("MMainWindow", "Add New"))
 		self.actionSearch_OB.setText(_translate("MMainWindow", "Search"))
-
 
 		self.actionReports_3.setText(_translate("MMainWindow", "Reports"))
 		self.loctextlbl.setText(_translate("MMainWindow", "Total of Maintenance\'s\n"
@@ -1104,6 +1101,7 @@ class Ui_MMainWindow(QMainWindow):
 		from uiview.ui_reporting import Ui_reportDialog
 		self.pmd = Ui_reportDialog()
 		self.pmd.exec_()
+
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

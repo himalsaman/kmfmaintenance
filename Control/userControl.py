@@ -2,7 +2,7 @@ import os
 import pickle
 
 from models import usersModel
-from models.usersModel import select_all_users, select_user_by_username
+from models.usersModel import select_user_by_username
 
 
 def validLogin(username, password):
@@ -49,10 +49,11 @@ def deleteLoginDataPKL():
 	# PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 	os.remove("loginUserData.pkl")
 
+
 def checkUsernameExsist(username):
 	if select_user_by_username(username):
 		return True
 	else:
 		return False
 
-# print(checkUsernameExsist('admin'))
+		# print(checkUsernameExsist('admin'))

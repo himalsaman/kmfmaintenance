@@ -20,6 +20,8 @@ class Ui_loginDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, loginDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		loginDialog.setObjectName("loginDialog")
 		loginDialog.resize(400, 262)
 		self.label = QtWidgets.QLabel(loginDialog)

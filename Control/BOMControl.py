@@ -78,4 +78,3 @@ def getAllItemForBOM(bomid):
 
 def getTotalMaterialCost():
 	return claculateBOMItemRMCost() + claculateBOMItemSPCost
-

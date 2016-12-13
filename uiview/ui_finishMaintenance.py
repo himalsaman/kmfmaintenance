@@ -5,8 +5,8 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-from datetime import datetime
 import sys
+from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog
@@ -27,6 +27,8 @@ class Ui_finishMaintenanceDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, finishMaintenanceDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		finishMaintenanceDialog.setObjectName("finishMaintenanceDialog")
 		finishMaintenanceDialog.resize(832, 508)
 		self.label = QtWidgets.QLabel(finishMaintenanceDialog)
@@ -420,6 +422,8 @@ class Ui_finishMaintenanceDialog(QDialog):
 		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
+
+
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_finishMaintenanceDialog()

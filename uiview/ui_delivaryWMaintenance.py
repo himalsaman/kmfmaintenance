@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
-import  sys
+import sys
 from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -30,6 +30,8 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		self.setupUi(self)
 
 	def setupUi(self, delivaryMaintenanceDialog):
+		self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+
 		delivaryMaintenanceDialog.setObjectName("delivaryMaintenanceDialog")
 		delivaryMaintenanceDialog.resize(832, 508)
 		self.label = QtWidgets.QLabel(delivaryMaintenanceDialog)
@@ -325,7 +327,7 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		self.retranslateUi(delivaryMaintenanceDialog)
 		QtCore.QMetaObject.connectSlotsByName(delivaryMaintenanceDialog)
 		role = getLoginDataPKL()['role']
-		if int(role)== 2 or int(role)== 3:
+		if int(role) == 2 or int(role) == 3:
 			self.label_11.setVisible(False)
 			self.label_12.setVisible(False)
 			self.laborled.setVisible(False)
@@ -428,9 +430,10 @@ class Ui_delivaryMaintenanceDialog(QDialog):
 		from uiview.ui_maintenanceDetails import Ui_maintenanceDetailsDialog
 		self.md = Ui_maintenanceDetailsDialog(maint)
 		self.md.exec_()
+
+
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_delivaryMaintenanceDialog()
 	myapp.show()
 	app.exec_()
-

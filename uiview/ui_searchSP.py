@@ -216,6 +216,7 @@ class Ui_searchSPDialog(QDialog):
 			self.codeled.setText(spart.gen_code)
 			self.costled.setText(str(spart.price))
 			self.invQtyled.setText(str(spart.inv_qty))
+		if not select_all_bill_of_material_item() == [] and not select_all_outbound() == []:
 			for item in select_all_bill_of_material_item():
 				if item.spare_part_id == spart.id:
 					self.deletebtn.setEnabled(False)

@@ -12,7 +12,9 @@ from reportlab.platypus import (Flowable, Paragraph,
 from reportlab.platypus import Image
 from reportlab.platypus import Table
 
-from Control.ouboundControl import getOutbounOneCustomerRow
+from Control.ouboundControl import getOutbounEmployeeRow, getOutbounOneCustomerRow
+from models.customersModel import select_customer_by_id
+from reports.setting import imgPath
 
 
 class MCLine(Flowable):
@@ -44,7 +46,7 @@ class CreateOutboundCustReport(object):
 		self.styles = getSampleStyleSheet()
 		self.cust = cust
 
-		pdfname = 'outbound-' + '{}'.format(self.cust.name[0:3]) + '{}'.format(timestampstr2) + '.pdf'
+		pdfname = 'outboundCust-{}'.format(timestampstr2) + '.pdf'
 		self.refile = os.path.join(os.path.expanduser("~"), "Documents/", pdfname)
 
 	def coord(self, x, y, unit=1):
@@ -63,7 +65,7 @@ class CreateOutboundCustReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-		logo = "../images/khatemalogo.jpg"
+		logo = imgPath + "khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
 		img.drawOn(self.c, *self.coord(10, 20, mm))
@@ -128,15 +130,15 @@ class CreateOutboundCustReport(object):
 		story.append(spacer)
 		story.append(spacer)
 
-		ptext = '<font size=10><a>Customer Name: {}</a></font>'.format(self.cust.name)
-		story.append(Paragraph(ptext, styles["Normal"]))
-		story.append(spacer)
+		ptext = "<font size=10><a>Customer Name :{}</a></font>".format(self.cust.name)
+		p = Paragraph(ptext, styles["Normal"])
+		story.append(p)
 
-		ptext = '<font size=10><a>Customer Mobile Number: {}</a></font>'.format(
-			self.cust.mobile_number)
-		story.append(Paragraph(ptext, styles["Normal"]))
+		ptext = "<font size=10><a>Customer Mobile # :{}</a></font>".format(self.cust.mobile_number)
+		p = Paragraph(ptext, styles["Normal"])
+		story.append(p)
 		story.append(spacer)
-
+		story.append(spacer)
 		"""
 				Create the line items
 				"""
@@ -163,6 +165,12 @@ class CreateOutboundCustReport(object):
 			if val.spareParts:
 				mname = val.spareParts.name
 				typeName = "Spare Parts"
+			if val.tools:
+				mname = val.tools.name
+				typeName = "Tools"
+			if val.finishProducts:
+				mname = val.finishProducts.name
+				typeName = "Finish Product"
 			line_data = [str(line_num), mname, typeName, val.req_qty]
 
 			for item in line_data:
@@ -173,7 +181,7 @@ class CreateOutboundCustReport(object):
 			formatted_line_data = []
 			line_num += 1
 
-		table = Table(data, colWidths=[30, 150, 80, 80], rowHeights=20
+		table = Table(data, colWidths=[30, 150, 150, 80, 80], rowHeights=20
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
@@ -183,25 +191,18 @@ class CreateOutboundCustReport(object):
 
 		matxtnum = '<font size=11><p><u>Manager</u><br/>Mohamed Althubiti</p></font>'
 		pmatxtnum = Paragraph(matxtnum, centered)
-
-		cutxt = '<font size=11><p><u>Customer</u><br/>{}</p></font>'.format(self.cust.name)
-		pcutxt = Paragraph(cutxt, centered)
-		data = [[pcutxt, '', '', '', ''],
-				['', '', '', '', ''],
-				['', '', '', '', ''],
-				[pactxt, '', '', '', pmatxtnum]]
+		data = [[pactxt, '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
 		story.append(t)
 		#########################################################################################
 
 		story.append(spacer)
 
-		doc.build(story, self.createDocument)
+		doc.build(story, onFirstPage=self.createDocument, onLaterPages=self.createDocument)
 
 		subprocess.Popen([self.refile], shell=True)
 
 	# ----------------------------------------------------------------------
 
-
 if __name__ == "__main__":
-	CreateOutboundCustReport().create_pdf()
+	CreateOutboundReport().create_pdf()

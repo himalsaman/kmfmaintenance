@@ -248,12 +248,13 @@ class Ui_searchRMDialog(QDialog):
 			self.strsizeled.setText(rawMat.string_size)
 			self.costled.setText(str(rawMat.cost_per_default_size))
 			self.invQtyled.setText(str(rawMat.inv_qty))
-		for item in select_all_bill_of_material_item():
-			if item.raw_material_id == rawMat.id:
-				self.deletebtn.setEnabled(False)
-		for item in select_all_outbound():
-			if item.raw_material_id == rawMat.id:
-				self.deletebtn.setEnabled(False)
+		if not select_all_bill_of_material_item() == [] and not select_all_outbound() == []:
+			for item in select_all_bill_of_material_item():
+				if item.raw_material_id == rawMat.id:
+					self.deletebtn.setEnabled(False)
+			for item in select_all_outbound():
+				if item.raw_material_id == rawMat.id:
+					self.deletebtn.setEnabled(False)
 		return rawMat
 
 	def do_delete(self):

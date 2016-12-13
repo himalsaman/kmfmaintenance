@@ -55,20 +55,21 @@ class Ui_OBsearch(QDialog):
 		self.closebtn.setObjectName("closebtn")
 
 		mylist = geAlltOutboun()
-		self.tableData = OutboundAllTableModel()
-		self.tableView.setModel(self.tableData)
-		for idx, val in enumerate(mylist):
-			self.tableData.addItems(Outbound(val.code,
-											 val.out_date,
-											 None,
-											 val.customer_id,
-											 val.employee_id,
-											 val.raw_material_id,  # raw
-											 val.spare_part_id,  # spare
-											 val.tools_id,  # tools
-											 val.product_id,  # product
-											 val.req_qty,  # qty
-											 val.status))
+		if mylist != []:
+			self.tableData = OutboundAllTableModel()
+			self.tableView.setModel(self.tableData)
+			for idx, val in enumerate(mylist):
+				self.tableData.addItems(Outbound(val.code,
+												 val.out_date,
+												 None,
+												 val.customer_id,
+												 val.employee_id,
+												 val.raw_material_id,  # raw
+												 val.spare_part_id,  # spare
+												 val.tools_id,  # tools
+												 val.product_id,  # product
+												 val.req_qty,  # qty
+												 val.status))
 
 		self.tableView.setColumnWidth(0, 100)
 		self.tableView.setColumnWidth(1, 155)
@@ -90,7 +91,7 @@ class Ui_OBsearch(QDialog):
 		self.closebtn.setText(_translate("OBsearch", "Close"))
 
 
-# if __name__ == '__main__':
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_OBsearch()
-# 	myapp.exec_()
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_OBsearch()
+	myapp.exec_()

@@ -13,9 +13,14 @@ from PyQt5.QtWidgets import QDialog
 
 from Control.userControl import getLoginDataPKL
 from models.customersModel import select_customer_exact
+from reports.allFinishPro import CreateAllFPReport
 from reports.allcustoms import CreateAllCustomsReport
 from reports.allrawmaterial import CreateAllRMReport
 from reports.allspareparts import CreateAllSPReport
+from reports.alltools import CreateAllTOReport
+from reports.inv_allFinishPro import CreateINVAllFPReport
+from reports.inv_allrawmaterial import CreateINVAllRMReport
+from reports.inv_alltools import CreateINVAllTOReport
 from reports.mainAmounted import CreateMaintAmountdReport
 from reports.mainBTWDates import CreateMainBTWDatesReport
 from reports.mainFinish import CreateMaintFinishReport
@@ -61,11 +66,25 @@ class Ui_reportDialog(QDialog):
 		self.methodcomboBox.addItem("")
 		self.methodcomboBox.setItemText(4, "Maintenance\'s By Date")
 		self.methodcomboBox.addItem("")
-		self.methodcomboBox.setItemText(5, "Row Material")
+		self.methodcomboBox.setItemText(5, "Customers")
 		self.methodcomboBox.addItem("")
-		self.methodcomboBox.setItemText(6, "Spare Parts")
+		self.methodcomboBox.setItemText(6, "Row Material")
 		self.methodcomboBox.addItem("")
-		self.methodcomboBox.setItemText(7, "Customers")
+		self.methodcomboBox.setItemText(7, "Spare Parts")
+		self.methodcomboBox.addItem("")
+		self.methodcomboBox.setItemText(8, "Tools")
+		self.methodcomboBox.addItem("")
+		self.methodcomboBox.setItemText(9, "Finish Product")
+		self.methodcomboBox.addItem("")
+		self.methodcomboBox.setItemText(10, "Row Material Inventory")
+		self.methodcomboBox.addItem("")
+		self.methodcomboBox.setItemText(11, "Spare Parts Inventory")
+		self.methodcomboBox.addItem("")
+		self.methodcomboBox.setItemText(12, "Tools Inventory")
+		self.methodcomboBox.addItem("")
+		self.methodcomboBox.setItemText(13, "Finish Product Inventory")
+
+
 
 		self.label_3 = QtWidgets.QLabel(reportDialog)
 		self.label_3.setGeometry(QtCore.QRect(8, 26, 150, 13))
@@ -242,11 +261,18 @@ class Ui_reportDialog(QDialog):
 			self.methodcomboBox.model().item(5).setEnabled(False)
 			self.methodcomboBox.model().item(6).setEnabled(False)
 			self.methodcomboBox.model().item(7).setEnabled(False)
+			self.methodcomboBox.model().item(8).setEnabled(False)
+			self.methodcomboBox.model().item(9).setEnabled(False)
 
 		if int(role) == 3:
 			self.methodcomboBox.model().item(1).setEnabled(False)
 			self.methodcomboBox.model().item(3).setEnabled(False)
 			self.methodcomboBox.model().item(4).setEnabled(False)
+			self.methodcomboBox.model().item(5).setEnabled(False)
+			self.methodcomboBox.model().item(6).setEnabled(False)
+			self.methodcomboBox.model().item(7).setEnabled(False)
+			self.methodcomboBox.model().item(8).setEnabled(False)
+			self.methodcomboBox.model().item(9).setEnabled(False)
 
 			self.finishandwaitdelrbtn.setEnabled(False)
 			self.finishrbtn.setEnabled(False)
@@ -335,7 +361,7 @@ class Ui_reportDialog(QDialog):
 			self.repotbtn.setVisible(False)
 			self.maintStatusgbox.setVisible(False)
 			self.dategbox.setVisible(False)
-			CreateAllRMReport().create_pdf()
+			CreateAllCustomsReport().create_pdf()
 
 		if self.methodcomboBox.currentIndex() == 6:
 			self.resize(282, 75)
@@ -343,7 +369,7 @@ class Ui_reportDialog(QDialog):
 			self.repotbtn.setVisible(False)
 			self.maintStatusgbox.setVisible(False)
 			self.dategbox.setVisible(False)
-			CreateAllSPReport().create_pdf()
+			CreateAllRMReport().create_pdf()
 
 		if self.methodcomboBox.currentIndex() == 7:
 			self.resize(282, 75)
@@ -351,7 +377,56 @@ class Ui_reportDialog(QDialog):
 			self.repotbtn.setVisible(False)
 			self.maintStatusgbox.setVisible(False)
 			self.dategbox.setVisible(False)
-			CreateAllCustomsReport().create_pdf()
+			CreateAllSPReport().create_pdf()
+
+
+		if self.methodcomboBox.currentIndex() == 8:
+			self.resize(282, 75)
+			self.repoline.setVisible(False)
+			self.repotbtn.setVisible(False)
+			self.maintStatusgbox.setVisible(False)
+			self.dategbox.setVisible(False)
+			CreateAllTOReport().create_pdf()
+
+		if self.methodcomboBox.currentIndex() == 9:
+			self.resize(282, 75)
+			self.repoline.setVisible(False)
+			self.repotbtn.setVisible(False)
+			self.maintStatusgbox.setVisible(False)
+			self.dategbox.setVisible(False)
+			CreateAllFPReport().create_pdf()
+
+		if self.methodcomboBox.currentIndex() == 10:
+			self.resize(282, 75)
+			self.repoline.setVisible(False)
+			self.repotbtn.setVisible(False)
+			self.maintStatusgbox.setVisible(False)
+			self.dategbox.setVisible(False)
+			CreateINVAllRMReport().create_pdf()
+
+		if self.methodcomboBox.currentIndex() == 11:
+			self.resize(282, 75)
+			self.repoline.setVisible(False)
+			self.repotbtn.setVisible(False)
+			self.maintStatusgbox.setVisible(False)
+			self.dategbox.setVisible(False)
+			CreateINVAllRMReport().create_pdf()
+
+		if self.methodcomboBox.currentIndex() == 12:
+			self.resize(282, 75)
+			self.repoline.setVisible(False)
+			self.repotbtn.setVisible(False)
+			self.maintStatusgbox.setVisible(False)
+			self.dategbox.setVisible(False)
+			CreateINVAllTOReport().create_pdf()
+
+		if self.methodcomboBox.currentIndex() == 13:
+			self.resize(282, 75)
+			self.repoline.setVisible(False)
+			self.repotbtn.setVisible(False)
+			self.maintStatusgbox.setVisible(False)
+			self.dategbox.setVisible(False)
+			CreateINVAllFPReport().create_pdf()
 
 	def customerHandel(self):
 		if self.custNamerbtn.isChecked():

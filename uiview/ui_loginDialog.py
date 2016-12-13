@@ -112,8 +112,8 @@ class Ui_loginDialog(QDialog):
 			self.statuplabel.setText("Username / Password not valid")
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_loginDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_loginDialog()
+	myapp.show()
+	app.exec_()

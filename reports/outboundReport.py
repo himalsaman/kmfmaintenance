@@ -13,6 +13,7 @@ from reportlab.platypus import Image
 from reportlab.platypus import Table
 
 from Control.ouboundControl import getOutbounEmployeeRow
+from reports.setting import imgPath
 
 
 class MCLine(Flowable):
@@ -62,7 +63,7 @@ class CreateOutboundReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-		logo = "../images/khatemalogo.jpg"
+		logo = imgPath + "khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
 		img.drawOn(self.c, *self.coord(10, 20, mm))
@@ -153,6 +154,12 @@ class CreateOutboundReport(object):
 			if val.spareParts:
 				mname = val.spareParts.name
 				typeName = "Spare Parts"
+			if val.tools:
+				mname = val.tools.name
+				typeName = "Tools"
+			if val.finishProducts:
+				mname = val.finishProducts.name
+				typeName = "Finish Product"
 			line_data = [str(line_num), val.employee.name, mname, typeName, val.req_qty]
 
 			for item in line_data:
@@ -180,11 +187,11 @@ class CreateOutboundReport(object):
 
 		story.append(spacer)
 
-		doc.build(story, self.createDocument)
+		doc.build(story, onFirstPage=self.createDocument, onLaterPages=self.createDocument)
 
 		subprocess.Popen([self.refile], shell=True)
 
 	# ----------------------------------------------------------------------
 
-# if __name__ == "__main__":
-# 	CreateOutboundReport().create_pdf()
+if __name__ == "__main__":
+	CreateOutboundReport().create_pdf()

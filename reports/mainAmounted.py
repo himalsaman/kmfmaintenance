@@ -14,6 +14,7 @@ from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
 from Control.maintenanceLogic import getMaintenanceAmouted
+from reports.setting import imgPath
 
 
 class MCLine(Flowable):
@@ -58,7 +59,7 @@ class CreateMaintAmountdReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-		logo = "../images/khatemalogo.jpg"
+		logo = imgPath + "khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
 		img.drawOn(self.c, *self.coord(10, 20, mm))
@@ -191,7 +192,7 @@ class CreateMaintAmountdReport(object):
 
 		story.append(spacer)
 
-		doc.build(story, self.createDocument)
+		doc.build(story, onFirstPage=self.createDocument, onLaterPages=self.createDocument)
 
 		subprocess.Popen([self.refile], shell=True)
 

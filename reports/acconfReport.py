@@ -14,9 +14,11 @@ from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
 from Control.BOMControl import getAllItemForBOM
+from Control.userControl import getLoginDataPKL
 from models.billOfMaterialModel import select_bill_of_material_for_maintenance
 from models.rawMaterialModel import select_row_material_by_id
 from models.sparePartsModel import select_spare_parts_by_id
+from reports.setting import imgPath
 
 
 class MCLine(Flowable):
@@ -62,7 +64,7 @@ class CreateAcConfReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-		logo = "../images/khatemalogo.jpg"
+		logo = imgPath + "khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
 		img.drawOn(self.c, *self.coord(10, 20, mm))
@@ -102,8 +104,7 @@ class CreateAcConfReport(object):
 
 		datetimestr = datetime.now()
 		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
-		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
-			timestampstr)
+		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(timestampstr) + "- {}".format(getLoginDataPKL()['name'])
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(10, 286, mm))
@@ -239,7 +240,7 @@ class CreateAcConfReport(object):
 
 		story.append(spacer)
 
-		doc.build(story, self.createDocument)
+		doc.build(story, onFirstPage=self.createDocument, onLaterPages=self.createDocument)
 
 		subprocess.Popen([self.refile], shell=True)
 

@@ -167,6 +167,7 @@ class Ui_searchTODialog(QDialog):
 			self.codeled.setText(spart.gen_code)
 			self.costled.setText(str(spart.price))
 			self.invQtyled.setText(str(spart.inv_qty))
+		if not select_all_outbound() == []:
 			for item in select_all_outbound():
 				if item.tools_id == spart.id:
 					self.deletebtn.setEnabled(False)

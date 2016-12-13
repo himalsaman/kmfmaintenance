@@ -13,7 +13,8 @@ from reportlab.platypus import Image
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
-from Control.maintenanceLogic import getMaintenanceUnderProccessing
+from models.sparePartsModel import select_all_spare_parts
+from models.toolsModel import select_all_tools
 from reports.setting import imgPath
 
 
@@ -34,13 +35,13 @@ class MCLine(Flowable):
 		self.canv.line(self.start, self.height, self.width, self.height)
 
 
-class CreateMaintUnderProcReport(object):
+class CreateINVAllTOReport(object):
 	def __init__(self):
 		"""Constructor"""
 		self.width, self.height = A4
 		self.styles = getSampleStyleSheet()
 
-		pdfname = 'maintfinishwaitdelv.pdf'
+		pdfname = 'invAllTO.pdf'
 		self.refile = os.path.join(os.path.expanduser("~"), "Documents/", pdfname)
 
 	def coord(self, x, y, unit=1):
@@ -91,7 +92,7 @@ class CreateMaintUnderProcReport(object):
 
 		self.c.line(*self.coord(10, 22, mm), *self.coord(202, 22, mm))
 
-		ptext = "<font size=10><u><b>Maintenance's Under Processing  </b></u></font>"
+		ptext = '<font size=10><u><b>All Tools </b></u></font>'
 		p = Paragraph(ptext, style=normal)
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(12, 30, mm))
@@ -128,7 +129,7 @@ class CreateMaintUnderProcReport(object):
 		story.append(line)
 		story.append(spacer)
 
-		text_data = ["#", "Maint. Code", "Cust. Name", "Maint. Product", "Created Date", "Cost"]
+		text_data = ["#", "Tools Sys. Code",  "Tools Name","Tools INV. QTY."]
 		d = []
 		font_size = 8
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
@@ -143,10 +144,9 @@ class CreateMaintUnderProcReport(object):
 
 		formatted_line_data = []
 
-		for idx, val in enumerate(getMaintenanceUnderProccessing()):
-			cost = val.cost_of_bill_of_material + val.cost_of_labor
-			line_data = [str(line_num), val.m_code, val.customers.name,
-						 val.product_of_maintenance, val.created_at, cost]
+		for val in select_all_tools():
+
+			line_data = [str(line_num), val.gen_code, val.name, val.inv_qty]
 
 			for item in line_data:
 				ptext = "<font size=%s>%s</font>" % (font_size - 1, item)
@@ -156,35 +156,14 @@ class CreateMaintUnderProcReport(object):
 			formatted_line_data = []
 			line_num += 1
 
-		table = Table(data, colWidths=[20, 80, 160, 130, 80, 50], rowHeights=20
+		table = Table(data, colWidths=[50, 80, 180, 100], rowHeights=20
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
-		#########################################################################################
-		simplelistFN = []
-		# mainlist = select_All_maintenance_customer(self.custo.id)
-		for idx, val in enumerate(getMaintenanceUnderProccessing()):
-			simplelistFN.append(val.cost_of_bill_of_material + val.cost_of_labor)
-
-		totxt = '<font size=9><p><b>Total</b></p></font>'
-		ptotxt = Paragraph(totxt, styles["Normal"])
-
-		totxtnum = '<p>{}</p>'.format(sum(simplelistFN))
-		ptotxtnum = Paragraph(totxtnum, styles["Normal"])
-		data = [['', '', '', ptotxt, ptotxtnum]]
-		t = Table(data, colWidths=[5, 5, 400, 50, 60], rowHeights=15)
-		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
-		story.append(t)
-		for x in range(10):
-			story.append(spacer)
-		#
-		# #########################################################################################
-		actxt = '<font size=11><p><u>Accountant</u><br/>Rani Mohamed</p></font>'
-		pactxt = Paragraph(actxt, centered)
 
 		matxtnum = '<font size=11><p><u>Manager</u><br/>Mohamed Althubiti</p></font>'
 		pmatxtnum = Paragraph(matxtnum, centered)
-		data = [[pactxt, '', '', '', pmatxtnum]]
+		data = [['', '', '', '', pmatxtnum]]
 		t = Table(data, colWidths=[150, 5, 250, 5, 150])
 		t.setStyle(TableStyle([('LINEABOVE', (3, 2), (-1, -1), 0.25, colors.black)]))
 		story.append(t)
@@ -197,6 +176,7 @@ class CreateMaintUnderProcReport(object):
 		subprocess.Popen([self.refile], shell=True)
 
 	# ----------------------------------------------------------------------
-	# if __name__ == "__main__":
-	# create_pdf()
-	# CreateMaintUnderProcReport().create_pdf()
+
+
+if __name__ == "__main__":
+	CreateINVAllTOReport().create_pdf()

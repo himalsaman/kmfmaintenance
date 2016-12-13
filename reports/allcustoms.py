@@ -7,14 +7,17 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch, mm
+from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus import (Flowable, Paragraph,
 								SimpleDocTemplate, Spacer)
 from reportlab.platypus import Image
 from reportlab.platypus import Table
 from reportlab.platypus import TableStyle
 
+from Control.userControl import getLoginDataPKL
 from models.cityModel import select_city_by_id
 from models.customersModel import select_all_customers
+from reports.setting import imgPath
 
 
 class MCLine(Flowable):
@@ -40,7 +43,7 @@ class CreateAllCustomsReport(object):
 		self.width, self.height = A4
 		self.styles = getSampleStyleSheet()
 
-		pdfname = 'maintcustre.pdf'
+		pdfname = 'allCustomers.pdf'
 		self.refile = os.path.join(os.path.expanduser("~"), "Documents/", pdfname)
 
 	def coord(self, x, y, unit=1):
@@ -59,7 +62,7 @@ class CreateAllCustomsReport(object):
 		normal = self.styles["Normal"]
 		centered = ParagraphStyle(name="centered", alignment=TA_CENTER)
 
-		logo = "../images/khatemalogo.jpg"
+		logo = imgPath + "khatemalogo.jpg"
 		img = Image(logo, 50, 50)
 		img.wrapOn(self.c, self.width, self.height)
 		img.drawOn(self.c, *self.coord(10, 20, mm))
@@ -96,6 +99,8 @@ class CreateAllCustomsReport(object):
 		p.wrapOn(self.c, self.width, self.height)
 		p.drawOn(self.c, *self.coord(12, 30, mm))
 
+		# canvas.drawString(500, 750, "")
+
 		datetimestr = datetime.now()
 		timestampstr = datetimestr.strftime('%Y-%m-%d %H:%M:%S')
 		ptext = "<font size=6><a>{} - </a></font>".format(self.refile) + "<font size=6><a>{} </a></font>".format(
@@ -120,7 +125,6 @@ class CreateAllCustomsReport(object):
 		styles = getSampleStyleSheet()
 
 		spacer = Spacer(0, 0.07 * inch)
-
 		story.append(spacer)
 		story.append(spacer)
 
@@ -157,7 +161,7 @@ class CreateAllCustomsReport(object):
 			formatted_line_data = []
 			line_num += 1
 
-		table = Table(data, colWidths=[20, 180, 100, 70, 120], rowHeights=30
+		table = Table(data, colWidths=[20, 180, 100, 70, 120], rowHeights=20
 					  , style=[('GRID', (0, 0), (-1, -1), 0.5, colors.black)])
 		story.append(table)
 		story.append(spacer)
@@ -175,9 +179,8 @@ class CreateAllCustomsReport(object):
 		#########################################################################################
 
 		story.append(spacer)
-		# story.append(self.createDocument)
 
-		doc.build(story, self.createDocument)
+		doc.build(story, onFirstPage=self.createDocument, onLaterPages=self.createDocument)
 
 		subprocess.Popen([self.refile], shell=True)
 

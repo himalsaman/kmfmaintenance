@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+from models.customersModel import select_customer_by_id
 from models.ouboundModel import select_all_outbound, select_max_outb_code, select_outbound_by_customer
 
 datetimestr = datetime.now().date()
@@ -41,6 +42,12 @@ def getOutbounOneCustomerRow(cust):
 	return simplelist
 
 
+# for idx, val in enumerate(getOutbounOneCustomerRow(select_customer_by_id(37))):
+# 	if val.pro:
+# 		mname = val.rawMaterial.name
+# 		print(mname)
+
+# print(getOutbounOneCustomerRow(select_customer_by_id(37)))
 # print(item.out_date.date())
 
 def geAlltOutboun():

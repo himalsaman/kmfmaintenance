@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 from Control.userControl import getLoginDataPKL
 from models.finishProductsModel import select_finish_product, select_finish_product_by_gen_code, delete_finish_product
+from models.ouboundModel import select_all_outbound
 
 
 class Ui_searchFPDialog(QDialog):
@@ -193,6 +194,10 @@ class Ui_searchFPDialog(QDialog):
 			self.codeled.setText(spart.gen_code)
 			self.costled.setText(str(spart.price))
 			self.invQtyled.setText(str(spart.inv_qty))
+		if not select_all_outbound() == []:
+			for item in select_all_outbound():
+				if item.tools_id == spart.id:
+					self.deletebtn.setEnabled(False)
 		return spart
 
 	def do_search(self):

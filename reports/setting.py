@@ -1,0 +1,1 @@
+imgPath = 'D:\himalsaman\dev\pyworkspace\maintenance\images\\'

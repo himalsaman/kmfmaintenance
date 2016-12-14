@@ -599,6 +599,9 @@ class Ui_MMainWindow(QMainWindow):
 		self.statusbar.setObjectName("statusbar")
 		MMainWindow.setStatusBar(self.statusbar)
 
+		self.actionAddEmpl = QtWidgets.QAction(MMainWindow)
+		self.actionAddEmpl.setObjectName("actionAddEmpl")
+
 		self.actionAddUser = QtWidgets.QAction(MMainWindow)
 		self.actionAddUser.setObjectName("actionAddUser")
 
@@ -683,6 +686,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.actionSearch_OB = QtWidgets.QAction(MMainWindow)
 		self.actionSearch_OB.setObjectName("actionSearch_OB")
 
+		self.menuFile.addAction(self.actionAddEmpl)
 		self.menuFile.addAction(self.actionAddUser)
 		self.menuFile.addAction(self.actionLogout)
 		self.menuFile.addAction(self.actionChange_Password)
@@ -727,6 +731,7 @@ class Ui_MMainWindow(QMainWindow):
 		# actions of menu bar
 
 		## file menu actions
+		self.actionAddEmpl.triggered.connect(self.openAddEmplDialog)
 		self.actionAddUser.triggered.connect(self.openAddUser)
 		self.actionLogout.triggered.connect(self.doLogout)
 		self.actionChange_Password.triggered.connect(self.openChangePasswordDialog)
@@ -806,6 +811,7 @@ class Ui_MMainWindow(QMainWindow):
 			# Actions
 			self.actionAddUser.setEnabled(False)
 			self.actionEdit_customer.setEnabled(False)
+			self.actionAddEmpl.setEnabled(False)
 
 		if int(role) == 3:
 			# Botton
@@ -884,6 +890,7 @@ class Ui_MMainWindow(QMainWindow):
 		self.menuCustomer.setTitle(_translate("MMainWindow", "Customer"))
 		self.menuRaw_Material.setTitle(_translate("MMainWindow", "Raw Material"))
 		self.menuSpare_Parts.setTitle(_translate("MMainWindow", "Spare Parts"))
+		self.actionAddEmpl.setText(_translate("MMainWindow", "Add Employee"))
 		self.actionAddUser.setText(_translate("MMainWindow", "Add User"))
 		self.actionLogout.setText(_translate("MMainWindow", "Logout"))
 		self.actionChange_Password.setText(_translate("MMainWindow", "Change Password"))
@@ -946,6 +953,11 @@ class Ui_MMainWindow(QMainWindow):
 	def openChangePasswordDialog(self):
 		from uiview.ui_changePassword import Ui_changePasswordDilaod
 		self.chPass_dialog = Ui_changePasswordDilaod()
+		self.chPass_dialog.exec_()
+
+	def openAddEmplDialog(self):
+		from uiview.ui_addemployee import Ui_addemplDialog
+		self.chPass_dialog = Ui_addemplDialog()
 		self.chPass_dialog.exec_()
 
 	def openCreateNewCustomerDialog(self):

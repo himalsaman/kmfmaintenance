@@ -204,5 +204,5 @@ class CreateOutboundCustReport(object):
 
 	# ----------------------------------------------------------------------
 
-if __name__ == "__main__":
-	CreateOutboundReport().create_pdf()
+# if __name__ == "__main__":
+# 	CreateOutboundReport().create_pdf()

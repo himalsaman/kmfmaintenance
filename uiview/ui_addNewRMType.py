@@ -113,6 +113,15 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.label_2 = QtWidgets.QLabel(addNewRMTypeDialog)
 		self.label_2.setGeometry(QtCore.QRect(477, 143, 47, 13))
 		self.label_2.setObjectName("label_2")
+		self.label_16 = QtWidgets.QLabel(addNewRMTypeDialog)
+		self.label_16.setGeometry(QtCore.QRect(280, 185, 50, 16))
+		self.label_16.setObjectName("label_16")
+
+		self.miniSpinBox = QtWidgets.QDoubleSpinBox(addNewRMTypeDialog)
+		self.miniSpinBox.setGeometry(QtCore.QRect(335, 182, 131, 22))
+		self.miniSpinBox.setMaximum(100000000)
+		self.miniSpinBox.setObjectName("miniSpinBox")
+
 		self.retranslateUi(addNewRMTypeDialog)
 		self.rmunitcomboBox.setCurrentIndex(0)
 		QtCore.QMetaObject.connectSlotsByName(addNewRMTypeDialog)
@@ -125,6 +134,7 @@ class Ui_addNewRMTypeDialog(QDialog):
 		self.label_4.setText(_translate("addNewRMTypeDialog", "Default Size :"))
 		self.label_5.setText(_translate("addNewRMTypeDialog", "String Size :"))
 		self.label_6.setText(_translate("addNewRMTypeDialog", "Initial Inventory QTY :"))
+		self.label_16.setText(_translate("addNewRMTypeDialog", "Min. QTY :"))
 		self.label_7.setText(_translate("addNewRMTypeDialog", "Unit :"))
 		self.rmunitcomboBox.setItemText(0, _translate("addNewRMTypeDialog", ""))
 		self.rmunitcomboBox.setItemText(1, _translate("addNewRMTypeDialog", "Millimetre ( MM )"))
@@ -168,7 +178,8 @@ class Ui_addNewRMTypeDialog(QDialog):
 			cost = self.rmcostled.text()
 			invqty = self.invQTYSpinBox.value()
 			gencode = 'rw{}'.format(random.randrange(10, 10000, 2))
-			add_raw_material(name, gencode, defsize, strsize, unit, cost, invqty)
+			minqty = self.miniSpinBox.value()
+			add_raw_material(name, gencode, defsize, strsize, unit, cost, invqty, minqty)
 			self.statulbl.setText(name + ", added successfully")
 			self.close()
 

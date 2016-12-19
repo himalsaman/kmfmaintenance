@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QMessageBox
 from Control.materialsControl import upFinishProductCost, increaseFinishProductInvQty, decreaseFinishProductInvQty
 from Control.userControl import getLoginDataPKL
 from models.finishProductsModel import select_all_finish_product, select_finish_product_by_gen_code, \
-	update_finish_product
+	update_finish_product, update_finish_product_mini_qty
 
 
 class Ui_editFPDialog(QDialog):
@@ -220,6 +220,15 @@ class Ui_editFPDialog(QDialog):
 		self.statulbl.setText("")
 		self.statulbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.statulbl.setObjectName("statulbl")
+
+		self.label_90 = QtWidgets.QLabel(editFPDialog)
+		self.label_90.setGeometry(QtCore.QRect(610, 206, 50, 25))
+		self.label_90.setObjectName("label_20")
+
+		self.miniqtySpinBox = QtWidgets.QDoubleSpinBox(editFPDialog)
+		self.miniqtySpinBox.setGeometry(QtCore.QRect(655, 208, 110, 22))
+		self.miniqtySpinBox.setObjectName("miniqtySpinBox")
+
 		self.dataupdatebtn.clicked.connect(self.update_data)
 		self.updatecostbtn.clicked.connect(self.update_cost)
 		self.updateqtybtn.clicked.connect(self.plusupdate_inv)
@@ -249,6 +258,7 @@ class Ui_editFPDialog(QDialog):
 		self.dataupdatebtn.setText(_translate("editFPDialog", "Update Data"))
 		self.label_19.setText(_translate("editFPDialog", "If you want update cost"))
 		self.label_20.setText(_translate("editFPDialog", "Code :"))
+		self.label_90.setText(_translate("editFPDialog", "Min Qty:"))
 		self.label_21.setText(_translate("editFPDialog", "If you want update Inventory Quantity"))
 		self.label_22.setText(_translate("editFPDialog", "Old Cost:"))
 		self.label_24.setText(_translate("editFPDialog", "New Cost :"))
@@ -296,6 +306,11 @@ class Ui_editFPDialog(QDialog):
 			# ## old (cost and inv_qty)
 			self.oldcostlbl.setText(str(fpor.price))
 			self.oldqtylbl.setText(str(fpor.inv_qty))
+			if fpor.mini_qty == None:
+				miq = 0
+			else:
+				miq = float(fpor.mini_qty)
+			self.miniqtySpinBox.setValue(miq)
 		return fpor
 
 	def update_data(self):
@@ -305,9 +320,11 @@ class Ui_editFPDialog(QDialog):
 		xsource = self.fpsourled.text()
 		# # # spesial case
 		xcode = self.fpcodeled.text()
+		miqty = self.miniqtySpinBox.value()
 		xcost = upsp.price
 		xinv_qty = upsp.inv_qty
 		xgen_code = upsp.gen_code
+
 		#
 		if xname == '':
 			xname = upsp.name
@@ -316,6 +333,7 @@ class Ui_editFPDialog(QDialog):
 		if xcode == '':
 			xcode = upsp.code
 		update_finish_product(upsp.id, xname, xcode, xcost, xinv_qty, xsource, xgen_code)
+		update_finish_product_mini_qty(upsp.id, miqty)
 		self.statulbl.setText("Data updated successfully")
 
 	def update_cost(self):

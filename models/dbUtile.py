@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, Float, ForeignKey, MetaData
+from sqlalchemy.dialects.mysql.types import TEXT
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy_utils.functions.database import create_database, database_exists
@@ -22,7 +23,6 @@ else:
 Base = declarative_base()
 
 
-# create user db table as class
 class User(Base):
 	__tablename__ = 'users'  # name of table
 
@@ -51,7 +51,6 @@ class User(Base):
 																		  "role="'{}'.format(self.role) + ")>"
 
 
-# create customer db table as class
 class Customers(Base):
 	__tablename__ = 'customers'  # name of table
 
@@ -101,7 +100,6 @@ class Customers(Base):
 														  "city_id ="'{}'.format(self.city_id) + ")>"
 
 
-# create city db table as class
 class City(Base):
 	__tablename__ = 'city'  # name of table
 
@@ -118,7 +116,6 @@ class City(Base):
 		return "<City (name ="'{}'.format(self.name) + ")>"
 
 
-# create raw material db table as class
 class RawMaterial(Base):
 	__tablename__ = 'raw_material'  # name of table
 
@@ -131,12 +128,16 @@ class RawMaterial(Base):
 	unit = Column(String(50), nullable=False)
 	cost_per_default_size = Column(Float, nullable=False)
 	inv_qty = Column(Float, nullable=False)
+	mini_qty = Column(Float)
 	# one to many relationship with bill_of_material
 	billOfMaterialItem = relationship('BillOfMaterialItem', backref=backref('billOfMaterial_rawMaterial'))
 
 	outbound = relationship('Outbound', backref=backref('outbound_raw_material'))
 
-	def __init__(self, name, code, default_size, string_size, unit, cost_per_default_size, inv_qty):
+	purchasingItem = relationship('PurchasingItem', backref=backref('purchasingitem_raw'))
+
+	def __init__(self, name, code, default_size, string_size, unit, cost_per_default_size, inv_qty,
+				 mini_qty):
 		self.name = name
 		self.code = code
 		self.default_size = default_size
@@ -144,6 +145,7 @@ class RawMaterial(Base):
 		self.unit = unit
 		self.cost_per_default_size = cost_per_default_size
 		self.inv_qty = inv_qty
+		self.mini_qty = mini_qty
 
 	# return and print raw material table creation arch
 	def __repr__(self):
@@ -152,13 +154,12 @@ class RawMaterial(Base):
 																							   "default_size ="'{}'.format(
 			self.default_size) + "\n" \
 								 "string_size ="'{}'.format(self.string_size) + "\n" \
-																				"unit ="'{}'.format(self.unit) + "\n" \
-																												 "cost_per_default_size ="'{}'.format(
-			self.cost_per_default_size) + "\n" \
-										  "inv_qty ="'{}'.format(self.inv_qty) + ")>"
+			"unit ="'{}'.format(self.unit) + "\n" \
+			"cost_per_default_size ="'{}'.format(self.cost_per_default_size) + "\n" \
+			"inv_qty ="'{}'.format(self.inv_qty) +"\n"\
+			"mini_qty = {}".format(self.mini_qty)+ ")>"
 
 
-# create spare parts db table as class
 class SpareParts(Base):
 	__tablename__ = 'spare_parts'
 
@@ -170,17 +171,23 @@ class SpareParts(Base):
 	price = Column(Float, nullable=False)
 	inv_qty = Column(Integer, nullable=False)
 	unit = Column(String(20))
+	mini_qty = Column(Float)
+
+
 	billOfMaterialItem = relationship('BillOfMaterialItem', backref=backref('billOfMaterial_sparePart'))
 
 	outbound = relationship('Outbound', backref=backref('outbound_spare_part'))
 
-	def __init__(self, name, code, gen_code, price, inv_qyt, unit):
+	purchasingItem = relationship('PurchasingItem', backref=backref('purchasingitem_spare'))
+
+	def __init__(self, name, code, gen_code, price, inv_qyt, unit, mini_qty):
 		self.name = name
 		self.code = code
 		self.price = price
 		self.inv_qty = inv_qyt
 		self.gen_code = gen_code
 		self.unit = unit
+		self.mini_qty = mini_qty
 
 	# return and print spare parts table creation arch
 	def __repr__(self):
@@ -188,14 +195,12 @@ class SpareParts(Base):
 															  "code ="'{}'.format(self.code) + "\n" \
 																							   "price ="'{}'.format(
 			self.price) + "\n" \
-						  "inv_qty ="'{}'.format(self.inv_qty) + "\n" \
-																 "unit ="'{}'.format(self.unit) + "\n" \
-																								  "gen_code ="'{}'.format(
-			self.gen_code) + ")>"
+				"inv_qty ="'{}'.format(self.inv_qty) + "\n" \
+				"unit ="'{}'.format(self.unit) + "\n" \
+				"gen_code ="'{}'.format(self.gen_code) +"\n"\
+				"mini_qty = {}".format(self.mini_qty)+")>"
 
 
-# many bill_of_material_item  to one maintenance
-# one row can be raw material or spare part with him calculation
 class BillOfMaterialItem(Base):
 	__tablename__ = 'bill_of_material_item'  # name of table
 
@@ -276,7 +281,6 @@ class BillOfMaterial(Base):
 																		 "created_at = " '{}'.format(self.created_at)
 
 
-# create maintenance db table as class
 class Maintenance(Base):
 	__tablename__ = 'maintenance'
 
@@ -359,26 +363,29 @@ class Tools(Base):
 	unit = Column(String(50))
 	gen_code = Column(String(100))
 	back = Column(Integer)
+	mini_qty = Column(Float)
 
 	outbound = relationship('Outbound', backref=backref('outbound_tools'))
 
-	def __init__(self, name, price, inv_qty, unit, gen_code, back):
+	purchasingItem = relationship('PurchasingItem', backref=backref('purchasingitem_tool'))
+
+	def __init__(self, name, price, inv_qty, unit, gen_code, back, mini_qty):
 		self.name = name
 		self.price = price
 		self.inv_qty = inv_qty
 		self.unit = unit
 		self.gen_code = gen_code
 		self.back = back
+		self.mini_qty = mini_qty
 
 	def __repr__(self):
 		return "Tools (name = " '{}'.format(self.name) + "\n" \
-														 "price = " '{}'.format(self.price) + "\n" \
-																							  "inv_qty = " '{}'.format(
-			self.inv_qty) + "\n" \
-							"unit = " '{}'.format(self.unit) + "\n" \
-															   "back = " '{}'.format(self.back) + "\n" \
-																								  "gen_code = " '{}'.format(
-			self.gen_code) + "\n)>"
+				"price = " '{}'.format(self.price) + "\n" \
+				"inv_qty = " '{}'.format(self.inv_qty) + "\n" \
+				"unit = " '{}'.format(self.unit) + "\n" \
+				"back = " '{}'.format(self.back) + "\n" \
+				"gen_code = " '{}'.format(self.gen_code) + "\n"\
+				"mini_qty = {}".format(self.mini_qty)+")>"
 
 
 class FinishProducts(Base):
@@ -391,26 +398,29 @@ class FinishProducts(Base):
 	inv_qty = Column(Integer)
 	source = Column(String(50))
 	gen_code = Column(String(100))
+	mini_qty = Column(Float)
 
 	outbound = relationship('Outbound', backref=backref('outbound_finish_product'))
 
-	def __init__(self, name, code, price, inv_qty, source, gen_code):
+	purchasingItem = relationship('PurchasingItem', backref=backref('purchasingitem_finish'))
+
+	def __init__(self, name, code, price, inv_qty, source, gen_code, mini_qty):
 		self.name = name
 		self.code = code
 		self.price = price
 		self.inv_qty = inv_qty
 		self.source = source
 		self.gen_code = gen_code
+		self.mini_qty = mini_qty
 
 	def __repr__(self):
 		return "Tools (name = " '{}'.format(self.name) + "\n" \
-														 "code = " '{}'.format(self.code) + "\n" \
-																							"price = " '{}'.format(
-			self.price) + "\n" \
-						  "inv_qty = " '{}'.format(self.inv_qty) + "\n" \
-																   "source = " '{}'.format(self.source) + "\n" \
-																										  "gen_code = " '{}'.format(
-			self.gen_code) + "\n)>"
+				"code = " '{}'.format(self.code) + "\n" \
+				"price = " '{}'.format(self.price) + "\n" \
+				"inv_qty = " '{}'.format(self.inv_qty) + "\n" \
+				"source = " '{}'.format(self.source) + "\n" \
+				"gen_code = " '{}'.format(self.gen_code) + "\n"\
+				"mini_qty = {}".format(self.mini_qty)+")>"
 
 
 class Employees(Base):
@@ -428,6 +438,8 @@ class Employees(Base):
 	# one to one relationship with city table
 
 	outbound = relationship('Outbound', backref=backref('outbound_employee'))
+
+	purchasing = relationship('Purchasing', backref=backref('purchasing_employee'))
 
 	def __init__(self, name, mobile_number, job_title, nationality, nat_id, gender, age):
 		self.name = name
@@ -510,6 +522,134 @@ class Outbound(Base):
 			self.product_id) + "\n" \
 							   "status=" '{}'.format(self.status) + "\n" \
 																	"req_qty=" '{}'.format(self.req_qty) + ")>"
+
+
+class Purchasing(Base):
+	__tablename__ = 'purchasing'
+
+	id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
+	code = Column(String(50), unique=True)
+	req_date = Column(TIMESTAMP)
+
+	# req_empl_id = Column(Integer, ForeignKey('employee.id'))
+	# employees = relationship('Employees', backref=backref('purch_req_empl'))
+
+	pur_empl_id = Column(Integer, ForeignKey('employee.id'))
+	employee = relationship('Employees', backref=backref('purch_req_empl'))
+
+	pur_date = Column(TIMESTAMP)
+	review_date = Column(TIMESTAMP)
+
+	deny_review = Column(Integer)
+	deny_approve = Column(Integer)
+
+	total = Column(Float)
+	approve_date = Column(TIMESTAMP)
+	invoice_num = Column(TEXT)
+	hid = Column(Integer)
+
+	purchasingItem = relationship('PurchasingItem', backref=backref('purchasingitem_purchasing'))
+
+	def __init__(self, code, req_date, pur_empl_id, pur_date, review_date, deny_review,
+				 deny_approve, total, approve_date, invoice_num, hid):
+		self.code = code
+		self.req_date = req_date
+		# self.req_empl_id = req_empl_id
+		self.pur_empl_id = pur_empl_id
+		self.pur_date = pur_date
+		self.review_date = review_date
+		self.deny_review = deny_review
+		self.deny_approve = deny_approve
+		self.total = total
+		self.approve_date = approve_date
+		self.invoice_num = invoice_num
+		self.hid = hid
+
+	def __repr__(self):
+		return "<Purchasing (code ="'{}'.format(self.code) + "\n" \
+															 "req_date =" '{}'.format(self.req_date) + "\n" \
+																									   "pur_empl_id =" '{}'.format(self.pur_empl_id) + "\n" \
+																				"review_date =" '{}'.format(
+			self.review_date) + "\n" \
+								"deny_review =" '{}'.format(self.deny_review) + "\n" \
+																				"deny_approve =" '{}'.format(
+			self.deny_approve) + "\n" \
+								 "total =" '{}'.format(self.approve_date) + "\n" \
+																			"invoice_num =" '{}'.format(
+			self.invoice_num) + "hid={}".format(self.hid)+")>"
+
+
+class PurchasingItem(Base):
+	__tablename__ = 'purchasing_item'
+
+	id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
+	code = Column(String(50))
+	raw_material_id = Column(Integer, ForeignKey('raw_material.id'))
+	rawMaterial = relationship('RawMaterial', backref=backref('puritem_row_material'))
+
+	# relationship with spare part table, if null must raw_material_id not null
+	spare_part_id = Column(Integer, ForeignKey('spare_parts.id'))
+	spareParts = relationship('SpareParts', backref=backref('puritem_spareParts'))
+
+	tools_id = Column(Integer, ForeignKey('tools.id'))
+	tools = relationship('Tools', backref=backref('puritem_tools'))
+
+	product_id = Column(Integer, ForeignKey('finish_products.id'))
+	finishProducts = relationship('FinishProducts', backref=backref('puritem_outbound'))
+
+	purchasing_id = Column(Integer, ForeignKey('purchasing.id'))
+	purchasing = relationship('Purchasing', backref=backref('puritem_purchasing'))
+
+	req_qty = Column(Float)
+	approve_date = Column(TIMESTAMP)
+	deny_approve = Column(Integer)
+	deny_review = Column(Integer)
+	review_date = Column(TIMESTAMP)
+	pur_qty = Column(Float)
+	pur_price = Column(Float)
+	hid = Column(Integer)
+
+
+
+
+	def __init__(self, code, raw_material_id, spare_part_id, tools_id, product_id, req_qty, approve_date,
+				 deny_approve, deny_review, review_date, pur_qty, pur_price, purchasing_id, hid):
+		self.code = code
+		self.raw_material_id = raw_material_id
+		self.spare_part_id = spare_part_id
+		self.tools_id = tools_id
+		self.product_id = product_id
+		self.req_qty = req_qty
+		self.approve_date = approve_date
+		self.deny_approve = deny_approve
+		self.deny_review = deny_review
+		self.review_date = review_date
+		self.pur_qty = pur_qty
+		self.pur_price = pur_price
+		self.purchasing_id = purchasing_id
+		self.hid = hid
+
+	def __repr__(self):
+		return "<Purchasing Item (code ="'{}'.format(self.code) + "\n" \
+																  "raw_material_id =" '{}'.format(
+			self.raw_material_id) + "\n" \
+									"spare_part_id =" '{}'.format(self.spare_part_id) + "\n" \
+																						"tools_id =" '{}'.format(
+			self.tools_id) + "\n" \
+							 "product_id =" '{}'.format(self.product_id) + "\n" \
+																		   "req_qty =" '{}'.format(self.req_qty) + "\n" \
+																												   "approve_date =" '{}'.format(
+			self.approve_date) + "\n" \
+								 "deny_approve =" '{}'.format(self.deny_approve) + "\n" \
+																				   "deny_review =" '{}'.format(
+			self.deny_review) + "\n" \
+								"review_date =" '{}'.format(self.review_date) + "\n" \
+																				"pur_qty =" '{}'.format(
+			self.pur_qty) + "\n" \
+							"pur_price =" '{}'.format(self.pur_price) + "\n" \
+																		"purchasing_id =" '{}'.format(
+			self.purchasing_id)+ "\n" \
+							"hid =" '{}'.format(self.hid) + ")>"
 
 
 Base.metadata.create_all(engine)

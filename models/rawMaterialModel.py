@@ -8,15 +8,13 @@ session = Session()
 
 
 # add new raw material
-def add_raw_material(name, code, default_size, string_size, unit, cost_per_default_size, inv_qty):
-	new_raw_material = RawMaterial(name, code, default_size, string_size, unit, cost_per_default_size, inv_qty)
+def add_raw_material(name, code, default_size, string_size, unit, cost_per_default_size, inv_qty, mini_qty):
+	new_raw_material = RawMaterial(name, code, default_size, string_size, unit, cost_per_default_size, inv_qty, mini_qty)
 	session.add(new_raw_material)
 	session.commit()
-	print(new_raw_material)
+	# print(new_raw_material)
 
-
-# update raw material
-def update_raw_material(id, code, name, default_size, string_size, unit, cost_per_default_size, inv_qty):
+def update_raw_material(id, code, name, default_size, string_size, unit, cost_per_default_size, inv_qty, mini_qty):
 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
 	print(res)
 	res.code = code
@@ -26,11 +24,11 @@ def update_raw_material(id, code, name, default_size, string_size, unit, cost_pe
 	res.unit = unit
 	res.cost_per_default_size = cost_per_default_size
 	res.inv_qty = inv_qty
+	res.mini_qty = mini_qty
 	if session.commit():
 		return True
 	else:
 		return False
-
 
 def update_raw_material_inv_qty(id, inv_qty):
 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
@@ -40,6 +38,13 @@ def update_raw_material_inv_qty(id, inv_qty):
 	else:
 		return False
 
+def update_raw_material_mini_qty(id, mini_qty):
+	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
+	res.mini_qty = mini_qty
+	if session.commit():
+		return True
+	else:
+		return False
 
 def update_raw_material_cost(id, cost):
 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
@@ -49,28 +54,20 @@ def update_raw_material_cost(id, cost):
 	else:
 		return False
 
-
-# delete raw material
 def delete_raw_material(id):
 	res = session.query(RawMaterial).filter(RawMaterial.id == id).one()
 	print(res)
 	session.delete(res)
 	session.commit()
 
-
-# select row material by key and value
 def select_row_material(key, value):
 	return session.query(RawMaterial).filter(getattr(RawMaterial, key).contains(value)).all()
-
 
 def select_row_material_bycode(value):
 	return session.query(RawMaterial).filter(RawMaterial.code == value).one()
 
-
 def select_row_material_by_id(value):
 	return session.query(RawMaterial).filter(RawMaterial.id == value).one()
 
-
-# select all raw material
 def select_all_raw_material():
 	return session.query(RawMaterial).all()

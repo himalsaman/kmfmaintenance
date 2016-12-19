@@ -8,15 +8,15 @@ session = Session()
 
 
 # add new raw material
-def add_spare_parts(name, code, gen_code, price, inv_qty, unit):
-	new_spare_parts = SpareParts(name, code, gen_code, price, inv_qty, unit)
+def add_spare_parts(name, code, gen_code, price, inv_qty, unit, mini_qty):
+	new_spare_parts = SpareParts(name, code, gen_code, price, inv_qty, unit, mini_qty)
 	session.add(new_spare_parts)
 	session.commit()
 	print(new_spare_parts)
 
 
 # update raw material
-def update_spare_parts(id, name, code, gen_code, price, inv_qty, unit):
+def update_spare_parts(id, name, code, gen_code, price, inv_qty, unit, mini_qty):
 	res = session.query(SpareParts).filter(SpareParts.id == id).one()
 	print(res)
 	res.name = name
@@ -25,6 +25,7 @@ def update_spare_parts(id, name, code, gen_code, price, inv_qty, unit):
 	res.inv_qty = inv_qty
 	res.gen_code = gen_code
 	res.unit = unit
+	res.mini_qty = mini_qty
 	session.commit()
 
 
@@ -33,6 +34,10 @@ def update_spare_parts_inv_qty(id, inv_qty):
 	res.inv_qty = inv_qty
 	session.commit()
 
+def update_spare_parts_mini_qty(id, mini_qty):
+	res = session.query(SpareParts).filter(SpareParts.id == id).one()
+	res.mini_qty = mini_qty
+	session.commit()
 
 def update_spare_parts_cost(id, cost):
 	res = session.query(SpareParts).filter(SpareParts.id == id).one()
@@ -66,7 +71,6 @@ def select_spare_parts_bycode(code):
 
 def select_spare_parts_by_id(code):
 	return session.query(SpareParts).filter(SpareParts.id == code).one()
-
 
 # select all raw material
 def select_all_spare_parts():

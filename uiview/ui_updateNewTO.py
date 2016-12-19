@@ -8,6 +8,7 @@
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
@@ -69,6 +70,10 @@ class Ui_editTODialog(QDialog):
 		self.label_7 = QtWidgets.QLabel(editTODialog)
 		self.label_7.setGeometry(QtCore.QRect(722, 54, 30, 20))
 		self.label_7.setObjectName("label_7")
+
+		self.label_77 = QtWidgets.QLabel(editTODialog)
+		self.label_77.setGeometry(QtCore.QRect(393, 210, 930, 20))
+		self.label_77.setObjectName("label_7")
 		self.tocostlbl = QtWidgets.QLabel(editTODialog)
 		self.tocostlbl.setGeometry(QtCore.QRect(425, 116, 131, 20))
 		font = QtGui.QFont()
@@ -92,9 +97,24 @@ class Ui_editTODialog(QDialog):
 		self.label_16 = QtWidgets.QLabel(editTODialog)
 		self.label_16.setGeometry(QtCore.QRect(676, 177, 30, 20))
 		self.label_16.setObjectName("label_16")
+
+		self.label_88 = QtWidgets.QLabel(editTODialog)
+		self.label_88.setGeometry(QtCore.QRect(616, 120, 50, 20))
+		self.label_88.setObjectName("label_88")
+
+		self.miniqtylbl = QtWidgets.QLabel(editTODialog)
+		self.miniqtylbl.setGeometry(QtCore.QRect(670, 120, 100, 20))
+		self.miniqtylbl.setObjectName("label_888")
+
 		self.tonameled = QtWidgets.QLineEdit(editTODialog)
 		self.tonameled.setGeometry(QtCore.QRect(430, 179, 240, 20))
 		self.tonameled.setObjectName("tonameled")
+
+		self.miniled = QtWidgets.QLineEdit(editTODialog)
+		self.miniled.setGeometry(QtCore.QRect(445, 212, 100, 20))
+		self.miniled.setObjectName("miniled")
+		self.miniled.setValidator(QDoubleValidator())
+
 		self.unitcomboBox = QtWidgets.QComboBox(editTODialog)
 		self.unitcomboBox.setGeometry(QtCore.QRect(704, 177, 100, 22))
 		self.unitcomboBox.setObjectName("unitcomboBox")
@@ -110,7 +130,7 @@ class Ui_editTODialog(QDialog):
 		self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_4.setObjectName("line_4")
 		self.dataupdatebtn = QtWidgets.QPushButton(editTODialog)
-		self.dataupdatebtn.setGeometry(QtCore.QRect(565, 217, 75, 30))
+		self.dataupdatebtn.setGeometry(QtCore.QRect(720, 217, 75, 30))
 		self.dataupdatebtn.setObjectName("dataupdatebtn")
 		self.label_19 = QtWidgets.QLabel(editTODialog)
 		self.label_19.setGeometry(QtCore.QRect(395, 257, 160, 20))
@@ -224,7 +244,9 @@ class Ui_editTODialog(QDialog):
 		self.label_3.setText(_translate("editTODialog", "Name :"))
 		self.label_4.setText(_translate("editTODialog", "Inventory QYT :"))
 		self.label_8.setText(_translate("editTODialog", "Cost :"))
+		self.label_88.setText(_translate("editTODialog", "Min. Qty :"))
 		self.label_7.setText(_translate("editTODialog", "Unit :"))
+		self.label_77.setText(_translate("editTODialog", "Min. qty :"))
 		self.label_15.setText(_translate("editTODialog", "Name :"))
 		self.label_16.setText(_translate("editTODialog", "Unit :"))
 
@@ -275,7 +297,8 @@ class Ui_editTODialog(QDialog):
 			self.togencodelbl.setText(tool.gen_code)
 			self.tocostlbl.setText(str(tool.price))
 			self.toinvqtylbl.setText(str(tool.inv_qty))
-
+			self.miniqtylbl.setText(str(tool.mini_qty))
+			self.miniled.setText(str(tool.mini_qty))
 			self.tonameled.setText(tool.name)
 			self.unitcomboBox.setCurrentIndex(self.unitdict[tool.unit])
 			## old (cost and inv_qty)
@@ -293,12 +316,13 @@ class Ui_editTODialog(QDialog):
 		xcost = upsp.price
 		xinv_qty = upsp.inv_qty
 		xgen_code = upsp.gen_code
+		xmini = self.miniled.text()
 		#
 		if xname == '':
 			xname = upsp.name
 		if xunit == upsp.unit:
 			xunit = upsp.unit
-		update_tools(upsp.id, xname, xcost, xinv_qty, xunit, xgen_code)
+		update_tools(upsp.id, xname, xcost, xinv_qty, xunit, xgen_code, xmini)
 		self.statulbl.setText("Data updated successfully")
 
 	def update_cost(self):
@@ -365,8 +389,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == '__main__':
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_editTODialog()
-# 	myapp.show()
-# 	myapp.exec_()
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editTODialog()
+	myapp.show()
+	myapp.exec_()

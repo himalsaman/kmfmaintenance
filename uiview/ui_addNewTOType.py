@@ -60,11 +60,23 @@ class Ui_addNewTOTypeDialog(QDialog):
 		self.toNameled.setGeometry(QtCore.QRect(48, 50, 370, 20))
 		self.toNameled.setObjectName("toNameled")
 		self.invQTYSpinBox = QtWidgets.QDoubleSpinBox(addNewTOTypeDialog)
-		self.invQTYSpinBox.setGeometry(QtCore.QRect(121, 133, 131, 22))
+		self.invQTYSpinBox.setGeometry(QtCore.QRect(85, 133, 131, 22))
 		self.invQTYSpinBox.setDecimals(6)
 		self.invQTYSpinBox.setMaximum(1000.0)
 		self.invQTYSpinBox.setSingleStep(0.0001)
 		self.invQTYSpinBox.setObjectName("invQTYSpinBox")
+
+		self.miniQTYSpinBox = QtWidgets.QDoubleSpinBox(addNewTOTypeDialog)
+		self.miniQTYSpinBox.setGeometry(QtCore.QRect(65, 167, 131, 22))
+		self.miniQTYSpinBox.setDecimals(6)
+		self.miniQTYSpinBox.setMaximum(1000.0)
+		self.miniQTYSpinBox.setSingleStep(0.0001)
+		self.miniQTYSpinBox.setObjectName("miniQTYSpinBox")
+
+		self.label_66 = QtWidgets.QLabel(addNewTOTypeDialog)
+		self.label_66.setGeometry(QtCore.QRect(8, 168, 48, 16))
+		self.label_66.setObjectName("label_7")
+
 		self.label_7 = QtWidgets.QLabel(addNewTOTypeDialog)
 		self.label_7.setGeometry(QtCore.QRect(237, 95, 41, 16))
 		self.label_7.setObjectName("label_7")
@@ -84,7 +96,7 @@ class Ui_addNewTOTypeDialog(QDialog):
 		self.cancelbtn.setGeometry(QtCore.QRect(256, 215, 72, 41))
 		self.cancelbtn.setObjectName("cancelbtn")
 		self.statulbl = QtWidgets.QLabel(addNewTOTypeDialog)
-		self.statulbl.setGeometry(QtCore.QRect(6, 167, 461, 41))
+		self.statulbl.setGeometry(QtCore.QRect(6, 183, 461, 35))
 		self.statulbl.setText("")
 		self.statulbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.statulbl.setObjectName("statulbl")
@@ -109,7 +121,8 @@ class Ui_addNewTOTypeDialog(QDialog):
 		self.label.setText(_translate("addNewTOTypeDialog", "Welcome,"))
 		self.label_3.setText(_translate("addNewTOTypeDialog", "Name :"))
 		self.label_8.setText(_translate("addNewTOTypeDialog", "Cost / ds :"))
-		self.label_6.setText(_translate("addNewTOTypeDialog", "Initial Inventory QTY :"))
+		self.label_6.setText(_translate("addNewTOTypeDialog", "Ini. Inv. QTY :"))
+		self.label_66.setText(_translate("addNewTOTypeDialog", "Min. QTY :"))
 		self.label_7.setText(_translate("addNewTOTypeDialog", "Unit :"))
 		self.tounitcomboBox.setItemText(1, _translate("addNewTOTypeDialog", "Each ( EA )"))
 		self.savebtn.setText(_translate("addNewTOTypeDialog", "Add"))
@@ -129,18 +142,19 @@ class Ui_addNewTOTypeDialog(QDialog):
 				unit = 'ea'
 			cost = self.rmcostled.text()
 			invqty = self.invQTYSpinBox.value()
-			gencode = 'to {}'.format(random.randrange(10, 10000, 2))
+			miqty = self.miniQTYSpinBox.value()
+			gencode = 'to{}'.format(random.randrange(10, 10000, 2))
 			if self.checkBox.isChecked():
 				back = 1
 			else:
 				back = 0
-			add_tools(name, cost, invqty, unit, gencode, back)
+			add_tools(name, cost, invqty, unit, gencode,  back ,miqty)
 			self.statulbl.setText(name + ", added successfully")
 			self.close()
 
 
-# if __name__ == '__main__':
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_addNewTOTypeDialog()
-# 	myapp.show()
-# 	myapp.exec_()
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_addNewTOTypeDialog()
+	myapp.show()
+	myapp.exec_()

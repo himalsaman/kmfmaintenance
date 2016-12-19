@@ -144,10 +144,16 @@ class Ui_editRWDialog(QDialog):
 		self.unitcomboBox.addItem("")
 		self.unitcomboBox.addItem("")
 		self.strsizeled = QtWidgets.QLineEdit(editRWDialog)
-		self.strsizeled.setGeometry(QtCore.QRect(642, 209, 170, 20))
+		self.strsizeled.setGeometry(QtCore.QRect(642, 209, 160, 20))
 		self.strsizeled.setObjectName("strsizeled")
+
+		self.miniqtySpinBox = QtWidgets.QDoubleSpinBox(editRWDialog)
+		self.miniqtySpinBox.setGeometry(QtCore.QRect(445, 239, 100, 22))
+		self.miniqtySpinBox.setObjectName("miniqtySpinBox")
+		self.miniqtySpinBox.setMaximum(10000000.0)
+
 		self.defaultsizSpinBox = QtWidgets.QDoubleSpinBox(editRWDialog)
-		self.defaultsizSpinBox.setGeometry(QtCore.QRect(461, 208, 120, 22))
+		self.defaultsizSpinBox.setGeometry(QtCore.QRect(461, 208, 100, 22))
 		self.defaultsizSpinBox.setObjectName("defaultsizSpinBox")
 		self.defaultsizSpinBox.setMaximum(100000000.0)
 		self.label_18 = QtWidgets.QLabel(editRWDialog)
@@ -159,7 +165,7 @@ class Ui_editRWDialog(QDialog):
 		self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
 		self.line_4.setObjectName("line_4")
 		self.dataupdatebtn = QtWidgets.QPushButton(editRWDialog)
-		self.dataupdatebtn.setGeometry(QtCore.QRect(565, 242, 75, 30))
+		self.dataupdatebtn.setGeometry(QtCore.QRect(725, 242, 75, 30))
 		self.dataupdatebtn.setObjectName("dataupdatebtn")
 		self.dataupdatebtn.clicked.connect(self.update_data)  ###################
 		self.label_19 = QtWidgets.QLabel(editRWDialog)
@@ -168,6 +174,20 @@ class Ui_editRWDialog(QDialog):
 		self.label_21 = QtWidgets.QLabel(editRWDialog)
 		self.label_21.setGeometry(QtCore.QRect(390, 351, 400, 20))
 		self.label_21.setObjectName("label_21")
+
+		self.label_212 = QtWidgets.QLabel(editRWDialog)
+		self.label_212.setGeometry(QtCore.QRect(690, 115, 400, 20))
+		self.label_212.setObjectName("label_212")
+
+		self.minilbl = QtWidgets.QLabel(editRWDialog)
+		self.minilbl.setGeometry(QtCore.QRect(735, 115, 400, 20))
+		self.minilbl.setObjectName("minilbl")
+		self.minilbl.setFont(font)
+
+		self.label_213 = QtWidgets.QLabel(editRWDialog)
+		self.label_213.setGeometry(QtCore.QRect(395, 240, 45, 20))
+		self.label_213.setObjectName("label_213")
+
 		self.label_22 = QtWidgets.QLabel(editRWDialog)
 		self.label_22.setGeometry(QtCore.QRect(394, 309, 50, 20))
 		self.label_22.setObjectName("label_22")
@@ -278,6 +298,8 @@ class Ui_editRWDialog(QDialog):
 		self.dataupdatebtn.setText(_translate("editRWDialog", "Update Data"))
 		self.label_19.setText(_translate("editRWDialog", "If you want update cost"))
 		self.label_21.setText(_translate("editRWDialog", "If you want update Inventory Quantity"))
+		self.label_212.setText(_translate("editRWDialog", "Min Qty :"))
+		self.label_213.setText(_translate("editRWDialog", "Min Qty :"))
 		self.label_22.setText(_translate("editRWDialog", "Old Cost:"))
 		self.label_24.setText(_translate("editRWDialog", "New Cost :"))
 		self.updatecostbtn.setText(_translate("editRWDialog", "Update Cost"))
@@ -322,10 +344,12 @@ class Ui_editRWDialog(QDialog):
 			self.rwstrsize.setText(rawMat.string_size)
 			self.rwcostlbl.setText(str(rawMat.cost_per_default_size))
 			self.rwinvqtylbl.setText(str(rawMat.inv_qty))
+			self.minilbl.setText(str(rawMat.mini_qty))
 			self.rwnameled.setText(rawMat.name)
 			self.unitcomboBox.setCurrentIndex(self.unitdict[rawMat.unit])
 			self.defaultsizSpinBox.setValue(rawMat.default_size)
 			self.strsizeled.setText(rawMat.string_size)
+			self.miniqtySpinBox.setValue(rawMat.mini_qty)
 			## old (cost and inv_qty)
 			self.oldcostlbl.setText(str(rawMat.cost_per_default_size))
 			self.oldqtylbl.setText(str(rawMat.inv_qty))
@@ -339,6 +363,7 @@ class Ui_editRWDialog(QDialog):
 		xunit = list(self.unitdict.keys())[list(self.unitdict.values()).index(idx)]
 		xdefault_size = self.defaultsizSpinBox.value()
 		xstr_size = self.strsizeled.text()
+		xminiqty = self.miniqtySpinBox.value()
 		# # spesial case
 		xcode = uprm.code
 		xcost = uprm.cost_per_default_size
@@ -352,7 +377,8 @@ class Ui_editRWDialog(QDialog):
 			xdefault_size = uprm.default_size
 		if xstr_size == '':
 			xstr_size = uprm.string_size
-		update_raw_material(uprm.id, xcode, xname, xdefault_size, xstr_size, xunit, xcost, xinv_qty)
+		update_raw_material(uprm.id, xcode, xname, xdefault_size, xstr_size, xunit, xcost, xinv_qty,
+							xminiqty)
 		self.statulbl.setText("Data updated successfully")
 
 	def update_cost(self):
@@ -418,8 +444,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_editRWDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editRWDialog()
+	myapp.show()
+	app.exec_()

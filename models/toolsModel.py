@@ -6,19 +6,20 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-def add_tools(name, price, inv_qty, unit, gen_code, back):
-	new_tools = Tools(name, price, inv_qty, unit, gen_code, back)
+def add_tools(name, price, inv_qty, unit, gen_code, back, mini_qty):
+	new_tools = Tools(name, price, inv_qty, unit, gen_code, back, mini_qty)
 	session.add(new_tools)
 	session.commit()
 
 
-def update_tools(id, name, price, inv_qty, unit, gen_code):
+def update_tools(id, name, price, inv_qty, unit, gen_code, mini_qty):
 	res = session.query(Tools).filter(Tools.id == id).one()
 	res.name = name
 	res.price = price
 	res.inv_qty = inv_qty
 	res.unit = unit
 	res.gen_code = gen_code
+	res.mini_qty = mini_qty
 	if session.commit():
 		return True
 	else:

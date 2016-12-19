@@ -90,7 +90,7 @@ class Ui_searchFPDialog(QDialog):
 		self.label_8.setGeometry(QtCore.QRect(14, 128, 30, 13))
 		self.label_8.setObjectName("label_8")
 		self.label_9 = QtWidgets.QLabel(self.groupBox_3)
-		self.label_9.setGeometry(QtCore.QRect(131, 128, 110, 13))
+		self.label_9.setGeometry(QtCore.QRect(95, 128, 110, 13))
 		self.label_9.setObjectName("label_9")
 		self.codeled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.codeled.setEnabled(False)
@@ -106,12 +106,23 @@ class Ui_searchFPDialog(QDialog):
 		self.strsizeled.setObjectName("strsizeled")
 		self.unitled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.unitled.setEnabled(False)
-		self.unitled.setGeometry(QtCore.QRect(44, 126, 60, 20))
+		self.unitled.setGeometry(QtCore.QRect(44, 126, 40, 20))
 		self.unitled.setObjectName("unitled")
 		self.invQtyled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.invQtyled.setEnabled(False)
-		self.invQtyled.setGeometry(QtCore.QRect(235, 126, 90, 20))
+		self.invQtyled.setGeometry(QtCore.QRect(140, 126, 60, 20))
 		self.invQtyled.setObjectName("invQtyled")
+
+		self.label_22 = QtWidgets.QLabel(self.groupBox_3)
+		self.label_22.setGeometry(QtCore.QRect(215, 128, 110, 13))
+		self.label_22.setObjectName("label_22")
+
+		self.miniQtyled = QtWidgets.QLineEdit(self.groupBox_3)
+		self.miniQtyled.setEnabled(False)
+		self.miniQtyled.setGeometry(QtCore.QRect(270, 126, 60, 20))
+		self.miniQtyled.setObjectName("miniQtyled")
+
+
 		self.costled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.costled.setEnabled(False)
 		self.costled.setGeometry(QtCore.QRect(249, 30, 70, 20))
@@ -153,6 +164,14 @@ class Ui_searchFPDialog(QDialog):
 		self.editbtn.clicked.connect(self.do_edit)
 		self.deletebtn.clicked.connect(self.do_delete)
 		self.closebtn.clicked.connect(self.close)
+		self.codeled.setStyleSheet("color: rgb(255, 0, 0);")
+		self.costled.setStyleSheet("color: rgb(255, 0, 0);")
+		self.miniQtyled.setStyleSheet("color: rgb(255, 0, 0);")
+		self.nameled.setStyleSheet("color: rgb(255, 0, 0);")
+		self.strsizeled.setStyleSheet("color: rgb(255, 0, 0);")
+		self.unitled.setStyleSheet("color: rgb(255, 0, 0);")
+		self.invQtyled.setStyleSheet("color: rgb(255, 0, 0);")
+
 
 		self.retranslateUi(searchFPDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchFPDialog)
@@ -172,8 +191,9 @@ class Ui_searchFPDialog(QDialog):
 		self.label_5.setText(_translate("searchFPDialog", "Name :"))
 		self.label_6.setText(_translate("searchFPDialog", "Code :"))
 		self.label_8.setText(_translate("searchFPDialog", "Unit :"))
-		self.label_9.setText(_translate("searchFPDialog", "Inventory Quantity :"))
+		self.label_9.setText(_translate("searchFPDialog", "Inv Qty :"))
 		self.label_11.setText(_translate("searchFPDialog", "Cost :"))
+		self.label_22.setText(_translate("searchFPDialog", "Min. QTY :"))
 		self.deletebtn.setText(_translate("searchFPDialog", "Delete"))
 		self.editbtn.setText(_translate("searchFPDialog", "Edit"))
 		self.closebtn.setText(_translate("searchFPDialog", "Close"))
@@ -194,6 +214,7 @@ class Ui_searchFPDialog(QDialog):
 			self.codeled.setText(spart.gen_code)
 			self.costled.setText(str(spart.price))
 			self.invQtyled.setText(str(spart.inv_qty))
+			self.miniQtyled.setText(str(spart.mini_qty))
 		if not select_all_outbound() == []:
 			for item in select_all_outbound():
 				if item.tools_id == spart.id:

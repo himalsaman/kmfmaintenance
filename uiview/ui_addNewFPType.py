@@ -107,6 +107,17 @@ class Ui_addNewFPTypeDialog(QDialog):
 		self.fpcodeled.setGeometry(QtCore.QRect(50, 97, 171, 20))
 		self.fpcodeled.setObjectName("fpcodeled")
 
+		self.label_22 = QtWidgets.QLabel(addNewFPTypeDialog)
+		self.label_22.setGeometry(QtCore.QRect(265, 185, 47, 13))
+		self.label_22.setObjectName("label_2")
+		self.miniQTYSpinBox = QtWidgets.QDoubleSpinBox(addNewFPTypeDialog)
+		self.miniQTYSpinBox.setGeometry(QtCore.QRect(315, 181, 131, 22))
+		self.miniQTYSpinBox.setDecimals(6)
+		self.miniQTYSpinBox.setMaximum(1000.0)
+		self.miniQTYSpinBox.setSingleStep(0.0001)
+		self.miniQTYSpinBox.setObjectName("invQTYSpinBox")
+
+
 		self.savebtn.clicked.connect(self.do_Add)
 		self.cancelbtn.clicked.connect(self.close)
 		self.retranslateUi(addNewFPTypeDialog)
@@ -126,6 +137,7 @@ class Ui_addNewFPTypeDialog(QDialog):
 		self.savebtn.setText(_translate("addNewFPTypeDialog", "Add"))
 		self.cancelbtn.setText(_translate("addNewFPTypeDialog", "Cancel"))
 		self.label_2.setText(_translate("addNewFPTypeDialog", "SAR"))
+		self.label_22.setText(_translate("addNewFPTypeDialog", "Min. Qty:"))
 
 	def do_Add(self):
 		if self.fpNameled.text() == '' or \
@@ -144,7 +156,8 @@ class Ui_addNewFPTypeDialog(QDialog):
 			invqty = self.invQTYSpinBox.value()
 			gencode = 'fp{}'.format(random.randrange(10, 10000, 2))
 			source = self.fpsrcled.text()
-			add_finish_product(name, code, cost, invqty, gencode, source)
+			minqty = self.miniQTYSpinBox.value()
+			add_finish_product(name, code, cost, invqty, source,gencode, minqty)
 			self.statulbl.setText(name + ", added successfully")
 			self.close()
 

@@ -92,16 +92,32 @@ class Ui_editSPDialog(QDialog):
 		self.spunitlbl.setText("")
 		self.spunitlbl.setObjectName("spunitlbl")
 		self.label_4 = QtWidgets.QLabel(editSPDialog)
-		self.label_4.setGeometry(QtCore.QRect(530, 114, 79, 25))
+		self.label_4.setGeometry(QtCore.QRect(500, 114, 79, 25))
 		self.label_4.setObjectName("label_4")
+
+		self.label_44 = QtWidgets.QLabel(editSPDialog)
+		self.label_44.setGeometry(QtCore.QRect(630, 114, 79, 25))
+		self.label_44.setObjectName("label_44")
+
 		self.spinvqtylbl = QtWidgets.QLabel(editSPDialog)
-		self.spinvqtylbl.setGeometry(QtCore.QRect(610, 116, 81, 20))
+		self.spinvqtylbl.setGeometry(QtCore.QRect(550, 116, 81, 20))
 		font = QtGui.QFont()
 		font.setBold(True)
 		font.setWeight(75)
 		self.spinvqtylbl.setFont(font)
 		self.spinvqtylbl.setText("")
 		self.spinvqtylbl.setObjectName("spinvqtylbl")
+
+		self.miniqtylbl = QtWidgets.QLabel(editSPDialog)
+		self.miniqtylbl.setGeometry(QtCore.QRect(685, 116, 81, 20))
+		font = QtGui.QFont()
+		font.setBold(True)
+		font.setWeight(75)
+		self.miniqtylbl.setFont(font)
+		self.miniqtylbl.setText("")
+		self.miniqtylbl.setObjectName("miniqtylbl")
+
+
 		self.line_3 = QtWidgets.QFrame(editSPDialog)
 		self.line_3.setGeometry(QtCore.QRect(390, 142, 420, 16))
 		self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
@@ -116,6 +132,11 @@ class Ui_editSPDialog(QDialog):
 		self.label_20 = QtWidgets.QLabel(editSPDialog)
 		self.label_20.setGeometry(QtCore.QRect(394, 206, 50, 25))
 		self.label_20.setObjectName("label_20")
+
+		self.label_202 = QtWidgets.QLabel(editSPDialog)
+		self.label_202.setGeometry(QtCore.QRect(570, 206, 50, 25))
+		self.label_202.setObjectName("label_202")
+
 		self.spnameled = QtWidgets.QLineEdit(editSPDialog)
 		self.spnameled.setGeometry(QtCore.QRect(430, 179, 240, 20))
 		self.spnameled.setObjectName("spnameled")
@@ -191,7 +212,7 @@ class Ui_editSPDialog(QDialog):
 		self.newqtySpinBox.setGeometry(QtCore.QRect(600, 377, 110, 22))
 		self.newqtySpinBox.setObjectName("newqtySpinBox")
 		self.closebtn = QtWidgets.QPushButton(editSPDialog)
-		self.closebtn.setGeometry(QtCore.QRect(548, 450, 90, 40))
+		self.closebtn.setGeometry(QtCore.QRect(548, 470, 90, 40))
 		self.closebtn.setObjectName("closebtn")
 		self.closebtn.clicked.connect(self.close)
 		# self.dataupdatebtn.setEnabled(False)
@@ -204,10 +225,15 @@ class Ui_editSPDialog(QDialog):
 			self.listWidget.addItem(item.gen_code + " - " + item.name + "(" + item.code + ")")
 		self.listWidget.itemClicked.connect(self.Clicked)
 		self.spcodeled = QtWidgets.QLineEdit(editSPDialog)
-		self.spcodeled.setGeometry(QtCore.QRect(430, 210, 151, 20))
+		self.spcodeled.setGeometry(QtCore.QRect(430, 210, 100, 20))
 		self.spcodeled.setObjectName("spcodeled")
+
+		self.miniled = QtWidgets.QLineEdit(editSPDialog)
+		self.miniled.setGeometry(QtCore.QRect(625, 210, 100, 20))
+		self.miniled.setObjectName("miniled")
+
 		self.statulbl = QtWidgets.QLabel(editSPDialog)
-		self.statulbl.setGeometry(QtCore.QRect(390, 425, 410, 41))
+		self.statulbl.setGeometry(QtCore.QRect(390, 435, 410, 41))
 		self.statulbl.setStyleSheet("color: rgb(255, 0, 0);")
 		self.statulbl.setAlignment(QtCore.Qt.AlignCenter)
 		self.statulbl.setText("")
@@ -240,10 +266,12 @@ class Ui_editSPDialog(QDialog):
 		self.label_5.setText(_translate("editSPDialog", "Code :"))
 		self.label_8.setText(_translate("editSPDialog", "Cost :"))
 		self.label_7.setText(_translate("editSPDialog", "Unit :"))
-		self.label_4.setText(_translate("editSPDialog", "Inventory QYT :"))
+		self.label_4.setText(_translate("editSPDialog", "Inv. QYT :"))
+		self.label_44.setText(_translate("editSPDialog", "Min. QYT :"))
 		self.label_15.setText(_translate("editSPDialog", "Name :"))
 		self.label_16.setText(_translate("editSPDialog", "Unit :"))
 		self.label_20.setText(_translate("editSPDialog", "Code :"))
+		self.label_202.setText(_translate("editSPDialog", "Min. Qty :"))
 		self.unitcomboBox.setItemText(0, _translate("editSPDialog", ""))
 		self.unitcomboBox.setItemText(1, _translate("editSPDialog", "Each ( EA )"))
 		self.label_18.setText(_translate("editSPDialog", "This Data Just you can edit it for more security"))
@@ -291,10 +319,11 @@ class Ui_editSPDialog(QDialog):
 			self.spgencodelbl.setText(spart.gen_code)
 			self.spcostlbl.setText(str(spart.price))
 			self.spinvqtylbl.setText(str(spart.inv_qty))
-
+			self.miniqtylbl.setText(str(spart.mini_qty))
 			self.spnameled.setText(spart.name)
 			self.unitcomboBox.setCurrentIndex(self.unitdict[spart.unit])
 			self.spcodeled.setText(spart.code)
+			self.miniled.setText(str(spart.mini_qty))
 			## old (cost and inv_qty)
 			self.oldcostlbl.setText(str(spart.price))
 			self.oldqtylbl.setText(str(spart.inv_qty))
@@ -306,6 +335,7 @@ class Ui_editSPDialog(QDialog):
 		xname = self.spnameled.text()
 		idx = self.unitcomboBox.currentIndex()
 		xunit = list(self.unitdict.keys())[list(self.unitdict.values()).index(idx)]
+		xminiqty = self.miniled.text()
 		# # spesial case
 		xcode = self.spcodeled.text()
 		xcost = upsp.price
@@ -318,7 +348,7 @@ class Ui_editSPDialog(QDialog):
 			xunit = upsp.unit
 		if xcode == '':
 			xcode = upsp.code
-		update_spare_parts(upsp.id, xname, xcode, xgen_code, xcost, xinv_qty, xunit)
+		update_spare_parts(upsp.id, xname, xcode, xgen_code, xcost, xinv_qty, xunit, xminiqty)
 		self.statulbl.setText("Data updated successfully")
 
 	def update_cost(self):
@@ -385,8 +415,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == "__main__":
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_editSPDialog()
-# 	myapp.show()
-# 	app.exec_()
+if __name__ == "__main__":
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_editSPDialog()
+	myapp.show()
+	app.exec_()

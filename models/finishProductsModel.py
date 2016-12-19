@@ -6,8 +6,8 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-def add_finish_product(name, code, price, inv_qty, source, gen_code):
-	new_finish_product = FinishProducts(name, code, price, inv_qty, source, gen_code)
+def add_finish_product(name, code, price, inv_qty, source, gen_code, mini_qty):
+	new_finish_product = FinishProducts(name, code, price, inv_qty, source, gen_code, mini_qty)
 	session.add(new_finish_product)
 	session.commit()
 
@@ -34,6 +34,13 @@ def update_finish_product_inv_qty(id, inv_qty):
 	else:
 		return False
 
+def update_finish_product_mini_qty(id, mini_qty):
+	res = session.query(FinishProducts).filter(FinishProducts.id == id).one()
+	res.mini_qty = mini_qty
+	if session.commit():
+		return True
+	else:
+		return False
 
 def update_finish_product_cost(id, cost):
 	res = session.query(FinishProducts).filter(FinishProducts.id == id).one()

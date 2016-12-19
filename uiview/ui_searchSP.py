@@ -97,8 +97,13 @@ class Ui_searchSPDialog(QDialog):
 		self.label_8.setGeometry(QtCore.QRect(14, 128, 30, 13))
 		self.label_8.setObjectName("label_8")
 		self.label_9 = QtWidgets.QLabel(self.groupBox_3)
-		self.label_9.setGeometry(QtCore.QRect(131, 128, 110, 13))
+		self.label_9.setGeometry(QtCore.QRect(100, 128, 110, 13))
 		self.label_9.setObjectName("label_9")
+
+		self.label_99 = QtWidgets.QLabel(self.groupBox_3)
+		self.label_99.setGeometry(QtCore.QRect(220, 128, 110, 13))
+		self.label_99.setObjectName("label_9")
+
 		self.codeled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.codeled.setEnabled(False)
 		self.codeled.setGeometry(QtCore.QRect(76, 28, 130, 20))
@@ -120,17 +125,25 @@ class Ui_searchSPDialog(QDialog):
 		self.strsizeled.setStyleSheet("color: rgb(255, 0, 0);")
 		self.unitled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.unitled.setEnabled(False)
-		self.unitled.setGeometry(QtCore.QRect(44, 124, 60, 20))
+		self.unitled.setGeometry(QtCore.QRect(44, 124, 40, 20))
 		self.unitled.setObjectName("unitled")
 
 		self.unitled.setFont(font)
 		self.unitled.setStyleSheet("color: rgb(255, 0, 0);")
 		self.invQtyled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.invQtyled.setEnabled(False)
-		self.invQtyled.setGeometry(QtCore.QRect(235, 124, 90, 20))
+		self.invQtyled.setGeometry(QtCore.QRect(150, 124, 60, 20))
 		self.invQtyled.setObjectName("invQtyled")
 		self.invQtyled.setFont(font)
 		self.invQtyled.setStyleSheet("color: rgb(255, 0, 0);")
+
+		self.miniQtyled = QtWidgets.QLineEdit(self.groupBox_3)
+		self.miniQtyled.setEnabled(False)
+		self.miniQtyled.setGeometry(QtCore.QRect(275, 124, 60, 20))
+		self.miniQtyled.setObjectName("invQtyled")
+		self.miniQtyled.setFont(font)
+		self.miniQtyled.setStyleSheet("color: rgb(255, 0, 0);")
+
 		self.costled = QtWidgets.QLineEdit(self.groupBox_3)
 		self.costled.setEnabled(False)
 		self.costled.setGeometry(QtCore.QRect(249, 28, 70, 20))
@@ -193,7 +206,8 @@ class Ui_searchSPDialog(QDialog):
 		self.label_5.setText(_translate("searchSPDialog", "Name :"))
 		self.label_6.setText(_translate("searchSPDialog", "Code :"))
 		self.label_8.setText(_translate("searchSPDialog", "Unit :"))
-		self.label_9.setText(_translate("searchSPDialog", "Inventory Quantity :"))
+		self.label_9.setText(_translate("searchSPDialog", "Inv. Qty :"))
+		self.label_99.setText(_translate("searchSPDialog", "Min. Qty :"))
 		self.label_11.setText(_translate("searchSPDialog", "Cost :"))
 		self.deletebtn.setText(_translate("searchSPDialog", "Delete"))
 		self.editbtn.setText(_translate("searchSPDialog", "Edit"))
@@ -216,6 +230,7 @@ class Ui_searchSPDialog(QDialog):
 			self.codeled.setText(spart.gen_code)
 			self.costled.setText(str(spart.price))
 			self.invQtyled.setText(str(spart.inv_qty))
+			self.miniQtyled.setText(str(spart.mini_qty))
 		if not select_all_bill_of_material_item() == [] and not select_all_outbound() == []:
 			for item in select_all_bill_of_material_item():
 				if item.spare_part_id == spart.id:
@@ -265,8 +280,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == '__main__':
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_searchSPDialog()
-# 	myapp.show()
-# 	myapp.exec_()
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_searchSPDialog()
+	myapp.show()
+	myapp.exec_()

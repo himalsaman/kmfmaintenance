@@ -174,3 +174,4 @@ def before(value, a):
 	pos_a = value.find(a)
 	if pos_a == -1: return ""
 	return value[0:pos_a]
+

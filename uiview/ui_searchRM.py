@@ -111,8 +111,19 @@ class Ui_searchRMDialog(QDialog):
 		self.label_8.setGeometry(QtCore.QRect(10, 160, 30, 13))
 		self.label_8.setObjectName("label_8")
 		self.label_9 = QtWidgets.QLabel(self.groupBox_3)
-		self.label_9.setGeometry(QtCore.QRect(127, 160, 110, 13))
+		self.label_9.setGeometry(QtCore.QRect(90, 160, 110, 13))
 		self.label_9.setObjectName("label_9")
+
+		self.label_99 = QtWidgets.QLabel(self.groupBox_3)
+		self.label_99.setGeometry(QtCore.QRect(200, 160, 110, 13))
+		self.label_99.setObjectName("label_99")
+
+		self.miniled = QtWidgets.QLabel(self.groupBox_3)
+		self.miniled.setGeometry(QtCore.QRect(250, 155, 150, 20))
+		self.miniled.setObjectName("miniled")
+		self.miniled.setFont(font)
+		self.miniled.setStyleSheet("color: rgb(255, 0, 0);")
+
 		self.codeled = QtWidgets.QLabel(self.groupBox_3)
 		self.codeled.setGeometry(QtCore.QRect(50, 28, 150, 20))
 		self.codeled.setObjectName("codeled")
@@ -139,7 +150,7 @@ class Ui_searchRMDialog(QDialog):
 		self.unitled.setFont(font)
 		self.unitled.setStyleSheet("color: rgb(255, 0, 0);")
 		self.invQtyled = QtWidgets.QLabel(self.groupBox_3)
-		self.invQtyled.setGeometry(QtCore.QRect(231, 156, 90, 20))
+		self.invQtyled.setGeometry(QtCore.QRect(140, 156, 90, 20))
 		self.invQtyled.setObjectName("invQtyled")
 		self.invQtyled.setFont(font)
 		self.invQtyled.setStyleSheet("color: rgb(255, 0, 0);")
@@ -185,7 +196,6 @@ class Ui_searchRMDialog(QDialog):
 		self.editbtn.clicked.connect(self.do_edit)
 		self.deletebtn.setEnabled(False)
 		self.editbtn.setEnabled(False)
-
 		self.retranslateUi(searchRMDialog)
 		QtCore.QMetaObject.connectSlotsByName(searchRMDialog)
 
@@ -207,7 +217,8 @@ class Ui_searchRMDialog(QDialog):
 		self.label_6.setText(_translate("searchRMDialog", "String Size :"))
 		self.label_7.setText(_translate("searchRMDialog", "Size ( Number ) :"))
 		self.label_8.setText(_translate("searchRMDialog", "Unit :"))
-		self.label_9.setText(_translate("searchRMDialog", "Inventory Quantity :"))
+		self.label_9.setText(_translate("searchRMDialog", "Inv. Qty :"))
+		self.label_99.setText(_translate("searchRMDialog", "Min. Qty :"))
 		self.label_11.setText(_translate("searchRMDialog", "Cost :"))
 		self.deletebtn.setText(_translate("searchRMDialog", "Delete"))
 		self.editbtn.setText(_translate("searchRMDialog", "Edit"))
@@ -248,6 +259,7 @@ class Ui_searchRMDialog(QDialog):
 			self.strsizeled.setText(rawMat.string_size)
 			self.costled.setText(str(rawMat.cost_per_default_size))
 			self.invQtyled.setText(str(rawMat.inv_qty))
+			self.miniled.setText(str(rawMat.mini_qty))
 		if not select_all_bill_of_material_item() == [] and not select_all_outbound() == []:
 			for item in select_all_bill_of_material_item():
 				if item.raw_material_id == rawMat.id:

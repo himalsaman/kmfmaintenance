@@ -503,8 +503,8 @@ class Ui_reportDialog(QDialog):
 		CreateMaintAmountdReport().create_pdf()
 
 
-# if __name__ == '__main__':
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_reportDialog()
-# 	myapp.show()
-# 	sys.exit(app.exec_())
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_reportDialog()
+	myapp.show()
+	sys.exit(app.exec_())

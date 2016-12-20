@@ -164,7 +164,7 @@ def before(value, a):
 	if pos_a == -1: return ""
 	return value[0:pos_a]
 
-	# if __name__ == '__main__':
-	#     app = QtWidgets.QApplication(sys.argv)
-	#     myapp = Ui_addTOOBDialog()
-	#     myapp.exec_()
+# if __name__ == '__main__':
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	myapp = Ui_addTOOBDialog()
+# 	myapp.exec_()

@@ -164,4 +164,3 @@ def selectPurchItemByKey(key, value):
 def selectPurchItemByKeyList(key, value):
 	return session.query(PurchasingItem).filter(getattr(PurchasingItem, key).contains(value)).all()
 
-print(selectAllPurchItem())

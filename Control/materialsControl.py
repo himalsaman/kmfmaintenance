@@ -51,18 +51,13 @@ def upFinishProductCost(finpro, newCost):
 
 # tools
 def increaseToolsInvQty(finpro, newqty):
-	if finpro.back == 0:
-		newinvqty = finpro.inv_qty + newqty
+	newinvqty = finpro.inv_qty + newqty
 	update_tools_inv_qty(finpro.id, newinvqty)
 
 
 def decreaseToolsInvQty(finpro, newqty):
-	if int(finpro.back) == 0:
-		newinvqty = finpro.inv_qty - newqty
-		update_tools_inv_qty(finpro.id, newinvqty)
-	if int(finpro.back) == 1:
-		newinvqty = finpro.inv_qty
-		update_tools_inv_qty(finpro.id, newinvqty)
+	newinvqty = finpro.inv_qty - newqty
+	update_tools_inv_qty(finpro.id, newinvqty)
 
 
 def updateToolsCost(finpro, newCost):

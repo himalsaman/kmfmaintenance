@@ -6,12 +6,15 @@
 #
 # WARNING! All changes made in this file will be lost!
 import sys
+from PyQt5 import QtGui
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QDialog
 
+from Control.materialsControl import increaseToolsInvQty
 from Control.ouboundControl import geAlltOutboun
 from models.dbUtile import Outbound
+from models.ouboundModel import select_outbound_by_code, update_oubound_status
 from uiview.uimodels.outboundAllTableModel import OutboundAllTableModel
 
 
@@ -53,7 +56,18 @@ class Ui_OBsearch(QDialog):
 		self.closebtn = QtWidgets.QPushButton(OBsearch)
 		self.closebtn.setGeometry(QtCore.QRect(700, 530, 80, 40))
 		self.closebtn.setObjectName("closebtn")
+		self.tableDataShow()
+		self.closebtn.clicked.connect(self.close)
+		self.retranslateUi(OBsearch)
+		QtCore.QMetaObject.connectSlotsByName(OBsearch)
 
+	def retranslateUi(self, OBsearch):
+		_translate = QtCore.QCoreApplication.translate
+		OBsearch.setWindowTitle(_translate("OBsearch", "Search Outbound"))
+		self.label.setText(_translate("OBsearch", "Welcome,"))
+		self.closebtn.setText(_translate("OBsearch", "Close"))
+
+	def tableDataShow(self):
 		mylist = geAlltOutboun()
 		if mylist != []:
 			self.tableData = OutboundAllTableModel()
@@ -80,17 +94,29 @@ class Ui_OBsearch(QDialog):
 		self.tableView.setColumnWidth(6, 70)
 		self.tableView.setColumnWidth(7, 45)
 
-		self.closebtn.clicked.connect(self.close)
-		self.retranslateUi(OBsearch)
-		QtCore.QMetaObject.connectSlotsByName(OBsearch)
+	def refresheddata(self):
+		self.tableData = OutboundAllTableModel()
+		self.tableView.setModel(self.tableData)
+		self.tableDataShow()
 
-	def retranslateUi(self, OBsearch):
-		_translate = QtCore.QCoreApplication.translate
-		OBsearch.setWindowTitle(_translate("OBsearch", "Search Outbound"))
-		self.label.setText(_translate("OBsearch", "Welcome,"))
-		self.closebtn.setText(_translate("OBsearch", "Close"))
+	def contextMenuEvent(self, event):
+		self.menu = QtWidgets.QMenu(self)
+		closeAction = QtWidgets.QAction('Close', self)
+		closeAction.triggered.connect(self.closeSlot)
+		self.menu.addAction(closeAction)
+		# add other required actions
+		self.menu.popup(QtGui.QCursor.pos())
 
-
+	def closeSlot(self):
+		indexes = self.tableView.selectionModel().selectedRows(0)
+		for ind in sorted(indexes):
+			outitem = select_outbound_by_code(ind.data())
+			if outitem.status == 1:
+				if outitem.tools:
+					if outitem.tools.back == 1:
+						increaseToolsInvQty(outitem.tools, outitem.req_qty)
+				update_oubound_status(outitem.id, 0)
+			self.refresheddata()
 if __name__ == '__main__':
 	app = QtWidgets.QApplication(sys.argv)
 	myapp = Ui_OBsearch()

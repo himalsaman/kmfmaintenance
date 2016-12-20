@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMessageBox
 
 from Control.materialsControl import increaseToolsInvQty, increaseRawMaterialInvQty, increaseSparePartsInvQty, \
-	increaseFinishProductInvQty
+	increaseFinishProductInvQty, decreaseToolsInvQty
 from Control.ouboundControl import getOutbounEmployeeRow, getOutbounOneCustomerRow
 from models.cityModel import select_city_by_id
 from models.customersModel import select_customer_key, select_customer_by_id, select_customer_by_mob_num
@@ -369,10 +369,16 @@ class Ui_createOBDialog(QDialog):
 			self.rqulistWidget.clear()
 			self.joblbl.setVisible(True)
 			self.jobled.setVisible(True)
+			self.refreshbtn.setEnabled(True)
+
 			for item in select_employee('name', self.searchled.text()):
 				self.rqulistWidget.addItem(str(item.id) + ' - ' + item.name)
 		if self.reqTypecomboBox.currentIndex() == 2:
 			self.rqulistWidget.clear()
+			self.joblbl.setVisible(False)
+			self.jobled.setVisible(False)
+			self.refreshbtn.setEnabled(False)
+
 			for item in select_customer_key('name', self.searchled.text()):
 				self.rqulistWidget.addItem(str(item.id) + ' - ' + item.name)
 
@@ -486,9 +492,14 @@ class Ui_createOBDialog(QDialog):
 
 	def contextMenuEvent(self, event):
 		self.menu = QtWidgets.QMenu(self)
+
 		renameAction = QtWidgets.QAction('Delete', self)
 		renameAction.triggered.connect(self.renameSlot)
 		self.menu.addAction(renameAction)
+
+		closeAction = QtWidgets.QAction('Close', self)
+		closeAction.triggered.connect(self.closeSlot)
+		self.menu.addAction(closeAction)
 		# add other required actions
 		self.menu.popup(QtGui.QCursor.pos())
 
@@ -505,8 +516,7 @@ class Ui_createOBDialog(QDialog):
 									 QMessageBox.Yes | QMessageBox.Cancel)
 		if replay == QMessageBox.Yes:
 			if outitem.tools:
-				if outitem.tools.back == 0:
-					increaseToolsInvQty(outitem.tools, outitem.req_qty)
+				increaseToolsInvQty(outitem.tools, outitem.req_qty)
 			if outitem.rawMaterial:
 				increaseRawMaterialInvQty(outitem.raw_material, outitem.req_qty)
 			if outitem.spareParts:
@@ -516,18 +526,33 @@ class Ui_createOBDialog(QDialog):
 			delete_outbound(outitem.id)
 			self.refresheddata()
 
+	def closeSlot(self):
+		indexes = self.protableView.selectionModel().selectedRows(0)
+		for ind in sorted(indexes):
+			outitem = select_outbound_by_code(ind.data())
+			if outitem.tools:
+				if outitem.tools.back == 1:
+					increaseToolsInvQty(outitem.tools, outitem.req_qty)
+			update_oubound_status(outitem.id, 0)
+			self.refresheddata()
+
 	def openOutReport(self):
 		if self.reqTypecomboBox.currentIndex() == 1:
 			CreateOutboundReport().create_pdf()
 			mylist = getOutbounEmployeeRow()
 			for idx, val in enumerate(mylist):
+				if val.tools:
+					if val.tools.back == 1:
+						increaseToolsInvQty(val.tools, val.req_qty)
 				update_oubound_status(val.id, 0)
-				# print(val.id)
 		if self.reqTypecomboBox.currentIndex() == 2:
 			cust = select_customer_by_mob_num(self.mobnumled.text())
 			CreateOutboundCustReport(cust).create_pdf()
 			mylist = getOutbounOneCustomerRow(cust)
 			for idx, val in enumerate(mylist):
+				if val.tools:
+					if val.tools.back == 1:
+						increaseToolsInvQty(val.tools, val.req_qty)
 				update_oubound_status(val.id, 0)
 
 
@@ -538,8 +563,8 @@ def before(value, a):
 	return value[0:pos_a]
 
 
-# if __name__ == '__main__':
-# 	app = QtWidgets.QApplication(sys.argv)
-# 	myapp = Ui_createOBDialog()
-# 	myapp.show()
-# 	myapp.exec_()
+if __name__ == '__main__':
+	app = QtWidgets.QApplication(sys.argv)
+	myapp = Ui_createOBDialog()
+	myapp.show()
+	myapp.exec_()
